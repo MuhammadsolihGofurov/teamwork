@@ -1,1 +1,11 @@
-{}
+{
+  "--menu--": "",
+  "menuProject": "Ishlar",
+  "menuRegister": "Ro'yxatdan o'tish",
+  "menuLogin": "Kirish",
+  "---menu---": "",
+  "--button--": "",
+  "orderBtn": "Buyurtma berish",
+  "freelancerBtn": "Men Frilansman",
+  "---button---": ""
+}

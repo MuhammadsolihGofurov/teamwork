@@ -1,1 +1,11 @@
-{}
+{
+  "--menu--": "",
+  "menuProject": "Заказы",
+  "menuRegister": "Регистрация",
+  "menuLogin": "Логин",
+  "---menu---": "",
+  "--button--": "",
+  "orderBtn": "Разместить заказ",
+  "freelancerBtn": "Я исполнитель",
+  "---button---": ""
+}

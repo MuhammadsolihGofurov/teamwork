@@ -3,12 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    defaultLocale: 'ru',
-    locales: ['ru', 'uz'],
+    defaultLocale: "uz",
+    locales: ["uz", "ru"],
   },
   compiler: {
     removeConsole: {
-      exclude: ['error'],
+      exclude: ["error"],
     },
   },
   images: {
@@ -17,8 +17,8 @@ const nextConfig = {
   },
   env: {
     // like base url
-    API: '',
+    API: "",
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
