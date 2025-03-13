@@ -7,14 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: ["myFont", "sans-serif"],
+      fontFamily: ["myFont", "SF Pro Display", "sans-serif"],
       colors: {
         main: "#98BE00",
         primary: "#222222",
         blue: "#00A8DD",
+        facebook: "#3C7EBA",
         bg: {
           1: "#F8F8F8",
           2: "#F5F5F5",
+          3: "#E4E4E4",
         },
       },
       screens: {

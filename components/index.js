@@ -10,3 +10,8 @@ export { default as Scripts } from "./Layout/Scripts";
 
 // Banner
 export { default as MainBanner } from "./Banner/main-banner";
+
+// Login Register
+export { default as LoginForm } from "./login-register/login-form";
+export { default as ForgotPasswordForm } from "./login-register/forgot-password-form";
+export { default as RegisterAsForm } from "./login-register/register-as-form";

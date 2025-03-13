@@ -3,8 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    defaultLocale: "uz",
-    locales: ["uz", "ru"],
+    defaultLocale: "ru",
+    locales: ["ru", "uz", "en"],
+    localeDetection: false,
   },
   compiler: {
     removeConsole: {
@@ -13,11 +14,11 @@ const nextConfig = {
   },
   images: {
     // like ['domen.uz']
-    domains: [],
+    domains: ["admin.worldtradee.ru"],
   },
   env: {
     // like base url
-    API: "",
+    API: process.env.API,
   },
 };
 

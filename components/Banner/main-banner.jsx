@@ -18,22 +18,22 @@ export default function MainBanner() {
   return (
     <section
       id="banner"
-      className="main__banner bg-bg-2 pt-[120px] pb-5 text-primary"
+      className="main__banner bg-bg-2 pt-14 sm:pt-20 md:pt-[120px] pb-5 text-primary"
     >
       <div className="container">
-        <div className="flex items-center justify-start gap-7">
-          <h1 className="font-semibold text-4xl  w-5/12">
+        <div className="flex 2xl:flex-row flex-col items-center justify-start gap-7 pb-[100px]">
+          <h1 className="font-semibold text-3xl sm:text-4xl w-full 2xl:w-5/12">
             Разместите свою работу, чтобы найти более дешевые, качественные и
             быстрые решения!
           </h1>
-          <div className="flex flex-col gap-5 w-3/6">
-            <p className="opacity-70 text-lg">
+          <div className="flex flex-col gap-5 w-full 2xl:w-4/6 4xl:w-3/6">
+            <p className="opacity-70 text-base sm:text-lg">
               На данный момент более 11305 специалистов в различных областях
               готовы помочь вам на нашей платформе.
             </p>
             <hr color="#000" />
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-1 w-auto md:w-full">
                 <NextLink url={"login"}>
                   <Button state={"greenBtnHome"}>
                     {intl.formatMessage({ id: "orderBtn" })}
@@ -45,7 +45,7 @@ export default function MainBanner() {
                   </Button>
                 </NextLink>
               </div>
-              <PersonImages images={images} length={4} counter={"+11 301"}/>
+              <PersonImages images={images} length={4} counter={"+11 301"} />
             </div>
           </div>
         </div>

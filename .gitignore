@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+# all other ignore list
+sw.*
+workbox-*
+swe-worker-*
+
 # testing
 /coverage
 

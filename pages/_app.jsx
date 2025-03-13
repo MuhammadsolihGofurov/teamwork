@@ -5,7 +5,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import store from "../redux/store/store";
 import { Layout } from "../components";
-import { Toaster } from "react-hot-toast";
 import messages_uz from "../lang/uz.json";
 import messages_ru from "../lang/ru.json";
 import { IntlProvider } from "react-intl";
@@ -20,7 +19,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "@fancyapps/ui/dist/fancybox.css";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -72,7 +73,7 @@ export default function App({ Component, pageProps }) {
       >
         <LangProvider>
           <SkeletonTheme>
-            <Toaster position="top-right" reverseOrder={false} />
+            <ToastContainer position="top-right" autoClose={3000} />
             <Layout>
               <Component {...pageProps} />
             </Layout>

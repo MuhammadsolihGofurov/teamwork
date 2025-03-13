@@ -7,7 +7,7 @@ export default function PersonImages({
   counter,
 }) {
   return (
-    <div className="flex items-center relative z-0 flex-wrap">
+    <div className="flex items-center relative z-0 flex-wrap w-auto">
       {images?.slice(0, length)?.map((item, index) => (
         <img
           src={item?.img}
@@ -15,8 +15,8 @@ export default function PersonImages({
           title={item?.title}
           key={index}
           className={`${
-            type == "big" ? "w-[60px] h-[60px]" : "w-11 h-11"
-          }  rounded-full object-cover border-4 border-white -ml-4 first:ml-0`}
+            type == "big" ? "w-[60px] h-[60px] border-4" : "w-11 h-11 border-2"
+          }  rounded-full object-cover  border-white -ml-4 first:ml-0`}
         />
       ))}
       <span className="text-xs font-semibold text-white bg-main py-[2px] px-2 rounded-full absolute -bottom-1 -right-4">

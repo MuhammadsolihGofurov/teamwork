@@ -1,17 +1,15 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
-export default function NextLink({ url, children, className, ...pageProps }) {
-  const router = useRouter();
+export default function NextLink({ url, children, className, title, ...pageProps }) {
 
-  if (!url) {
-    return null;
-  }
+  // if (url) {
+  //   return null;
+  // }
 
   return (
-    <Link href={`/${router.locale}/${url}`}>
-      <a className={className}>{children}</a>
+    <Link href={`/${url}`}>
+      <a className={className} role="link" title={title}>{children}</a>
     </Link>
   );
 }

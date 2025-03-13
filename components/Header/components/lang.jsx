@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function Lang() {
+export default function Lang({ type = "main" }) {
   const router = useRouter();
   return (
-    <div className="lang sm:flex hidden items-center gap-2">
+    <div
+      className={`lang ${
+        type == "header" ? "sm:flex hidden" : "flex"
+      } items-center gap-2`}
+    >
       <a
         href={`/uz/${router.asPath}`}
         title="uz"

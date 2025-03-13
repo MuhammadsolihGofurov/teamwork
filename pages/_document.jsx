@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import nextConfig from "../next.config";
+import nextConfig from "../next.config.js";
 
 class MyDocument extends Document {
   render() {
@@ -8,7 +8,9 @@ class MyDocument extends Document {
 
     return (
       <Html lang={currentLocale}>
-        <Head></Head>
+        <Head>
+          <link href="/manifest.json" rel="manifest" />
+        </Head>
         <body>
           <Main />
           <noscript

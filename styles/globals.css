@@ -68,6 +68,7 @@
 :root {
   --main: #98be00;
   --bg-2: #f5f5f5;
+  --white: #fff;
 }
 
 * {
@@ -80,7 +81,7 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px;
 }
 
 @media screen and (min-width: 1300px) {
@@ -96,6 +97,11 @@ img {
 
 .full__image {
   overflow: hidden;
+}
+.full__image span {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 .full__image img {
   width: 100%;
@@ -113,4 +119,21 @@ img {
 }
 .socials__hover:hover svg path {
   fill: var(--main);
+}
+
+/* left banner pagination ------------------------ */
+.left__banner .swiper-horizontal > .swiper-pagination-bullets,
+.left__banner .swiper-pagination-bullets.swiper-pagination-horizontal,
+.left__banner .swiper-pagination-custom,
+.swiper-pagination-fraction {
+  top: 10%;
+  left: -35%;
+}
+.left__banner .swiper-pagination-bullet {
+  background: var(--white);
+}
+
+/* input border outline ------------------------ */
+input:focus {
+  outline-color: var(--main);
 }

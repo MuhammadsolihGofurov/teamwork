@@ -17,7 +17,7 @@ export default function Button({
     return (
       <ButtonWrapper
         type={type}
-        className={`${home_btn} py-3 px-8 rounded-full text-base sm:text-lg text-white font-semibold transition-colors duration-150 border-2`}
+        className={`${home_btn} py-3 px-5 sm:px-8 rounded-full text-sm xs:text-base sm:text-lg text-white font-semibold transition-colors duration-150 border-2`}
         title={title}
         {...pageProps}
       >
