@@ -4,10 +4,23 @@ import { useIntl } from "react-intl";
 import { PhoneInput } from "../custom/form";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { ForgotPasswordForm, LoginForm, RegisterAsForm } from "..";
+import {
+  ForgotPasswordForm,
+  LoginForm,
+  RegisterAsForm,
+  RegisterInfo,
+} from "..";
 
 export default function RightForm({ page = "login" }) {
   const intl = useIntl();
+
+  if (page === "register-info") {
+    return (
+      <RightFormWrapper type="part">
+        <RegisterInfo page={page} />
+      </RightFormWrapper>
+    );
+  }
 
   if (page === "register") {
     return (

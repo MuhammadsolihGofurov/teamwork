@@ -72,6 +72,7 @@ export default function LoginForm() {
       <Title width="full">{intl.formatMessage({ id: "Tizimga kirish" })}</Title>
       <div className="flex flex-col sm:w-auto w-full gap-1 items-start">
         <PhoneInput
+          errors={errors?.username}
           type={"text"}
           register={register}
           name={"username"}
@@ -80,14 +81,15 @@ export default function LoginForm() {
           required
           setCode={setCode}
           validation={{
-            required: "Telefon raqam majburiy",
+            required: intl.formatMessage({ id: "requiredPhone" }),
             pattern: {
               value: /^\d{2} \d{3}-\d{2}-\d{2}$/,
-              message: "Noto‘g‘ri telefon raqam",
+              message: intl.formatMessage({ id: "isNotEqualsPhone" }),
             },
           }}
         />
         <Password
+          errors={errors?.password}
           type={"password"}
           register={register}
           name={"password"}
@@ -95,10 +97,10 @@ export default function LoginForm() {
           id="password"
           required
           validation={{
-            required: "Parol majburiy",
+            required: intl.formatMessage({ id: "RequiredPassword" }),
             minLength: {
               value: 6,
-              message: "Parol kamida 6 ta belgi bo‘lishi kerak",
+              message: intl.formatMessage({ id: "password6RequiredTypes" }),
             },
           }}
         />
@@ -130,7 +132,7 @@ export default function LoginForm() {
           )}
         </button>
       </div>
-      <div className="flex flex-col gap-0 w-full sm:text-start text-center">
+      <div className="flex flex-col gap-0 w-full sm:text-start items-start text-center">
         <h5 className="text-primary font-medium">
           {intl.formatMessage({
             id: "Akkauntingiz yo'q bo'lsa xoziroq yarating",
