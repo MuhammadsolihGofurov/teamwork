@@ -1,44 +1,41 @@
+import { useEffect, useState, useCallback } from "react";
+import fetcher from "@/utils/fetcher";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export function useFetchRegions(selectedId) {
-  const [regions, setRegions] = useState([]);
+export function useFetchRegions() {
+  const router = useRouter();
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const { country_id } = useSelector((state) => state.settings);
+
+  const fetchData = useCallback(async () => {
+    if (!country_id) return;
+
+    console.error("API chaqirilyapti: /region/list?country_id=" + country_id);
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetcher(`/region/list?country_id=${country_id}`, {
+        headers: {
+          "Accept-Language": router.locale,
+        },
+      });
+
+      setData(response?.data || null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [country_id, router.locale]);
 
   useEffect(() => {
-    if (!selectedId) {
-      setRegions([]);
-      return;
-    }
+    fetchData();
+  }, [fetchData]);
 
-    const fetchRegions = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const res = await fetch(`/region/list?country_id=${selectedId}`, {
-          headers: {
-            "Accept-Language": router.locale,
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error("Ma'lumotlarni yuklab bo‘lmadi");
-        }
-
-        const data = await res.json();
-        setRegions(data?.data?.items || []);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchRegions();
-  }, [selectedId]); // ✅ selectedId o‘zgarganda useEffect qayta ishga tushadi
-
-  return { regions, isLoading, error };
+  return { data, isLoading, error };
 }

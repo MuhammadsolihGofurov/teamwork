@@ -1,78 +1,44 @@
-import { Select } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import CustomSelect from "./details/custom-select";
-import useSWR from "swr";
-import { useRouter } from "next/router";
-import fetcher from "@/utils/fetcher";
-import { useFetchRegions } from "@/hooks/useFetchRegions";
+import { useFetchData } from "@/hooks/useFetchData";
+import { useSelector } from "react-redux";
 
 export default function SelectInput({
-  type,
-  placeholder,
   name,
   title,
-  required,
-  register = () => {},
-  validation,
-  noSelected = false,
   page,
   errors,
   isIcon,
+  control,
 }) {
   const intl = useIntl();
-  const router = useRouter();
-  const [selectedId, setSelectedId] = useState(0);
+  const { country_id, region_id } = useSelector((state) => state.settings);
 
-  if (page === "country") {
-    const { data: countries } = useSWR(
-      ["/country/list", router.locale],
-      (url) =>
-        fetcher(url, {
-          headers: {
-            "Accept-Language": router.locale,
-          },
-        })
-    );
+  const endpoints = {
+    country: "/country/list",
+    region: `/region/list?country_id=${country_id}`,
+    district: `/district/list?region_id=${region_id}`,
+  };
 
-    return (
-      <label className="flex flex-col gap-2" htmlFor={name}>
-        <span className="text-sm font-normal text-primary pl-6">{title}</span>
+  const { data, isLoading, error } = useFetchData(endpoints[page]);
 
-        <CustomSelect
-          options={countries?.data?.items}
-          isIcon={isIcon}
-          setSelectedId={setSelectedId}
-          empty_message={intl.formatMessage({ id: "empty-country" })}
-        />
+  return (
+    <label className="flex flex-col gap-2" htmlFor={name}>
+      <span className="text-sm font-normal text-primary pl-6">{title}</span>
 
-        {errors?.message && (
-          <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
-        )}
-      </label>
-    );
-  }
+      <CustomSelect
+        options={data?.items}
+        isIcon={isIcon}
+        type={page}
+        name={name}
+        control={control}
+        empty_message={intl.formatMessage({ id: `empty-${page}` })}
+      />
 
-  if (page === "region") {
-    const { regions, isLoading, error } = useFetchRegions(selectedId);
-
-    return (
-      <label className="flex flex-col gap-2" htmlFor={name}>
-        <span className="text-sm font-normal text-primary pl-6">{title}</span>
-
-        <CustomSelect
-          options={regions?.data?.items}
-          isIcon={isIcon}
-          setSelectedId={setSelectedId}
-          empty_message={intl.formatMessage({ id: "empty-viloyat" })}
-        />
-
-        {errors?.message && (
-          <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
-        )}
-      </label>
-    );
-  }
-
-  return <div></div>;
+      {errors?.message && (
+        <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
+      )}
+    </label>
+  );
 }

@@ -12,10 +12,8 @@ export default function DatePickerUi({
   errors,
   control,
 }) {
-  const [selectedDate, setSelectedDate] = useState(null);
-
   return (
-    <label className="flex flex-col gap-2 data-picker" htmlFor={name}>
+    <label className="flex flex-col gap-2 data-picker relative z-[1]" htmlFor={name}>
       <span className="text-sm font-normal text-primary pl-6">{title}</span>
       <span className="w-full relative z-0">
         <span className="absolute top-2/4 -translate-y-2/4 left-6 z-[1]">
@@ -46,7 +44,7 @@ export default function DatePickerUi({
               onChange={field.onChange}
               disabled={noSelected}
               style={{
-                padding: "18px 24px 18px 50px",
+                padding: "20px 24px 20px 50px",
                 borderRadius: "32px",
                 background: "#fff",
                 border: "none",

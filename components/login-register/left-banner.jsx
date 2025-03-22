@@ -3,9 +3,9 @@ import React from "react";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function LeftBanner({ data }) {
+export default function LeftBanner({ data, height = "h-[660px]" }) {
   return (
-    <div className="hidden lg:block lg:w-2/5">
+    <div className="hidden h-full lg:block lg:w-2/5">
       <Swiper
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000 }}
@@ -15,7 +15,9 @@ export default function LeftBanner({ data }) {
         {data?.map((item, index) => {
           return (
             <SwiperSlide key={index + item?.title}>
-              <div className="w-full overflow-hidden h-[660px] full__image rounded-xl">
+              <div
+                className={`w-full overflow-hidden ${height} full__image rounded-xl`}
+              >
                 <Image
                   src={item?.image}
                   alt={item?.title}

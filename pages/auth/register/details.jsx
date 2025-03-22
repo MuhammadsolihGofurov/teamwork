@@ -38,6 +38,7 @@ function page({ info }) {
       />
       <RegWrapper>
         <LeftBanner
+          height="h-[720px]"
           data={[
             { id: 1, image: "/images/left-banner.png", title: "testlash" },
             { id: 1, image: "/images/left-banner.png", title: "testlash" },

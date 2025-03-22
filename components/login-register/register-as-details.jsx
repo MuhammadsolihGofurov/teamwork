@@ -1,21 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  File,
-  Input,
-  Password,
-  PhoneInput,
-  Radio,
-  Select,
-} from "../custom/form";
+import { File, Input, Radio, Select } from "../custom/form";
 import { useIntl } from "react-intl";
 import { ButtonSpinner } from "../custom/loading";
-import { formatDate, unmaskPhone } from "@/utils/funcs";
-import axios from "@/utils/axios";
+import { formatDate } from "@/utils/funcs";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERASUSERTYPE, REGISTERPHONENUMBER } from "@/utils/data";
 import DatePickerUi from "../custom/form/details/date-picker";
 
 export default function RegisterAsDetails({ page }) {
@@ -36,7 +27,10 @@ export default function RegisterAsDetails({ page }) {
     defaultValues: {
       date_of_birth: "",
       gender: "",
-      country: "",
+      country_id: "",
+      district_id: "",
+      region_id: "",
+      address_name: "",
     },
   });
 
@@ -45,11 +39,16 @@ export default function RegisterAsDetails({ page }) {
     try {
       setReqLoading(true);
 
-      const payload = {};
-      // const response = await axios.post("/auth/register", payload);
       const correct_birthday = formatDate(date_of_birth);
 
-      console.error(correct_birthday);
+      const payload = {
+        ...data,
+        date_of_birth: correct_birthday,
+      };
+
+      console.error(payload);
+
+      // const response = await axios.post("/user/update-physical-person-data", payload);
 
       // localstoragega kelgan malumotlarni saqlash kerak.
 
@@ -86,28 +85,28 @@ export default function RegisterAsDetails({ page }) {
         isReturn
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-3 items-start w-full">
-        {/* <div className="col-span-1 sm:col-span-2">
+        <div className="col-span-1 sm:col-span-2">
           <File page={page} />
-        </div> */}
+        </div>
 
         <DatePickerUi
           errors={errors?.date_of_birth}
           type={"date"}
           register={register}
-          name={"birthday"}
+          name={"date_of_birth"}
           title={intl.formatMessage({ id: "birthday" })}
           placeholder={""}
-          id="birthday"
+          id="date_of_birth"
           required
           page={page}
           validation={{
-            required: "FIO majburiy",
+            required: intl.formatMessage({ id: "RequiredDateOfBirth" }),
           }}
           control={control}
         />
 
         <Radio
-          errors={errors?.date_of_birth}
+          errors={errors?.gender}
           type={"radio"}
           register={register}
           name={"gender"}
@@ -117,44 +116,81 @@ export default function RegisterAsDetails({ page }) {
           required
           page={"gender"}
           validation={{
-            required: "FIO majburiy",
+            required: intl.formatMessage({ id: "RequiredGender" }),
           }}
+          control={control}
         />
 
         <Select
-          errors={errors?.country}
+          errors={errors?.country_id}
           type={"text"}
           register={register}
-          name={"country"}
+          name={"country_id"}
           title={intl.formatMessage({ id: "Mamlakat" })}
           placeholder={""}
-          id="country"
+          id="country_id"
           required
           page={"country"}
           isIcon={true}
           validation={{
-            required: "FIO majburiy",
+            required: intl.formatMessage({ id: "RequiredCountry" }),
           }}
+          control={control}
         />
 
         <Select
-          errors={errors?.country}
+          errors={errors?.region_id}
           type={"text"}
           register={register}
           name={"region_id"}
           title={intl.formatMessage({ id: "Viloyat" })}
           placeholder={""}
-          id="region"
+          id="region_id"
           required
           page={"region"}
           isIcon={true}
           validation={{
+            required: intl.formatMessage({ id: "RequiredRegion" }),
+          }}
+          control={control}
+        />
+
+        <Select
+          errors={errors?.district_id}
+          type={"text"}
+          register={register}
+          name={"district_id"}
+          title={intl.formatMessage({ id: "Tuman" })}
+          placeholder={""}
+          id="district_id"
+          required
+          page={"district"}
+          isIcon={false}
+          validation={{
+            required: intl.formatMessage({ id: "RequiredDistrict" }),
+          }}
+          control={control}
+        />
+
+        <Input
+          errors={errors?.address_name}
+          type={"text"}
+          register={register}
+          name={"address_name"}
+          title={intl.formatMessage({ id: "Yashash manzili" })}
+          placeholder={intl.formatMessage({ id: "Kiriting" })}
+          id="address_name"
+          required
+          page={"address"}
+          isIcon={true}
+          validation={{
             required: "FIO majburiy",
           }}
+          control={control}
         />
       </div>
 
-      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row sm:w-auto w-full pt-6 sm:pt-10">
+      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row sm:w-auto w-full">
         <button
           type="submit"
           className={`py-4 font-semibold  bg-main min-w-[250px] rounded-full flex items-center justify-center text-center transition-opacity duration-300 ${

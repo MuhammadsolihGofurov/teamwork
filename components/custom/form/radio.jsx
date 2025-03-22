@@ -47,7 +47,7 @@ export default function Radio({
           {genders?.map((gender) => (
             <label
               key={gender.id}
-              className="gender__item flex items-center justify-center gap-2 cursor-pointer py-3 relative z-0 rounded-full transition-colors duration-200"
+              className="gender__item flex items-center justify-center gap-2 cursor-pointer py-[14px] relative z-0 rounded-full transition-colors duration-200"
             >
               <input
                 type="radio"

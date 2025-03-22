@@ -1,11 +1,12 @@
 import { NextLink } from "@/components/Utils";
+import { LoginUrl } from "@/utils/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
 export default function ProfileBox() {
   const token = false;
   const isProfile = false;
-  const url = token ? "profile" : "login";
+  const url = token ? "profile" : LoginUrl;
   const { profilePercentage } = useSelector((state) => state.user);
   const percentage = Math.min(Math.max(profilePercentage, 0), 100);
 
