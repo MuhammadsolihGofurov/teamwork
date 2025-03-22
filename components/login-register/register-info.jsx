@@ -8,7 +8,7 @@ import { unmaskPhone } from "@/utils/funcs";
 import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERASUSERTYPE } from "@/utils/data";
+import { REGISTERASUSERTYPE, REGISTERPHONENUMBER } from "@/utils/data";
 
 export default function RegisterInfo({ page }) {
   const router = useRouter();
@@ -62,19 +62,20 @@ export default function RegisterInfo({ page }) {
       };
       const response = await axios.post("/auth/register", payload);
 
+      // localstoragega kelgan malumotlarni saqlash kerak.
+      localStorage.setItem(REGISTERASUSERTYPE, response?.data?.auth_key);
+      localStorage.setItem(REGISTERPHONENUMBER, phone);
+
       toast.success(
-        intl.formatMessage({ id: "register-info-success-message" }),
-        {
-          theme: "colored",
-        }
+        intl.formatMessage({ id: "register-info-success-message" })
       );
 
       setTimeout(() => {
         router.push("/auth/register/sms-code");
-      });
+      }, 500);
     } catch (e) {
       console.error(e);
-      toast.error(e?.response?.data?.message, { theme: "colored" });
+      toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);
     }
@@ -181,6 +182,7 @@ export default function RegisterInfo({ page }) {
           }}
         />
       </div>
+
       <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row sm:w-auto w-full pt-6 sm:pt-10">
         <button
           type="submit"

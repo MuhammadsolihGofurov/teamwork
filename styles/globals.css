@@ -69,6 +69,7 @@
   --main: #98be00;
   --bg-2: #f5f5f5;
   --white: #fff;
+  --primary: #222;
 }
 
 * {
@@ -136,4 +137,17 @@ img {
 /* input border outline ------------------------ */
 input:focus {
   outline-color: var(--main);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+.data-picker .pointer-events-none {
+  display: none !important;
+}
+
+
+.gender__item .peer:checked ~ .gender__icon svg path {
+  stroke: white;
 }

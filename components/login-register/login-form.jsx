@@ -43,12 +43,10 @@ export default function LoginForm() {
       };
       const response = await axios.post("/auth/login", payload);
 
-      toast.success(intl.formatMessage({ id: "login-success-message" }), {
-        theme: "colored",
-      });
+      toast.success(intl.formatMessage({ id: "login-success-message" }));
     } catch (e) {
       console.error(e);
-      toast.error(e?.response?.data?.message, { theme: "colored" });
+      toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);
     }

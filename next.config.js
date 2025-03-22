@@ -20,6 +20,7 @@ const nextConfig = {
     // like base url
     API: process.env.API,
   },
+  transpilePackages: ["react-tailwindcss-datepicker"],
 };
 
 module.exports = nextConfig;

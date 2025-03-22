@@ -2,6 +2,9 @@
 export const LoginUrl = "auth/login";
 export const RegisterUrl = "auth/register";
 export const ForgotPassword = "auth/forgot-password";
+export const RegisterSendCodeUrl = "auth/register/sms-code";
+export const RegisterAsInfoUrl = "auth/register/info";
+export const RegisterAsDetailsUrl = "auth/register/details";
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";

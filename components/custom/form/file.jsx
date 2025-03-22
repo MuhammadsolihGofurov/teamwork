@@ -34,7 +34,7 @@ export default function File({ page = "register-info" }) {
       </div>
       <input
         type="file"
-        className="opacity-0 w-full h-full absolute top-0 left-0 cursor-pointer"
+        className="opacity-0 w-full h-full absolute top-0 left-0 cursor-pointer border-transparent"
       />
     </div>
   );

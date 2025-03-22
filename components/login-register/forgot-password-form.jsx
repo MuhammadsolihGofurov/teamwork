@@ -43,14 +43,10 @@ export default function ForgotPasswordForm() {
       const response = await axios.post("/auth/reset-password", payload);
 
       toast.success(
-        intl.formatMessage({ id: "forgot-password-send-code-success-message" }),
-        {
-          theme: "colored",
-        }
-      );
+        intl.formatMessage({ id: "forgot-password-send-code-success-message" }));
     } catch (e) {
       console.error(e);
-      toast.error(e?.response?.data?.message, { theme: "colored" });
+      toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);
     }

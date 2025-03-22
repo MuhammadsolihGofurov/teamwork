@@ -2,7 +2,6 @@ import Seo from "@/components/Seo/Seo";
 import { RegWrapper, Wrapper } from "@/components/Utils";
 import LeftBanner from "@/components/login-register/left-banner";
 import RightForm from "@/components/login-register/right-form";
-import { REGISTERAUTHKEY } from "@/utils/data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -11,16 +10,17 @@ function page({ info }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // const isRegistered =
-  //   typeof window !== "undefined"
-  //     ? localStorage.getItem(REGISTERAUTHKEY)
-  //     : null;
+  // const { data: services } = useSWR(["services", router.locale], (url) =>
+  //   fetcher(url, {
+  //     headers: {
+  //       "Accept-Language": router.locale,
+  //     },
+  //   })
+  // );
 
   // useEffect(() => {
-  //   if (!isRegistered) {
-  //     router.push("/auth/register/info");
-  //   }
-  // }, []);
+  //   dispatch(setServices(services?.data));
+  // }, [services?.data]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -43,7 +43,7 @@ function page({ info }) {
             { id: 1, image: "/images/left-banner.png", title: "testlash" },
           ]}
         />
-        <RightForm page="sms-code" />
+        <RightForm page="register-as-details" />
       </RegWrapper>
     </>
   );
@@ -53,7 +53,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "SMS code",
+    seo_home_title: "Register as Details",
     seo_home_keywords: "",
     seo_home_description: "",
   };

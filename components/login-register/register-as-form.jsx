@@ -39,9 +39,7 @@ export default function RegisterAsForm() {
     try {
       setReqLoading(true);
       localStorage.setItem(REGISTERASUSERTYPE, registerAs);
-      toast.success(intl.formatMessage({ id: "register-as-form-success" }), {
-        theme: "colored",
-      });
+      toast.success(intl.formatMessage({ id: "register-as-form-success" }));
 
       setTimeout(() => {
         router.push("/auth/register/info");
@@ -49,7 +47,7 @@ export default function RegisterAsForm() {
 
       setReqLoading(false);
     } catch (e) {
-      toast.error(e?.message, { theme: "colored" });
+      toast.error(e?.message);
     } finally {
       setReqLoading(false);
     }

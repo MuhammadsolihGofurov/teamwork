@@ -16,3 +16,5 @@ export { default as LoginForm } from "./login-register/login-form";
 export { default as ForgotPasswordForm } from "./login-register/forgot-password-form";
 export { default as RegisterAsForm } from "./login-register/register-as-form";
 export { default as RegisterInfo } from "./login-register/register-info";
+export { default as RegisterSMSCode } from "./login-register/register-sms-code";
+export { default as RegisterAsDetails } from "./login-register/register-as-details";

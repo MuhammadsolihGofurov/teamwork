@@ -71,7 +71,7 @@ export default function Password({
             required={required}
             autoComplete="off"
             disabled={noSelected}
-            className={`rounded-full py-[18px] px-6 w-full placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25 border-2 ${
+            className={`rounded-full border-transparent py-[18px] px-6 w-full placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25 border-2 ${
               errors ? "border-red-500" : "border-transparent"
             }`}
             {...register(name, validation)}
@@ -135,7 +135,7 @@ export default function Password({
           required={required}
           autoComplete="off"
           disabled={noSelected}
-          className="rounded-full py-1 px-6 flex-1 sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
+          className="rounded-full border-transparent py-1 px-6 flex-1 sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
           {...register(name, validation)}
         />
       </div>

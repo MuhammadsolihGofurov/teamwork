@@ -1,4 +1,5 @@
 import React from "react";
+import DatePickerUi from "./details/date-picker";
 
 export default function Input({
   type,
@@ -11,6 +12,7 @@ export default function Input({
   noSelected = false,
   page,
   errors,
+  control,
 }) {
   if (page == "register-info") {
     return (
@@ -24,7 +26,7 @@ export default function Input({
           required={required}
           autoComplete="off"
           disabled={noSelected}
-          className="rounded-full bg-white py-[18px] px-6 text-primary placeholder:text-primary placeholder:text-opacity-40 placeholder:text-sm"
+          className="rounded-full bg-white py-[18px] px-6 text-primary placeholder:text-primary placeholder:text-opacity-40 border-transparent placeholder:text-sm"
           {...register(name, validation)}
         />
         {errors?.message ? (
@@ -33,6 +35,23 @@ export default function Input({
           <></>
         )}
       </label>
+    );
+  }
+
+  if (page == "register-as-details") {
+    return (
+      <DatePickerUi
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        title={title}
+        required={required}
+        register={register}
+        validation={validation}
+        noSelected={noSelected}
+        errors={errors}
+        control={control}
+      />
     );
   }
 
@@ -47,7 +66,7 @@ export default function Input({
         required={required}
         autoComplete="off"
         disabled={noSelected}
-        className="rounded-full py-1 px-6 flex-1 sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
+        className="rounded-full py-1 px-6 flex-1 border-transparent sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
         {...register(name, validation)}
       />
     </label>

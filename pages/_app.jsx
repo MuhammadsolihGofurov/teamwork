@@ -21,7 +21,7 @@ import "@fancyapps/ui/dist/fancybox.css";
 // import "aos/dist/aos.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
-import { ToastContainer } from "react-toastify";
+import { Bounce, Flip, ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -73,7 +73,13 @@ export default function App({ Component, pageProps }) {
       >
         <LangProvider>
           <SkeletonTheme>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              draggable
+              theme="light"
+              transition={Flip}
+            />
             <Layout>
               <Component {...pageProps} />
             </Layout>

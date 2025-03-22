@@ -47,3 +47,20 @@ export const updateQueryParam = ({ key, value, router }) => {
 export function unmaskPhone(value) {
   return value.replace(/\D/g, "");
 }
+
+export const maskPhoneNumber = (phone) => {
+  if (!phone || phone.length < 4) return phone; 
+  return `***-${phone.slice(-4, -2)}-${phone.slice(-2)}`;
+};
+
+export const formatDate = (date) => {
+  if (!date) return "";
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) return "Invalid Date"; 
+
+  const day = String(parsedDate.getDate()).padStart(2, "0");
+  const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+  const year = parsedDate.getFullYear();
+
+  return `${year}-${month}-${day}`;
+};

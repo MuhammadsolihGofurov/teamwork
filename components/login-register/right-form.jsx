@@ -1,18 +1,32 @@
 import React from "react";
-import { Title } from "../custom/typograph";
 import { useIntl } from "react-intl";
-import { PhoneInput } from "../custom/form";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import {
   ForgotPasswordForm,
   LoginForm,
+  RegisterAsDetails,
   RegisterAsForm,
   RegisterInfo,
+  RegisterSMSCode,
 } from "..";
 
 export default function RightForm({ page = "login" }) {
   const intl = useIntl();
+
+  if (page === "register-as-details") {
+    return (
+      <RightFormWrapper type="part">
+        <RegisterAsDetails page={page} />
+      </RightFormWrapper>
+    );
+  }
+
+  if (page === "sms-code") {
+    return (
+      <RightFormWrapper type="part">
+        <RegisterSMSCode page={page} />
+      </RightFormWrapper>
+    );
+  }
 
   if (page === "register-info") {
     return (
