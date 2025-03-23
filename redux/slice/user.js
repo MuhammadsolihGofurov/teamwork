@@ -18,6 +18,9 @@ export const fetchUserData = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        localStorage.removeItem(REGISTERAUTHKEY);
+      }
       return rejectWithValue(
         error.response?.data?.message || "Xatolik yuz berdi"
       );
@@ -29,7 +32,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     profilePercentage: 90,
-    user_info: "",
+    user_info: {},
     loading: false,
     error: null,
     is_auth: false,
@@ -52,7 +55,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
