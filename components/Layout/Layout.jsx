@@ -7,14 +7,16 @@ import fetcher from "../../utils/fetcher";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slice/user.js";
+import { useRouter } from "next/router.js";
 
 const Layout = ({ children }) => {
   // const { data: settings } = useSWR("/settings", fetcher);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(fetchUserData());
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return (
     <>
