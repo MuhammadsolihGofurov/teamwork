@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import "../public/styles/nprogress.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -22,6 +22,7 @@ import "@fancyapps/ui/dist/fancybox.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 import { Bounce, Flip, ToastContainer } from "react-toastify";
+import { fetchUserData } from "@/redux/slice/user";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -32,6 +33,8 @@ export default function App({ Component, pageProps }) {
     ru: messages_ru,
     uz: messages_uz,
   };
+
+  
 
   useEffect(() => {
     try {

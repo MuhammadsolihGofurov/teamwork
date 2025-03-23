@@ -49,7 +49,7 @@ export function unmaskPhone(value) {
 }
 
 export const maskPhoneNumber = (phone) => {
-  if (!phone || phone.length < 4) return phone; 
+  if (!phone || phone.length < 4) return ""; 
   return `***-${phone.slice(-4, -2)}-${phone.slice(-2)}`;
 };
 

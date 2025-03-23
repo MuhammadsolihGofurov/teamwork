@@ -4,9 +4,17 @@ import Script from "next/script";
 import { Footer, Header, Scripts } from "../../components";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchUserData } from "@/redux/slice/user.js";
 
 const Layout = ({ children }) => {
   // const { data: settings } = useSWR("/settings", fetcher);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   return (
     <>

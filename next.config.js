@@ -14,7 +14,7 @@ const nextConfig = {
   },
   images: {
     // like ['domen.uz']
-    domains: ["admin.worldtradee.ru"],
+    domains: ["php.teamwork.uz"],
   },
   env: {
     // like base url

@@ -11,6 +11,7 @@ import DatePickerUi from "../custom/form/details/date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { setSkillIds, setSpecialityIds } from "@/redux/slice/settings";
 import { setProfilePercentage } from "@/redux/slice/user";
+import { authAxios } from "@/utils/axios";
 
 export default function SpecialistsForm({ page }) {
   const router = useRouter();
@@ -31,7 +32,6 @@ export default function SpecialistsForm({ page }) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      speciality_id: "",
       speciality_ids: "",
       skill_ids: "",
     },
@@ -42,22 +42,20 @@ export default function SpecialistsForm({ page }) {
   }, []);
 
   const submitFn = async (data) => {
-    const { date_of_birth } = data;
+    const { speciality_children, speciality_ids, skill_ids } = data;
     try {
       setReqLoading(true);
 
-      const correct_birthday = formatDate(date_of_birth);
-
       const payload = {
-        ...data,
-        date_of_birth: correct_birthday,
+        skill_ids,
+        speciality_ids: [speciality_ids, ...speciality_children],
       };
 
-      console.error(payload);
+      const response = await authAxios.post(
+        "/user/update-expert-data?expand=specialitySets.parent",
+        payload
+      );
 
-      // const response = await axios.post("/user/update-physical-person-data", payload);
-
-      // localstoragega kelgan malumotlarni saqlash kerak.
 
       toast.success(
         intl.formatMessage({ id: "register-as-details-success-message" })

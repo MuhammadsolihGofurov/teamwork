@@ -8,10 +8,12 @@ import { formatDate } from "@/utils/funcs";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
 import DatePickerUi from "../custom/form/details/date-picker";
-import { EXPERT, REGISTERASUSERTYPE } from "@/utils/data";
+import { EXPERT, REGISTERASUSERTYPE, REGISTERAUTHKEY } from "@/utils/data";
 import { ProfileUrl, RegisterWithSpecialistsUrl } from "@/utils/router";
 import { useDispatch } from "react-redux";
 import { setProfilePercentage } from "@/redux/slice/user";
+import { authAxios } from "@/utils/axios";
+import { useFetchData } from "@/hooks/useFetchData";
 
 export default function RegisterAsDetails({ page }) {
   const router = useRouter();
@@ -43,6 +45,10 @@ export default function RegisterAsDetails({ page }) {
     dispatch(setProfilePercentage(35));
   }, []);
 
+  // const { data, isLoading, error } = useFetchData(
+  //   "/user/me?expand=expert,employer.legalEntity,employer.physicalPerson",
+  //   true
+  // );
 
   const submitFn = async (data) => {
     const { date_of_birth } = data;
@@ -56,22 +62,20 @@ export default function RegisterAsDetails({ page }) {
         date_of_birth: correct_birthday,
       };
 
-      console.error(payload);
-
-      // const response = await axios.post("/user/update-physical-person-data", payload);
+      const response = await authAxios.post(
+        "/user/update-expert-data?expand=specialitySets.parent",
+        payload
+      );
 
       // localstoragega kelgan malumotlarni saqlash kerak.
+      // localStorage.setItem(REGISTERAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(
         intl.formatMessage({ id: "register-as-details-success-message" })
       );
 
       setTimeout(() => {
-        if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
-          router.push(`/${RegisterWithSpecialistsUrl}`);
-        } else {
-          router.push(`/${ProfileUrl}`);
-        }
+        router.push(`/${RegisterWithSpecialistsUrl}`);
       }, 500);
     } catch (e) {
       console.error(e);
@@ -99,9 +103,9 @@ export default function RegisterAsDetails({ page }) {
         isReturn
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-3 items-start w-full">
-        <div className="col-span-1 sm:col-span-2">
+        {/* <div className="col-span-1 sm:col-span-2">
           <File page={page} />
-        </div>
+        </div> */}
 
         <DatePickerUi
           errors={errors?.date_of_birth}
@@ -167,6 +171,7 @@ export default function RegisterAsDetails({ page }) {
             required: intl.formatMessage({ id: "RequiredRegion" }),
           }}
           control={control}
+          isAuth={true}
         />
 
         <Select
@@ -184,6 +189,7 @@ export default function RegisterAsDetails({ page }) {
             required: intl.formatMessage({ id: "RequiredDistrict" }),
           }}
           control={control}
+          isAuth={true}
         />
 
         <Input

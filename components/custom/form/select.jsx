@@ -17,6 +17,7 @@ export default function SelectInput({
   selectedState,
   setSelectedAction = () => {},
   required = false,
+  isAuth = false,
 }) {
   const intl = useIntl();
   const { country_id, region_id, speciality_current } = useSelector(
@@ -34,7 +35,7 @@ export default function SelectInput({
   // Agar select_type "multiple_without_api" bo‘lsa, API so‘rov yubormaymiz
   const shouldFetch = select_type !== "multiple_without_api";
   const { data, isLoading, error } = shouldFetch
-    ? useFetchData(endpoints[page])
+    ? useFetchData(endpoints[page], isAuth)
     : {
         data: { items: speciality_current?.children },
         isLoading: false,
@@ -54,6 +55,7 @@ export default function SelectInput({
           selectedState={selectedState}
           setSelectedAction={setSelectedAction}
           required={required}
+          select_type={select_type}
         />
       ) : (
         <CustomSelect

@@ -1,8 +1,10 @@
 import { Controller } from "react-hook-form";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useIntl } from "react-intl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Tooltip } from "flowbite-react";
+import { authAxios } from "@/utils/axios";
+import { debounce } from "lodash";
 
 export default function MultiSelect({
   options = [],
@@ -12,15 +14,51 @@ export default function MultiSelect({
   selectedState,
   setSelectedAction,
   required,
+  select_type,
 }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState([]);
+
+  const fetchSkills = useCallback(
+    debounce(async (query) => {
+      try {
+        const response = await authAxios.post("/skill/search", { name: query });
+        setFilteredOptions(response?.data?.data || []);
+      } catch (error) {
+        console.error("Skill search error:", error);
+      }
+    }, 500), // 500ms kechikish
+    []
+  );
+
+  useEffect(() => {
+    if (select_type === "multiple_skill_ids") {
+      if (search) {
+        fetchSkills(search);
+      } else {
+        setFilteredOptions(options);
+      }
+    } else {
+      setFilteredOptions(
+        options.filter((option) =>
+          option.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search, select_type, options]);
 
   const handleClickOutside = useCallback((event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      buttonRef.current &&
+      !buttonRef.current.contains(event.target) 
+    ) {
       setIsOpen(false);
     }
   }, []);
@@ -49,10 +87,6 @@ export default function MultiSelect({
     field.onChange(updatedOptions.map((o) => o.id));
   };
 
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <Controller
       name={name}
@@ -63,6 +97,7 @@ export default function MultiSelect({
           <div className="relative w-full">
             <button
               type="button"
+              ref={buttonRef}
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center justify-between w-full bg-white text-primary rounded-full py-[27.5px] px-6"
             >
@@ -130,7 +165,6 @@ export default function MultiSelect({
             </div>
           </div>
 
-          {/* Tanlangan elementlarni chiqarish */}
           {selectedState.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-3 pl-5">
               {selectedState.map((option) => (

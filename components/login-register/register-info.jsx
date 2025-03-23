@@ -8,7 +8,7 @@ import { unmaskPhone } from "@/utils/funcs";
 import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERASUSERTYPE, REGISTERPHONENUMBER } from "@/utils/data";
+import { REGISTERASUSERTYPE, REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
 import { useDispatch } from "react-redux";
 import { setProfilePercentage } from "@/redux/slice/user";
 
@@ -58,7 +58,7 @@ export default function RegisterInfo({ page }) {
     try {
       setReqLoading(true);
       let phone = `${code}${unmaskPhone(phone_number)}`;
-      const type = localStorage.getItem(REGISTERASUSERTYPE);
+      const type = Number(localStorage.getItem(REGISTERASUSERTYPE));
 
       const payload = {
         phone_number: phone,
@@ -70,7 +70,7 @@ export default function RegisterInfo({ page }) {
       const response = await axios.post("/auth/register", payload);
 
       // localstoragega kelgan malumotlarni saqlash kerak.
-      localStorage.setItem(REGISTERASUSERTYPE, response?.data?.auth_key);
+      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
       localStorage.setItem(REGISTERPHONENUMBER, phone);
 
       toast.success(

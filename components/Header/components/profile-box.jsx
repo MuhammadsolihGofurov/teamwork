@@ -1,30 +1,33 @@
 import { NextLink } from "@/components/Utils";
-import { LoginUrl } from "@/utils/router";
+import {
+  ChatsUrl,
+  LoginUrl,
+  NotificationUrl,
+  ProfileUrl,
+} from "@/utils/router";
 import React from "react";
 import { useSelector } from "react-redux";
+import { ProfilePicture } from ".";
 
 export default function ProfileBox() {
-  const token = false;
-  const isProfile = false;
-  const url = token ? "profile" : LoginUrl;
-  const { profilePercentage } = useSelector((state) => state.user);
-  const percentage = Math.min(Math.max(profilePercentage, 0), 100);
+  const { is_auth } = useSelector((state) => state.user);
+  const url = is_auth ? ProfileUrl : LoginUrl;
+  const notification_url = is_auth ? NotificationUrl : LoginUrl;
+  const chat_url = is_auth ? ChatsUrl : LoginUrl;
+
 
   return (
     <div
       className={`${
-        token && isProfile ? "bg-bg-2" : "sm:hidden flex"
+        is_auth ? "bg-bg-2 flex" : "sm:hidden flex"
       } rounded-full p-[3px] items-center gap-1`}
     >
-      {token ? (
-        <div
-          className={`${
-            token && isProfile ? "flex" : "hidden"
-          }  items-center gap-1 bg-white p-1 rounded-full`}
-        >
-          <button
+      {is_auth ? (
+        <div className={`flex items-center gap-1 bg-white p-1 rounded-full`}>
+          <NextLink
+            url={chat_url}
             type="button"
-            className="w-9 h-9 flex items-center justify-center bg-bg-2 rounded-full relative z-0 hover:border-main border-transparent border transition-colors duration-200 group"
+            className="w-9 h-9 sm:flex hidden items-center justify-center bg-bg-2 rounded-full relative z-0 hover:border-main border-transparent border transition-colors duration-200 group"
           >
             <svg
               width="16"
@@ -43,10 +46,11 @@ export default function ProfileBox() {
               />
             </svg>
             <span className="w-2 h-2 rounded-full bg-main absolute top-1 right-2"></span>
-          </button>
-          <button
+          </NextLink>
+          <NextLink
+            url={notification_url}
             type="button"
-            className="w-9 h-9 flex items-center justify-center bg-bg-2 rounded-full relative z-0 hover:border-main border-transparent border transition-colors duration-200 group"
+            className="w-9 h-9 flex items-center justify-center sm:bg-bg-2 rounded-full relative z-0 hover:border-main border-transparent border transition-colors duration-200 group"
           >
             <svg
               width="16"
@@ -65,70 +69,17 @@ export default function ProfileBox() {
               />
             </svg>
             <span className="w-2 h-2 rounded-full bg-main absolute top-1 right-2"></span>
-          </button>
+          </NextLink>
         </div>
       ) : (
         <></>
       )}
       <button
         type="button"
-        className={`${token && isProfile ? "flex" : "sm:hidden flex"}`}
+        className={`${is_auth ? "flex" : "sm:hidden flex"}`}
       >
         <NextLink url={url}>
-          <span className="w-11 h-11 flex items-center justify-center bg-white rounded-full relative z-0">
-            <svg
-              className="absolute top-0 left-0 w-11 h-11"
-              viewBox="0 0 36 36"
-            >
-              {/* Orqa fon halqasi */}
-              <circle
-                className="text-bg-2"
-                strokeWidth="2"
-                fill="none"
-                r="16"
-                cx="18"
-                cy="18"
-                stroke="currentColor"
-              />
-              {/* Progress halqasi */}
-              <circle
-                className="text-main"
-                strokeWidth="3"
-                strokeDasharray="100" // Halqa uzunligi
-                strokeDashoffset={0 - percentage} // Progressni soatga teskari harakatlantirish
-                strokeLinecap="round"
-                fill="none"
-                r="16"
-                cx="18"
-                cy="18"
-                stroke="currentColor"
-                style={{
-                  transform: "rotate(-90deg)", // Starts from top
-                  transformOrigin: "center", // Ensures the center is the pivot
-                }}
-              />
-            </svg>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="9"
-                cy="4.5"
-                r="3"
-                stroke="#222222"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M15 13.125C15 14.989 15 16.5 9 16.5C3 16.5 3 14.989 3 13.125C3 11.261 5.68629 9.75 9 9.75C12.3137 9.75 15 11.261 15 13.125Z"
-                stroke="#222222"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </span>
+          <ProfilePicture />
         </NextLink>
       </button>
     </div>

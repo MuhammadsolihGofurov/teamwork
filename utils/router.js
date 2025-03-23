@@ -9,6 +9,8 @@ export const RegisterWithSpecialistsUrl = "auth/register/specialists";
 
 // === PROFILE ===
 export const ProfileUrl = "profile";
+export const NotificationUrl = "profile/notifications";
+export const ChatsUrl = "profile/chats";
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";

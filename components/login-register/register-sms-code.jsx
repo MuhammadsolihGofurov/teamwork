@@ -6,9 +6,9 @@ import { ButtonSpinner } from "../custom/loading";
 import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
+import { EXPERT, REGISTERASUSERTYPE, REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
 import { SMSCode } from "./details";
-import { RegisterAsInfoUrl } from "@/utils/router";
+import { ProfileUrl, RegisterAsDetailsUrl, RegisterAsInfoUrl } from "@/utils/router";
 import { useDispatch } from "react-redux";
 import { setProfilePercentage } from "@/redux/slice/user";
 
@@ -43,7 +43,7 @@ export default function RegisterSMSCode({ page }) {
       const auth_key = localStorage.getItem(REGISTERAUTHKEY);
 
       const payload = {
-        code,
+        code: data.code.join(""),
         auth_key,
       };
 
@@ -53,14 +53,20 @@ export default function RegisterSMSCode({ page }) {
       );
 
       // localstoragega kelgan malumotlarni saqlash kerak.
+      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(
         intl.formatMessage({ id: "register-send-code-success-message" })
       );
 
       setTimeout(() => {
-        router.push("/auth/register/details");
+        if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
+          router.push(`/${RegisterAsDetailsUrl}`);
+        } else {
+          router.push(`/${ProfileUrl}`);
+        }
       }, 500);
+
     } catch (e) {
       console.error(e);
       toast.error(e?.response?.data?.message);

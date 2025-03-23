@@ -1,7 +1,9 @@
+import axios from "@/utils/axios";
 import { REGISTERPHONENUMBER } from "@/utils/data";
 import { maskPhoneNumber } from "@/utils/funcs";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 
 export default function SMSCode({ register, errors, setValue, watch }) {
   const intl = useIntl();
@@ -10,6 +12,13 @@ export default function SMSCode({ register, errors, setValue, watch }) {
     typeof window !== "undefined"
       ? localStorage.getItem(REGISTERPHONENUMBER)
       : null;
+
+  const [displayedPhone, setDisplayedPhone] = useState(null);
+
+  useEffect(() => {
+    const phone = maskPhoneNumber(phone_number);
+    setDisplayedPhone(phone);
+  }, []);
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -22,6 +31,18 @@ export default function SMSCode({ register, errors, setValue, watch }) {
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !e.target.value && index > 0) {
       inputsRef.current[index - 1].focus();
+    }
+  };
+
+  const handleReSendCode = async () => {
+    try {
+      axios.post(
+        `/auth/confirm-registration-code/${localStorage.getItem(
+          REGISTERPHONENUMBER
+        )}`
+      );
+    } catch (e) {
+      toast.error(e?.response?.data?.message);
     }
   };
 
@@ -68,7 +89,7 @@ export default function SMSCode({ register, errors, setValue, watch }) {
             />
           ))}
           {errors?.code && (
-            <p className="text-red-500 text-sm">{errors.code.message}</p>
+            <p className="text-red-500 text-sm">{errors?.code?.message}</p>
           )}
         </div>
       </div>
@@ -76,6 +97,7 @@ export default function SMSCode({ register, errors, setValue, watch }) {
         <button
           type="button"
           className="w-16 h-16 rounded-2xl bg-main flex items-center justify-center"
+          onClick={() => handleReSendCode()}
         >
           <svg
             width="24"
@@ -95,10 +117,7 @@ export default function SMSCode({ register, errors, setValue, watch }) {
         </button>
         <p className="w-2/4">
           {intl.formatMessage({ id: "sendCodeBody" })}{" "}
-          <span className="text-main font-semibold">
-            {" "}
-            {maskPhoneNumber(phone_number)}{" "}
-          </span>{" "}
+          <span className="text-main font-semibold"> {displayedPhone} </span>{" "}
         </p>
       </div>
     </div>

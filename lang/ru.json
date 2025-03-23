@@ -11,6 +11,8 @@
   "Copyright": "Copyright",
   "Biz haqimizda": "О нас",
   "Yordam": "Помощь",
+  "Bosh sahifa": "Главная страница",
+  "profile": "Профиль",
   "---menu---": "",
   "--button--": "",
   "register": "Зарегистрироваться",
@@ -88,7 +90,7 @@
   "empty-region": "Регион пуст, выберите страну.",
   "empty-district": "Район пуст, выберите регион.",
   "empty-speciality": "Направления полей пусты.",
-  "empty-speciality_children":"Внутренний маршрут пуст. Выберите направление обучения.",
+  "empty-speciality_children": "Внутренний маршрут пуст. Выберите направление обучения.",
   "empty-skill_ids": "Навыки пусты",
   "O'chirish uchun ustiga bosing": "Нажмите на него, чтобы удалить",
   "---messege---": ""
