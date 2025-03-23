@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   i18n: {
     defaultLocale: "ru",
-    locales: ["ru", "uz", "en"],
+    locales: ["ru", "uz"],
     localeDetection: false,
   },
   compiler: {
@@ -20,7 +20,6 @@ const nextConfig = {
     // like base url
     API: process.env.API,
   },
-  transpilePackages: ["react-tailwindcss-datepicker"],
 };
 
 module.exports = nextConfig;

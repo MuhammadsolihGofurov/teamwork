@@ -71,7 +71,7 @@ export default function Breadcrumbs({ data, isReturn = false }) {
             url={link?.url}
             key={link?.name + index}
             className={
-              "flex items-center gap-1 text-primary opacity-40 group hover:opacity-100 hover:text-main transition-all duration-150"
+              "flex items-center gap-1 text-primary opacity-100 group hover:opacity-100 hover:text-main transition-all duration-150"
             }
           >
             {link?.name}
