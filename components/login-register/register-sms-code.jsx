@@ -9,11 +9,14 @@ import { toast } from "react-toastify";
 import { REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
 import { SMSCode } from "./details";
 import { RegisterAsInfoUrl } from "@/utils/router";
+import { useDispatch } from "react-redux";
+import { setProfilePercentage } from "@/redux/slice/user";
 
 export default function RegisterSMSCode({ page }) {
   const router = useRouter();
   const intl = useIntl();
   const [reqLoading, setReqLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -28,6 +31,10 @@ export default function RegisterSMSCode({ page }) {
       code: Array(6).fill(""),
     },
   });
+
+  useEffect(() => {
+    dispatch(setProfilePercentage(50));
+  }, []);
 
   const submitFn = async (data) => {
     const { code } = data;

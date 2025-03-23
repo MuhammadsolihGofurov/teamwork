@@ -7,10 +7,20 @@ import {
   RegisterAsForm,
   RegisterInfo,
   RegisterSMSCode,
+  SpecialistsForm,
 } from "..";
 
 export default function RightForm({ page = "login" }) {
   const intl = useIntl();
+
+
+  if(page === "specialists-data"){
+    return (
+      <RightFormWrapper type="part">
+        <SpecialistsForm page={page} />
+      </RightFormWrapper>
+    );
+  }
 
   if (page === "register-as-details") {
     return (

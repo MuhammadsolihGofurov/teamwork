@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { NextLink } from "../Utils";
 import { WithFacebook, WithGoogle } from "./details";
@@ -8,12 +8,19 @@ import { LoginUrl } from "@/utils/router";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
 import { CUSTOMER, EXPERT, REGISTERASUSERTYPE } from "@/utils/data";
+import { useDispatch } from "react-redux";
+import { setProfilePercentage } from "@/redux/slice/user";
 
 export default function RegisterAsForm() {
   const router = useRouter();
   const intl = useIntl();
   const [registerAs, setRegisterAs] = useState(0);
   const [reqLoading, setReqLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setProfilePercentage(90));
+  }, []);
 
   const registerUsersTypes = [
     {

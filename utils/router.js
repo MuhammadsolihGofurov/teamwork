@@ -5,6 +5,10 @@ export const ForgotPassword = "auth/forgot-password";
 export const RegisterSendCodeUrl = "auth/register/sms-code";
 export const RegisterAsInfoUrl = "auth/register/info";
 export const RegisterAsDetailsUrl = "auth/register/details";
+export const RegisterWithSpecialistsUrl = "auth/register/specialists";
+
+// === PROFILE ===
+export const ProfileUrl = "profile";
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";

@@ -56,6 +56,7 @@
   "RequiredCountry": "Страна обязательна",
   "RequiredRegion": "Регион обязателен",
   "RequiredDistrict": "Район обязателен",
+  "RequiredAddress": "Требуется адрес.",
   "sendCodeTitle": "На ваш номер телефона был отправлен код",
   "sendCodeBody": "На ваш зарегистрированный номер телефона будет отправлен SMS-код.",
   "birthday": "День рождения",
@@ -68,6 +69,9 @@
   "Yashash manzili": "Адрес проживания",
   "Tanlang": "Выбирать",
   "Kiriting": "Входить",
+  "Speciality": "Направление поля",
+  "SpecialityChildren": "Внутреннее направление",
+  "SkillIds": "Навыки",
   "---Login-Register---": "",
   "--title": "",
   "forgot-password-bread": "Вернуться к входу",
@@ -83,5 +87,9 @@
   "empty-country": "Страны пусты",
   "empty-region": "Регион пуст, выберите страну.",
   "empty-district": "Район пуст, выберите регион.",
+  "empty-speciality": "Направления полей пусты.",
+  "empty-speciality_children":"Внутренний маршрут пуст. Выберите направление обучения.",
+  "empty-skill_ids": "Навыки пусты",
+  "O'chirish uchun ustiga bosing": "Нажмите на него, чтобы удалить",
   "---messege---": ""
 }

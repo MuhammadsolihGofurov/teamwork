@@ -8,17 +8,18 @@ import { formatDate } from "@/utils/funcs";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
 import DatePickerUi from "../custom/form/details/date-picker";
-import { EXPERT, REGISTERASUSERTYPE } from "@/utils/data";
-import { ProfileUrl, RegisterWithSpecialistsUrl } from "@/utils/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSkillIds, setSpecialityIds } from "@/redux/slice/settings";
 import { setProfilePercentage } from "@/redux/slice/user";
 
-export default function RegisterAsDetails({ page }) {
+export default function SpecialistsForm({ page }) {
   const router = useRouter();
   const intl = useIntl();
-  const [code, setCode] = useState("998");
   const [reqLoading, setReqLoading] = useState(false);
   const dispatch = useDispatch();
+  const { specialityChildren, skillLists } = useSelector(
+    (state) => state.settings
+  );
   const {
     control,
     register,
@@ -30,19 +31,15 @@ export default function RegisterAsDetails({ page }) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      date_of_birth: "",
-      gender: "",
-      country_id: "",
-      district_id: "",
-      region_id: "",
-      address_name: "",
+      speciality_id: "",
+      speciality_ids: "",
+      skill_ids: "",
     },
   });
 
   useEffect(() => {
-    dispatch(setProfilePercentage(35));
+    dispatch(setProfilePercentage(25));
   }, []);
-
 
   const submitFn = async (data) => {
     const { date_of_birth } = data;
@@ -66,13 +63,9 @@ export default function RegisterAsDetails({ page }) {
         intl.formatMessage({ id: "register-as-details-success-message" })
       );
 
-      setTimeout(() => {
-        if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
-          router.push(`/${RegisterWithSpecialistsUrl}`);
-        } else {
-          router.push(`/${ProfileUrl}`);
-        }
-      }, 500);
+      // setTimeout(() => {
+      //   router.push("/auth/register/sms-code");
+      // }, 500);
     } catch (e) {
       console.error(e);
       toast.error(e?.response?.data?.message);
@@ -99,108 +92,61 @@ export default function RegisterAsDetails({ page }) {
         isReturn
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-3 items-start w-full">
-        <div className="col-span-1 sm:col-span-2">
-          <File page={page} />
-        </div>
-
-        <DatePickerUi
-          errors={errors?.date_of_birth}
-          type={"date"}
+        <Select
+          errors={errors?.speciality_id}
+          type={"text"}
           register={register}
-          name={"date_of_birth"}
-          title={intl.formatMessage({ id: "birthday" })}
+          name={"speciality_ids"}
+          title={intl.formatMessage({ id: "Speciality" })}
           placeholder={""}
-          id="date_of_birth"
+          id="speciality_ids"
           required
-          page={page}
+          page={"speciality"}
+          isIcon={true}
           validation={{
-            required: intl.formatMessage({ id: "RequiredDateOfBirth" }),
-          }}
-          control={control}
-        />
-
-        <Radio
-          errors={errors?.gender}
-          type={"radio"}
-          register={register}
-          name={"gender"}
-          title={intl.formatMessage({ id: "gender" })}
-          placeholder={""}
-          id="gender"
-          required
-          page={"gender"}
-          validation={{
-            required: intl.formatMessage({ id: "RequiredGender" }),
+            required: intl.formatMessage({ id: "RequiredSpeciality" }),
           }}
           control={control}
         />
 
         <Select
-          errors={errors?.country_id}
+          errors={errors?.speciality_ids}
           type={"text"}
           register={register}
-          name={"country_id"}
-          title={intl.formatMessage({ id: "Mamlakat" })}
+          name={"speciality_children"}
+          title={intl.formatMessage({ id: "SpecialityChildren" })}
           placeholder={""}
-          id="country_id"
-          required
-          page={"country"}
+          id="speciality_children"
+          required={false}
+          page={"speciality_children"}
           isIcon={true}
           validation={{
-            required: intl.formatMessage({ id: "RequiredCountry" }),
+            required: intl.formatMessage({ id: "RequiredSpecialityChildren" }),
           }}
           control={control}
+          select_type="multiple_without_api"
+          selectedState={specialityChildren}
+          setSelectedAction={setSpecialityIds}
         />
 
         <Select
-          errors={errors?.region_id}
+          errors={errors?.skill_ids}
           type={"text"}
           register={register}
-          name={"region_id"}
-          title={intl.formatMessage({ id: "Viloyat" })}
+          name={"skill_ids"}
+          title={intl.formatMessage({ id: "SkillIds" })}
           placeholder={""}
-          id="region_id"
+          id="skill_ids"
           required
-          page={"region"}
+          page={"skill_ids"}
           isIcon={true}
           validation={{
-            required: intl.formatMessage({ id: "RequiredRegion" }),
+            required: intl.formatMessage({ id: "RequiredSkillIds" }),
           }}
           control={control}
-        />
-
-        <Select
-          errors={errors?.district_id}
-          type={"text"}
-          register={register}
-          name={"district_id"}
-          title={intl.formatMessage({ id: "Tuman" })}
-          placeholder={""}
-          id="district_id"
-          required
-          page={"district"}
-          isIcon={false}
-          validation={{
-            required: intl.formatMessage({ id: "RequiredDistrict" }),
-          }}
-          control={control}
-        />
-
-        <Input
-          errors={errors?.address_name}
-          type={"text"}
-          register={register}
-          name={"address_name"}
-          title={intl.formatMessage({ id: "Yashash manzili" })}
-          placeholder={intl.formatMessage({ id: "Kiriting" })}
-          id="address_name"
-          required
-          page={"address"}
-          isIcon={true}
-          validation={{
-            required: "FIO majburiy",
-          }}
-          control={control}
+          select_type="multiple_skill_ids"
+          selectedState={skillLists}
+          setSelectedAction={setSkillIds}
         />
       </div>
 

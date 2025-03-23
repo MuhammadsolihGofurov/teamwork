@@ -9,12 +9,15 @@ import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
 import { REGISTERASUSERTYPE, REGISTERPHONENUMBER } from "@/utils/data";
+import { useDispatch } from "react-redux";
+import { setProfilePercentage } from "@/redux/slice/user";
 
 export default function RegisterInfo({ page }) {
   const router = useRouter();
   const intl = useIntl();
   const [code, setCode] = useState("998");
   const [reqLoading, setReqLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -31,6 +34,10 @@ export default function RegisterInfo({ page }) {
       repeat_password: "",
     },
   });
+
+  useEffect(() => {
+    dispatch(setProfilePercentage(75));
+  }, []);
 
   const password = watch("password");
   const repeatPassword = watch("repeat_password");
