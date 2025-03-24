@@ -5,10 +5,10 @@ import { ChangeRoles } from ".";
 import { UserNameBoxSkeleton } from "@/components/Skeleton/profile";
 
 export default function UserNameBox() {
-  const { user_info } = useSelector((state) => state.user);
+  const { user_info, loading } = useSelector((state) => state.user);
   const router = useRouter();
 
-  if (!user_info) {
+  if (loading) {
     return <UserNameBoxSkeleton />;
   }
 
@@ -21,17 +21,17 @@ export default function UserNameBox() {
         <p className="text-primary text-sm">
           {user_info?.timeSinceJoin} Mutahassis
         </p>
-        <p className="text-primary text-opacity-40 text-sm pt-5">
+        <p className="text-primary text-opacity-40 text-sm pt-3">
           {user_info?.timeSinceJoin} Since join
         </p>
       </div>
 
       <div className="flex w-full">
-        {router.pathname === "/profile" ? (
+        {router.pathname?.split("/")?.[2] === "info" ? (
           <ChangeRoles />
         ) : (
-          <p className="pb-5 line-clamp-2 text-primary text-opacity-60">
-            {user_info?.expert?.necessary_information || "No bio available"}
+          <p className="pb-5 line-clamp-2 text-primary text-opacity-60 sm:hidden block">
+            {user_info?.expert?.necessary_information}
           </p>
         )}
       </div>

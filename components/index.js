@@ -11,6 +11,9 @@ export { default as Scripts } from "./Layout/Scripts";
 // Banner
 export { default as MainBanner } from "./Banner/main-banner";
 
+// Utils
+export { default as withAuth } from "./Utils/with-auth";
+
 // Login Register
 export { default as LoginForm } from "./login-register/login-form";
 export { default as ForgotPasswordForm } from "./login-register/forgot-password-form";

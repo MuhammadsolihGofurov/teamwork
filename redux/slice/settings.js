@@ -9,6 +9,7 @@ const settingsSlice = createSlice({
     speciality_current: {},
     specialityChildren: [],
     skillLists: [],
+    logOutModalConfirm: false,
   },
   reducers: {
     setCountryId: (state, action) => {
@@ -28,7 +29,10 @@ const settingsSlice = createSlice({
     },
     setSkillIds: (state, action) => {
       state.skillLists = action.payload;
-    }
+    },
+    setToggleLogOutModalConfirm: (state) => {
+      state.logOutModalConfirm = !state.logOutModalConfirm;
+    },
   },
 });
 
@@ -38,7 +42,8 @@ export const {
   setDistrictId,
   setSpecialityCurrent,
   setSpecialityIds,
-  setSkillIds
+  setSkillIds,
+  setToggleLogOutModalConfirm,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

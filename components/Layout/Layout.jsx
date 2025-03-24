@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slice/user.js";
 import { useRouter } from "next/router.js";
+import LogOutModal from "../modals/LogOutModal.jsx";
 
 const Layout = ({ children }) => {
   // const { data: settings } = useSWR("/settings", fetcher);
@@ -68,7 +69,7 @@ const Layout = ({ children }) => {
               key={i}
               rel="alternate"
               hrefLang={locale}
-              href="https://api.teamwork.uz"
+              href="https://php.teamwork.uz"
             />
           );
         })}
@@ -89,6 +90,10 @@ const Layout = ({ children }) => {
           <Footer />
         </div>
       </div>
+
+      {/* modals */}
+      <LogOutModal />
+
 
       {/* Nav Bottom */}
       {/* <NavBottom /> */}

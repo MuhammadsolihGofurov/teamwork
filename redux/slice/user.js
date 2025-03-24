@@ -7,7 +7,7 @@ export const fetchUserData = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const registerAuthKey = localStorage.getItem(REGISTERAUTHKEY);
-      if (!registerAuthKey) return rejectWithValue("Auth key topilmadi");
+      if (!registerAuthKey) return rejectWithValue(404);
 
       const response = await axios.get(
         "/user/me?expand=expert,employer.legalEntity,employer.physicalPerson",
@@ -21,9 +21,7 @@ export const fetchUserData = createAsyncThunk(
       if (error.response?.status === 401) {
         localStorage.removeItem(REGISTERAUTHKEY);
       }
-      return rejectWithValue(
-        error.response?.data?.message || "Xatolik yuz berdi"
-      );
+      return rejectWithValue(error.response?.status);
     }
   }
 );
@@ -32,7 +30,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     profilePercentage: 90,
-    user_info: {},
+    user_info: null,
     loading: false,
     error: null,
     is_auth: false,
@@ -40,6 +38,9 @@ const userSlice = createSlice({
   reducers: {
     setProfilePercentage: (state, action) => {
       state.profilePercentage = action.payload;
+    },
+    setErrorNull: (state) => {
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -49,6 +50,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
+        state.error = null;
         state.loading = false;
         state.user_info = action.payload?.data;
         state.is_auth = true;
@@ -60,6 +62,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setProfilePercentage } = userSlice.actions;
+export const { setProfilePercentage, setErrorNull } = userSlice.actions;
 
 export default userSlice.reducer;

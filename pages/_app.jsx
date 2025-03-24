@@ -34,8 +34,6 @@ export default function App({ Component, pageProps }) {
     uz: messages_uz,
   };
 
-  
-
   useEffect(() => {
     try {
       const handleStart = () => NProgress.start();
@@ -76,6 +74,9 @@ export default function App({ Component, pageProps }) {
       >
         <LangProvider>
           <SkeletonTheme>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
             <ToastContainer
               position="top-right"
               autoClose={3000}
@@ -83,9 +84,6 @@ export default function App({ Component, pageProps }) {
               theme="light"
               transition={Flip}
             />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
           </SkeletonTheme>
         </LangProvider>
       </IntlProvider>

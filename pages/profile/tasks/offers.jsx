@@ -42,7 +42,7 @@ function ProfilePage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile",
+    seo_home_title: "Profile Task's Offers",
     seo_home_keywords: "",
     seo_home_description: "",
   };

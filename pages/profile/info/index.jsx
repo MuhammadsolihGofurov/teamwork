@@ -1,7 +1,7 @@
 import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { ProfileWrapper } from "@/components/Utils";
-import { LeftInfoProfile } from "@/components/profile";
+import { CenterInfoProfile, LeftInfoProfile } from "@/components/profile";
 import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -35,6 +35,7 @@ function ProfilePage({ info }) {
         ]}
       >
         <LeftInfoProfile />
+        <CenterInfoProfile />
       </ProfileWrapper>
     </>
   );
@@ -42,7 +43,7 @@ function ProfilePage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile",
+    seo_home_title: "Profile Info ",
     seo_home_keywords: "",
     seo_home_description: "",
   };

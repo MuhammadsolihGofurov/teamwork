@@ -39,8 +39,8 @@ export default function ProfilePicture() {
       </svg>
       {user_info?.photoUrl ? (
         <Image
-          src={user_info?.photoUrl}
-          title={user_info?.full_name}
+          src={user_info?.photoUrl ?? "/images/defaultAvatar.png"}
+          title={user_info?.full_name || "User Avatar"}
           alt="Profile Image"
           role="img"
           loading="lazy"

@@ -7,7 +7,7 @@ import {
 } from "@/utils/router";
 import React from "react";
 import { useSelector } from "react-redux";
-import { ProfilePicture } from ".";
+import ProfilePicture from "./profile-picture";
 
 export default function ProfileBox() {
   const { is_auth } = useSelector((state) => state.user);

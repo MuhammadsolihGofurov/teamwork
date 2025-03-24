@@ -7,10 +7,10 @@ import { ChangeRoles } from ".";
 import { PictureBoxSkeleton } from "@/components/Skeleton/profile";
 
 export default function PictureBox() {
-  const { user_info } = useSelector((state) => state.user);
+  const { user_info, loading } = useSelector((state) => state.user);
   const router = useRouter();
 
-  if (!user_info) {
+  if (loading) {
     return <PictureBoxSkeleton />;
   }
 
@@ -18,7 +18,7 @@ export default function PictureBox() {
     <div className="relative z-0 bg-white w-full border grid items-center grid-cols-3 sm:grid-cols-1 gap-3 small:gap-5 border-bg-3 pt-4 sm:p-6 rounded-lg">
       <div className="flex items-center flex-col text-center gap-2 justify-center col-span-1 sm:col-span-1 sm:pl-0 pl-5">
         <Image
-          src={user_info?.photoUrl}
+          src={user_info?.photoUrl ?? "/images/defaultAvatar.png"}
           title={user_info?.full_name}
           alt={"Profile image"}
           role="img"
@@ -122,8 +122,8 @@ export default function PictureBox() {
         {router.pathname === "/profile" ? (
           <ChangeRoles />
         ) : (
-          <p className="pb-5 line-clamp-2 text-primary text-opacity-60">
-            {user_info?.expert?.necessary_information || "No bio available"}
+          <p className="pb-5 px-5 line-clamp-2 text-primary text-opacity-60">
+            {user_info?.expert?.necessary_information}
           </p>
         )}
       </div>

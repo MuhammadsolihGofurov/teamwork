@@ -58,7 +58,7 @@ export default function PhoneInput({
         required={required}
         autoComplete="off"
         disabled={noSelected}
-        className="rounded-full py-1 px-6 flex-1 sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
+        className="rounded-full py-1 px-6 flex-1 border-transparent sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
         {...register(name, validation)}
       />
     </div>
