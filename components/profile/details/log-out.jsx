@@ -16,7 +16,7 @@ export default function LogOut({ isMobile = false }) {
       type="button"
       role="button"
       onClick={() => setlogOutModalConfirm()}
-      className={`mt-10 hover:border-main hover:text-main group transition-colors duration-200 py-4 px-5 rounded-lg border border-bg-3 bg-white  items-center justify-center text-sm gap-1 text-primary cursor-pointer ${isMobile ? "" :"flex"}`}
+      className={`mt-10 hover:border-main hover:text-main group transition-colors duration-200 py-4 px-5 rounded-lg border border-bg-3 bg-white  items-center justify-center text-sm gap-1 text-primary cursor-pointer ${isMobile ? "flex" :"sm:flex hidden"}`}
     >
       <svg
         width="16"

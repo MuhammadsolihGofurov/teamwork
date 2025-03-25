@@ -35,7 +35,7 @@ function ProfilePage({ info }) {
         ]}
       >
         <LeftInfoProfile />
-        <CenterInfoProfile />
+        <CenterInfoProfile page={"info"} />
       </ProfileWrapper>
     </>
   );

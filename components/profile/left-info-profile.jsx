@@ -5,7 +5,7 @@ export default function LeftInfoProfile() {
   return (
     <div
       id="left-info-profile"
-      className="w-full sm:w-1/5 flex flex-col gap-2"
+      className="w-full sm:w-2/6 2xl:w-1/5 flex flex-col gap-2"
     >
       <PictureBox />
       <UserNameBox />
