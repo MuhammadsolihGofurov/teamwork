@@ -29,10 +29,10 @@ module.exports = {
         xs: "450px",
         // => @media (min-width: 450px) { ... }
 
-        sm: "576px",
+        sm: "650px",
         // => @media (min-width: 576px) { ... }
 
-        ms: "650px",
+        // ms: "650px",
         // => @media (min-width: 650px) { ... }
 
         md: "768px",

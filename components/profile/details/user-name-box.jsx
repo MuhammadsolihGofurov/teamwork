@@ -3,10 +3,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { ChangeRoles } from ".";
 import { UserNameBoxSkeleton } from "@/components/Skeleton/profile";
+import { EXPERT } from "@/utils/data";
 
 export default function UserNameBox() {
   const { user_info, loading } = useSelector((state) => state.user);
   const router = useRouter();
+  const userSinceJoin =
+    user_info?.type?.value == EXPERT
+      ? user_info?.expert?.timeSinceJoin
+      : user_info?.employer?.timeSinceJoin;
 
   if (loading) {
     return <UserNameBoxSkeleton />;
@@ -18,11 +23,9 @@ export default function UserNameBox() {
         <h3 className="text-base font-semibold text-primary leading-4 small:leading-5">
           {user_info?.full_name}
         </h3>
-        <p className="text-primary text-sm">
-          {user_info?.timeSinceJoin} Mutahassis
-        </p>
+        <p className="text-primary text-sm">{user_info?.type?.name}</p>
         <p className="text-primary text-opacity-40 text-sm pt-3">
-          {user_info?.timeSinceJoin} Since join
+          {userSinceJoin}
         </p>
       </div>
 

@@ -18,9 +18,9 @@ export const fetchUserData = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        localStorage.removeItem(REGISTERAUTHKEY);
-      }
+      // if (error.response?.status === 401) {
+      //   localStorage.removeItem(REGISTERAUTHKEY);
+      // }
       return rejectWithValue(error.response?.status);
     }
   }

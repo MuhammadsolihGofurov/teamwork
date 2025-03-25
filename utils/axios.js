@@ -1,5 +1,7 @@
 import axios from "axios";
 import { REGISTERAUTHKEY } from "./data";
+import router from "next/router";
+import { LoginUrl } from "./router";
 
 export default axios.create({
   baseURL: process.env.API,
@@ -26,4 +28,15 @@ authAxios.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+authAxios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem(REGISTERAUTHKEY);
+      router.push(`/${LoginUrl}`);
+    }
+    return Promise.reject(error);
+  }
 );

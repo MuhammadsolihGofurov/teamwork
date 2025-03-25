@@ -5,17 +5,28 @@ import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 import { ChangeRoles } from ".";
 import { PictureBoxSkeleton } from "@/components/Skeleton/profile";
+import { EXPERT } from "@/utils/data";
+import { NextLink } from "@/components/Utils";
+import { InfoEditUrl } from "@/utils/router";
 
-export default function PictureBox() {
+export default function PictureBox({ isMobile = false }) {
   const { user_info, loading } = useSelector((state) => state.user);
   const router = useRouter();
+  const userSinceJoin =
+    user_info?.type?.value == EXPERT
+      ? user_info?.expert?.timeSinceJoin
+      : user_info?.employer?.timeSinceJoin;
 
   if (loading) {
     return <PictureBoxSkeleton />;
   }
 
   return (
-    <div className="relative z-0 bg-white w-full border grid items-center grid-cols-3 sm:grid-cols-1 gap-3 small:gap-5 border-bg-3 pt-4 sm:p-6 rounded-lg">
+    <div
+      className={`relative z-0 bg-white w-full border ${
+        isMobile ? "sm:hidden grid" : "sm:grid hidden"
+      } items-center grid-cols-3 sm:grid-cols-1 gap-3 small:gap-5 border-bg-3 pt-4 sm:p-6 rounded-lg`}
+    >
       <div className="flex items-center flex-col text-center gap-2 justify-center col-span-1 sm:col-span-1 sm:pl-0 pl-5">
         <Image
           src={user_info?.photoUrl ?? "/images/defaultAvatar.png"}
@@ -110,11 +121,9 @@ export default function PictureBox() {
         <h3 className="text-base small:text-lg font-semibold text-primary leading-4 small:leading-5">
           {user_info?.full_name}
         </h3>
-        <p className="text-primary text-sm">
-          {user_info?.timeSinceJoin} Mutahassis
-        </p>
+        <p className="text-primary text-sm">{user_info?.type?.name}</p>
         <p className="text-primary text-opacity-40 text-sm pt-5">
-          {user_info?.timeSinceJoin} Since join
+          {userSinceJoin}
         </p>
       </div>
 
@@ -128,7 +137,8 @@ export default function PictureBox() {
         )}
       </div>
 
-      <button
+      <NextLink
+        url={`${InfoEditUrl}`}
         type="button"
         className="absolute top-3 sm:top-5 right-3 sm:right-5 group"
       >
@@ -151,7 +161,7 @@ export default function PictureBox() {
             />
           </g>
         </svg>
-      </button>
+      </NextLink>
     </div>
   );
 }

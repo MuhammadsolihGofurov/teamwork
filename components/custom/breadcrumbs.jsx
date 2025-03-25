@@ -1,9 +1,20 @@
 import React from "react";
 import { NextLink } from "../Utils";
 import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
-export default function Breadcrumbs({ data, isReturn = false }) {
+export default function Breadcrumbs({
+  data,
+  isReturn = false,
+  page = "default",
+  indexNum = 0,
+  tabsMenu = [],
+  isMenuShow = false,
+}) {
   const intl = useIntl();
+  const { user_info } = useSelector((state) => state.user);
+  const router = useRouter();
 
   if (isReturn) {
     return (
@@ -33,6 +44,51 @@ export default function Breadcrumbs({ data, isReturn = false }) {
 
           {data[0]?.name}
         </NextLink>
+      </div>
+    );
+  }
+
+  if (page == "profile") {
+    // data => id, name,url, role, additional_url
+    const filteredRoles = tabsMenu?.filter(
+      (item) => item?.role == "all" || item?.role == user_info?.type?.value
+    );
+
+    return (
+      <div className="border-b border-b-bg-3 flex flex-col gap-3 items-start sm:hidden pt-2 pb-3 pl-5">
+        <NextLink
+          url={data?.[indexNum]?.url}
+          key={data?.[indexNum]?.name}
+          className={
+            "flex items-center gap-1 text-primary opacity-100 group hover:opacity-100 hover:text-main transition-all duration-150 text-sm"
+          }
+        >
+          {data?.[indexNum]?.name}
+        </NextLink>
+        {isMenuShow ? (
+          <div className="flex flex-row w-full gap-1 overflow-x-auto scroll__none pr-5">
+            {filteredRoles?.map((item) => {
+              const isCorrect =
+                `/${item?.url}` == router.pathname ||
+                `/${item?.additional_url}` == router.pathname;
+              return (
+                <NextLink
+                  url={item?.url}
+                  key={item?.name}
+                  className={`flex py-[6px] px-3 text-sm text-nowrap rounded-full font-medium hover:text-main transition-colors duration-200 ${
+                    isCorrect
+                      ? "bg-main bg-opacity-10 text-main"
+                      : "bg-white text-primary"
+                  }`}
+                >
+                  {intl.formatMessage({ id: item?.name })}
+                </NextLink>
+              );
+            })}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
@@ -70,9 +126,11 @@ export default function Breadcrumbs({ data, isReturn = false }) {
           <NextLink
             url={link?.url}
             key={link?.name + index}
-            className={
-              "flex items-center gap-1 text-primary opacity-100 group hover:opacity-100 hover:text-main transition-all duration-150"
-            }
+            className={`flex items-center gap-1 ${
+              link?.is_correct
+                ? "text-primary opacity-100"
+                : "text-primary opacity-40"
+            } group hover:opacity-100 hover:text-main transition-all duration-150`}
           >
             {link?.name}
           </NextLink>

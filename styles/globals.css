@@ -147,7 +147,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: none !important;
 }
 
-
 .gender__item .peer:checked ~ .gender__icon svg path {
   stroke: white;
+}
+.scroll__none {
+  scrollbar-width: 0;
 }

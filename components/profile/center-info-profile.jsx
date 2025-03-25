@@ -1,11 +1,20 @@
 import React from "react";
 import { InfoTopBanner } from "./details/info";
+import { MenuTabs } from "./details";
+import { useIntl } from "react-intl";
 
-export default function CenterInfoProfile({ page = "" }) {
+export default function CenterInfoProfile({
+  page = "",
+  tabsMenu,
+  isMobile = false,
+}) {
+  const intl = useIntl();
+
   if (page === "info") {
     return (
-      <CenterInfoWrapper>
+      <CenterInfoWrapper isMobile={isMobile}>
         <InfoTopBanner />
+        <MenuTabs data={tabsMenu}  />
       </CenterInfoWrapper>
     );
   }
@@ -14,11 +23,13 @@ export default function CenterInfoProfile({ page = "" }) {
 }
 // bitta wrapper olish va uni ichida bitta top uchun section bo'ladi qoganlari pagega qarab render qilinadi xuddi register-form kabi
 
-export const CenterInfoWrapper = ({ children }) => {
+export const CenterInfoWrapper = ({ children, isMobile }) => {
   return (
     <div
       id="center-info-profile"
-      className="w-full sm:w-4/6 2xl:w-3/5 flex flex-col gap-2"
+      className={`w-full sm:w-4/6 2xl:w-3/5 ${
+        isMobile ? "sm:hidden flex" : "sm:flex hidden"
+      } flex-col gap-2`}
     >
       {children}
     </div>

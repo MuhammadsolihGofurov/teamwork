@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slice/user.js";
 import { useRouter } from "next/router.js";
-import LogOutModal from "../modals/LogOutModal.jsx";
 
 const Layout = ({ children }) => {
   // const { data: settings } = useSWR("/settings", fetcher);
@@ -92,7 +91,6 @@ const Layout = ({ children }) => {
       </div>
 
       {/* modals */}
-      <LogOutModal />
 
 
       {/* Nav Bottom */}

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { StatusChangeBtn } from ".";
 import { InfoTopSkeleton } from "@/components/Skeleton/profile";
 
-export default function InfoTopBanner() {
+export default function InfoTopBanner({ isMobile = false }) {
   const intl = useIntl();
   const { user_info, loading } = useSelector((state) => state.user);
   const [changedStatus, setChangedStatus] = useState("");
@@ -62,7 +62,11 @@ export default function InfoTopBanner() {
   }
 
   return (
-    <div className="bg-white border border-bg-3 rounded-lg flex flex-col gap-5 pt-5 sm:pt-8 pb-1">
+    <div
+      className={`bg-white border border-bg-3 rounded-lg ${
+        isMobile ? "sm:hidden flex" : "sm:flex hidden"
+      } flex-col gap-5 pt-5 sm:pt-8 pb-1 w-full`}
+    >
       <div className="flex flex-col gap-1 px-5 sm:px-10">
         <h1
           className="text-lg sm:text-xl font-medium text-primary"
@@ -76,7 +80,7 @@ export default function InfoTopBanner() {
           })}
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-5 px-5 sm:px-10">
+      <div className="grid grid-cols-2 gap-2 small:gap-5 px-5 sm:px-10">
         {filteredRoles?.map((item) => {
           return (
             <button
@@ -88,7 +92,7 @@ export default function InfoTopBanner() {
                 changedStatus === item.id
                   ? "border-main font-semibold bg-main bg-opacity-10"
                   : "font-medium border-transparent bg-bg-2"
-              } border-2 flex-col gap-0 text-start py-2 sm:py-3 px-3 sm:px-6 rounded-lg  text-sm  text-primary `}
+              } border-2 flex-col gap-0 text-start py-2 sm:py-3 px-3 sm:px-6 rounded-lg text-xs small:text-sm  text-primary `}
             >
               <span>{item?.name}</span>
               <span className="text-main sm:inline hidden">{item?.body}</span>
@@ -96,7 +100,9 @@ export default function InfoTopBanner() {
           );
         })}
       </div>
-      <StatusChangeBtn status={changedStatus} />
+      <StatusChangeBtn
+        currentRole={filteredRoles?.find((item) => item?.id == changedStatus)}
+      />
     </div>
   );
 }

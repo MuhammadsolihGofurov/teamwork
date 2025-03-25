@@ -1,22 +1,43 @@
-import { setToggleLogOutModalConfirm } from "@/redux/slice/settings";
+import { useModal } from "@/context/modal-provider";
+import {
+  REGISTERASUSERTYPE,
+  REGISTERAUTHKEY,
+  REGISTERPHONENUMBER,
+} from "@/utils/data";
+import { LoginUrl } from "@/utils/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function LogOut({ isMobile = false }) {
   const intl = useIntl();
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const { showModal } = useModal();
 
-  const setlogOutModalConfirm = () => {
-    dispatch(setToggleLogOutModalConfirm());
+  const handleLogOut = () => {
+    localStorage.removeItem(REGISTERAUTHKEY);
+    localStorage.removeItem(REGISTERASUSERTYPE);
+    localStorage.removeItem(REGISTERPHONENUMBER);
+
+    toast.success(intl.formatMessage({ id: "success-log-out" }));
+    router.push(`/${LoginUrl}`);
   };
 
   return (
     <button
       type="button"
       role="button"
-      onClick={() => setlogOutModalConfirm()}
-      className={`mt-10 hover:border-main hover:text-main group transition-colors duration-200 py-4 px-5 rounded-lg border border-bg-3 bg-white  items-center justify-center text-sm gap-1 text-primary cursor-pointer ${isMobile ? "flex" :"sm:flex hidden"}`}
+      onClick={() =>
+        showModal({
+          title: "logOutModalTitle",
+          message: "logOutModalBody",
+          onConfirm: handleLogOut,
+        })
+      }
+      className={`mt-10 hover:border-main hover:text-main group transition-colors duration-200 py-4 px-5 rounded-lg border border-bg-3 bg-white  items-center justify-center text-sm gap-1 text-primary cursor-pointer ${
+        isMobile ? "flex sm:hidden" : "sm:flex hidden"
+      }`}
     >
       <svg
         width="16"

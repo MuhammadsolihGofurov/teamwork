@@ -22,6 +22,7 @@ export const MyOrdersUrl = "profile/orders";
 export const VacancyUrl = "profile/vacancy";
 // info
 export const InfoUrl = "profile/info";
+export const InfoEditUrl = "profile/info/edit-info";
 export const PhysicalInfoUrl = "profile/info/physical-info";
 export const LegalInfoUrl = "profile/info/legal-info";
 export const AdditionInfoUrl = "profile/info/addition-info";
@@ -30,8 +31,8 @@ export const BioInfoUrl = "profile/info/bio-info";
 export const SavedTasksUrl = "profile/saved/tasks";
 export const SavedExpertsUrl = "profile/saved/experts";
 // Portoflio
-export const PortfolioTeamworkUrl = "profile/portfolio/teamwork"
-export const PortfolioOthersUrl = "profile/portfolio/others"
+export const PortfolioTeamworkUrl = "profile/portfolio/teamwork";
+export const PortfolioOthersUrl = "profile/portfolio/others";
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";

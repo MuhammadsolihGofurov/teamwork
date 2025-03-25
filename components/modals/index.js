@@ -1,1 +1,1 @@
-export { default as LogOutModal } from "./LogOutModal";
+export { default as ConfirmModal } from "./confirm-modal";

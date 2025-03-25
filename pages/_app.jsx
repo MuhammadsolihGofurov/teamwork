@@ -23,6 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 import { Bounce, Flip, ToastContainer } from "react-toastify";
 import { fetchUserData } from "@/redux/slice/user";
+import { ModalProvider } from "@/context/modal-provider";
+import { ConfirmModal } from "@/components/modals";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -74,16 +76,21 @@ export default function App({ Component, pageProps }) {
       >
         <LangProvider>
           <SkeletonTheme>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              draggable
-              theme="light"
-              transition={Flip}
-            />
+            <ModalProvider>
+              <Layout>
+                <Component {...pageProps} />
+
+                {/* modals */}
+                <ConfirmModal />
+              </Layout>
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                draggable
+                theme="light"
+                transition={Flip}
+              />
+            </ModalProvider>
           </SkeletonTheme>
         </LangProvider>
       </IntlProvider>

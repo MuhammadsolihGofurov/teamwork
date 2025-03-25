@@ -9,7 +9,7 @@ import { REGISTERAUTHKEY } from "@/utils/data";
 
 const withAuth = (WrappedComponent) => {
   return function AuthComponent(props) {
-    const { is_auth, error } = useSelector((state) => state.user);
+    const { is_auth, error, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
     const intl = useIntl();
@@ -39,7 +39,7 @@ const withAuth = (WrappedComponent) => {
           router.push(`/${LoginUrl}`);
           setTimeout(() => {
             dispatch(setErrorNull());
-          }, 500);
+          }, 3000);
         }
       }
     }, [router, error]);

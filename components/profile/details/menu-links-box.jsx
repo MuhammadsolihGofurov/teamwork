@@ -151,11 +151,11 @@ export default function MenuLinksBox({ isMobile = false }) {
   if (loading) {
     return (
       <div
-        className={` sm:p-6 sm:flex hidden border-bg-3 border rounded-lg bg-white gap-5 flex-col  items-start`}
+        className={` sm:p-6 flex  sm:border-bg-3 sm:border rounded-lg bg-white gap-1 sm:gap-5 flex-col w-full`}
       >
         {Array.from({ length: 7 }).map((item, index) => {
           return (
-            <div className="flex items-center gap-2" key={index * 100}>
+            <div className="flex w-full items-center gap-2 sm:px-0 sm:py-0 px-5 py-3 border border-bg-3 rounded-lg sm:border-none" key={index}>
               <Skeleton width={24} height={24} />
               <Skeleton width={120} height={10} />
             </div>
@@ -169,7 +169,7 @@ export default function MenuLinksBox({ isMobile = false }) {
     <div
       className={`sm:p-6 ${
         isMobile ? "sm:hidden flex " : "sm:flex hidden  "
-      }   bg-white gap-1 sm:gap-5 flex-col  items-start sm:border-bg-3 sm:border rounded-lg`}
+      }   bg-white gap-1 sm:gap-5 flex-col  items-start sm:border-bg-3 sm:border rounded-lg w-full`}
     >
       {filteredLinks?.map((link) => {
         const isCorrect = currentRouter == link?.url?.split("/")?.[1];
