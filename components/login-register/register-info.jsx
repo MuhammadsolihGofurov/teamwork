@@ -8,7 +8,11 @@ import { unmaskPhone } from "@/utils/funcs";
 import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERASUSERTYPE, REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
+import {
+  REGISTERASUSERTYPE,
+  REGISTERAUTHKEY,
+  REGISTERPHONENUMBER,
+} from "@/utils/data";
 import { useDispatch } from "react-redux";
 import { setProfilePercentage } from "@/redux/slice/user";
 
@@ -122,7 +126,7 @@ export default function RegisterInfo({ page }) {
           page={page}
           setCode={setCode}
           validation={{
-            required: "FIO majburiy",
+            required: intl.formatMessage({ id: "RequiredName" }),
           }}
         />
 

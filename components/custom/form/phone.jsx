@@ -45,6 +45,35 @@ export default function PhoneInput({
     );
   }
 
+  if (page == "profile") {
+    return (
+      <label htmlFor={name} className="flex flex-col gap-1 w-full">
+        <span className="text-base font-medium text-primary pb-1">{title}</span>
+        <div className="flex flex-row items-center gap-1 bg-bg-2 border border-bg-3 rounded-lg">
+          <PhoneCode setCode={setCode} page={page} />
+          <InputMask
+            mask="99 999-99-99"
+            maskChar="_"
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            required={required}
+            autoComplete="off"
+            disabled={noSelected}
+            className="p-4 bg-bg-2 border-none w-full text-primary rounded-lg"
+            {...register(name, validation)}
+          />
+        </div>
+        {errors?.message ? (
+          <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
+        ) : (
+          <></>
+        )}
+      </label>
+    );
+  }
+
   return (
     <div className="flex flex-row gap-1 sm:w-auto w-full sm:bg-transparent bg-white rounded-full">
       <PhoneCode setCode={setCode} />

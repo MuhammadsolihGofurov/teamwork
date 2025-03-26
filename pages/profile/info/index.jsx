@@ -11,13 +11,14 @@ import { InfoTopBanner } from "@/components/profile/details/info";
 import { InfoMenu } from "@/utils/profile-menu";
 import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
+import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
 
 function ProfilePage({ info }) {
   const router = useRouter();
   const intl = useIntl();
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -25,17 +26,6 @@ function ProfilePage({ info }) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [router.asPath]);
-
-  // Ekran o‘lchamini tekshirish
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 650);
-    };
-
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
 
   return (
     <>

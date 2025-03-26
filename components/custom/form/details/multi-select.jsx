@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { Tooltip } from "flowbite-react";
+// import { Tooltip } from "flowbite-react";
 import { authAxios } from "@/utils/axios";
 import { debounce } from "lodash";
 
@@ -57,7 +57,7 @@ export default function MultiSelect({
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target) &&
       buttonRef.current &&
-      !buttonRef.current.contains(event.target) 
+      !buttonRef.current.contains(event.target)
     ) {
       setIsOpen(false);
     }
@@ -168,21 +168,37 @@ export default function MultiSelect({
           {selectedState.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-3 pl-5">
               {selectedState.map((option) => (
-                <Tooltip
+                // <Tooltip
+                //   key={option?.name + option.id}
+                //   placement={"bottom"}
+                //   content={intl.formatMessage({
+                //     id: "O'chirish uchun ustiga bosing",
+                //   })}
+                // >
+                //   <button
+                //     type="button"
+                //     onClick={() => removeOption(field, option)}
+                //     className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
+                //   >
+                //     {option.name}
+                //   </button>
+                // </Tooltip>
+                // <Tooltip
+
+                //   placement={"bottom"}
+                //   content={intl.formatMessage({
+                //     id: "O'chirish uchun ustiga bosing",
+                //   })}
+                // >
+                <button
+                  type="button"
                   key={option?.name + option.id}
-                  placement={"bottom"}
-                  content={intl.formatMessage({
-                    id: "O'chirish uchun ustiga bosing",
-                  })}
+                  onClick={() => removeOption(field, option)}
+                  className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
                 >
-                  <button
-                    type="button"
-                    onClick={() => removeOption(field, option)}
-                    className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
-                  >
-                    {option.name}
-                  </button>
-                </Tooltip>
+                  {option.name}
+                </button>
+                // </Tooltip>
               ))}
             </div>
           )}

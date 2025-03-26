@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import flowbite from "flowbite-react/tailwind";
 
 module.exports = {
   content: [
-    flowbite.content(),
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     // '.s/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: ["myFont", "SF Pro Display", "sans-serif"],
@@ -55,5 +55,5 @@ module.exports = {
       },
     },
   },
-  plugins: [flowbite.plugin()],
+  plugins: [],
 };

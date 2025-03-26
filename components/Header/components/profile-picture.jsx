@@ -46,7 +46,7 @@ export default function ProfilePicture() {
           loading="lazy"
           width={36}
           height={36}
-          className="w-9 h-9 object-cover"
+          className="w-9 h-9 object-cover rounded-full"
         />
       ) : (
         <svg

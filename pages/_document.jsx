@@ -7,7 +7,7 @@ class MyDocument extends Document {
       this.props.__NEXT_DATA__.locale || nextConfig.i18n.defaultLocale;
 
     return (
-      <Html lang={currentLocale}>
+      <Html data-theme="light" lang={currentLocale}>
         <Head>
           <link href="/manifest.json" rel="manifest" />
         </Head>

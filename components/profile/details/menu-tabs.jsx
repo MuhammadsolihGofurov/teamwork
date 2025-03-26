@@ -1,3 +1,4 @@
+import { MenuTabsSkeleton } from "@/components/Skeleton/profile";
 import { NextLink } from "@/components/Utils";
 import { useRouter } from "next/router";
 import React from "react";
@@ -5,7 +6,7 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 
 export default function MenuTabs({ data, page }) {
-  const { user_info } = useSelector((state) => state.user);
+  const { user_info,loading } = useSelector((state) => state.user);
   const intl = useIntl();
   const router = useRouter();
 
@@ -13,6 +14,12 @@ export default function MenuTabs({ data, page }) {
   const filteredRoles = data?.filter(
     (item) => item?.role == "all" || item?.role == user_info?.type?.value
   );
+
+  if(loading){
+    return(
+      <MenuTabsSkeleton />
+    )
+  }
 
   return (
     <div

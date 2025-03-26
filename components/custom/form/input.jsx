@@ -98,6 +98,30 @@ export default function Input({
     );
   }
 
+  if (page == "profile") {
+    return (
+      <label className="flex flex-col gap-1" htmlFor={name}>
+        <span className="text-base font-medium text-primary pb-1">{title}</span>
+        <input
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          id={name}
+          required={required}
+          autoComplete="off"
+          disabled={noSelected}
+          className="p-4 rounded-lg bg-bg-2 border border-bg-3 text-primary"
+          {...register(name, validation)}
+        />
+        {errors?.message ? (
+          <span className="text-sm text-red-500">{errors?.message}</span>
+        ) : (
+          <></>
+        )}
+      </label>
+    );
+  }
+
   return (
     <label className="flex flex-row gap-1 sm:w-auto w-full sm:bg-transparent bg-white rounded-full">
       <span>{title}</span>

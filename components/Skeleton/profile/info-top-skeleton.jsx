@@ -9,11 +9,11 @@ export default function InfoTopSkeleton() {
         <Skeleton className="w-[120px] sm:w-[240px]" />
       </div>
       <div className="flex w-full gap-5 px-5 sm:px-10">
-        <Skeleton className="w-[100px] small:w-[140px] md:w-[200px] lg:w-[260px] 2xl:w-[300px]" />
-        <Skeleton className="w-[100px] small:w-[140px] md:w-[200px] lg:w-[260px] 2xl:w-[300px]" />
+        <Skeleton className="w-[100px] h-[20px] sm:h-[60px] small:w-[140px] md:w-[200px] lg:w-[260px] 2xl:w-[300px]" />
+        <Skeleton className="w-[100px] h-[20px] sm:h-[60px] small:w-[140px] md:w-[200px] lg:w-[260px] 2xl:w-[300px]" />
       </div>
       <div className="px-1">
-        <Skeleton className="w-full flex-1" />
+        <Skeleton className="w-full flex-1 h-[20px] sm:h-[60px]" />
       </div>
     </div>
   );

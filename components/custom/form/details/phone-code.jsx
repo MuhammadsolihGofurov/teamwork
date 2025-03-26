@@ -78,6 +78,47 @@ export default function PhoneCode({ setCode, page }) {
     );
   }
 
+  if (page == "profile") {
+    return (
+      <div
+        className={`h-[54px] p-[3px] bg-white rounded-lg flex items-center justify-center relative z-10`}
+        ref={menuRef}
+      >
+        {/* current */}
+        <button
+          role="button"
+          type="button"
+          className="w-[64px] small:w-[85px] rounded-full h-full"
+          onClick={handleClickAndOpenMenu}
+        >
+          {"+" + active}
+        </button>
+
+        {/* all codes */}
+        <div
+          className={`absolute top-full flex gap-1 flex-col w-full bg-white rounded-lg shadow-md p-1 transition-transform duration-100 z-10 ${
+            openClass
+              ? "visible opacity-100 translate-y-0 transition-transform duration-150"
+              : "invisible opacity-0 translate-y-3 transition-transform duration-150"
+          }`}
+        >
+          {data.map((item, index) => (
+            <button
+              type="button"
+              key={index + item.name}
+              className={`w-full h-[42px] border ${
+                item.name === active ? "border-main" : "border-bg-1"
+              } bg-bg-2 rounded-lg`}
+              onClick={() => handleClickAndSetActive(item.name)}
+            >
+              {"+" + item.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`h-[54px] p-[3px] bg-white rounded-full flex items-center justify-center relative z-10`}

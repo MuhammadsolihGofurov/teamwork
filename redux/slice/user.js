@@ -1,4 +1,4 @@
-import axios from "@/utils/axios";
+import axios, { authAxios } from "@/utils/axios";
 import { REGISTERAUTHKEY } from "@/utils/data";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -9,11 +9,8 @@ export const fetchUserData = createAsyncThunk(
       const registerAuthKey = localStorage.getItem(REGISTERAUTHKEY);
       if (!registerAuthKey) return rejectWithValue(404);
 
-      const response = await axios.get(
-        "/user/me?expand=expert,employer.legalEntity,employer.physicalPerson",
-        {
-          headers: { Authorization: `Bearer ${registerAuthKey}` },
-        }
+      const response = await authAxios.get(
+        "/user/me?expand=expert,employer.legalEntity,employer.physicalPerson"
       );
 
       return response.data;
@@ -34,6 +31,7 @@ const userSlice = createSlice({
     loading: false,
     error: null,
     is_auth: false,
+    current_user_type: 0,
   },
   reducers: {
     setProfilePercentage: (state, action) => {
@@ -54,6 +52,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.user_info = action.payload?.data;
         state.is_auth = true;
+        state.current_user_type = action.payload?.data?.type?.value;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.loading = false;
