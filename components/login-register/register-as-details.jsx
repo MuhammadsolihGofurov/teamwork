@@ -148,7 +148,7 @@ export default function RegisterAsDetails({ page }) {
           placeholder={""}
           id="country_id"
           required
-          page={"country"}
+          state={"country"}
           isIcon={true}
           validation={{
             required: intl.formatMessage({ id: "RequiredCountry" }),
@@ -165,7 +165,7 @@ export default function RegisterAsDetails({ page }) {
           placeholder={""}
           id="region_id"
           required
-          page={"region"}
+          state={"region"}
           isIcon={true}
           validation={{
             required: intl.formatMessage({ id: "RequiredRegion" }),
@@ -183,7 +183,7 @@ export default function RegisterAsDetails({ page }) {
           placeholder={""}
           id="district_id"
           required
-          page={"district"}
+          state={"district"}
           isIcon={false}
           validation={{
             required: intl.formatMessage({ id: "RequiredDistrict" }),

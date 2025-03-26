@@ -7,6 +7,7 @@ import {
   RightInfoProfile,
 } from "@/components/profile";
 import { LogOut, MenuLinksBox } from "@/components/profile/details";
+import { InfoMainChanges } from "@/components/profile/details/info";
 import { CUSTOMER, EXPERT } from "@/utils/data";
 import { InfoMenu } from "@/utils/profile-menu";
 import {
@@ -65,6 +66,7 @@ function ProfilePage({ info }) {
         <RightInfoProfile />
 
         {/* Mobile view */}
+        <InfoMainChanges isMobile/>
       </ProfileWrapper>
     </>
   );

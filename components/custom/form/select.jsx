@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export default function SelectInput({
   name,
   title,
+  state,
   page,
   errors,
   isIcon,
@@ -35,7 +36,7 @@ export default function SelectInput({
   // Agar select_type "multiple_without_api" bo‘lsa, API so‘rov yubormaymiz
   const shouldFetch = select_type !== "multiple_without_api";
   const { data, isLoading, error } = shouldFetch
-    ? useFetchData(endpoints[page], isAuth)
+    ? useFetchData(endpoints[state], isAuth)
     : {
         data: { items: speciality_current?.children },
         isLoading: false,
@@ -44,28 +45,38 @@ export default function SelectInput({
 
   return (
     <label className="flex flex-col gap-2" htmlFor={name}>
-      <span className="text-sm font-normal text-primary pl-6">{title}</span>
+      <span
+        className={` text-primary  ${
+          page == "profile"
+            ? "pl-0 text-base font-medium"
+            : "pl-6 text-sm font-normal"
+        }`}
+      >
+        {title}
+      </span>
 
       {select_type.startsWith("multiple") ? (
         <MultiSelect
           options={data?.items}
           name={name}
           control={control}
-          empty_message={intl.formatMessage({ id: `empty-${page}` })}
+          empty_message={intl.formatMessage({ id: `empty-${state}` })}
           selectedState={selectedState}
           setSelectedAction={setSelectedAction}
           required={required}
           select_type={select_type}
+          page={page}
         />
       ) : (
         <CustomSelect
           options={data?.items}
           isIcon={isIcon}
-          type={page}
+          type={state}
           name={name}
           control={control}
-          empty_message={intl.formatMessage({ id: `empty-${page}` })}
+          empty_message={intl.formatMessage({ id: `empty-${state}` })}
           required={required}
+          page={page}
         />
       )}
 

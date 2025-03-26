@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoMainChanges, InfoTopBanner } from "./details/info";
+import { InfoMainChanges, InfoPhysicalChanges, InfoTopBanner } from "./details/info";
 import { MenuTabs } from "./details";
 import { useIntl } from "react-intl";
 
@@ -16,6 +16,16 @@ export default function CenterInfoProfile({
         <InfoTopBanner />
         <MenuTabs data={tabsMenu} />
         <InfoMainChanges />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "physical-info") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <InfoPhysicalChanges />
       </CenterInfoWrapper>
     );
   }

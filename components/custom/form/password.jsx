@@ -19,6 +19,19 @@ export default function Password({
       <label className="flex flex-col gap-2" htmlFor={name}>
         <span className="text-sm font-normal text-primary pl-6">{title}</span>
         <div className="flex flex-row gap-1 sm:w-auto w-full sm:bg-transparent bg-white rounded-full relative z-0">
+          <input
+            type={isPassword ? "password" : "text"}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            required={required}
+            autoComplete="off"
+            disabled={noSelected}
+            className={`rounded-full border-transparent py-[18px] px-6 w-full placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25 border-2 ${
+              errors ? "border-red-500" : "border-transparent"
+            }`}
+            {...register(name, validation)}
+          />
           <button
             type="button"
             className="flex items-center justify-center cursor-pointer transition-all duration-150 absolute top-2/4 -translate-y-2/4 right-5"
@@ -62,19 +75,6 @@ export default function Password({
               </svg>
             )}
           </button>
-          <input
-            type={isPassword ? "password" : "text"}
-            placeholder={placeholder}
-            name={name}
-            id={name}
-            required={required}
-            autoComplete="off"
-            disabled={noSelected}
-            className={`rounded-full border-transparent py-[18px] px-6 w-full placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25 border-2 ${
-              errors ? "border-red-500" : "border-transparent"
-            }`}
-            {...register(name, validation)}
-          />
         </div>
         {errors?.message ? (
           <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
@@ -90,6 +90,19 @@ export default function Password({
       <label className="flex flex-col gap-1" htmlFor={name}>
         <span className="text-base font-medium text-primary pb-1">{title}</span>
         <div className="flex flex-row gap-1 sm:w-auto w-full border-bg-3 bg-bg-2 rounded-lg relative z-0">
+          <input
+            type={isPassword ? "password" : "text"}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            required={required}
+            autoComplete="off"
+            disabled={noSelected}
+            className={`rounded-lg border p-4 w-full bg-bg-2 ${
+              errors ? "border-red-500" : " border-bg-3"
+            }`}
+            {...register(name, validation)}
+          />
           <button
             type="button"
             className="flex items-center justify-center cursor-pointer transition-all duration-150 absolute top-2/4 -translate-y-2/4 right-5"
@@ -133,19 +146,6 @@ export default function Password({
               </svg>
             )}
           </button>
-          <input
-            type={isPassword ? "password" : "text"}
-            placeholder={placeholder}
-            name={name}
-            id={name}
-            required={required}
-            autoComplete="off"
-            disabled={noSelected}
-            className={`rounded-lg border p-4 w-full bg-bg-2 ${
-              errors ? "border-red-500" : " border-bg-3"
-            }`}
-            {...register(name, validation)}
-          />
         </div>
         {errors?.message ? (
           <span className="text-sm text-red-500 pl-6">{errors?.message}</span>

@@ -15,7 +15,7 @@ export const authAxios = axios.create({
   headers: {
     Accept: "application/json",
   },
-  timeout: 10000, // 10 soniya timeout
+  timeout: 20000, // 10 soniya timeout
 });
 
 authAxios.interceptors.request.use(
@@ -34,12 +34,11 @@ authAxios.interceptors.request.use(
 authAxios.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error("Interceptor error:", error);
+
     if (!error.response || error.code === "ECONNABORTED") {
-      // Connection yoki timeout xatosi
-      // console.error("Network error or request timeout:", error.message);
       window.alert("Network error or request timeout, Please refresh page");
     } else if (error.response.status === 401) {
-      // Auth xatosi
       localStorage.removeItem(REGISTERAUTHKEY);
       router.push(`/${LoginUrl}`);
     }
@@ -47,3 +46,4 @@ authAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+

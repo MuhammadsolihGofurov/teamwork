@@ -12,9 +12,9 @@ export const InfoMenu = [
   {
     id: 1,
     name: "Asosiy ma'lumotlar",
-    url: InfoUrl,
+    url: InfoEditUrl,
     role: "all",
-    additional_url: InfoEditUrl,
+    additional_url: InfoUrl,
   },
   {
     id: 2,

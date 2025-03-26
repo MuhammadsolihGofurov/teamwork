@@ -128,7 +128,7 @@ export default function PictureBox({ isMobile = false }) {
       </div>
 
       <div className="sm:hidden flex w-full col-span-3">
-        {router.pathname === "/profile" ? (
+        {router.pathname === "/profile/info" ? (
           <ChangeRoles />
         ) : (
           <p className="pb-5 px-5 line-clamp-2 text-primary text-opacity-60">
