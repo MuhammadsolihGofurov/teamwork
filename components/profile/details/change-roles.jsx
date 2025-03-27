@@ -1,6 +1,7 @@
 import { useModal } from "@/context/modal-provider";
 import { authAxios } from "@/utils/axios";
 import { CUSTOMER, EXPERT } from "@/utils/data";
+import { InfoUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
@@ -42,7 +43,7 @@ export default function ChangeRoles() {
       });
 
       setTimeout(() => {
-        router.push(router.pathname);
+        router.push(`/${InfoUrl}`);
       }, 500);
     } catch (error) {
       toast.update(toastId, {

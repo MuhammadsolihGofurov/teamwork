@@ -1,8 +1,8 @@
-import { REGISTERAUTHKEY } from "./data";
+import { PRIVATEAUTHKEY, REGISTERAUTHKEY } from "./data";
 
 function getAuthHeader() {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem(REGISTERAUTHKEY);
+    const token = localStorage.getItem(PRIVATEAUTHKEY);
     if (token) {
       return { Authorization: `Bearer ${token}` };
     }

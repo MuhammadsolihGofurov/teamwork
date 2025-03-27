@@ -12,7 +12,7 @@ import axios from "@/utils/axios";
 import { ForgotPassword, ProfileUrl, RegisterUrl } from "@/utils/router";
 import { PersonImages } from "../custom";
 import { toast } from "react-toastify";
-import { REGISTERAUTHKEY } from "@/utils/data";
+import { PRIVATEAUTHKEY, REGISTERAUTHKEY } from "@/utils/data";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -45,7 +45,7 @@ export default function LoginForm() {
       const response = await axios.post("/auth/login", payload);
 
       // localhost auth_key
-      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data?.auth_key);
+      localStorage.setItem(PRIVATEAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(intl.formatMessage({ id: "login-success-message" }));
 

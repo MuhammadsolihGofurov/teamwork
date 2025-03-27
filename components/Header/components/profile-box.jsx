@@ -5,7 +5,7 @@ import {
   NotificationUrl,
   ProfileUrl,
 } from "@/utils/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProfilePicture from "./profile-picture";
 
@@ -14,15 +14,21 @@ export default function ProfileBox() {
   const url = is_auth ? ProfileUrl : LoginUrl;
   const notification_url = is_auth ? NotificationUrl : LoginUrl;
   const chat_url = is_auth ? ChatsUrl : LoginUrl;
+  const [active, setActive] = useState(false);
 
+  useEffect(() => {
+    if (is_auth) {
+      setActive((prev) => (prev = true));
+    }
+  }, [is_auth]);
 
   return (
     <div
       className={`${
-        is_auth ? "bg-bg-2 flex" : "sm:hidden flex"
+        active ? "bg-bg-2 flex" : "sm:hidden flex"
       } rounded-full p-[3px] items-center gap-1`}
     >
-      {is_auth ? (
+      {active ? (
         <div className={`flex items-center gap-1 bg-white p-1 rounded-full`}>
           <NextLink
             url={chat_url}
@@ -74,10 +80,7 @@ export default function ProfileBox() {
       ) : (
         <></>
       )}
-      <button
-        type="button"
-        className={`${is_auth ? "flex" : "sm:hidden flex"}`}
-      >
+      <button type="button" className={`${active ? "flex" : "sm:hidden flex"}`}>
         <NextLink url={url}>
           <ProfilePicture />
         </NextLink>

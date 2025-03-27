@@ -201,6 +201,8 @@
   "Bir soatlik ish haqqi": "Soatlik ish haqingiz (so'mda)",
   "RequiredHourlySalary": "Ish haqingiz majburiy",
   "isNotValidSalary": "To‘g‘ri ish haqi qiymatini kiriting. Misol uchun: 50000",
+  "RequiredInfo": "O'zingiz haqingizdagi ma'lumotlar majburiy",
+  "O'zingiz haqingizda": "O'zingiz haqingizda",
   "---profile---": "",
   "--alert--": "",
   "logOutModalTitle": "Haqiqatan ham chiqmoqchimisiz?",

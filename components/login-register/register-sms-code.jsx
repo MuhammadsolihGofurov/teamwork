@@ -6,9 +6,19 @@ import { ButtonSpinner } from "../custom/loading";
 import axios from "@/utils/axios";
 import { Breadcrumbs } from "../custom";
 import { toast } from "react-toastify";
-import { EXPERT, REGISTERASUSERTYPE, REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
+import {
+  EXPERT,
+  PRIVATEAUTHKEY,
+  REGISTERASUSERTYPE,
+  REGISTERAUTHKEY,
+  REGISTERPHONENUMBER,
+} from "@/utils/data";
 import { SMSCode } from "./details";
-import { ProfileUrl, RegisterAsDetailsUrl, RegisterAsInfoUrl } from "@/utils/router";
+import {
+  ProfileUrl,
+  RegisterAsDetailsUrl,
+  RegisterAsInfoUrl,
+} from "@/utils/router";
 import { useDispatch } from "react-redux";
 import { setProfilePercentage } from "@/redux/slice/user";
 
@@ -53,20 +63,20 @@ export default function RegisterSMSCode({ page }) {
       );
 
       // localstoragega kelgan malumotlarni saqlash kerak.
-      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data?.auth_key);
+      localStorage.setItem(PRIVATEAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(
         intl.formatMessage({ id: "register-send-code-success-message" })
       );
 
       setTimeout(() => {
-        if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
-          router.push(`/${RegisterAsDetailsUrl}`);
-        } else {
-          router.push(`/${ProfileUrl}`);
-        }
+        router.push(`/${ProfileUrl}`);
+        // if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
+        //   router.push(`/${RegisterAsDetailsUrl}`);
+        // } else {
+        //   router.push(`/${ProfileUrl}`);
+        // }
       }, 500);
-
     } catch (e) {
       console.error(e);
       toast.error(e?.response?.data?.message);

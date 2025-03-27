@@ -2,3 +2,4 @@ export { default as MainInfoUpdateSkeleton } from "./main-info-update-skeleton";
 export { default as PhyiscalInfoUpdateSkeleton } from "./physical-info-update-skeleton";
 export { default as LegalInfoUpdateSkeleton } from "./legal-info-update";
 export { default as AdditionalInfoUpdateSkeleton } from "./additional-info-update-skeleton";
+export { default as BioInfoUpdateSkeleton } from "./bio-info-update-skeleton";

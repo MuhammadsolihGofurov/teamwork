@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTERAUTHKEY } from "./data";
+import { PRIVATEAUTHKEY, REGISTERAUTHKEY } from "./data";
 import router from "next/router";
 import { LoginUrl } from "./router";
 
@@ -21,7 +21,7 @@ export const authAxios = axios.create({
 authAxios.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      const authKey = localStorage.getItem(REGISTERAUTHKEY);
+      const authKey = localStorage.getItem(PRIVATEAUTHKEY);
       if (authKey) {
         config.headers.Authorization = `Bearer ${authKey}`;
       }
@@ -39,7 +39,7 @@ authAxios.interceptors.response.use(
     if (!error.response || error.code === "ECONNABORTED") {
       window.alert("Network error or request timeout, Please refresh page");
     } else if (error.response.status === 401) {
-      localStorage.removeItem(REGISTERAUTHKEY);
+      localStorage.removeItem(PRIVATEAUTHKEY);
       router.push(`/${LoginUrl}`);
     }
 

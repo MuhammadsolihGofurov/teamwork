@@ -24,10 +24,12 @@ import {
   PhoneInput,
   Radio,
   Select,
+  Textarea,
 } from "@/components/custom/form";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
 import {
   AdditionalInfoUpdateSkeleton,
+  BioInfoUpdateSkeleton,
   MainInfoUpdateSkeleton,
   PhyiscalInfoUpdateSkeleton,
 } from "@/components/Skeleton/profile/info";
@@ -77,20 +79,63 @@ export default function BioInfoChanges({ page = "profile", isMobile }) {
   }, [user_info, setValue]);
 
   const submitFn = async (data) => {
-    const {} = data;
+    const { necessary_information } = data;
+    const {
+      full_name,
+      gender,
+      date_of_birth,
+      other_phone,
+      site,
+      address: { home, zip_code, district },
+      skillSets,
+      specialitySets,
+      hourly_salary,
+      language,
+      languages,
+      passport: {
+        serial,
+        number,
+        given_time,
+        given_by_whom,
+        expire_date,
+        attachment_id,
+        type,
+      },
+    } = user_info?.expert;
     try {
       setReqLoading(true);
 
-      const payload = {};
+      const payload = {
+        full_name,
+        gender,
+        date_of_birth,
+        district_id: district?.id,
+        address_name: home,
+        other_phone,
+        site,
+        skill_ids: skillSets.map((item) => item.id),
+        speciality_ids: specialitySets.map((item) => item.id),
+        hourly_salary,
+        language: language,
+        languages: languages,
+        passport: {
+          serial,
+          number,
+          given_time,
+          given_by_whom,
+          expire_date,
+          attachment_id,
+          passport_type: type,
+        },
+        necessary_information,
+      };
+
+      console.error(payload);
 
       const response = await authAxios.post(
         "/user/update-expert-data?expand=specialitySets.parent",
         payload
       );
-
-      // localstoragega kelgan malumotlarni saqlash kerak.
-      // localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
-      // localStorage.setItem(REGISTERPHONENUMBER, phone);
 
       toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
       setTimeout(() => {
@@ -111,7 +156,7 @@ export default function BioInfoChanges({ page = "profile", isMobile }) {
   };
 
   if (loading) {
-    return <AdditionalInfoUpdateSkeleton />;
+    return <BioInfoUpdateSkeleton />;
   }
 
   return (
@@ -121,25 +166,26 @@ export default function BioInfoChanges({ page = "profile", isMobile }) {
       autoComplete="off"
       className={`bg-white ${
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
-      } grid-cols-1 lg:grid-cols-2 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
+      } grid-cols-1 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
     >
-      <Input
-        errors={errors?.full_name}
+      <Textarea
+        errors={errors?.necessary_information}
         type={"text"}
         register={register}
-        name={"full_name"}
-        title={intl.formatMessage({ id: "FIO" })}
-        placeholder={intl.formatMessage({ id: "Passportga ko’ra" })}
-        id={`full_name${isMobile ? "1" : ""}`}
+        name={"necessary_information"}
+        title={intl.formatMessage({ id: "O'zingiz haqingizda" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`necessary_information${isMobile ? "1" : ""}`}
         required
         page={page}
         setCode={setCode}
         validation={{
-          required: intl.formatMessage({ id: "RequiredName" }),
+          required: intl.formatMessage({ id: "RequiredInfo" }),
         }}
+        watch={watch}
       />
 
-      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-14">
+      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 sm:w-auto w-full pt-6 sm:pt-14">
         <button
           type="submit"
           className={`py-4 font-semibold  bg-main w-full rounded-lg flex items-center justify-center text-center transition-opacity duration-300 ${

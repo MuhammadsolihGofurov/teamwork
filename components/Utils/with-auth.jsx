@@ -2,10 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { LoginUrl } from "@/utils/router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
-import { setErrorNull } from "@/redux/slice/user";
-import { REGISTERAUTHKEY } from "@/utils/data";
+import { RemvoeUserFullInfo, setErrorNull } from "@/redux/slice/user";
+import {
+  PRIVATEAUTHKEY,
+  REGISTERASUSERTYPE,
+  REGISTERAUTHKEY,
+  REGISTERPHONENUMBER,
+} from "@/utils/data";
 
 const withAuth = (WrappedComponent) => {
   return function AuthComponent(props) {
@@ -15,13 +20,17 @@ const withAuth = (WrappedComponent) => {
     const intl = useIntl();
     const auth_key =
       typeof window !== "undefined"
-        ? localStorage.getItem(REGISTERAUTHKEY)
+        ? localStorage.getItem(PRIVATEAUTHKEY)
         : null;
 
     useEffect(() => {
       if (!auth_key) {
         toast.error(intl.formatMessage({ id: "error-access-with-auth-token" }));
-
+        dispatch(RemvoeUserFullInfo());
+        
+        localStorage.removeItem(REGISTERAUTHKEY);
+        localStorage.removeItem(REGISTERASUSERTYPE);
+        localStorage.removeItem(REGISTERPHONENUMBER);
         router.push(`/${LoginUrl}`);
         setTimeout(() => {
           dispatch(setErrorNull());
@@ -35,7 +44,11 @@ const withAuth = (WrappedComponent) => {
           toast.error(
             intl.formatMessage({ id: "error-access-with-auth-token" })
           );
+          dispatch(RemvoeUserFullInfo(false));
 
+          localStorage.removeItem(REGISTERAUTHKEY);
+          localStorage.removeItem(REGISTERASUSERTYPE);
+          localStorage.removeItem(REGISTERPHONENUMBER);
           router.push(`/${LoginUrl}`);
           setTimeout(() => {
             dispatch(setErrorNull());

@@ -196,6 +196,8 @@
   "Bir soatlik ish haqqi": "Ваша почасовая оплата (в сумах)",
   "RequiredHourlySalary": "Ваша зарплата является обязательной",
   "isNotValidSalary": "Введите допустимое значение зарплаты. Например: 50000",
+  "RequiredInfo": "Информация о себе обязательна",
+  "O'zingiz haqingizda": "О себе",
   "---profile---": "",
   "--alert--": "",
   "logOutModalTitle": "Ты действительно хочешь выйти?",

@@ -1,5 +1,7 @@
 import { useModal } from "@/context/modal-provider";
+import { RemvoeUserFullInfo } from "@/redux/slice/user";
 import {
+  PRIVATEAUTHKEY,
   REGISTERASUSERTYPE,
   REGISTERAUTHKEY,
   REGISTERPHONENUMBER,
@@ -8,17 +10,22 @@ import { LoginUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function LogOut({ isMobile = false }) {
   const intl = useIntl();
   const router = useRouter();
   const { showModal } = useModal();
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
+    dispatch(RemvoeUserFullInfo());
+
     localStorage.removeItem(REGISTERAUTHKEY);
     localStorage.removeItem(REGISTERASUSERTYPE);
     localStorage.removeItem(REGISTERPHONENUMBER);
+    localStorage.removeItem(PRIVATEAUTHKEY);
 
     toast.success(intl.formatMessage({ id: "success-log-out" }));
     router.push(`/${LoginUrl}`);

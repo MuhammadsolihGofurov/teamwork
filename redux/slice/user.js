@@ -1,13 +1,13 @@
 import axios, { authAxios } from "@/utils/axios";
-import { REGISTERAUTHKEY } from "@/utils/data";
+import { PRIVATEAUTHKEY } from "@/utils/data";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async (_, { rejectWithValue }) => {
     try {
-      const registerAuthKey = localStorage.getItem(REGISTERAUTHKEY);
-      if (!registerAuthKey) return rejectWithValue(404);
+      const private_auth_key = localStorage.getItem(PRIVATEAUTHKEY);
+      if (!private_auth_key) return rejectWithValue(404);
 
       const response = await authAxios.get(
         "/user/me?expand=expert,employer.legalEntity,employer.physicalPerson"
@@ -40,6 +40,10 @@ const userSlice = createSlice({
     setErrorNull: (state) => {
       state.error = null;
     },
+    RemvoeUserFullInfo: (state) => {
+      state.is_auth = false;
+      state.user_info = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -61,6 +65,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setProfilePercentage, setErrorNull } = userSlice.actions;
+export const { setProfilePercentage, setErrorNull, RemvoeUserFullInfo } =
+  userSlice.actions;
 
 export default userSlice.reducer;
