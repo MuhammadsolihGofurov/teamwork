@@ -9,9 +9,15 @@ import { WithFacebook, WithGoogle } from "./details";
 import { ButtonSpinner } from "../custom/loading";
 import { unmaskPhone } from "@/utils/funcs";
 import axios from "@/utils/axios";
-import { ForgotPassword, LoginUrl, RegisterUrl } from "@/utils/router";
+import {
+  FillNewPasswordUrl,
+  ForgotPassword,
+  LoginUrl,
+  RegisterUrl,
+} from "@/utils/router";
 import { Breadcrumbs, PersonImages } from "../custom";
 import { toast } from "react-toastify";
+import { PASSWORDRESETTOKEN, REGISTERPHONENUMBER } from "@/utils/data";
 
 export default function ForgotPasswordForm() {
   const router = useRouter();
@@ -42,8 +48,20 @@ export default function ForgotPasswordForm() {
 
       const response = await axios.post("/auth/reset-password", payload);
 
+      localStorage.setItem(
+        PASSWORDRESETTOKEN,
+        response?.data?.data?.password_reset_token
+      );
+      
+      localStorage.setItem(REGISTERPHONENUMBER, phone_number);
+
       toast.success(
-        intl.formatMessage({ id: "forgot-password-send-code-success-message" }));
+        intl.formatMessage({ id: "forgot-password-send-code-success-message" })
+      );
+
+      setTimeout(() => {
+        router.push(`/${FillNewPasswordUrl}`);
+      }, 500);
     } catch (e) {
       console.error(e);
       toast.error(e?.response?.data?.message);

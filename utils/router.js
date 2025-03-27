@@ -6,6 +6,7 @@ export const RegisterSendCodeUrl = "auth/register/sms-code";
 export const RegisterAsInfoUrl = "auth/register/info";
 export const RegisterAsDetailsUrl = "auth/register/details";
 export const RegisterWithSpecialistsUrl = "auth/register/specialists";
+export const FillNewPasswordUrl = "auth/forgot-password/fill-new-password";
 
 // === PROFILE ===
 export const ProfileUrl = "profile/info";

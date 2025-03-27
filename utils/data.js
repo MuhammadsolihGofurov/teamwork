@@ -11,6 +11,7 @@ export const REGISTERASUSERTYPE = "register_as_user";
 export const REGISTERPHONENUMBER = "register_phone_number";
 export const REGISTERAUTHKEY = "register_auth_key";
 export const PRIVATEAUTHKEY = "private_auth_key";
+export const PASSWORDRESETTOKEN = "password_reset_token";
 
 // === GENDER ===
 export const GENDER_MALE = "MALE";

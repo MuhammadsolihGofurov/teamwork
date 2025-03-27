@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import {
+  FillNewPasswordForm,
   ForgotPasswordForm,
   LoginForm,
   RegisterAsDetails,
@@ -34,6 +35,14 @@ export default function RightForm({ page = "login" }) {
     return (
       <RightFormWrapper type="part">
         <RegisterSMSCode page={page} />
+      </RightFormWrapper>
+    );
+  }
+
+  if (page === "fill-new-password") {
+    return (
+      <RightFormWrapper type="part">
+        <FillNewPasswordForm page={page} />
       </RightFormWrapper>
     );
   }

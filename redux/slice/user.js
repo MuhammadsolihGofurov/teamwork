@@ -42,7 +42,7 @@ const userSlice = createSlice({
     },
     RemvoeUserFullInfo: (state) => {
       state.is_auth = false;
-      state.user_info = {};
+      // state.user_info = {};
     },
   },
   extraReducers: (builder) => {

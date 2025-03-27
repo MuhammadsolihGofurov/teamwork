@@ -1,6 +1,4 @@
-import {
-  MainBanner
-} from "@/components";
+import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
 import { useRouter } from "next/router";
@@ -50,7 +48,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home for Tasks",
+    seo_home_title: "Home For Experts",
     seo_home_keywords: "",
     seo_home_description: "",
   };

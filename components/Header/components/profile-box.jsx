@@ -10,16 +10,14 @@ import { useSelector } from "react-redux";
 import ProfilePicture from "./profile-picture";
 
 export default function ProfileBox() {
-  const { is_auth } = useSelector((state) => state.user);
+  const { is_auth, error } = useSelector((state) => state.user);
   const url = is_auth ? ProfileUrl : LoginUrl;
   const notification_url = is_auth ? NotificationUrl : LoginUrl;
   const chat_url = is_auth ? ChatsUrl : LoginUrl;
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(is_auth);
 
   useEffect(() => {
-    if (is_auth) {
-      setActive((prev) => (prev = true));
-    }
+    setActive(is_auth);
   }, [is_auth]);
 
   return (

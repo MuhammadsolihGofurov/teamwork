@@ -198,11 +198,19 @@
   "isNotValidSalary": "Введите допустимое значение зарплаты. Например: 50000",
   "RequiredInfo": "Информация о себе обязательна",
   "O'zingiz haqingizda": "О себе",
+  "success-fill-new-password": "Успех, ваш пароль изменен!",
   "---profile---": "",
   "--alert--": "",
   "logOutModalTitle": "Ты действительно хочешь выйти?",
   "logOutModalBody": "Вы хотите выйти из системы. Вы хотите продолжить?",
   "RoleChangeTitle": "Подтвердить смену роли?",
   "RoleChangeBody": "Вы пытаетесь изменить роль пользователя. Хотите продолжить?",
-  "---alert---": ""
+  "---alert---": "",
+  "--index--": "",
+  "indexTitle": "Малый бизнес и стартапы сэкономили с нами <span class='text-main'>250 000 000 сумов</span>",
+  "E'lon joylash": "Разместить объявление",
+  "Topshiriqlar": "Задания",
+  "search-terms": "Напишите подходящее слово",
+  "Qidiruv": "Поиск",
+  "---index---": ""
 }

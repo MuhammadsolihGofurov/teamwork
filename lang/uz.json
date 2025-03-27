@@ -203,11 +203,19 @@
   "isNotValidSalary": "To‘g‘ri ish haqi qiymatini kiriting. Misol uchun: 50000",
   "RequiredInfo": "O'zingiz haqingizdagi ma'lumotlar majburiy",
   "O'zingiz haqingizda": "O'zingiz haqingizda",
+  "success-fill-new-password": "Muvaffaqiyatli, parolingiz o'zgartirildi!",
   "---profile---": "",
   "--alert--": "",
   "logOutModalTitle": "Haqiqatan ham chiqmoqchimisiz?",
   "logOutModalBody": "Siz tizimdan chiqmoqchisiz. Davom etishni istaysizmi?",
   "RoleChangeTitle": "Roleni o'zgartirishni tasdiqlaysizmi?",
   "RoleChangeBody": "Siz foydalanuvchi rolini o'zgartirishga harakat qilyapsiz. Davom etishni xohlaysizmi?",
-  "---alert---": ""
+  "---alert---": "",
+  "--index--": "",
+  "indexTitle": "Kichik biznes va startaplar biz bilan <span class='text-main'>250.000.000 so’m</span> tejashdi",
+  "E'lon joylash": "E'lon joylash",
+  "Topshiriqlar": "Topshiriqlar",
+  "search-terms": "Tegishli so'zni yozing",
+  "Qidiruv": "Qidiruv",
+  "---index---": ""
 }

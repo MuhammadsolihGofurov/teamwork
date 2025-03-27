@@ -1,5 +1,5 @@
 import axios from "@/utils/axios";
-import { REGISTERPHONENUMBER } from "@/utils/data";
+import { REGISTERAUTHKEY, REGISTERPHONENUMBER } from "@/utils/data";
 import { maskPhoneNumber } from "@/utils/funcs";
 import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
@@ -37,9 +37,14 @@ export default function SMSCode({ register, errors, setValue, watch }) {
   const handleReSendCode = async () => {
     try {
       axios.post(
-        `/auth/confirm-registration-code/${localStorage.getItem(
-          REGISTERPHONENUMBER
-        )}`
+        "/auth/resend-confirm-registration-code",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${REGISTERAUTHKEY}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
     } catch (e) {
       toast.error(e?.response?.data?.message);

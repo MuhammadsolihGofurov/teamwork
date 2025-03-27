@@ -22,3 +22,4 @@ export { default as RegisterInfo } from "./login-register/register-info";
 export { default as RegisterSMSCode } from "./login-register/register-sms-code";
 export { default as RegisterAsDetails } from "./login-register/register-as-details";
 export { default as SpecialistsForm } from "./login-register/specialists-form";
+export { default as FillNewPasswordForm } from "./login-register/fill-new-password-form";

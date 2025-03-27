@@ -1,6 +1,4 @@
-import {
-  MainBanner
-} from "@/components";
+import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
 import { useRouter } from "next/router";
@@ -10,8 +8,6 @@ import { useDispatch } from "react-redux";
 function page({ info }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { category_id, search, min_price, max_price } = router.query;
-  // console.error(category_id);
 
   // const { data: services } = useSWR(["services", router.locale], (url) =>
   //   fetcher(url, {
@@ -35,12 +31,12 @@ function page({ info }) {
   return (
     <>
       <Seo
-        title={info?.seo_home_title}
+        title={info?.data?.seo_home_title}
         description={info?.data?.seo_home_description}
         body={info?.data?.seo_home_keywords}
       />
       <Wrapper>
-        <MainBanner />
+        {/* <MainBanner /> */}
       </Wrapper>
     </>
   );
@@ -50,7 +46,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home for Tasks",
+    seo_home_title: "Home",
     seo_home_keywords: "",
     seo_home_description: "",
   };

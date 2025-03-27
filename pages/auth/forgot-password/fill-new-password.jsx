@@ -1,8 +1,7 @@
-import {
-  MainBanner
-} from "@/components";
 import Seo from "@/components/Seo/Seo";
-import { Wrapper } from "@/components/Utils";
+import { RegWrapper, Wrapper } from "@/components/Utils";
+import LeftBanner from "@/components/login-register/left-banner";
+import RightForm from "@/components/login-register/right-form";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -10,8 +9,6 @@ import { useDispatch } from "react-redux";
 function page({ info }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { category_id, search, min_price, max_price } = router.query;
-  // console.error(category_id);
 
   // const { data: services } = useSWR(["services", router.locale], (url) =>
   //   fetcher(url, {
@@ -39,9 +36,16 @@ function page({ info }) {
         description={info?.data?.seo_home_description}
         body={info?.data?.seo_home_keywords}
       />
-      <Wrapper>
-        <MainBanner />
-      </Wrapper>
+      <RegWrapper>
+        <LeftBanner
+          height="h-[720px]"
+          data={[
+            { id: 1, image: "/images/left-banner.png", title: "testlash" },
+            { id: 1, image: "/images/left-banner.png", title: "testlash" },
+          ]}
+        />
+        <RightForm page="fill-new-password" />
+      </RegWrapper>
     </>
   );
 }
@@ -50,7 +54,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home for Tasks",
+    seo_home_title: "Fill New Password",
     seo_home_keywords: "",
     seo_home_description: "",
   };
