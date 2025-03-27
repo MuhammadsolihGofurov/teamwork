@@ -1,6 +1,7 @@
 import React from "react";
 import {
   AdditionalInfoChanges,
+  BioInfoChanges,
   InfoLegalChanges,
   InfoMainChanges,
   InfoPhysicalChanges,
@@ -52,6 +53,16 @@ export default function CenterInfoProfile({
         <InfoTopBanner />
         <MenuTabs data={tabsMenu} />
         <AdditionalInfoChanges />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "bio-info") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <BioInfoChanges />
       </CenterInfoWrapper>
     );
   }

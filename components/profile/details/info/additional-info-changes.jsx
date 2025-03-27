@@ -7,10 +7,13 @@ import axios, { authAxios } from "@/utils/axios";
 import { toast } from "react-toastify";
 import {
   CUSTOMER,
+  ENGLISH_LG,
   EXPERT,
   REGISTERASUSERTYPE,
   REGISTERAUTHKEY,
   REGISTERPHONENUMBER,
+  RUSSIAN_LG,
+  UZBEK_LG,
 } from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData, setProfilePercentage } from "@/redux/slice/user";
@@ -24,12 +27,14 @@ import {
 } from "@/components/custom/form";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
 import {
+  AdditionalInfoUpdateSkeleton,
   MainInfoUpdateSkeleton,
   PhyiscalInfoUpdateSkeleton,
 } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
 import {
   setCountryId,
+  setLanguagesData,
   setRegionId,
   setSkillIds,
   setSpecialityCurrent,
@@ -40,9 +45,8 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   const router = useRouter();
   const intl = useIntl();
   const { user_info, loading } = useSelector((state) => state.user);
-  const { specialityChildren, skillLists, specialities } = useSelector(
-    (state) => state.settings
-  );
+  const { specialityChildren, skillLists, specialities, languagesData } =
+    useSelector((state) => state.settings);
   const [code, setCode] = useState("998");
   const [reqLoading, setReqLoading] = useState(false);
   const dispatch = useDispatch();
@@ -65,7 +69,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       full_name: "",
       gender: "",
       date_of_birth: "",
-      email: "",
       country_id: "",
       region_id: "",
       district_id: "",
@@ -91,6 +94,35 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     },
   });
 
+  const languagesSets = [
+    {
+      id: 1,
+      name: intl.formatMessage({ id: "O'zbek tili" }),
+      value: UZBEK_LG,
+    },
+    {
+      id: 2,
+      name: intl.formatMessage({ id: "Rus tili" }),
+      value: RUSSIAN_LG,
+    },
+    {
+      id: 3,
+      name: intl.formatMessage({ id: "Ingliz tili" }),
+      value: ENGLISH_LG,
+    },
+  ];
+
+  const formatLanguages = (keys, intl) => {
+    return keys?.map((key) => {
+      const lang = languagesSets?.find((l) => l.value === key);
+      return {
+        id: lang?.id,
+        name: lang?.name,
+        value: key, // 'uz', 'en', 'ru'
+      };
+    });
+  };
+
   useEffect(() => {
     const user = user_info?.expert;
     const gender = user?.gender;
@@ -99,7 +131,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     const passport = user?.passport;
 
     setValue("full_name", user?.full_name);
-    setValue("email", user?.email);
     setValue("gender", gender);
     setValue("other_phone", user?.other_phone?.slice(3) ?? "");
     setValue("site", user?.site);
@@ -117,6 +148,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     dispatch(setSkillIds(user?.skillSets ?? []));
     setValue("speciality_ids", user?.specialitySets);
     dispatch(setSpecialityIds(user?.specialitySets ?? []));
+
+    // languages sets
+    const formattedLanguages = formatLanguages(user?.languages);
+    dispatch(setLanguagesData(formattedLanguages));
 
     // speciality current
     const currentSpecialityId =
@@ -167,6 +202,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         passport_type,
         attachment_id,
       },
+      hourly_salary,
+      necessary_information,
+      skill_ids,
+      speciality_ids,
     } = data;
     try {
       setReqLoading(true);
@@ -174,13 +213,27 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
 
       const payload = {
         full_name,
-        email,
         gender,
         date_of_birth: date_of_birth.startDate,
         district_id: district_id,
         address_name,
         other_phone: phone,
         site,
+        skill_ids:
+          Array.isArray(skill_ids) &&
+          skill_ids.every((item) => typeof item === "object" && item !== null)
+            ? skill_ids.map((item) => item.id)
+            : skill_ids,
+        speciality_ids:
+          Array.isArray(speciality_ids) &&
+          speciality_ids.every(
+            (item) => typeof item === "object" && item !== null
+          )
+            ? speciality_ids.map((item) => item.id)
+            : speciality_ids,
+        hourly_salary,
+        language: languagesSets?.find((item) => item?.id)?.value,
+        languages: languagesData?.map((item) => item?.value),
         passport: {
           serial,
           number,
@@ -190,7 +243,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
           attachment_id: image ?? attachment_id,
           passport_type,
         },
+        necessary_information,
       };
+
 
       const response = await authAxios.post(
         "/user/update-expert-data?expand=specialitySets.parent",
@@ -220,7 +275,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   };
 
   if (loading) {
-    return <PhyiscalInfoUpdateSkeleton />;
+    return <AdditionalInfoUpdateSkeleton />;
   }
 
   return (
@@ -230,7 +285,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       autoComplete="off"
       className={`bg-white ${
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
-      } grid-cols-1 lg:grid-cols-2 items-start gap-6 p-8 rounded-lg border border-bg-3`}
+      } grid-cols-1 lg:grid-cols-2 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
     >
       <Input
         errors={errors?.full_name}
@@ -280,17 +335,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         control={control}
       />
 
-      <Input
-        errors={errors?.email}
-        type={"text"}
-        register={register}
-        name={"email"}
-        title={intl.formatMessage({ id: "E-mail" })}
-        placeholder={intl.formatMessage({ id: "E-mail" })}
-        id={`email${isMobile ? "1" : ""}`}
-        required={false}
-        page={page}
-      />
 
       <Select
         errors={errors?.country_id}
@@ -347,6 +391,62 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         control={control}
         isAuth={true}
       />
+
+      <Input
+        errors={errors?.address_name}
+        type={"text"}
+        register={register}
+        name={"address_name"}
+        title={intl.formatMessage({ id: "Yashash manzili" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`address_name${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredAddress" }),
+        }}
+        control={control}
+      />
+
+      <PhoneInput
+        errors={errors?.other_phone}
+        type={"text"}
+        register={register}
+        name={"other_phone"}
+        placeholder={"___ __ ___ __ __"}
+        id={`other_phone${isMobile ? "1" : ""}`}
+        title={intl.formatMessage({ id: "Qo'shimcha Telefon raqami" })}
+        setCode={setCode}
+        page={page}
+      />
+
+      <Input
+        errors={errors?.site}
+        type={"text"}
+        register={register}
+        name={"site"}
+        title={intl.formatMessage({ id: "Site" })}
+        placeholder={intl.formatMessage({ id: "Site placeholder" })}
+        id={`site${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredSite" }),
+          pattern: {
+            value: /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$/,
+            message: intl.formatMessage({ id: "isNotValidURL" }),
+          },
+        }}
+        control={control}
+      />
+
+      <div className="col-span-1 lg:col-span-2 pt-5">
+        <h4 className="font-semibold text-primary text-lg">
+          {intl.formatMessage({ id: "Soha ma'lumotlari" })}
+        </h4>
+      </div>
 
       {/* skill */}
       <Select
@@ -409,14 +509,42 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         selectedState={skillLists}
         setSelectedAction={setSkillIds}
       />
+
+      <Input
+        errors={errors?.hourly_salary}
+        type={"text"}
+        register={register}
+        name={"hourly_salary"}
+        title={intl.formatMessage({ id: "Bir soatlik ish haqqi" })}
+        placeholder={intl.formatMessage({ id: "Bir soatlik ish haqqi" })}
+        id={`hourly_salary${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredHourlySalary" }),
+          pattern: {
+            value: /^[0-9]+$/,
+            message: intl.formatMessage({ id: "isNotValidSalary" }),
+          },
+        }}
+        control={control}
+      />
+
       {/* skill */}
+
+      <div className="col-span-1 lg:col-span-2 pt-5">
+        <h4 className="font-semibold text-primary text-lg">
+          {intl.formatMessage({ id: "Til ma'lumotlari" })}
+        </h4>
+      </div>
 
       <Select
         errors={errors?.language}
         type={"text"}
         register={register}
         name={"language"}
-        title={intl.formatMessage({ id: "Passport turi" })}
+        title={intl.formatMessage({ id: "NativeLanguage" })}
         placeholder={""}
         id={`language${isMobile ? "1" : ""}`}
         required
@@ -430,58 +558,29 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         control={control}
       />
 
-      <Input
-        errors={errors?.address_name}
+      <Select
+        errors={errors?.languages}
         type={"text"}
         register={register}
-        name={"address_name"}
-        title={intl.formatMessage({ id: "Yashash manzili" })}
-        placeholder={intl.formatMessage({ id: "Kiriting" })}
-        id={`address_name${isMobile ? "1" : ""}`}
-        required
+        name={"languages"}
+        title={intl.formatMessage({ id: "Tillar" })}
+        placeholder={""}
+        id="languages"
+        required={false}
+        state={"languages"}
+        withState="static"
         page={page}
-        isIcon={true}
         validation={{
-          required: intl.formatMessage({ id: "RequiredAddress" }),
+          required: intl.formatMessage({ id: "RequiredLanguages" }),
         }}
         control={control}
-      />
-
-      <PhoneInput
-        errors={errors?.other_phone}
-        type={"text"}
-        register={register}
-        name={"other_phone"}
-        placeholder={"___ __ ___ __ __"}
-        id={`other_phone${isMobile ? "1" : ""}`}
-        title={intl.formatMessage({ id: "Qo'shimcha Telefon raqami" })}
-        setCode={setCode}
-        page={page}
-      />
-
-      <Input
-        errors={errors?.site}
-        type={"text"}
-        register={register}
-        name={"site"}
-        title={intl.formatMessage({ id: "Site" })}
-        placeholder={intl.formatMessage({ id: "Site placeholder" })}
-        id={`site${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        isIcon={true}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredSite" }),
-          pattern: {
-            value: /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$/,
-            message: intl.formatMessage({ id: "isNotValidURL" }),
-          },
-        }}
-        control={control}
+        select_type="multiple_without_api"
+        selectedState={languagesData}
+        setSelectedAction={setLanguagesData}
       />
 
       <div className="col-span-1 lg:col-span-2 pt-5">
-        <h4 className="font-semibold text-primary">
+        <h4 className="font-semibold text-primary text-lg">
           {intl.formatMessage({ id: "Passport ma'lumotlari" })}
         </h4>
       </div>

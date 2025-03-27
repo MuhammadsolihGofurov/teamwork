@@ -10,6 +10,8 @@ const settingsSlice = createSlice({
     specialityChildren: [],
     skillLists: [],
     logOutModalConfirm: false,
+    specialities: [],
+    languagesData: [],
   },
   reducers: {
     setCountryId: (state, action) => {
@@ -36,6 +38,9 @@ const settingsSlice = createSlice({
     setSpecialitiesData: (state, action) => {
       state.specialities = action.payload;
     },
+    setLanguagesData: (state, action) => {
+      state.languagesData = action.payload;
+    },
   },
 });
 
@@ -47,7 +52,8 @@ export const {
   setSpecialityIds,
   setSkillIds,
   setToggleLogOutModalConfirm,
-  setSpecialitiesData
+  setSpecialitiesData,
+  setLanguagesData,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

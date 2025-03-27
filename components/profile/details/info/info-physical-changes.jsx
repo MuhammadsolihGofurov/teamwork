@@ -198,7 +198,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       autoComplete="off"
       className={`bg-white ${
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
-      } grid-cols-1 lg:grid-cols-2 items-start gap-6 p-8 rounded-lg border border-bg-3`}
+      } grid-cols-1 lg:grid-cols-2 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
     >
       <Input
         errors={errors?.full_name}
@@ -375,7 +375,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       />
 
       <div className="col-span-1 lg:col-span-2 pt-5">
-        <h4 className="font-semibold text-primary">
+        <h4 className="font-semibold text-primary text-lg">
           {intl.formatMessage({ id: "Passport ma'lumotlari" })}
         </h4>
       </div>
