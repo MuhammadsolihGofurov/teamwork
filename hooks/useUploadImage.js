@@ -41,11 +41,17 @@ export const useUploadImage = () => {
         }
       );
 
-      toast.success(intl.formatMessage({ id: "success-profile-picture-upload" }));
       if (type == "profile_icon") {
+        toast.success(
+          intl.formatMessage({ id: "success-profile-picture-upload" })
+        );
         dispatch(fetchUserData());
+      } else {
+        toast.success(
+          intl.formatMessage({ id: "success-picture-upload" })
+        );
       }
-      return response.data;
+      return response?.data?.data;
     } catch (error) {
       toast.error(
         error.response?.data?.message ||

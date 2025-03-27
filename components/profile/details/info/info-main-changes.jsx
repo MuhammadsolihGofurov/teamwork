@@ -181,7 +181,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
         page={page}
         setCode={setCode}
         validation={{
-          required: "FIO majburiy",
+          required: intl.formatMessage({ id: "RequiredName" }),
         }}
       />
 
@@ -338,7 +338,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
         }}
       /> */}
 
-      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-20">
+      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-14">
         <button
           type="submit"
           className={`py-4 font-semibold  bg-main w-full rounded-lg flex items-center justify-center text-center transition-opacity duration-300 ${

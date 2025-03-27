@@ -1,5 +1,11 @@
 import { Controller } from "react-hook-form";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 // import { Tooltip } from "flowbite-react";
@@ -15,6 +21,7 @@ export default function MultiSelect({
   setSelectedAction,
   required,
   select_type,
+  page,
 }) {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -32,7 +39,7 @@ export default function MultiSelect({
       } catch (error) {
         console.error("Skill search error:", error);
       }
-    }, 500), // 500ms kechikish
+    }, 500),
     []
   );
 
@@ -40,15 +47,16 @@ export default function MultiSelect({
     if (select_type === "multiple_skill_ids") {
       if (search) {
         fetchSkills(search);
-      } else {
+      } else if (JSON.stringify(filteredOptions) !== JSON.stringify(options)) {
         setFilteredOptions(options);
       }
     } else {
-      setFilteredOptions(
-        options.filter((option) =>
-          option.name.toLowerCase().includes(search.toLowerCase())
-        )
+      const newOptions = options.filter((option) =>
+        option.name.toLowerCase().includes(search.toLowerCase())
       );
+      if (JSON.stringify(newOptions) !== JSON.stringify(filteredOptions)) {
+        setFilteredOptions(newOptions);
+      }
     }
   }, [search, select_type, options]);
 

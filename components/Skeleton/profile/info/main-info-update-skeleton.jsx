@@ -35,7 +35,7 @@ export default function MainInfoUpdateSkeleton() {
         <Skeleton width={50} />
         <Skeleton height={58} />
       </div>
-      <div className="col-span-1 lg:col-span-2 pt-20">
+      <div className="col-span-1 lg:col-span-2 pt-6 sm:pt-14">
         <Skeleton height={58}/>
       </div>
     </div>

@@ -67,7 +67,7 @@ export default function DatePickerUi({
                   disabled={noSelected}
                   lightMode={true}
                   primaryColor="blue"
-                  inputClassName="w-full px-4 py-4 rounded-lg bg-bg-2 border border-bg-3 text-primary"
+                  inputClassName="w-full px-4 py-4 rounded-lg bg-bg-2 border border-bg-3 text-primary max-h-[58px] min-h-[58px]"
                 />
               );
             }}

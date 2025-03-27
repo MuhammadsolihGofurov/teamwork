@@ -99,7 +99,7 @@ export default function SpecialistsForm({ page }) {
           placeholder={""}
           id="speciality_ids"
           required
-          page={"speciality"}
+          state={"speciality"}
           isIcon={true}
           validation={{
             required: intl.formatMessage({ id: "RequiredSpeciality" }),
@@ -116,7 +116,7 @@ export default function SpecialistsForm({ page }) {
           placeholder={""}
           id="speciality_children"
           required={false}
-          page={"speciality_children"}
+          state={"speciality_children"}
           isIcon={true}
           validation={{
             required: intl.formatMessage({ id: "RequiredSpecialityChildren" }),
@@ -136,7 +136,7 @@ export default function SpecialistsForm({ page }) {
           placeholder={""}
           id="skill_ids"
           required
-          page={"skill_ids"}
+          state={"skill_ids"}
           isIcon={true}
           validation={{
             required: intl.formatMessage({ id: "RequiredSkillIds" }),

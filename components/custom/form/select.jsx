@@ -4,6 +4,7 @@ import CustomSelect from "./details/custom-select";
 import MultiSelect from "./details/multi-select";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useSelector } from "react-redux";
+import { ID_CARD, PASSPORT } from "@/utils/data";
 
 export default function SelectInput({
   name,
@@ -31,14 +32,24 @@ export default function SelectInput({
     district: `/district/list?region_id=${region_id}`,
     speciality: `/speciality/parent-list?expand=children`,
     skill_ids: `/skill/list`,
+    passport: [
+      { id: 1, name: intl.formatMessage({ id: "ID Karta" }), value: ID_CARD },
+      { id: 2, name: intl.formatMessage({ id: "Passport" }), value: PASSPORT },
+    ],
   };
 
-  // Agar select_type "multiple_without_api" bo‘lsa, API so‘rov yubormaymiz
-  const shouldFetch = select_type !== "multiple_without_api";
+  const shouldFetch =
+    select_type !== "multiple_without_api" && state !== "passport";
+
   const { data, isLoading, error } = shouldFetch
     ? useFetchData(endpoints[state], isAuth)
     : {
-        data: { items: speciality_current?.children },
+        data: {
+          items:
+            state === "passport"
+              ? endpoints.passport
+              : speciality_current?.children,
+        },
         isLoading: false,
         error: null,
       };

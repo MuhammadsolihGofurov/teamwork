@@ -23,7 +23,7 @@ import {
   Select,
 } from "@/components/custom/form";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
-import { MainInfoUpdateSkeleton } from "@/components/Skeleton/profile/info";
+import { MainInfoUpdateSkeleton, PhyiscalInfoUpdateSkeleton } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
 import { setCountryId, setRegionId } from "@/redux/slice/settings";
 
@@ -36,6 +36,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   const [code, setCode] = useState("998");
   const [reqLoading, setReqLoading] = useState(false);
   const dispatch = useDispatch();
+  const [imageSet, setImageSet] = useState(null);
   // Profile rasmi
   const [image, setImage] = useState(null);
   const {
@@ -51,53 +52,108 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
+      full_name: "",
       gender: "",
+      date_of_birth: "",
+      email: "",
       country_id: "",
       region_id: "",
       district_id: "",
       address_name: "",
+      other_phone: "",
+      site: "",
+      passport: {
+        serial: "",
+        number: "",
+        given_time: "",
+        given_by_whom: "",
+        expire_date: "",
+        attachment_id: "",
+        passport_type: "",
+      },
     },
   });
 
   useEffect(() => {
-    const gender = user_info?.employer?.physicalPerson?.gender;
-    const addres = user_info?.employer?.physicalPerson?.address;
-    // const birthDate = isExpert
-    //   ? user_info?.expert?.date_of_birth
-    //   : user_info?.employer?.date_of_birth;
+    const user = user_info?.employer?.physicalPerson;
+    const gender = user?.gender;
+    const addres = user?.address;
+    const birthDate = user?.date_of_birth;
+    const passport = user?.passport;
 
-    setValue("gender", gender || "");
+    setValue("full_name", user?.full_name);
+    setValue("email", user?.email);
+    setValue("gender", gender);
+    setValue("other_phone", user?.other_phone?.slice(3) ?? "");
+    setValue("site", user?.site);
     setValue("country_id", addres?.district?.region?.country?.id);
     dispatch(setCountryId(addres?.district?.region?.country?.id));
     setValue("region_id", addres?.district?.region?.id);
     dispatch(setRegionId(addres?.district?.region?.id));
     setValue("district_id", addres?.district?.id);
     setValue("address_name", addres?.home);
-    // if (birthDate) {
-    //   setValue("date_of_birth", { startDate: birthDate, endDate: birthDate });
-    // }
+
+    // passport
+    setValue("passport.attachment_id", passport?.attachment_id);
+    setValue("passport.given_by_whom", passport?.given_by_whom);
+    setValue("passport.number", passport?.number);
+    setValue("passport.passport_type", passport?.type);
+    setValue("passport.serial", passport?.serial);
+    setValue("passport.expire_date", {
+      startDate: passport?.expire_date,
+      endDate: passport?.expire_date,
+    });
+    setValue("passport.given_time", {
+      startDate: passport?.given_time,
+      endDate: passport?.given_time,
+    });
+
+    if (birthDate) {
+      setValue("date_of_birth", { startDate: birthDate, endDate: birthDate });
+    }
   }, [user_info, setValue]);
 
   const submitFn = async (data) => {
     const {
-      phone_number,
-      password,
-      new_password,
-      new_password_repeat,
-      email,
       full_name,
+      gender,
+      other_phone,
+      email,
+      date_of_birth,
+      district_id,
+      address_name,
+      site,
+      passport: {
+        serial,
+        number,
+        given_time,
+        given_by_whom,
+        expire_date,
+        passport_type,
+      },
     } = data;
     try {
       setReqLoading(true);
-      let phone = `${code}${unmaskPhone(phone_number)}`;
+      let phone = `${code}${unmaskPhone(other_phone)}`;
 
       const payload = {
-        phone_number: phone,
-        password,
-        new_password_repeat,
-        new_password,
         full_name,
         email,
+        gender,
+        date_of_birth: date_of_birth.startDate,
+        district_id: district_id,
+        address_name,
+        other_phone: phone,
+        site,
+        passport: {
+          serial,
+          number,
+          given_time: given_time?.startDate,
+          given_by_whom,
+          expire_date: expire_date?.startDate,
+          attachment_id: image,
+          passport_type,
+        },
       };
 
       const response = await authAxios.post(
@@ -106,13 +162,15 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       );
 
       // localstoragega kelgan malumotlarni saqlash kerak.
-      //   localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
-      //   localStorage.setItem(REGISTERPHONENUMBER, phone);
+      // localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
+      // localStorage.setItem(REGISTERPHONENUMBER, phone);
 
-      //   toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
-      //   dispatch(fetchUserData());
+      toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
+      dispatch(fetchUserData());
 
       reset();
+      setImage(null);
+      setImageSet(null);
 
       //   setTimeout(() => {
       //     router.push("/auth/register/sms-code");
@@ -124,9 +182,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     }
   };
 
-  //   if (loading) {
-  //     return <MainInfoUpdateSkeleton />;
-  //   }
+    if (loading) {
+      return <PhyiscalInfoUpdateSkeleton />;
+    }
 
   return (
     <form
@@ -137,11 +195,66 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
       } grid-cols-1 lg:grid-cols-2 items-start gap-6 p-8 rounded-lg border border-bg-3`}
     >
-      {/* <File
+      <Input
+        errors={errors?.full_name}
+        type={"text"}
+        register={register}
+        name={"full_name"}
+        title={intl.formatMessage({ id: "FIO" })}
+        placeholder={intl.formatMessage({ id: "Passportga ko’ra" })}
+        id={`full_name${isMobile ? "1" : ""}`}
+        required
         page={page}
-        onFileUpload={(file) => setImage(file)}
-        existingImage={image}
-      /> */}
+        setCode={setCode}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredName" }),
+        }}
+      />
+
+      <Radio
+        errors={errors?.gender}
+        type={"radio"}
+        register={register}
+        name={"gender"}
+        title={intl.formatMessage({ id: "gender" })}
+        placeholder={""}
+        id="gender"
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredGender" }),
+        }}
+        control={control}
+      />
+
+      <DatePickerUi
+        errors={errors?.date_of_birth}
+        type={"date"}
+        register={register}
+        name={"date_of_birth"}
+        title={intl.formatMessage({ id: "birthday" })}
+        placeholder={""}
+        id={`date_of_birth${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredDateOfBirth" }),
+        }}
+        control={control}
+      />
+
+      <Input
+        errors={errors?.email}
+        type={"text"}
+        register={register}
+        name={"email"}
+        title={intl.formatMessage({ id: "E-mail" })}
+        placeholder={intl.formatMessage({ id: "E-mail" })}
+        id={`email${isMobile ? "1" : ""}`}
+        required={false}
+        page={page}
+      />
+
       <Select
         errors={errors?.country_id}
         type={"text"}
@@ -149,7 +262,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"country_id"}
         title={intl.formatMessage({ id: "Mamlakat" })}
         placeholder={""}
-        id="country_id"
+        id={`country_id${isMobile ? "1" : ""}`}
         required
         state={"country"}
         isIcon={true}
@@ -167,7 +280,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"region_id"}
         title={intl.formatMessage({ id: "Viloyat" })}
         placeholder={""}
-        id="region_id"
+        id={`region_id${isMobile ? "1" : ""}`}
         required
         state={"region"}
         isIcon={true}
@@ -186,7 +299,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"district_id"}
         title={intl.formatMessage({ id: "Tuman" })}
         placeholder={""}
-        id="district_id"
+        id={`district_id${isMobile ? "1" : ""}`}
         required
         state={"district"}
         page={page}
@@ -205,52 +318,188 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"address_name"}
         title={intl.formatMessage({ id: "Yashash manzili" })}
         placeholder={intl.formatMessage({ id: "Kiriting" })}
-        id="address_name"
+        id={`address_name${isMobile ? "1" : ""}`}
         required
         page={page}
         isIcon={true}
         validation={{
-          required: "FIO majburiy",
+          required: intl.formatMessage({ id: "RequiredAddress" }),
         }}
         control={control}
       />
 
-      {/* <Input
-        errors={errors?.email}
+      {/* <PhoneInput
+        errors={errors?.other_phone}
         type={"text"}
         register={register}
-        name={"email"}
-        title={intl.formatMessage({ id: "E-mail" })}
-        placeholder={intl.formatMessage({ id: "E-mail" })}
-        id={`email${isMobile ? "1" : ""}`}
-        required={false}
-        page={page}
+        name={"other_phone"}
+        placeholder={"___ __ ___ __ __"}
+        id={`other_phone${isMobile ? "1" : ""}`}
+        // required
+        title={intl.formatMessage({ id: "Qo'shimcha Telefon raqami" })}
         setCode={setCode}
-      /> */}
-
-      {/* <DatePickerUi
-        errors={errors?.date_of_birth}
-        type={"date"}
-        register={register}
-        name={"date_of_birth"}
-        title={intl.formatMessage({ id: "birthday" })}
-        placeholder={""}
-        id="date_of_birth"
-        required
         page={page}
         validation={{
-          required: intl.formatMessage({ id: "RequiredDateOfBirth" }),
+          required: intl.formatMessage({ id: "requiredPhone" }),
+          // pattern: {
+          //   value: /^\d{2} \d{3}-\d{2}-\d{2}$/,
+          //   message: intl.formatMessage({ id: "isNotEqualsPhone" }),
+          // },
+        }}
+      /> */}
+
+      <Input
+        errors={errors?.site}
+        type={"text"}
+        register={register}
+        name={"site"}
+        title={intl.formatMessage({ id: "Site" })}
+        placeholder={intl.formatMessage({ id: "Site placeholder" })}
+        id={`site${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredSite" }),
+          pattern: {
+            value: /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$/,
+            message: intl.formatMessage({ id: "isNotValidURL" }),
+          },
         }}
         control={control}
-      /> */}
+      />
 
       <div className="col-span-1 lg:col-span-2 pt-5">
         <h4 className="font-semibold text-primary">
-          {intl.formatMessage({ id: "Profil himoya sozlamalari" })}
+          {intl.formatMessage({ id: "Passport ma'lumotlari" })}
         </h4>
       </div>
 
-      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-20">
+      <Select
+        errors={errors?.passport?.passport_type}
+        type={"text"}
+        register={register}
+        name={"passport.passport_type"}
+        title={intl.formatMessage({ id: "Passport turi" })}
+        placeholder={""}
+        id={`passport.passport_type${isMobile ? "1" : ""}`}
+        required
+        state={"passport"}
+        page={page}
+        isIcon={false}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportType" }),
+        }}
+        control={control}
+      />
+
+      <Input
+        errors={errors?.passport?.serial}
+        type={"text"}
+        register={register}
+        name={"passport.serial"}
+        title={intl.formatMessage({ id: "Seriyasi" })}
+        placeholder={"AA"}
+        id={`passport.serial${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportSerial" }),
+          pattern: {
+            value: /^[A-Z]{2}$/,
+            message: "AA, AB, AC",
+          },
+        }}
+        control={control}
+      />
+
+      <Input
+        errors={errors?.passport?.number}
+        type={"text"}
+        register={register}
+        name={"passport.number"}
+        title={intl.formatMessage({ id: "Passport Raqami" })}
+        placeholder={"1234567"}
+        id={`passport.number${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportNumber" }),
+          pattern: {
+            value: /^[0-9]{7}$/,
+            message: intl.formatMessage({ id: "IsNotValidPassportNumber" }),
+          },
+        }}
+        control={control}
+      />
+
+      <Input
+        errors={errors?.passport?.given_by_whom}
+        type={"text"}
+        register={register}
+        name={"passport.given_by_whom"}
+        title={intl.formatMessage({ id: "Kim tomondan berilgan" })}
+        placeholder={intl.formatMessage({
+          id: "Kim tomondan berilgan placeholder",
+        })}
+        id={`passport.given_by_whom${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportWhoGiven" }),
+          // pattern: {
+          //   value: /^[0-9]{7}$/,
+          //   message: intl.formatMessage({ id: "IsNotValidPassportNumber" }),
+          // },
+        }}
+        control={control}
+      />
+
+      <DatePickerUi
+        errors={errors?.passport?.given_time}
+        type={"date"}
+        register={register}
+        name={"passport.given_time"}
+        title={intl.formatMessage({ id: "Qachon berilgan" })}
+        placeholder={""}
+        id={`passport.given_time${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportGivenDate" }),
+        }}
+        control={control}
+      />
+
+      <DatePickerUi
+        errors={errors?.passport?.expire_date}
+        type={"date"}
+        register={register}
+        name={"passport.expire_date"}
+        title={intl.formatMessage({ id: "Amal qilish muddati" })}
+        placeholder={""}
+        id={`passport.expire_date${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportExpiredDate" }),
+        }}
+        control={control}
+      />
+
+      <div className="col-span-1 lg:col-span-2">
+        <File
+          page={"passport"}
+          onFileUpload={(file) => setImage(file)}
+          existingImage={imageSet}
+          type="passport"
+        />
+      </div>
+
+      <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-14">
         <button
           type="submit"
           className={`py-4 font-semibold  bg-main w-full rounded-lg flex items-center justify-center text-center transition-opacity duration-300 ${

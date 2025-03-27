@@ -23,12 +23,48 @@ export default function File({
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
-    await uploadImage(selectedFile, type);
-    // if (uploadedImage) {
-    //   setPreview(uploadedImage.url);
-    //   onFileUpload(uploadedImage.url);
-    // }
+    const uploadedImage = await uploadImage(selectedFile, type);
+    console.error(uploadedImage)
+    if (uploadedImage) {
+      setPreview(uploadedImage.name);
+      onFileUpload(uploadedImage.id);
+    }
   };
+
+  if (page == "passport") {
+    return (
+      <div
+        className={`flex cursor-pointer p-1 rounded-xl border border-bg-3 bg-white w-full gap-4 relative z-0`}
+      >
+        <div className="w-full h-[80px] flex items-center justify-center p-2 border border-dashed border-bg-3 rounded-xl">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19M14 3H7C6.46957 3 5.96086 3.21071 5.58579 3.58579C5.21071 3.96086 5 4.46957 5 5V12M14 3L19 8M19 8V12M3 12H21M6 16V18M10 16V22M14 16V18M18 16V20"
+              stroke="#222222"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span className="text-primary">
+            {preview ?? intl.formatMessage({ id: "Pasport nusxasini biriktiring" })}
+          </span>
+        </div>
+        <input
+          type="file"
+          className="opacity-0 w-full h-full absolute top-0 left-0 cursor-pointer border-transparent"
+          accept="image/jpeg, image/png"
+          onChange={handleFileChange}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

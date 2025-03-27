@@ -110,7 +110,7 @@ export default function Input({
           required={required}
           autoComplete="off"
           disabled={noSelected}
-          className="p-4 rounded-lg bg-bg-2 border border-bg-3 text-primary"
+          className="p-4 rounded-lg bg-bg-2 border border-bg-3 text-primary max-h-[58px] min-h-[58px]"
           {...register(name, validation)}
         />
         {errors?.message ? (

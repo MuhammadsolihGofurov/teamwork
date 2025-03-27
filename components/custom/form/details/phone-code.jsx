@@ -81,7 +81,7 @@ export default function PhoneCode({ setCode, page }) {
   if (page == "profile") {
     return (
       <div
-        className={`h-[54px] p-[3px] bg-white rounded-lg flex items-center justify-center relative z-10`}
+        className={`h-[54px] p-[3px] bg-white rounded-lg flex items-center justify-center relative`}
         ref={menuRef}
       >
         {/* current */}

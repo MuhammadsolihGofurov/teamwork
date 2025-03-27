@@ -14,3 +14,7 @@ export const REGISTERAUTHKEY = "register_auth_key";
 // === GENDER ===
 export const GENDER_MALE = "MALE";
 export const GENDER_FEMALE = "FEMALE";
+
+// === PASSPORT TYPE ===
+export const ID_CARD = "ID_CARD";
+export const PASSPORT = "PASSPORT";
