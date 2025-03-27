@@ -21,6 +21,7 @@ export default function LogOut({ isMobile = false }) {
 
   const handleLogOut = () => {
     dispatch(RemvoeUserFullInfo());
+    router.push(`/${LoginUrl}`);
 
     localStorage.removeItem(REGISTERAUTHKEY);
     localStorage.removeItem(REGISTERASUSERTYPE);
@@ -28,7 +29,6 @@ export default function LogOut({ isMobile = false }) {
     localStorage.removeItem(PRIVATEAUTHKEY);
 
     toast.success(intl.formatMessage({ id: "success-log-out" }));
-    router.push(`/${LoginUrl}`);
   };
 
   return (

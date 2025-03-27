@@ -64,18 +64,19 @@ export default function RegisterSMSCode({ page }) {
 
       // localstoragega kelgan malumotlarni saqlash kerak.
       localStorage.setItem(PRIVATEAUTHKEY, response?.data?.data?.auth_key);
+      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(
         intl.formatMessage({ id: "register-send-code-success-message" })
       );
 
       setTimeout(() => {
-        router.push(`/${ProfileUrl}`);
-        // if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
-        //   router.push(`/${RegisterAsDetailsUrl}`);
-        // } else {
-        //   router.push(`/${ProfileUrl}`);
-        // }
+        // router.push(`/${ProfileUrl}`);
+        if (localStorage.getItem(REGISTERASUSERTYPE == EXPERT)) {
+          router.push(`/${RegisterAsDetailsUrl}`);
+        } else {
+          router.push(`/${ProfileUrl}`);
+        }
       }, 500);
     } catch (e) {
       console.error(e);

@@ -225,12 +225,12 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
             ? skill_ids.map((item) => item.id)
             : skill_ids,
         speciality_ids:
-          Array.isArray(speciality_ids) &&
-          speciality_ids.every(
+          Array.isArray(specialityChildren) &&
+          specialityChildren.every(
             (item) => typeof item === "object" && item !== null
           )
-            ? speciality_ids.map((item) => item.id)
-            : speciality_ids,
+            ? specialityChildren.map((item) => item.id)
+            : specialityChildren,
         hourly_salary,
         language: languagesSets?.find((item) => item?.id)?.value,
         languages: languagesData?.map((item) => item?.value),
@@ -245,7 +245,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         },
         necessary_information,
       };
-
 
       const response = await authAxios.post(
         "/user/update-expert-data?expand=specialitySets.parent",
@@ -334,7 +333,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         }}
         control={control}
       />
-
 
       <Select
         errors={errors?.country_id}
@@ -547,14 +545,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         title={intl.formatMessage({ id: "NativeLanguage" })}
         placeholder={""}
         id={`language${isMobile ? "1" : ""}`}
-        required
         state={"languages"}
         withState="static"
         page={page}
         isIcon={false}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportType" }),
-        }}
         control={control}
       />
 
@@ -593,14 +587,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         title={intl.formatMessage({ id: "Passport turi" })}
         placeholder={""}
         id={`passport.passport_type${isMobile ? "1" : ""}`}
-        required
         state={"passport"}
         withState="static"
         page={page}
         isIcon={false}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportType" }),
-        }}
         control={control}
       />
 

@@ -87,7 +87,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
     //   : user_info?.employer?.date_of_birth;
 
     setValue("full_name", user_info?.full_name || "");
-    setValue("phone_number", user_info?.phone_number?.slice(3));
+    setValue("phone_number", user_info?.phone_number?.slice(3) ?? "");
     setValue("email", user_info?.email || "");
     // setValue("gender", gender || "");
 

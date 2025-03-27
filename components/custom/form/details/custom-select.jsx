@@ -154,7 +154,7 @@ export default function CustomSelect({
             </div>
             {type == "speciality" && selectedOption ? (
               <div className="flex flex-wrap gap-2 pt-3 text-sm">
-                <p className="px-2 py-1 bg-white rounded-md">
+                <p className="px-2 py-1 bg-bg-2 rounded-md">
                   {selectedOption?.name}
                 </p>
               </div>
