@@ -27,6 +27,10 @@ export const useUploadImage = () => {
       return null;
     }
 
+    const toastId = toast.loading(
+      intl.formatMessage({ id: "pending-uploading-image" })
+    );
+
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -41,22 +45,34 @@ export const useUploadImage = () => {
         }
       );
 
-      if (type == "profile_icon") {
-        toast.success(
-          intl.formatMessage({ id: "success-profile-picture-upload" })
-        );
-        dispatch(fetchUserData());
-      } else {
-        toast.success(
-          intl.formatMessage({ id: "success-picture-upload" })
-        );
+      toast.update(toastId, {
+        render: intl.formatMessage({
+          id:
+            type === "profile_icon"
+              ? "success-profile-picture-upload"
+              : "success-picture-upload",
+        }),
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
+      if (type === "profile_icon") {
+        setTimeout(() => {
+          dispatch(fetchUserData());
+        }, 1000);
       }
+
       return response?.data?.data;
     } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          intl.formatMessage({ id: "error-profile-picture-upload" })
-      );
+      toast.update(toastId, {
+        render:
+          error.response?.data?.message ||
+          intl.formatMessage({ id: "error-profile-picture-upload" }),
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
       return null;
     }
   };

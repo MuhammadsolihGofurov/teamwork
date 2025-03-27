@@ -1,5 +1,11 @@
 import React from "react";
-import { InfoMainChanges, InfoPhysicalChanges, InfoTopBanner } from "./details/info";
+import {
+  AdditionalInfoChanges,
+  InfoLegalChanges,
+  InfoMainChanges,
+  InfoPhysicalChanges,
+  InfoTopBanner,
+} from "./details/info";
 import { MenuTabs } from "./details";
 import { useIntl } from "react-intl";
 
@@ -26,6 +32,26 @@ export default function CenterInfoProfile({
         <InfoTopBanner />
         <MenuTabs data={tabsMenu} />
         <InfoPhysicalChanges />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "legal-info") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <InfoLegalChanges />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "additional-info") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <AdditionalInfoChanges />
       </CenterInfoWrapper>
     );
   }

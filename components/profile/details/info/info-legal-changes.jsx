@@ -24,13 +24,14 @@ import {
 } from "@/components/custom/form";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
 import {
+    LegalInfoUpdateSkeleton,
   MainInfoUpdateSkeleton,
   PhyiscalInfoUpdateSkeleton,
 } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
 import { setCountryId, setRegionId } from "@/redux/slice/settings";
 
-export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
+export default function InfoLegalChanges({ page = "profile", isMobile }) {
   const router = useRouter();
   const intl = useIntl();
   const { user_info, current_user_type, loading } = useSelector(
@@ -56,112 +57,89 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     mode: "onChange",
     defaultValues: {
       full_name: "",
-      gender: "",
-      date_of_birth: "",
       email: "",
       country_id: "",
       region_id: "",
       district_id: "",
       address_name: "",
-      other_phone: "",
+      address_zip_code: "",
+      telegram_phone: "",
       site: "",
-      passport: {
-        serial: "",
-        number: "",
-        given_time: "",
-        given_by_whom: "",
-        expire_date: "",
-        attachment_id: "",
-        passport_type: "",
-      },
+      account_number: "",
+      bank_name: "",
+      company_name: "",
+      ifut: "",
+      inn: "",
+      legal_address: "",
+      mfo: "",
     },
   });
 
   useEffect(() => {
-    const user = user_info?.employer?.physicalPerson;
+    const user = user_info?.employer?.legalEntity;
     const gender = user?.gender;
     const addres = user?.address;
-    const birthDate = user?.date_of_birth;
-    const passport = user?.passport;
 
     setValue("full_name", user?.full_name);
     setValue("email", user?.email);
-    setValue("gender", gender);
-    setValue("other_phone", user?.other_phone?.slice(3) ?? "");
+    setValue("telegram_phone", user?.telegram_phone?.slice(3) ?? "");
     setValue("site", user?.site);
+    setValue("account_number", user?.account_number);
+    setValue("bank_name", user?.bank_name);
+    setValue("company_name", user?.company_name);
+    setValue("ifut", user?.ifut);
+    setValue("inn", user?.inn);
+    setValue("legal_address", user?.legal_address);
+    setValue("mfo", user?.mfo);
     setValue("country_id", addres?.district?.region?.country?.id);
     dispatch(setCountryId(addres?.district?.region?.country?.id));
     setValue("region_id", addres?.district?.region?.id);
     dispatch(setRegionId(addres?.district?.region?.id));
     setValue("district_id", addres?.district?.id);
     setValue("address_name", addres?.home);
-
-    // passport
-    setValue("passport.attachment_id", passport?.attachment_id);
-    setValue("passport.given_by_whom", passport?.given_by_whom);
-    setValue("passport.number", passport?.number);
-    setValue("passport.passport_type", passport?.type);
-    setValue("passport.serial", passport?.serial);
-    setValue("passport.expire_date", {
-      startDate: passport?.expire_date,
-      endDate: passport?.expire_date,
-    });
-    setValue("passport.given_time", {
-      startDate: passport?.given_time,
-      endDate: passport?.given_time,
-    });
-
-    if (birthDate) {
-      setValue("date_of_birth", { startDate: birthDate, endDate: birthDate });
-    }
+    setValue("address_zip_code", addres?.zip_code);
   }, [user_info, setValue]);
 
   const submitFn = async (data) => {
     const {
       full_name,
-      gender,
-      other_phone,
+      telegram_phone,
       email,
-      date_of_birth,
       district_id,
       address_name,
+      legal_address,
       site,
-      passport: {
-        serial,
-        number,
-        given_time,
-        given_by_whom,
-        expire_date,
-        passport_type,
-        attachment_id,
-      },
+      account_number,
+      bank_name,
+      company_name,
+      ifut,
+      inn,
+      mfo,
+      address_zip_code,
     } = data;
     try {
       setReqLoading(true);
-      let phone = `${code}${unmaskPhone(other_phone)}`;
+      let phone = `${code}${unmaskPhone(telegram_phone)}`;
 
       const payload = {
         full_name,
         email,
-        gender,
-        date_of_birth: date_of_birth.startDate,
         district_id: district_id,
         address_name,
-        other_phone: phone,
+        telegram_phone: phone,
         site,
-        passport: {
-          serial,
-          number,
-          given_time: given_time?.startDate,
-          given_by_whom,
-          expire_date: expire_date?.startDate,
-          attachment_id: image ?? attachment_id,
-          passport_type,
-        },
+        legal_address,
+        account_number,
+        bank_name,
+        company_name,
+        ifut,
+        inn,
+        mfo,
+        address_zip_code,
       };
 
       const response = await authAxios.post(
-        "/user/update-physical-person-data",
+        "/user/update-legal-entity-data",
         payload
       );
 
@@ -169,13 +147,14 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       // localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
       // localStorage.setItem(REGISTERPHONENUMBER, phone);
 
-      toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
+      toast.success(intl.formatMessage({ id: "success-update-legal-data" }));
       setTimeout(() => {
         dispatch(fetchUserData());
         reset();
       }, 1000);
-      setImage(null);
-      setImageSet(null);
+
+      //   setImage(null);
+      //   setImageSet(null);
 
       //   setTimeout(() => {
       //     router.push("/auth/register/sms-code");
@@ -187,9 +166,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     }
   };
 
-  if (loading) {
-    return <PhyiscalInfoUpdateSkeleton />;
-  }
+    if (loading) {
+      return <LegalInfoUpdateSkeleton />;
+    }
 
   return (
     <form
@@ -200,12 +179,29 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
       } grid-cols-1 lg:grid-cols-2 items-start gap-6 p-8 rounded-lg border border-bg-3`}
     >
+      <div className="col-span-1 lg:col-span-2 flex flex-col gap-1">
+        <h3
+          role="heading"
+          className="text-lg sm:text-xl font-medium text-primary"
+        >
+          {intl.formatMessage({ id: "Yuridik shax ma'lumotlarini to'ldiring" })}
+        </h3>
+        <p
+          role="text"
+          className="text-primary text-opacity-60 text-sm font-normal"
+        >
+          {intl.formatMessage({
+            id: "Marhamat profilingizni batafsil to’ldiring!",
+          })}
+        </p>
+      </div>
+
       <Input
         errors={errors?.full_name}
         type={"text"}
         register={register}
         name={"full_name"}
-        title={intl.formatMessage({ id: "FIO" })}
+        title={intl.formatMessage({ id: "Mas’ul shaxs FISH" })}
         placeholder={intl.formatMessage({ id: "Passportga ko’ra" })}
         id={`full_name${isMobile ? "1" : ""}`}
         required
@@ -214,38 +210,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         validation={{
           required: intl.formatMessage({ id: "RequiredName" }),
         }}
-      />
-
-      <Radio
-        errors={errors?.gender}
-        type={"radio"}
-        register={register}
-        name={"gender"}
-        title={intl.formatMessage({ id: "gender" })}
-        placeholder={""}
-        id="gender"
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredGender" }),
-        }}
-        control={control}
-      />
-
-      <DatePickerUi
-        errors={errors?.date_of_birth}
-        type={"date"}
-        register={register}
-        name={"date_of_birth"}
-        title={intl.formatMessage({ id: "birthday" })}
-        placeholder={""}
-        id={`date_of_birth${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredDateOfBirth" }),
-        }}
-        control={control}
       />
 
       <Input
@@ -257,6 +221,93 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         placeholder={intl.formatMessage({ id: "E-mail" })}
         id={`email${isMobile ? "1" : ""}`}
         required={false}
+        page={page}
+      />
+
+      <Input
+        errors={errors?.company_name}
+        type={"text"}
+        register={register}
+        name={"company_name"}
+        title={intl.formatMessage({ id: "Tashkilot nomi" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`company_name${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        setCode={setCode}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredCompanyName" }),
+        }}
+      />
+
+      <Input
+        errors={errors?.bank_name}
+        type={"text"}
+        register={register}
+        name={"bank_name"}
+        title={intl.formatMessage({ id: "Bank nomi" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`bank_name${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredBankName" }),
+        }}
+      />
+
+      <Input
+        errors={errors?.account_number}
+        type={"text"}
+        register={register}
+        name={"account_number"}
+        title={intl.formatMessage({ id: "Account nomi" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`account_number${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredAccountName" }),
+        }}
+      />
+
+      <Input
+        errors={errors?.mfo}
+        type={"text"}
+        register={register}
+        name={"mfo"}
+        title={intl.formatMessage({ id: "MFO" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`mfo${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredMFO" }),
+        }}
+      />
+
+      <Input
+        errors={errors?.inn}
+        type={"text"}
+        register={register}
+        name={"inn"}
+        title={intl.formatMessage({ id: "INN" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`inn${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredINN" }),
+        }}
+      />
+
+      <Input
+        errors={errors?.ifut}
+        type={"text"}
+        register={register}
+        name={"ifut"}
+        title={intl.formatMessage({ id: "IFUT unrequired" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`ifut${isMobile ? "1" : ""}`}
         page={page}
       />
 
@@ -333,25 +384,61 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         control={control}
       />
 
-      {/* <PhoneInput
-        errors={errors?.other_phone}
+      <Input
+        errors={errors?.address_zip_code}
         type={"text"}
         register={register}
-        name={"other_phone"}
+        name={"address_zip_code"}
+        title={intl.formatMessage({ id: "Index" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`address_zip_code${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredAddressIndex" }),
+        }}
+        control={control}
+      />
+
+      <Input
+        errors={errors?.legal_address}
+        type={"text"}
+        register={register}
+        name={"legal_address"}
+        title={intl.formatMessage({ id: "Yuridik manzil" })}
+        placeholder={intl.formatMessage({ id: "Kiriting" })}
+        id={`legal_address${isMobile ? "1" : ""}`}
+        required
+        page={page}
+        isIcon={true}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredAddressLegal" }),
+        }}
+        control={control}
+      />
+
+      <PhoneInput
+        errors={errors?.telegram_phone}
+        type={"text"}
+        register={register}
+        name={"telegram_phone"}
         placeholder={"___ __ ___ __ __"}
-        id={`other_phone${isMobile ? "1" : ""}`}
+        id={`telegram_phone${isMobile ? "1" : ""}`}
         // required
-        title={intl.formatMessage({ id: "Qo'shimcha Telefon raqami" })}
+        title={intl.formatMessage({ id: "Telefon raqami telegram" })}
         setCode={setCode}
         page={page}
-        validation={{
-          required: intl.formatMessage({ id: "requiredPhone" }),
-          // pattern: {
-          //   value: /^\d{2} \d{3}-\d{2}-\d{2}$/,
-          //   message: intl.formatMessage({ id: "isNotEqualsPhone" }),
-          // },
-        }}
-      /> */}
+        validation={
+          {
+            //   required: intl.formatMessage({ id: "requiredPhone" }),
+            //   pattern: {
+            //     value: /^\d{2} \d{3}-\d{2}-\d{2}$/,
+            //     message: intl.formatMessage({ id: "isNotEqualsPhone" }),
+            //   },
+          }
+        }
+      />
 
       <Input
         errors={errors?.site}
@@ -373,136 +460,6 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         }}
         control={control}
       />
-
-      <div className="col-span-1 lg:col-span-2 pt-5">
-        <h4 className="font-semibold text-primary">
-          {intl.formatMessage({ id: "Passport ma'lumotlari" })}
-        </h4>
-      </div>
-
-      <Select
-        errors={errors?.passport?.passport_type}
-        type={"text"}
-        register={register}
-        name={"passport.passport_type"}
-        title={intl.formatMessage({ id: "Passport turi" })}
-        placeholder={""}
-        id={`passport.passport_type${isMobile ? "1" : ""}`}
-        required
-        state={"passport"}
-        page={page}
-        isIcon={false}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportType" }),
-        }}
-        control={control}
-      />
-
-      <Input
-        errors={errors?.passport?.serial}
-        type={"text"}
-        register={register}
-        name={"passport.serial"}
-        title={intl.formatMessage({ id: "Seriyasi" })}
-        placeholder={"AA"}
-        id={`passport.serial${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        isIcon={true}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportSerial" }),
-          pattern: {
-            value: /^[A-Z]{2}$/,
-            message: "AA, AB, AC",
-          },
-        }}
-        control={control}
-      />
-
-      <Input
-        errors={errors?.passport?.number}
-        type={"text"}
-        register={register}
-        name={"passport.number"}
-        title={intl.formatMessage({ id: "Passport Raqami" })}
-        placeholder={"1234567"}
-        id={`passport.number${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        isIcon={true}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportNumber" }),
-          pattern: {
-            value: /^[0-9]{7}$/,
-            message: intl.formatMessage({ id: "IsNotValidPassportNumber" }),
-          },
-        }}
-        control={control}
-      />
-
-      <Input
-        errors={errors?.passport?.given_by_whom}
-        type={"text"}
-        register={register}
-        name={"passport.given_by_whom"}
-        title={intl.formatMessage({ id: "Kim tomondan berilgan" })}
-        placeholder={intl.formatMessage({
-          id: "Kim tomondan berilgan placeholder",
-        })}
-        id={`passport.given_by_whom${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        isIcon={true}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportWhoGiven" }),
-          // pattern: {
-          //   value: /^[0-9]{7}$/,
-          //   message: intl.formatMessage({ id: "IsNotValidPassportNumber" }),
-          // },
-        }}
-        control={control}
-      />
-
-      <DatePickerUi
-        errors={errors?.passport?.given_time}
-        type={"date"}
-        register={register}
-        name={"passport.given_time"}
-        title={intl.formatMessage({ id: "Qachon berilgan" })}
-        placeholder={""}
-        id={`passport.given_time${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportGivenDate" }),
-        }}
-        control={control}
-      />
-
-      <DatePickerUi
-        errors={errors?.passport?.expire_date}
-        type={"date"}
-        register={register}
-        name={"passport.expire_date"}
-        title={intl.formatMessage({ id: "Amal qilish muddati" })}
-        placeholder={""}
-        id={`passport.expire_date${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredPassportExpiredDate" }),
-        }}
-        control={control}
-      />
-
-      <div className="col-span-1 lg:col-span-2">
-        <File
-          page={"passport"}
-          onFileUpload={(file) => setImage(file)}
-          existingImage={imageSet}
-          type="passport"
-        />
-      </div>
 
       <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 lg:col-span-2 sm:w-auto w-full pt-6 sm:pt-14">
         <button

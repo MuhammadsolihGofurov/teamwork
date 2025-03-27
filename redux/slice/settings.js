@@ -33,6 +33,9 @@ const settingsSlice = createSlice({
     setToggleLogOutModalConfirm: (state) => {
       state.logOutModalConfirm = !state.logOutModalConfirm;
     },
+    setSpecialitiesData: (state, action) => {
+      state.specialities = action.payload;
+    },
   },
 });
 
@@ -44,6 +47,7 @@ export const {
   setSpecialityIds,
   setSkillIds,
   setToggleLogOutModalConfirm,
+  setSpecialitiesData
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

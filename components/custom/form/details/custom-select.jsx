@@ -94,9 +94,8 @@ export default function CustomSelect({
                       />
                     </svg>
                   )}
-                  {field.value
-                    ? options.find((o) => o.id === field.value)?.name
-                    : intl.formatMessage({ id: "Tanlang" })}
+                  {options.find((o) => o.id === field.value)?.name ??
+                    intl.formatMessage({ id: "Tanlang" })}
                 </span>
                 <span className="pointer-events-none">
                   <svg
@@ -129,13 +128,13 @@ export default function CustomSelect({
               } 
               transition-transform duration-150`}
               >
-                {options.length === 0 ? (
+                {options?.length === 0 ? (
                   <p className="text-center py-4 text-sm text-gray-500">
                     {empty_message}
                   </p>
                 ) : (
                   <>
-                    {options.map((option, index) => (
+                    {options?.map((option, index) => (
                       <button
                         type="button"
                         onClick={() => handleClick(field, option)}
@@ -154,7 +153,7 @@ export default function CustomSelect({
               </div>
             </div>
             {type == "speciality" && selectedOption ? (
-              <div className="flex flex-wrap gap-2 pt-3 pl-5 text-sm">
+              <div className="flex flex-wrap gap-2 pt-3 text-sm">
                 <p className="px-2 py-1 bg-white rounded-md">
                   {selectedOption?.name}
                 </p>

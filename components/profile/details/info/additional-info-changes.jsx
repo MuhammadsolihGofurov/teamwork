@@ -28,13 +28,20 @@ import {
   PhyiscalInfoUpdateSkeleton,
 } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
-import { setCountryId, setRegionId } from "@/redux/slice/settings";
+import {
+  setCountryId,
+  setRegionId,
+  setSkillIds,
+  setSpecialityCurrent,
+  setSpecialityIds,
+} from "@/redux/slice/settings";
 
 export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   const router = useRouter();
   const intl = useIntl();
-  const { user_info, current_user_type, loading } = useSelector(
-    (state) => state.user
+  const { user_info, loading } = useSelector((state) => state.user);
+  const { specialityChildren, skillLists, specialities } = useSelector(
+    (state) => state.settings
   );
   const [code, setCode] = useState("998");
   const [reqLoading, setReqLoading] = useState(false);
@@ -74,11 +81,18 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         attachment_id: "",
         passport_type: "",
       },
+      hourly_salary: "",
+      necessary_information: "",
+      language: "",
+      languages: "",
+      skill_ids: "",
+      speciality_ids: "",
+      speciality_id: "",
     },
   });
 
   useEffect(() => {
-    const user = user_info?.employer?.physicalPerson;
+    const user = user_info?.expert;
     const gender = user?.gender;
     const addres = user?.address;
     const birthDate = user?.date_of_birth;
@@ -95,6 +109,24 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     dispatch(setRegionId(addres?.district?.region?.id));
     setValue("district_id", addres?.district?.id);
     setValue("address_name", addres?.home);
+    setValue("hourly_salary", user?.hourly_salary);
+    setValue("necessary_information", user?.necessary_information);
+    setValue("language", user?.language);
+    setValue("languages", user?.languages);
+    setValue("skill_ids", user?.skillSets);
+    dispatch(setSkillIds(user?.skillSets ?? []));
+    setValue("speciality_ids", user?.specialitySets);
+    dispatch(setSpecialityIds(user?.specialitySets ?? []));
+
+    // speciality current
+    const currentSpecialityId =
+      specialityChildren?.[0]?.parent_id ?? specialityChildren?.[0]?.id;
+    const currentSpeciality = specialities?.find(
+      (item) => item.id == currentSpecialityId
+    );
+
+    dispatch(setSpecialityCurrent(currentSpeciality));
+    setValue("speciality_id", currentSpeciality?.id);
 
     // passport
     setValue("passport.attachment_id", passport?.attachment_id);
@@ -161,7 +193,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       };
 
       const response = await authAxios.post(
-        "/user/update-physical-person-data",
+        "/user/update-expert-data?expand=specialitySets.parent",
         payload
       );
 
@@ -316,6 +348,88 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         isAuth={true}
       />
 
+      {/* skill */}
+      <Select
+        errors={errors?.speciality_id}
+        type={"text"}
+        register={register}
+        name={"speciality_id"}
+        title={intl.formatMessage({ id: "Speciality" })}
+        placeholder={""}
+        id="speciality_id"
+        required
+        state={"speciality"}
+        isIcon={true}
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredSpeciality" }),
+        }}
+        control={control}
+        isCollect={true}
+      />
+
+      <Select
+        errors={errors?.speciality_ids}
+        type={"text"}
+        register={register}
+        name={"speciality_children"}
+        title={intl.formatMessage({ id: "SpecialityChildren" })}
+        placeholder={""}
+        id="speciality_children"
+        required={false}
+        state={"speciality_children"}
+        isIcon={true}
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredSpecialityChildren" }),
+        }}
+        control={control}
+        select_type="multiple_without_api"
+        selectedState={specialityChildren}
+        setSelectedAction={setSpecialityIds}
+      />
+
+      <Select
+        errors={errors?.skill_ids}
+        type={"text"}
+        register={register}
+        name={"skill_ids"}
+        title={intl.formatMessage({ id: "SkillIds" })}
+        placeholder={""}
+        id="skill_ids"
+        required
+        state={"skill_ids"}
+        isIcon={true}
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredSkillIds" }),
+        }}
+        control={control}
+        select_type="multiple_skill_ids"
+        selectedState={skillLists}
+        setSelectedAction={setSkillIds}
+      />
+      {/* skill */}
+
+      <Select
+        errors={errors?.language}
+        type={"text"}
+        register={register}
+        name={"language"}
+        title={intl.formatMessage({ id: "Passport turi" })}
+        placeholder={""}
+        id={`language${isMobile ? "1" : ""}`}
+        required
+        state={"languages"}
+        withState="static"
+        page={page}
+        isIcon={false}
+        validation={{
+          required: intl.formatMessage({ id: "RequiredPassportType" }),
+        }}
+        control={control}
+      />
+
       <Input
         errors={errors?.address_name}
         type={"text"}
@@ -333,25 +447,17 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         control={control}
       />
 
-      {/* <PhoneInput
+      <PhoneInput
         errors={errors?.other_phone}
         type={"text"}
         register={register}
         name={"other_phone"}
         placeholder={"___ __ ___ __ __"}
         id={`other_phone${isMobile ? "1" : ""}`}
-        // required
         title={intl.formatMessage({ id: "Qo'shimcha Telefon raqami" })}
         setCode={setCode}
         page={page}
-        validation={{
-          required: intl.formatMessage({ id: "requiredPhone" }),
-          // pattern: {
-          //   value: /^\d{2} \d{3}-\d{2}-\d{2}$/,
-          //   message: intl.formatMessage({ id: "isNotEqualsPhone" }),
-          // },
-        }}
-      /> */}
+      />
 
       <Input
         errors={errors?.site}
@@ -390,6 +496,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         id={`passport.passport_type${isMobile ? "1" : ""}`}
         required
         state={"passport"}
+        withState="static"
         page={page}
         isIcon={false}
         validation={{

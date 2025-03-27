@@ -4,7 +4,13 @@ import CustomSelect from "./details/custom-select";
 import MultiSelect from "./details/multi-select";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useSelector } from "react-redux";
-import { ID_CARD, PASSPORT } from "@/utils/data";
+import {
+  ENGLISH_LG,
+  ID_CARD,
+  PASSPORT,
+  RUSSIAN_LG,
+  UZBEK_LG,
+} from "@/utils/data";
 
 export default function SelectInput({
   name,
@@ -20,6 +26,8 @@ export default function SelectInput({
   setSelectedAction = () => {},
   required = false,
   isAuth = false,
+  isCollect = false,
+  withState = "api",
 }) {
   const intl = useIntl();
   const { country_id, region_id, speciality_current } = useSelector(
@@ -36,18 +44,35 @@ export default function SelectInput({
       { id: 1, name: intl.formatMessage({ id: "ID Karta" }), value: ID_CARD },
       { id: 2, name: intl.formatMessage({ id: "Passport" }), value: PASSPORT },
     ],
+    languages: [
+      {
+        id: 1,
+        name: intl.formatMessage({ id: "O'zbek tili" }),
+        value: UZBEK_LG,
+      },
+      {
+        id: 2,
+        name: intl.formatMessage({ id: "Rus tili" }),
+        value: RUSSIAN_LG,
+      },
+      {
+        id: 3,
+        name: intl.formatMessage({ id: "Ingliz tili" }),
+        value: ENGLISH_LG,
+      },
+    ],
   };
 
   const shouldFetch =
-    select_type !== "multiple_without_api" && state !== "passport";
+    select_type !== "multiple_without_api" && withState !== "static";
 
   const { data, isLoading, error } = shouldFetch
-    ? useFetchData(endpoints[state], isAuth)
+    ? useFetchData(endpoints[state], isAuth, isCollect, state)
     : {
         data: {
           items:
-            state === "passport"
-              ? endpoints.passport
+            withState == "static"
+              ? endpoints?.[state]
               : speciality_current?.children,
         },
         isLoading: false,

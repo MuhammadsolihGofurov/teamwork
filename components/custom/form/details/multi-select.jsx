@@ -108,7 +108,7 @@ export default function MultiSelect({
                 type="button"
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full bg-bg-2 text-primary rounded-lg p-4 border border-bg-3"
+                className="flex items-center justify-between w-full bg-bg-2 text-primary rounded-lg p-4 border max-h-[58px] min-h-[58px] border-bg-3"
               >
                 <span className="flex-1">
                   <input
@@ -116,7 +116,7 @@ export default function MultiSelect({
                     placeholder={intl.formatMessage({ id: "Tanlang" })}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-transparent outline-none border-none h-full absolute py-[18.5px] px-6 top-0 left-0 rounded-full"
+                    className="w-full bg-transparent outline-none border-none h-full absolute py-[18.5px] px-6 top-0 left-0 rounded-lg"
                   />
                 </span>
                 <span className="pointer-events-none">
@@ -151,12 +151,12 @@ export default function MultiSelect({
             transition-transform duration-150`}
                 ref={dropdownRef}
               >
-                {filteredOptions.length === 0 ? (
+                {filteredOptions?.length === 0 ? (
                   <p className="text-center py-4 text-sm text-gray-500">
                     {empty_message}
                   </p>
                 ) : (
-                  filteredOptions.map((option) => (
+                  filteredOptions?.map((option) => (
                     <button
                       type="button"
                       key={option?.name + option?.id}
@@ -174,9 +174,9 @@ export default function MultiSelect({
               </div>
             </div>
 
-            {selectedState.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-3 pl-5">
-                {selectedState.map((option) => (
+            {selectedState?.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-3">
+                {selectedState?.map((option) => (
                   // <Tooltip
                   //   key={option?.name + option.id}
                   //   placement={"bottom"}
@@ -203,7 +203,7 @@ export default function MultiSelect({
                     type="button"
                     key={option?.name + option.id}
                     onClick={() => removeOption(field, option)}
-                    className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
+                    className="flex items-center bg-bg-2 px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
                   >
                     {option.name}
                   </button>

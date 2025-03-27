@@ -18,3 +18,8 @@ export const GENDER_FEMALE = "FEMALE";
 // === PASSPORT TYPE ===
 export const ID_CARD = "ID_CARD";
 export const PASSPORT = "PASSPORT";
+
+// === USER LANGUAGES ===
+export const UZBEK_LG = "uz";
+export const RUSSIAN_LG = "ru";
+export const ENGLISH_LG = "en";
