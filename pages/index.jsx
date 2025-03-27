@@ -1,8 +1,7 @@
-import {
-  MainBanner
-} from "@/components";
+import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
+import IndexFetchData from "@/components/index/index-fetch-data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -41,6 +40,7 @@ function page({ info }) {
       />
       <Wrapper>
         <MainBanner />
+        <IndexFetchData type="tasks" />
       </Wrapper>
     </>
   );

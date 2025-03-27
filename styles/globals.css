@@ -153,11 +153,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .scroll__none {
   scrollbar-width: 0;
 }
-.bg-blue-500{
+.bg-blue-500 {
   background: var(--main);
 }
 
 .date-theme-light {
   background-color: white !important;
   color: black !important;
+}
+
+.shadow_md {
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
 }
