@@ -9,21 +9,55 @@ export const useParams = () => {
 
   const updateParams = (key, value) => {
     const currentQuery = { ...router.query };
-    if (value) {
-      currentQuery[key] = value;
+
+    if (key === "skill_ids") {
+      let skillIds = currentQuery.skill_ids
+        ? new Set(currentQuery.skill_ids.split(",").map((id) => id.trim()))
+        : new Set();
+
+      if (skillIds.has(value.toString())) {
+        skillIds.delete(value.toString()); // Agar mavjud bo‘lsa, olib tashlaymiz
+      } else {
+        skillIds.add(value.toString()); // Yangi qiymat qo‘shamiz
+      }
+
+      // Final natijani yaratamiz
+      const newSkillIds = [...skillIds].join(",");
+
+      // Agar bo‘sh bo‘lsa, query dan o‘chiramiz
+      if (newSkillIds) {
+        currentQuery.skill_ids = newSkillIds;
+      } else {
+        delete currentQuery.skill_ids;
+      }
     } else {
-      delete currentQuery[key];
+      if (value) {
+        currentQuery[key] = value;
+      } else {
+        delete currentQuery[key];
+      }
     }
+
+    // Routerga push qilish
     router.push({ pathname: router.pathname, query: currentQuery }, undefined, {
       shallow: true,
     });
   };
 
   const checkParams = (key, value) => {
+    if (key === "skill_ids") {
+      const skillIds = router.query.skill_ids
+        ? router.query.skill_ids.split(",")
+        : [];
+      return skillIds.includes(value.toString());
+    }
     return router.query[key] === value;
   };
 
   const findParams = (key) => {
+    if (key === "skill_ids") {
+      return router.query.skill_ids ? router.query.skill_ids.split(",") : [];
+    }
     return router.query[key] || null;
   };
 

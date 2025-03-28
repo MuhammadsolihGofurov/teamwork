@@ -31,9 +31,6 @@ export function useFetchData(url, isAuth = false, isCollect = false, state) {
         case "speciality":
           dispatch(setSpecialitiesData(data?.data?.items));
           break;
-        case "anotherValue":
-          console.log("Matched anotherValue");
-          break;
         default:
           console.log("No matching case");
       }

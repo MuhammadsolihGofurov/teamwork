@@ -5,14 +5,10 @@ import { useDispatch } from "react-redux";
 
 export default function FilterDropdown({
   options = [],
-  isIcon = false,
-  type,
-  name,
   empty_message,
   page,
-  keyFor,
+  name = "first",
   title,
-  handleChangeRouter = () => {},
 }) {
   const [isOpen, setIsOpen] = useState(true);
   const dropdownRef = useRef(null);
@@ -64,15 +60,15 @@ export default function FilterDropdown({
               options.map((option) => (
                 <label
                   key={option?.id}
-                  htmlFor={option?.id}
+                  htmlFor={`${name}_${option?.id}`}
                   className="checkbox__item flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded relative"
                 >
                   <input
                     type="radio"
-                    id={option?.id}
-                    name={keyFor}
-                    checked={checkParams(keyFor, option?.value)}
-                    onChange={() => updateParams(keyFor, option?.value)}
+                    id={`${name}_${option?.id}`}
+                    name={name}
+                    checked={checkParams(name, option?.value)}
+                    onChange={() => updateParams(name, option?.value)}
                     className="hidden opacity-0 peer cursor-pointer"
                   />
                   <div className="w-5 h-5 flex items-center justify-center border-2 rounded-md border-bg-4 peer-checked:border-main peer-checked:bg-main checkbox__icon after:opacity-0 peer-checked:after:opacity-100 transition"></div>

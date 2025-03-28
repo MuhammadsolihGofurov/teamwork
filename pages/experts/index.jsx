@@ -17,16 +17,20 @@ function page({ info }) {
 
   const url = useMemo(() => {
     const speciality_id = findParams("speciality_id");
-    const budget_to = findParams("budget_to");
-    const budget_from = findParams("budget_from");
-    const others = findParams("other");
+    const experience = findParams("experience");
+    const expert_level = findParams("expert_level");
+    // const others = findParams("other");
     const page = findParams("page");
 
     return `/user/public-expert-list?expand=specialitySets.parent&perPage=8${
       speciality_id ? `&speciality_id=${speciality_id}` : ""
-    }${budget_from ? `&budget_from=${budget_from}` : ""}${
-      budget_to ? `&budget_to=${budget_to}` : ""
-    }${others ? `&other=${others}` : ""}${page ? `&page=${page}` : ""}`;
+    }${
+      expert_level && expert_level !== "all"
+        ? `&expert_level=${expert_level}`
+        : ""
+    }${experience && experience !== "all" ? `&experience=${experience}` : ""}${
+      page ? `&page=${page}` : ""
+    }`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>
@@ -54,7 +58,7 @@ function page({ info }) {
       <Wrapper>
         <MainBanner />
         <IndexFetchData
-          type="tasks"
+          type="experts"
           all_data={tasks?.data?.items}
           loading={isValidating}
           pagination={tasks?.data?._meta}

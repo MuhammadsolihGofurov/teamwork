@@ -1,5 +1,5 @@
 import React from "react";
-import { CenterDataTasks, LeftTasksFilter } from "./details";
+import { CenterData, LeftExpertsFilter, LeftTasksFilter } from "./details";
 import { Pagination, RightInfoAll } from "../Utils";
 
 // Wrapper komponent shu faylda bor
@@ -20,6 +20,26 @@ export default function IndexFetchData({
   loading,
   pagination,
 }) {
+  if (type == "experts") {
+    return (
+      <IndexWrapper id={type}>
+        <div className="hidden lg:block lg:w-2/6 2xl:w-[23%]">
+          <LeftExpertsFilter />
+        </div>
+        <div className="w-full lg:w-4/6 2xl:w-[54%]">
+          <CenterData
+            all_data={all_data}
+            count={pagination?.totalCount}
+            loading={loading}
+            type={type}
+          />
+          <Pagination data={pagination} />
+        </div>
+        <RightInfoAll />
+      </IndexWrapper>
+    );
+  }
+
   if (type == "tasks") {
     return (
       <IndexWrapper id={type}>
@@ -27,10 +47,11 @@ export default function IndexFetchData({
           <LeftTasksFilter />
         </div>
         <div className="w-full lg:w-4/6 2xl:w-[54%]">
-          <CenterDataTasks
+          <CenterData
             all_data={all_data}
             count={pagination?.totalCount}
             loading={loading}
+            type={type}
           />
           <Pagination data={pagination} />
         </div>
@@ -45,7 +66,7 @@ export default function IndexFetchData({
         <LeftTasksFilter />
       </div>
       <div className="w-full lg:w-4/6 2xl:w-2/4">
-        <CenterDataTasks all_data={all_data} />
+        <CenterData all_data={all_data} />
       </div>
     </IndexWrapper>
   );

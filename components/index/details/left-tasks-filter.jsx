@@ -94,11 +94,9 @@ export default function LeftTasksFilter() {
         />
         <FilterDropdown
           options={othersData}
-          type={"speciality"}
-          name={"speciality"}
           empty_message={intl.formatMessage({ id: `empty-others` })}
           page={"filter"}
-          keyFor="other"
+          name="other"
           title={intl.formatMessage({ id: "Qo'shimcha" })}
         />
       </div>

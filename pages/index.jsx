@@ -26,7 +26,9 @@ function page({ info }) {
       speciality_id ? `&speciality_id=${speciality_id}` : ""
     }${budget_from ? `&budget_from=${budget_from}` : ""}${
       budget_to ? `&budget_to=${budget_to}` : ""
-    }${others ? `&other=${others}` : ""}${page ? `&page=${page}` : ""}`;
+    }${others && others !== "all" ? `&other=${others}` : ""}${
+      page ? `&page=${page}` : ""
+    }`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>

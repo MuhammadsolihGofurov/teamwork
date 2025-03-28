@@ -1,12 +1,17 @@
 import { IndexTasksSkeleton } from "@/components/Skeleton/index";
-import { IndexTaskCard } from "@/components/cards";
+import { IndexExpertCard, IndexTaskCard } from "@/components/cards";
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function CenterDataTasks({ all_data, loading, count }) {
+export default function CenterData({
+  all_data,
+  loading,
+  count,
+  type = "tasks",
+}) {
   const intl = useIntl();
 
-  if (loading) {
+  if (loading && type == "tasks") {
     return <IndexTasksSkeleton />;
   }
 
@@ -19,7 +24,11 @@ export default function CenterDataTasks({ all_data, loading, count }) {
       <div className="flex flex-col w-full gap-2">
         {all_data?.length > 0 ? (
           all_data?.map((item) => {
-            return <IndexTaskCard data={item} key={item?.id} />;
+            return type == "tasks" ? (
+              <IndexTaskCard data={item} key={item?.id} />
+            ) : (
+              <IndexExpertCard data={item} key={item?.id} />
+            );
           })
         ) : (
           <p className="text-primary text-center py-5 text-opacity-40">
