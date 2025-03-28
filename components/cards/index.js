@@ -1,0 +1,1 @@
+export { default as IndexTaskCard } from "./index-task-card";

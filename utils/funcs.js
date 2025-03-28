@@ -64,3 +64,14 @@ export const formatDate = (date) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const formatDateForCard = (dateString) => {
+  const months = [
+    "yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr"
+  ];
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${day} ${month} | ${year}`;
+};

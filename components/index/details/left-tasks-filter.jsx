@@ -1,12 +1,14 @@
-import { Dropdown } from "@/components/custom/form";
-import CustomSelect from "@/components/custom/form/details/custom-select";
+import {
+  FilterBudgetRange,
+  FilterDropdown,
+  FilterSelect,
+} from "@/components/custom/filter";
 import { useFetchData } from "@/hooks/useFetchData";
+import useQueryFilter from "@/hooks/useFilterQuery";
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
 
 export default function LeftTasksFilter() {
-  const { specialities } = useSelector((state) => state.settings);
   const intl = useIntl();
 
   const { data, isLoading, error } = useFetchData(
@@ -44,11 +46,38 @@ export default function LeftTasksFilter() {
     },
   ];
 
+  const budgetStatic = [
+    {
+      id: 1,
+      name: `100.000 ${intl.formatMessage({ id: "ming gacha" })}`,
+      value: 100000,
+      key: "budget_to",
+    },
+    {
+      id: 2,
+      name: `500.000 ${intl.formatMessage({ id: "ming gacha" })}`,
+      value: 500000,
+      key: "budget_to",
+    },
+    {
+      id: 3,
+      name: `1.000.000 ${intl.formatMessage({ id: "ming gacha" })}`,
+      value: 1000000,
+      key: "budget_to",
+    },
+    {
+      id: 4,
+      name: `5.000.000 ${intl.formatMessage({ id: "ming gacha" })}`,
+      value: 5000000,
+      key: "budget_to",
+    },
+  ];
+
   return (
     <div id="left-tasks-filter" className="w-full">
       <div className="flex flex-col gap-5">
-        <CustomSelect
-          options={specialities}
+        <FilterSelect
+          options={data?.items}
           isIcon
           type={"speciality"}
           name={"speciality"}
@@ -58,7 +87,15 @@ export default function LeftTasksFilter() {
           handleChangeRouter={(key) => console.log(key)}
           title={intl.formatMessage({ id: "Kategoriyani belgilang" })}
         />
-        <Dropdown
+        <FilterBudgetRange
+          options={budgetStatic}
+          empty_message={intl.formatMessage({ id: `empty-others` })}
+          page={"filter"}
+          keyFor="budget"
+          handleChangeRouter={(key) => console.log(key)}
+          title={intl.formatMessage({ id: "Xizmat narxi bo'yicha" })}
+        />
+        <FilterDropdown
           options={othersData}
           type={"speciality"}
           name={"speciality"}

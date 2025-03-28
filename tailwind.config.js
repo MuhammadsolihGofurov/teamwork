@@ -16,6 +16,9 @@ module.exports = {
         primary: "#222222",
         blue: "#00A8DD",
         facebook: "#3C7EBA",
+        orange: "#FF9533",
+        date: "#BABABA",
+        selection: "#C4F500",
         bg: {
           1: "#F8F8F8",
           2: "#F5F5F5",
