@@ -19,6 +19,8 @@ export default function CustomSelect({
   name,
   required,
   page,
+  keyFor,
+  title = "",
   handleChangeRouter = () => {},
 }) {
   const intl = useIntl();
@@ -45,9 +47,7 @@ export default function CustomSelect({
     //   field.onChange(option.id);
     // }
 
-    page !== "filter"
-      ? field.onChange(option.id)
-      : handleChangeRouter(option?.id);
+    !keyFor ? field.onChange(option.id) : handleChangeRouter(option?.id);
 
     setSelectedOption(option);
     switch (type) {
@@ -98,7 +98,7 @@ export default function CustomSelect({
             )}
             {selectedOption
               ? selectedOption.name
-              : intl.formatMessage({ id: "Kategoriyani belgilang" })}
+              : title}
           </span>
           <span className="pointer-events-none">
             <svg

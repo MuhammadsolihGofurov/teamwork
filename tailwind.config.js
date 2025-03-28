@@ -20,6 +20,7 @@ module.exports = {
           1: "#F8F8F8",
           2: "#F5F5F5",
           3: "#E4E4E4",
+          4: "#DDDDDD",
         },
       },
       screens: {
