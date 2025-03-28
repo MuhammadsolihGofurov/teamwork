@@ -4,7 +4,6 @@ import {
   FilterSelect,
 } from "@/components/custom/filter";
 import { useFetchData } from "@/hooks/useFetchData";
-import useQueryFilter from "@/hooks/useFilterQuery";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -84,7 +83,6 @@ export default function LeftTasksFilter() {
           empty_message={intl.formatMessage({ id: `empty-speciality` })}
           page={"filter"}
           keyFor="speciality_id"
-          handleChangeRouter={(key) => console.log(key)}
           title={intl.formatMessage({ id: "Kategoriyani belgilang" })}
         />
         <FilterBudgetRange
@@ -92,7 +90,6 @@ export default function LeftTasksFilter() {
           empty_message={intl.formatMessage({ id: `empty-others` })}
           page={"filter"}
           keyFor="budget"
-          handleChangeRouter={(key) => console.log(key)}
           title={intl.formatMessage({ id: "Xizmat narxi bo'yicha" })}
         />
         <FilterDropdown
@@ -102,7 +99,6 @@ export default function LeftTasksFilter() {
           empty_message={intl.formatMessage({ id: `empty-others` })}
           page={"filter"}
           keyFor="other"
-          handleChangeRouter={(key) => console.log(key)}
           title={intl.formatMessage({ id: "Qo'shimcha" })}
         />
       </div>

@@ -68,14 +68,15 @@ export default function MainBanner() {
               <PersonImages images={images} length={11} counter={"+11 301"} />
             </div>
           </div>
-          <div className="flex lg:flex-row flex-col items-end justify-start pt-20 w-full gap-y-5">
-            <div className="w-full lg:w-2/6 2xl:w-1/4">
+          <div className="flex lg:flex-row flex-col items-end justify-start pt-20  w-full gap-y-5 gap-8">
+            <div className="w-full lg:w-2/6 2xl:w-[23%]">
               <ChangeLink />
             </div>
-            <div className="w-full lg:w-4/6 2xl:w-2/4 flex items-center justify-center gap-1">
+            <div className="w-full lg:w-4/6 2xl:w-[54%] flex items-center justify-center gap-1">
               <SearchTerms />
               <FilterOpenBtn />
             </div>
+            <div className="w-[23%] 2xl:block hidden"></div>
           </div>
         </div>
       </div>

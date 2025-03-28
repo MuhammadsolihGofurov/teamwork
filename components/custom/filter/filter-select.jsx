@@ -13,7 +13,6 @@ export default function FilterSelect({
   page,
   title = "",
   keyFor,
-  handleChangeRouter = () => {},
 }) {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -39,12 +38,12 @@ export default function FilterSelect({
   useEffect(() => {
     const routerValue = router.query[keyFor];
     const currentValue = options?.find((item) => item?.id == routerValue);
-    setSelectedOption(currentValue);
+    if (currentValue) {
+      setSelectedOption(currentValue);
+    }
   }, [options]);
 
   const handleClick = (option) => {
-    handleChangeRouter(option?.id);
-
     setSelectedOption(option);
     updateParams(keyFor, option?.id);
 
@@ -126,7 +125,7 @@ export default function FilterSelect({
             options?.map((option) => (
               <button
                 type="button"
-                onClick={() => handleClick(false, option)}
+                onClick={() => handleClick(option)}
                 className={`p-2 hover:bg-gray-100 ${
                   selectedOption?.id === option.id
                     ? "bg-main bg-opacity-15 font-medium"

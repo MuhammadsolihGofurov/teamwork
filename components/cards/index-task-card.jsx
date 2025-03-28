@@ -7,9 +7,10 @@ import { formatDateForCard, thousandSeperate } from "@/utils/funcs";
 export default function IndexTaskCard({ data }) {
   const intl = useIntl();
   const url = `tasks/${data?.id}`;
+
   return (
     <div
-      className={`flex group flex-col gap-3 py-4 px-5 rounded-lg border border-bg-3 bg-white transition-colors duration-200 hover:border-main`}
+      className={`flex group overflow-hidden flex-col gap-3 py-4 px-5 rounded-lg border border-bg-3 bg-white transition-colors duration-200 hover:border-main`}
     >
       <div className="flex items-start justify-between w-full">
         <div className="flex flex-col gap-3">
@@ -61,7 +62,6 @@ export default function IndexTaskCard({ data }) {
         </div>
         <div
           className="flex flex-row gap-2"
-          onClick={(e) => e.stopPropagation()}
         >
           <DislikeBtn />
           <LikeBtn />

@@ -1,20 +1,31 @@
+import { IndexTasksSkeleton } from "@/components/Skeleton/index";
 import { IndexTaskCard } from "@/components/cards";
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function CenterDataTasks({ all_data }) {
+export default function CenterDataTasks({ all_data, loading, count }) {
   const intl = useIntl();
 
+  if (loading) {
+    return <IndexTasksSkeleton />;
+  }
+
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       {/* <p>{intl.formatMessage({ id: "Qidiruv natijasi:" })} 19999 {intl.formatMessage({id: "ta e'lonlar"})}</p> */}
-      <p className="text-base font-semibold text-primary text-opacity-40">
-        {intl.formatMessage({ id: "Qidiruv natijasi:" })} {all_data?.length}
+      <p className="text-sm font-semibold text-primary text-opacity-40">
+        {intl.formatMessage({ id: "Qidiruv natijasi:" })} {count}
       </p>
       <div className="flex flex-col w-full gap-2">
-        {all_data?.map((item) => {
-          return <IndexTaskCard data={item} key={item?.id} />;
-        })}
+        {all_data?.length > 0 ? (
+          all_data?.map((item) => {
+            return <IndexTaskCard data={item} key={item?.id} />;
+          })
+        ) : (
+          <p className="text-primary text-center py-5 text-opacity-40">
+            {intl.formatMessage({ id: "empty-tasks" })}
+          </p>
+        )}
       </div>
     </div>
   );

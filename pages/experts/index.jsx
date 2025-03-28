@@ -1,27 +1,41 @@
 import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
+import IndexFetchData from "@/components/index/index-fetch-data";
+import { useParams } from "@/hooks/useParams";
+import fetcher from "@/utils/fetcher";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
+import useSWR from "swr";
 
 function page({ info }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { category_id, search, min_price, max_price } = router.query;
-  // console.error(category_id);
 
-  // const { data: services } = useSWR(["services", router.locale], (url) =>
-  //   fetcher(url, {
-  //     headers: {
-  //       "Accept-Language": router.locale,
-  //     },
-  //   })
-  // );
+  const { findParams } = useParams();
 
-  // useEffect(() => {
-  //   dispatch(setServices(services?.data));
-  // }, [services?.data]);
+  const url = useMemo(() => {
+    const speciality_id = findParams("speciality_id");
+    const budget_to = findParams("budget_to");
+    const budget_from = findParams("budget_from");
+    const others = findParams("other");
+    const page = findParams("page");
+
+    return `/user/public-expert-list?expand=specialitySets.parent&perPage=8${
+      speciality_id ? `&speciality_id=${speciality_id}` : ""
+    }${budget_from ? `&budget_from=${budget_from}` : ""}${
+      budget_to ? `&budget_to=${budget_to}` : ""
+    }${others ? `&other=${others}` : ""}${page ? `&page=${page}` : ""}`;
+  }, [router.query]);
+
+  const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>
+    fetcher(url, {
+      headers: {
+        "Accept-Language": router.locale,
+      },
+    })
+  );
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -39,6 +53,12 @@ function page({ info }) {
       />
       <Wrapper>
         <MainBanner />
+        <IndexFetchData
+          type="tasks"
+          all_data={tasks?.data?.items}
+          loading={isValidating}
+          pagination={tasks?.data?._meta}
+        />
       </Wrapper>
     </>
   );
@@ -48,7 +68,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home For Experts",
+    seo_home_title: "Home for Experts",
     seo_home_keywords: "",
     seo_home_description: "",
   };

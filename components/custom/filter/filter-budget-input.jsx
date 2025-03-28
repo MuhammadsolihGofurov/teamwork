@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 export default function FilterBudgetInput() {
   const intl = useIntl();
-  const { checkParams, updateParams } = useParams();
+  const { checkParams, updateParams, findParams } = useParams();
 
   return (
     <div className="grid grid-cols-2 gap-1">
@@ -12,6 +12,8 @@ export default function FilterBudgetInput() {
         <input
           type="number"
           name="budget_from"
+          value={findParams("budget_from") ?? ""}
+          onChange={(e) => updateParams("budget_from", e.target.value)}
           className="py-3 px-2 rounded-md border border-bg-3 bg-white w-full pr-10"
           placeholder="0.00"
         />
@@ -23,6 +25,8 @@ export default function FilterBudgetInput() {
         <input
           type="number"
           name="budget_to"
+          value={findParams("budget_to") ?? ""}
+          onChange={(e) => updateParams("budget_to", e.target.value)}
           className="py-3 px-2 rounded-md border border-bg-3 bg-white w-full pr-10"
           placeholder="0.00"
         />

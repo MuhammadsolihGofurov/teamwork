@@ -12,8 +12,6 @@ import useSWR from "swr";
 function page({ info }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { category_id, search, min_price, max_price } = router.query;
-  // console.error(category_id);
 
   const { findParams } = useParams();
 
@@ -22,15 +20,16 @@ function page({ info }) {
     const budget_to = findParams("budget_to");
     const budget_from = findParams("budget_from");
     const others = findParams("other");
+    const page = findParams("page");
 
     return `/task/published-list?expand=speciality.parent,owner.employer${
       speciality_id ? `&speciality_id=${speciality_id}` : ""
     }${budget_from ? `&budget_from=${budget_from}` : ""}${
       budget_to ? `&budget_to=${budget_to}` : ""
-    }${others ? `&other=${others}` : ""}&perPage=6`;
+    }${others ? `&other=${others}` : ""}${page ? `&page=${page}` : ""}`;
   }, [router.query]);
 
-  const { data: tasks } = useSWR([url, router.locale], (url) =>
+  const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>
     fetcher(url, {
       headers: {
         "Accept-Language": router.locale,
@@ -54,7 +53,12 @@ function page({ info }) {
       />
       <Wrapper>
         <MainBanner />
-        <IndexFetchData type="tasks" all_data={tasks?.data?.items} />
+        <IndexFetchData
+          type="tasks"
+          all_data={tasks?.data?.items}
+          loading={isValidating}
+          pagination={tasks?.data?._meta}
+        />
       </Wrapper>
     </>
   );
