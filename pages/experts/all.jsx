@@ -1,6 +1,7 @@
 import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
+import { TopFilterBar } from "@/components/index/details";
 import IndexFetchData from "@/components/index/index-fetch-data";
 import { useParams } from "@/hooks/useParams";
 import fetcher from "@/utils/fetcher";
@@ -11,7 +12,6 @@ import useSWR from "swr";
 
 function page({ info }) {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const { findParams } = useParams();
 
@@ -56,13 +56,12 @@ function page({ info }) {
         body={info?.data?.seo_home_keywords}
       />
       <Wrapper>
-        <MainBanner />
+        <TopFilterBar />
         <IndexFetchData
           type="experts"
           all_data={tasks?.data?.items}
           loading={isValidating}
           pagination={tasks?.data?._meta}
-          isAdvantages
         />
       </Wrapper>
     </>
@@ -73,7 +72,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home for Experts",
+    seo_home_title: "Home for Experts all",
     seo_home_keywords: "",
     seo_home_description: "",
   };

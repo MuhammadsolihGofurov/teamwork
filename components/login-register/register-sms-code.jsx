@@ -119,7 +119,7 @@ export default function RegisterSMSCode({ page }) {
       <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row sm:w-auto w-full pt-6 sm:pt-10">
         <button
           type="submit"
-          className={`py-4 font-semibold  bg-main min-w-[250px] rounded-full flex items-center justify-center text-center transition-opacity duration-300 ${
+          className={`py-4 font-semibold  bg-main w-full sm:min-w-[250px] rounded-full flex items-center justify-center text-center transition-opacity duration-300 ${
             !isValid
               ? "bg-opacity-10 text-main cursor-not-allowed"
               : "text-white"

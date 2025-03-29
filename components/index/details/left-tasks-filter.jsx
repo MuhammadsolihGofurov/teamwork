@@ -7,7 +7,12 @@ import { useFetchData } from "@/hooks/useFetchData";
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function LeftTasksFilter() {
+export default function LeftTasksFilter({
+  className = "w-full flex flex-col gap-5",
+  isCloseBtn = false,
+  handleToggle = () => {},
+  isModal = false,
+}) {
   const intl = useIntl();
 
   const { data, isLoading, error } = useFetchData(
@@ -73,33 +78,49 @@ export default function LeftTasksFilter() {
   ];
 
   return (
-    <div id="left-tasks-filter" className="w-full">
-      <div className="flex flex-col gap-5">
-        <FilterSelect
-          options={data?.items}
-          isIcon
-          type={"speciality"}
-          name={"speciality"}
-          empty_message={intl.formatMessage({ id: `empty-speciality` })}
-          page={"filter"}
-          keyFor="speciality_id"
-          title={intl.formatMessage({ id: "Kategoriyani belgilang" })}
-        />
-        <FilterBudgetRange
-          options={budgetStatic}
-          empty_message={intl.formatMessage({ id: `empty-others` })}
-          page={"filter"}
-          keyFor="budget"
-          title={intl.formatMessage({ id: "Xizmat narxi bo'yicha" })}
-        />
-        <FilterDropdown
-          options={othersData}
-          empty_message={intl.formatMessage({ id: `empty-others` })}
-          page={"filter"}
-          name="other"
-          title={intl.formatMessage({ id: "Qo'shimcha" })}
-        />
-      </div>
+    <div
+      id="left-tasks-filter"
+      className={className}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <FilterSelect
+        options={data?.items}
+        isIcon
+        type={"speciality"}
+        name={"speciality"}
+        empty_message={intl.formatMessage({ id: `empty-speciality` })}
+        page={"filter"}
+        keyFor="speciality_id"
+        title={intl.formatMessage({ id: "Kategoriyani belgilang" })}
+        isModal={isModal}
+      />
+      <FilterBudgetRange
+        options={budgetStatic}
+        empty_message={intl.formatMessage({ id: `empty-others` })}
+        page={"filter"}
+        keyFor="budget"
+        title={intl.formatMessage({ id: "Xizmat narxi bo'yicha" })}
+        isModal={isModal}
+      />
+      <FilterDropdown
+        options={othersData}
+        empty_message={intl.formatMessage({ id: `empty-others` })}
+        page={"filter"}
+        name="other"
+        title={intl.formatMessage({ id: "Qo'shimcha" })}
+        isModal={isModal}
+      />
+      {isCloseBtn ? (
+        <button
+          type="button"
+          className="w-full bg-main p-3 rounded-lg text-white font-medium"
+          onClick={() => handleToggle()}
+        >
+          {intl.formatMessage({ id: "Filterlash" })}
+        </button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

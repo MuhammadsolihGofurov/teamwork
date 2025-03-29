@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LikeBtn({ id }) {
+export default function LikeBtn({ id, is_favorite, type = "tasks" }) {
   return (
     <button type="button" title="like" className="group/button">
       <svg
@@ -16,7 +16,9 @@ export default function LikeBtn({ id }) {
           strokeWidth="1.4"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="group-hover/button:stroke-main transition-colors duration-150"
+          className={`group-hover/button:stroke-main transition-colors duration-150 ${
+            is_favorite ? "fill-main stroke-main" : "stroke-[#bababa]"
+          }`}
         />
       </svg>
     </button>

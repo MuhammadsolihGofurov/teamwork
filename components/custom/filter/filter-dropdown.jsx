@@ -9,6 +9,7 @@ export default function FilterDropdown({
   page,
   name = "first",
   title,
+  isModal = false,
 }) {
   const [isOpen, setIsOpen] = useState(true);
   const dropdownRef = useRef(null);
@@ -60,12 +61,12 @@ export default function FilterDropdown({
               options.map((option) => (
                 <label
                   key={option?.id}
-                  htmlFor={`${name}_${option?.id}`}
+                  htmlFor={`${name}_${option?.id}${isModal ? "1" : ""}`}
                   className="checkbox__item flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded relative"
                 >
                   <input
                     type="radio"
-                    id={`${name}_${option?.id}`}
+                    id={`${name}_${option?.id}${isModal ? "1" : ""}`}
                     name={name}
                     checked={checkParams(name, option?.value)}
                     onChange={() => updateParams(name, option?.value)}

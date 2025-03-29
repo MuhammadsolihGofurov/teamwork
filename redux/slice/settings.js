@@ -12,6 +12,7 @@ const settingsSlice = createSlice({
     logOutModalConfirm: false,
     specialities: [],
     languagesData: [],
+    filterModalConfirm: false,
   },
   reducers: {
     setCountryId: (state, action) => {
@@ -41,6 +42,9 @@ const settingsSlice = createSlice({
     setLanguagesData: (state, action) => {
       state.languagesData = action.payload;
     },
+    setToggleFilterModalConfirm: (state, action) => {
+      state.filterModalConfirm = !state.filterModalConfirm;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   setToggleLogOutModalConfirm,
   setSpecialitiesData,
   setLanguagesData,
+  setToggleFilterModalConfirm,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

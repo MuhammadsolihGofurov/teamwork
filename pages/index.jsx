@@ -60,6 +60,7 @@ function page({ info }) {
           all_data={tasks?.data?.items}
           loading={isValidating}
           pagination={tasks?.data?._meta}
+          isAdvantages
         />
       </Wrapper>
     </>

@@ -64,17 +64,24 @@ export default function SelectInput({
   };
 
   const shouldFetch =
-    select_type !== "multiple_without_api" && withState !== "static";
+    select_type !== "multiple_without_api" &&
+    withState !== "static" &&
+    endpoints[state] !== undefined; // <-- `endpoints[state]` mavjudligini tekshiramiz
+
+  const fallbackData =
+    withState === "static"
+      ? { items: endpoints?.[state] ?? [] } // <-- `undefined` bo‘lsa, bo‘sh array qaytaramiz
+      : { items: speciality_current?.children ?? [] }; // <-- `speciality_current?.children` mavjudligini tekshiramiz
 
   const { data, isLoading, error } = shouldFetch
-    ? useFetchData(endpoints[state], isAuth, isCollect, state)
+    ? useFetchData(
+        endpoints[state], // <-- endi aniq URL borligini tekshirib chaqiramiz
+        isAuth,
+        isCollect,
+        state
+      )
     : {
-        data: {
-          items:
-            withState == "static"
-              ? endpoints?.[state]
-              : speciality_current?.children,
-        },
+        data: fallbackData, // <-- `fallbackData` ishlatamiz
         isLoading: false,
         error: null,
       };

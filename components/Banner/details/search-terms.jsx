@@ -1,10 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function SearchTerms() {
+export default function SearchTerms({ isMobileVersion = false }) {
   const intl = useIntl();
   return (
-    <div className="w-full sm:w-1/4 relative border-bg-3 lg:border-transparent border bg-white p-1 rounded-full min-h-14 max-h-14 flex flex-row flex-1 sm:flex-auto">
+    <div
+      className={`w-full sm:w-1/4 relative ${
+        isMobileVersion ? "border-bg-3" : "lg:border-transparent"
+      }   border bg-white p-1 rounded-full min-h-14 max-h-14 flex flex-row flex-1 sm:flex-auto`}
+    >
       <input
         type="text"
         name="search"

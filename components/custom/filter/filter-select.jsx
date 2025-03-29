@@ -13,6 +13,7 @@ export default function FilterSelect({
   page,
   title = "",
   keyFor,
+  isModal = false,
 }) {
   const intl = useIntl();
   const dispatch = useDispatch();

@@ -1,4 +1,7 @@
-import { IndexTasksSkeleton } from "@/components/Skeleton/index";
+import {
+  IndexExpertsSkeleton,
+  IndexTasksSkeleton,
+} from "@/components/Skeleton/index";
 import { IndexExpertCard, IndexTaskCard } from "@/components/cards";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -13,6 +16,10 @@ export default function CenterData({
 
   if (loading && type == "tasks") {
     return <IndexTasksSkeleton />;
+  }
+
+  if (loading && type == "experts") {
+    return <IndexExpertsSkeleton />;
   }
 
   return (

@@ -1,9 +1,14 @@
+import { setToggleFilterModalConfirm } from "@/redux/slice/settings";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 export default function FilterOpenBtn() {
+  const dispatch = useDispatch();
+
   return (
     <button
       type="button"
+      onClick={() => dispatch(setToggleFilterModalConfirm())}
       className="lg:hidden flex items-center justify-center h-14 w-14 rounded-full border border-bg-3"
     >
       <svg

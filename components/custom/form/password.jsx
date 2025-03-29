@@ -157,7 +157,7 @@ export default function Password({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div className="flex flex-row gap-1 sm:w-auto w-full sm:bg-transparent bg-white rounded-full">
         <p
           className="w-[64px] small:w-[92px] h-[54px] flex items-center justify-center cursor-pointer transition-all duration-150"
@@ -205,7 +205,7 @@ export default function Password({
           required={required}
           autoComplete="off"
           disabled={noSelected}
-          className="rounded-full border-transparent py-1 px-6 flex-1 sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
+          className="rounded-full border-transparent py-1 px-6 flex-1 w-full sm:min-w-[250px] placeholder:font-medium placeholder:text-primary placeholder:text-opacity-25"
           {...register(name, validation)}
         />
       </div>

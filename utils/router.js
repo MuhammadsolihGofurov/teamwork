@@ -39,7 +39,8 @@ export const PortfolioOthersUrl = "profile/portfolio/others";
 export const AddAdsUrl = "add-ad";
 export const SearchOrders = "orders";
 export const FaqsUrl = "faqs";
-export const ExpertsUrl = "experts";
+export const ExpertsUrl = "experts/all";
+export const TasksUrl = "tasks/all";
 
 // === OFFERS ===
 export const OffersTermsUrl = "offers/terms";

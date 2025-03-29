@@ -10,6 +10,8 @@ export default function IndexTasksSkeleton() {
         <TasksSkeleton />
         <TasksSkeleton />
         <TasksSkeleton />
+        <TasksSkeleton />
+        <TasksSkeleton />
       </div>
     </div>
   );

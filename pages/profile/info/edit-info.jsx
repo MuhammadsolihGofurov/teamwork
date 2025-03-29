@@ -48,7 +48,7 @@ function ProfilePage({ info }) {
         ]}
         indexNum={0}
         tabsMenu={InfoMenu}
-        isMenuShow={false}
+        isMenuShow={true}
       >
         {!isMobile ? (
           <>

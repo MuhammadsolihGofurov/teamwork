@@ -5,9 +5,18 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setSpecialitiesData } from "@/redux/slice/settings";
 
-export function useFetchData(url, isAuth = false, isCollect = false, state) {
+export function useFetchData(
+  url = "/",
+  isAuth = false,
+  isCollect = false,
+  state
+) {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  if (!url || typeof url !== "string") {
+    return { data: null, isLoading: false, error: null };
+  }
 
   const { data, error, isLoading } = useSWR(
     url ? [url, router.locale] : null,

@@ -24,7 +24,7 @@ const Pagination = ({ data, onPageChange, page = "default", id }) => {
   return (
     <div className="flex items-center justify-center py-10 gap-3">
       <button
-        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50"
+        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100"
         onClick={() => {
           updateParams("page", currentPage - 1);
         }}
@@ -51,7 +51,7 @@ const Pagination = ({ data, onPageChange, page = "default", id }) => {
         {paginationRange.map((page, index) => (
           <button
             key={index}
-            className={`w-12 h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50 transition-all  ${
+            className={`w-12 h-[50px] flex items-center justify-center rounded-lg border border-bg-2 hover:border-main bg-bg-2 disabled:opacity-50 transition-all  ${
               currentPage === page ? "bg-main text-white" : "text-primary"
             }`}
             onClick={() =>
@@ -65,7 +65,7 @@ const Pagination = ({ data, onPageChange, page = "default", id }) => {
       </div>
 
       <button
-        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50"
+        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100"
         onClick={() => {
           updateParams("page", currentPage + 1);
         }}

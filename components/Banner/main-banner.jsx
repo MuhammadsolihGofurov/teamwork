@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { NextLink } from "../Utils";
 import { PersonImages } from "../custom";
 import { ChangeLink, FilterOpenBtn, SearchTerms } from "./details";
+import { ExpertsUrl } from "@/utils/router";
 
 export default function MainBanner() {
   const intl = useIntl();
@@ -19,6 +20,19 @@ export default function MainBanner() {
     { id: 9, img: "/images/person-7.png", title: "Images 5" },
     { id: 10, img: "/images/person-8.png", title: "Images 5" },
     { id: 11, img: "/images/person-9.png", title: "Images 5" },
+  ];
+
+  const data = [
+    {
+      id: 1,
+      name: intl.formatMessage({ id: "Topshiriqlar" }),
+      url: "",
+    },
+    {
+      id: 2,
+      name: intl.formatMessage({ id: "Mutaxassislar" }),
+      url: ExpertsUrl,
+    },
   ];
 
   return (
@@ -70,7 +84,7 @@ export default function MainBanner() {
           </div>
           <div className="flex lg:flex-row flex-col items-end justify-start pt-20  w-full gap-y-5 gap-8">
             <div className="w-full lg:w-2/6 2xl:w-[23%]">
-              <ChangeLink />
+              <ChangeLink data={data} />
             </div>
             <div className="w-full lg:w-4/6 2xl:w-[54%] flex items-center justify-center gap-1">
               <SearchTerms />

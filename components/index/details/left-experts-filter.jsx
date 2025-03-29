@@ -11,7 +11,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import useSWR from "swr";
 
-export default function LeftTasksFilter() {
+export default function LeftTasksFilter({
+  className = "w-full flex flex-col gap-5",
+  isCloseBtn = false,
+  handleToggle = () => {},
+  isModal = false,
+}) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -85,42 +90,59 @@ export default function LeftTasksFilter() {
   ];
 
   return (
-    <div id="left-tasks-filter" className="w-full">
-      <div className="flex flex-col gap-5">
-        <FilterSelect
-          options={specialities?.data?.items}
-          isIcon
-          type={"speciality"}
-          name={"speciality"}
-          empty_message={intl.formatMessage({ id: `empty-speciality` })}
-          page={"filter"}
-          keyFor="speciality_id"
-          title={intl.formatMessage({ id: "Mutaxassislik bo'yicha" })}
-        />
-        <FilterMultiSelect
-          options={skills?.data?.items}
-          isIcon
-          name={"skill_ids"}
-          empty_message={intl.formatMessage({ id: `empty-skill_ids` })}
-          page={"filter"}
-          keyFor="skill_ids"
-          title={intl.formatMessage({ id: "Konikmalar" })}
-        />
-        <FilterDropdown
-          options={reytingData}
-          empty_message={intl.formatMessage({ id: `empty-others` })}
-          page={"filter"}
-          name="expert_level"
-          title={intl.formatMessage({ id: "Reyting" })}
-        />
-        <FilterDropdown
-          options={experienceData}
-          empty_message={intl.formatMessage({ id: `empty-others` })}
-          page={"filter"}
-          name="experience"
-          title={intl.formatMessage({ id: "Platformadagi tajriba" })}
-        />
-      </div>
+    <div
+      id="left-experts-filter"
+      className={className}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <FilterSelect
+        options={specialities?.data?.items}
+        isIcon
+        type={"speciality"}
+        name={"speciality"}
+        empty_message={intl.formatMessage({ id: `empty-speciality` })}
+        page={"filter"}
+        keyFor="speciality_id"
+        title={intl.formatMessage({ id: "Mutaxassislik bo'yicha" })}
+        isModal={isModal}
+      />
+      <FilterMultiSelect
+        options={skills?.data?.items}
+        isIcon
+        name={"skill_ids"}
+        empty_message={intl.formatMessage({ id: `empty-skill_ids` })}
+        page={"filter"}
+        keyFor="skill_ids"
+        title={intl.formatMessage({ id: "Konikmalar" })}
+        isModal={isModal}
+      />
+      <FilterDropdown
+        options={reytingData}
+        empty_message={intl.formatMessage({ id: `empty-others` })}
+        page={"filter"}
+        name="expert_level"
+        title={intl.formatMessage({ id: "Reyting" })}
+        isModal={isModal}
+      />
+      <FilterDropdown
+        options={experienceData}
+        empty_message={intl.formatMessage({ id: `empty-others` })}
+        page={"filter"}
+        name="experience"
+        title={intl.formatMessage({ id: "Platformadagi tajriba" })}
+        isModal={isModal}
+      />
+      {isCloseBtn ? (
+        <button
+          type="button"
+          className="w-full bg-main p-3 rounded-lg text-white font-medium"
+          onClick={() => handleToggle()}
+        >
+          {intl.formatMessage({ id: "Filterlash" })}
+        </button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
