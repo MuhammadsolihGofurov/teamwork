@@ -1,6 +1,7 @@
 import Seo from "@/components/Seo/Seo";
 import { RightInfoAll, Wrapper } from "@/components/Utils";
 import { Breadcrumbs } from "@/components/custom";
+import { TaskDetail } from "@/components/detail-pages";
 import axios from "@/utils/axios";
 import { TasksUrl } from "@/utils/router";
 import { useRouter } from "next/router";
@@ -26,7 +27,6 @@ function page({ info }) {
         description={data?.more_info}
         body={data?.title}
       />
-      {console.error(data)}
       <Wrapper>
         <div className="container">
           <Breadcrumbs
@@ -44,12 +44,12 @@ function page({ info }) {
               },
             ]}
           />
-        </div>
-        <div className="flex flex-row gap-8">
-          <div className="w-[70%]">
-            
+          <div className="flex flex-row gap-8 py-5">
+            <div className="w-full 2xl:w-[70%]">
+              <TaskDetail data={data} />
+            </div>
+            <RightInfoAll />
           </div>
-          <RightInfoAll />
         </div>
       </Wrapper>
     </>

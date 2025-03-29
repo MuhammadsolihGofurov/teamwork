@@ -91,6 +91,11 @@
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 img {
   max-width: 100%;
   max-height: 100%;
@@ -163,7 +168,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .shadow_md {
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
 }
 .checkbox__icon::after {
   content: "";

@@ -8,7 +8,7 @@ import Bars from "../components/bars";
 
 export default function MainHeader() {
   return (
-    <div className="container flex justify-between items-center">
+    <div className="container flex justify-between items-center ">
       <Bars />
       <Menu type="header" />
       <LogoMain />

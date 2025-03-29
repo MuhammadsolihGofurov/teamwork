@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 import { authAxios } from "@/utils/axios";
 import { toast } from "react-toastify";
+import { useIntl } from "react-intl";
 
-export default function LikeBtn({ id, is_favorite, type = "tasks" }) {
+export default function LikeBtn({
+  id,
+  is_favorite,
+  type = "tasks",
+  page = "default",
+}) {
   const [isFavorite, setIsFavorite] = useState(is_favorite);
   const [loading, setLoading] = useState(false);
+  const intl = useIntl();
 
   const toggleLike = async () => {
     if (loading) return;
@@ -25,11 +32,48 @@ export default function LikeBtn({ id, is_favorite, type = "tasks" }) {
       toast.success(response?.data?.message);
       setIsFavorite(!isFavorite);
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || error?.message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (page == "details") {
+    return (
+      <button
+        type="button"
+        title="like"
+        className={`group/button flex items-center gap-1 hover:text-main transition-colors font-medium duration-150 ${
+          is_favorite ? "text-main" : "text-primary"
+        }`}
+        onClick={toggleLike}
+        disabled={loading}
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16.2501 10.4766L10.0001 16.6666L3.75009 10.4766C3.33784 10.0754 3.01312 9.59325 2.79638 9.06043C2.57963 8.52762 2.47556 7.9557 2.4907 7.38068C2.50585 6.80567 2.63989 6.24002 2.88439 5.71935C3.12888 5.19868 3.47853 4.73428 3.91133 4.35539C4.34412 3.97649 4.85068 3.69131 5.3991 3.5178C5.94752 3.3443 6.52593 3.28622 7.09789 3.34724C7.66986 3.40825 8.223 3.58703 8.72248 3.87233C9.22196 4.15762 9.65696 4.54324 10.0001 5.0049C10.3447 4.54659 10.7802 4.16434 11.2793 3.88207C11.7785 3.59981 12.3305 3.42361 12.9009 3.3645C13.4712 3.3054 14.0477 3.36465 14.5941 3.53856C15.1405 3.71247 15.6451 3.9973 16.0764 4.37521C16.5077 4.75311 16.8563 5.21597 17.1004 5.73481C17.3446 6.25365 17.479 6.81731 17.4953 7.39049C17.5117 7.96368 17.4095 8.53406 17.1952 9.06594C16.9809 9.59783 16.6592 10.0798 16.2501 10.4816"
+            stroke="#222"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`group-hover/button:stroke-main transition-colors duration-150 ${
+              isFavorite ? "fill-main stroke-main" : "stroke-primary"
+            }`}
+          />
+        </svg>
+
+        <span className="sm:inline hidden">
+          {intl.formatMessage({ id: "Saralangan" })}
+        </span>
+      </button>
+    );
+  }
 
   return (
     <button
