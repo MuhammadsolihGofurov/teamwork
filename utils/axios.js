@@ -40,10 +40,9 @@ authAxios.interceptors.response.use(
       window.alert("Network error or request timeout, Please refresh page");
     } else if (error.response.status === 401) {
       localStorage.removeItem(PRIVATEAUTHKEY);
-      router.push(`/${LoginUrl}`);
+      // router.push(`/${LoginUrl}`);
     }
 
     return Promise.reject(error);
   }
 );
-

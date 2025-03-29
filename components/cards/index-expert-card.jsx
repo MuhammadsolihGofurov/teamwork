@@ -7,9 +7,9 @@ import Image from "next/image";
 
 export default function IndexExpertCard({ data }) {
   const intl = useIntl();
-  const url = `experts/views/${data?.id}`;
+  const url = `experts/${data?.user_id}`;
   const [imgSrc, setImgSrc] = useState(
-    data?.photo ?? "/images/defaultAvatar.png"
+    data?.photo ?? "/images/default.png"
   );
 
   return (
@@ -17,7 +17,11 @@ export default function IndexExpertCard({ data }) {
       className={`group overflow-hidden flex flex-col items-start gap-5 p-5 rounded-lg border border-bg-3 bg-white transition-colors duration-200 hover:border-main min-h-[185px] text-primary relative z-0 group`}
     >
       <div className="absolute sm:hidden flex top-3 right-3">
-        <LikeBtn is_favorite={data?.is_favourite} type="experts" />
+        <LikeBtn
+          is_favorite={data?.is_favourite}
+          id={data?.id}
+          type="experts"
+        />
       </div>
       <div className="flex flex-row items-start gap-3 small:gap-5 w-full">
         <NextLink
@@ -84,7 +88,11 @@ export default function IndexExpertCard({ data }) {
                 })}
               </p>
               <p>{data?.level_of_expert} </p>
-              <LikeBtn is_favorite={data?.is_favourite} type="experts" />
+              <LikeBtn
+                is_favorite={data?.is_favourite}
+                id={data?.user_id}
+                type="experts"
+              />
             </div>
 
             {data?.specialitySets?.length > 0 ? (
@@ -107,7 +115,7 @@ export default function IndexExpertCard({ data }) {
                       : "Yillik tajriba",
                 })}
               </p>
-              <p>{data?.level_of_expert} </p>
+              <p>{data?.level_of_expert}</p>
             </div>
           </div>
 

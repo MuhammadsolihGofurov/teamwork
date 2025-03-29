@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { authAxios } from "@/utils/axios";
+import { toast } from "react-toastify";
 
 export default function LikeBtn({ id, is_favorite, type = "tasks" }) {
+  const [isFavorite, setIsFavorite] = useState(is_favorite);
+  const [loading, setLoading] = useState(false);
+
+  const toggleLike = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    const url =
+      type === "experts"
+        ? `/user/add-expert-to-favourites?expert_id=${id}&action=${
+            isFavorite ? 0 : 1
+          }`
+        : `/user/add-task-to-favourites?task_id=${id}&action=${
+            isFavorite ? 0 : 1
+          }`;
+
+    try {
+      const response = await authAxios.get(url);
+      toast.success(response?.data?.message);
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <button type="button" title="like" className="group/button">
+    <button
+      type="button"
+      title="like"
+      className="group/button"
+      onClick={toggleLike}
+      disabled={loading}
+    >
       <svg
         width="24"
         height="24"
@@ -17,7 +53,7 @@ export default function LikeBtn({ id, is_favorite, type = "tasks" }) {
           strokeLinecap="round"
           strokeLinejoin="round"
           className={`group-hover/button:stroke-main transition-colors duration-150 ${
-            is_favorite ? "fill-main stroke-main" : "stroke-[#bababa]"
+            isFavorite ? "fill-main stroke-main" : "stroke-[#bababa]"
           }`}
         />
       </svg>

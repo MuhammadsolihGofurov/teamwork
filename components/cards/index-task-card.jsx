@@ -66,7 +66,7 @@ export default function IndexTaskCard({ data }) {
         </div>
         <div className="flex flex-row gap-2">
           <DislikeBtn />
-          <LikeBtn is_favorite={data?.is_favourite} type="tasks" />
+          <LikeBtn is_favorite={data?.is_favourite} id={data?.id} type="tasks" />
         </div>
       </div>
       <NextLink url={url} className={`flex flex-col gap-3`}>
