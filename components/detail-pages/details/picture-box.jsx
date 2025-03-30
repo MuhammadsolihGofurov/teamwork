@@ -12,21 +12,25 @@ export default function PictureBox({
 }) {
   const intl = useIntl();
   const isTasks = type == "tasks";
-  const [imgSrc, setImgSrc] = useState(image ?? "/images/default.png");
 
   return (
     <div className="w-full flex flex-col sm:flex-row items-start justify-between gap-y-5">
       <div className="flex flex-row gap-3 sm:gap-5 sm:w-auto w-full">
         <div className="xs:w-[90px] w-16 h-16 xs:h-[90px] rounded-full overflow-hidden">
           <Image
-            src={imgSrc}
-            width={0}
-            height={0}
+            src={
+              image
+                ? image?.startsWith("http")
+                  ? image
+                  : `${process.env.NEXT_PUBLIC_API_PATH_IMAGE}${image}`
+                : "/images/default.png"
+            }
+            width={90}
+            height={90}
             alt=""
             title={title}
             layout="responsive"
             className="w-full h-full object-cover"
-            onError={() => setImgSrc("/images/defaultAvatar.png")}
           />
         </div>
         <TasksTitle
@@ -57,7 +61,10 @@ export default function PictureBox({
             {intl.formatMessage({ id: "Fors-major holatlarda" })}:
           </span>
         </div>
-        <button type="button" className="text-some_red text-sm font-medium text-start">
+        <button
+          type="button"
+          className="text-some_red text-sm font-medium text-start"
+        >
           {intl.formatMessage({ id: "Murojaat qoldiring" })}
         </button>
       </div>

@@ -28,7 +28,7 @@ function page({ info }) {
       budget_to ? `&budget_to=${budget_to}` : ""
     }${others && others !== "all" ? `&other=${others}` : ""}${
       page ? `&page=${page}` : ""
-    }`;
+    }&per-page=8`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>
@@ -51,7 +51,7 @@ function page({ info }) {
       <Seo
         title={info?.seo_home_title}
         description={info?.data?.seo_home_description}
-        body={info?.data?.seo_home_keywords}
+        keywords={info?.data?.seo_home_keywords}
       />
       <Wrapper>
         <TopFilterBar />

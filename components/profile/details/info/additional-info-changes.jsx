@@ -91,8 +91,19 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       skill_ids: "",
       speciality_ids: "",
       speciality_id: "",
+      level_of_expert: "",
     },
   });
+
+  const level_of_expert = [
+    { id: 1, name: intl.formatMessage({ id: "Havaskor" }), value: "AMATEUR" },
+    {
+      id: 2,
+      name: intl.formatMessage({ id: "Mutaxassis" }),
+      value: "EXPERT",
+    },
+    { id: 3, name: intl.formatMessage({ id: "Profi" }), value: "PROFI" },
+  ];
 
   const languagesSets = [
     {
@@ -131,6 +142,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     const passport = user?.passport;
 
     setValue("full_name", user?.full_name);
+    setValue("level_of_expert", user?.level_of_expert);
     setValue("gender", gender);
     setValue("other_phone", user?.other_phone?.slice(3) ?? "");
     setValue("site", user?.site);
@@ -244,6 +256,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
           passport_type,
         },
         necessary_information,
+        level_of_expert: level_of_expert?.find(
+          (item) => item?.name == data?.level_of_expert
+        )?.value,
       };
 
       const response = await authAxios.post(
@@ -306,10 +321,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         errors={errors?.gender}
         type={"radio"}
         register={register}
-        name={"gender"}
+        name={`gender`}
         title={intl.formatMessage({ id: "gender" })}
         placeholder={""}
-        id="gender"
+        id={`gender${isMobile ? "1" : ""}`}
         required
         page={page}
         validation={{
@@ -451,10 +466,10 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         errors={errors?.speciality_id}
         type={"text"}
         register={register}
-        name={"speciality_id"}
+        name={`speciality_id`}
         title={intl.formatMessage({ id: "Speciality" })}
         placeholder={""}
-        id="speciality_id"
+        id={`speciality_id${isMobile ? "1" : ""}`}
         required
         state={"speciality"}
         isIcon={true}
@@ -473,7 +488,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"speciality_children"}
         title={intl.formatMessage({ id: "SpecialityChildren" })}
         placeholder={""}
-        id="speciality_children"
+        id={`speciality_children${isMobile ? "1" : ""}`}
         required={false}
         state={"speciality_children"}
         isIcon={true}
@@ -494,7 +509,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"skill_ids"}
         title={intl.formatMessage({ id: "SkillIds" })}
         placeholder={""}
-        id="skill_ids"
+        id={`skill_ids${isMobile ? "1" : ""}`}
         required
         state={"skill_ids"}
         isIcon={true}
@@ -506,6 +521,22 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         select_type="multiple_skill_ids"
         selectedState={skillLists}
         setSelectedAction={setSkillIds}
+      />
+
+      <Select
+        errors={errors?.level_of_expert}
+        type={"text"}
+        register={register}
+        name={"level_of_expert"}
+        title={intl.formatMessage({ id: "level_of_expert" })}
+        placeholder={""}
+        id={`level_of_expert${isMobile ? "1" : ""}`}
+        state={"level_of_expert"}
+        withState={"static"}
+        isIcon={true}
+        page={page}
+        control={control}
+        keyOption="name"
       />
 
       <Input
@@ -559,7 +590,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         name={"languages"}
         title={intl.formatMessage({ id: "Tillar" })}
         placeholder={""}
-        id="languages"
+        id={`languages${isMobile ? "1" : ""}`}
         required={false}
         state={"languages"}
         withState="static"

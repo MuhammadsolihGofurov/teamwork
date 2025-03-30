@@ -22,7 +22,7 @@ function page({ info }) {
     // const others = findParams("other");
     const page = findParams("page");
 
-    return `/user/public-expert-list?expand=specialitySets.parent&perPage=8${
+    return `/user/public-expert-list?expand=specialitySets.parent${
       speciality_id ? `&speciality_id=${speciality_id}` : ""
     }${
       expert_level && expert_level !== "all"
@@ -30,7 +30,7 @@ function page({ info }) {
         : ""
     }${experience && experience !== "all" ? `&experience=${experience}` : ""}${
       page ? `&page=${page}` : ""
-    }`;
+    }&per-page=8`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>

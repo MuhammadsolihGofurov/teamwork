@@ -28,6 +28,7 @@ export default function SelectInput({
   isAuth = false,
   isCollect = false,
   withState = "api",
+  keyOption = "id",
 }) {
   const intl = useIntl();
   const { country_id, region_id, speciality_current } = useSelector(
@@ -60,6 +61,15 @@ export default function SelectInput({
         name: intl.formatMessage({ id: "Ingliz tili" }),
         value: ENGLISH_LG,
       },
+    ],
+    level_of_expert: [
+      { id: 1, name: intl.formatMessage({ id: "Havaskor" }), value: "AMATEUR" },
+      {
+        id: 2,
+        name: intl.formatMessage({ id: "Mutaxassis" }),
+        value: "EXPERT",
+      },
+      { id: 3, name: intl.formatMessage({ id: "Profi" }), value: "PROFI" },
     ],
   };
 
@@ -120,6 +130,7 @@ export default function SelectInput({
           empty_message={intl.formatMessage({ id: `empty-${state}` })}
           required={required}
           page={page}
+          keyOption={keyOption}
         />
       )}
 

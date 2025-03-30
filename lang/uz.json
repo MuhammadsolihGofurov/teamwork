@@ -239,7 +239,7 @@
   "Konikmalar": "Ko’nikmalar",
   "Reyting": "Reyting",
   "Havaskor": "Havaskor",
-  "Profi": "Profisional",
+  "Profi": "Yuqori malakali",
   "Platformadagi tajriba": "Platformadagi tajriba",
   "1-6 oy": "1-6 oy",
   "6 oy - 1 yil": "6 oy - 1 yil",
@@ -281,5 +281,17 @@
   "advBody6": "Bizning jamoamiz har qanday tushunarsiz vaziyatda sizga yordam berishga tayyor.",
   "advBody7": "Bizning jamoamiz har qanday tushunarsiz vaziyatda sizga yordam berishga tayyor.",
   "advBody8": "Bizning jamoamiz har qanday tushunarsiz vaziyatda sizga yordam berishga tayyor.",
-  "---adv---": ""
+  "---adv---": "",
+  "level_of_expert": "Tajriba",
+  "Taklif yuborish": "Taklif yuborish",
+  "O’xshash topshiriq qo’shish": "O’xshash topshiriq qo’shish",
+  "Berilgan takliflar": "Berilgan takliflar",
+  "Ko’rishlar": "Ko’rishlar",
+  "Soha": "Soha",
+  "Bajarilish muddati": "Bajarilish muddati",
+  "Shikoyat yo’llash": "Shikoyat yo’llash",
+  "Buyurtmachiga": "Buyurtmachiga",
+  "Moderatorga": "Moderatorga",
+  "Taklif etilayotgan narx": "Taklif etilayotgan narx",
+  "Sozlamar bo’limida ma’lumotlaringizni  to’liq to’ldiring": "Sozlamar bo’limida ma’lumotlaringizni  to’liq to’ldiring"
 }

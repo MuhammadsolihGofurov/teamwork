@@ -20,6 +20,7 @@ module.exports = {
         date: "#BABABA",
         selection: "#C4F500",
         some_red: "#FF6320",
+        some_btn: "#B7E500",
         bg: {
           1: "#F8F8F8",
           2: "#F5F5F5",

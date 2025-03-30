@@ -30,7 +30,7 @@ function page({ info }) {
         : ""
     }${experience && experience !== "all" ? `&experience=${experience}` : ""}${
       page ? `&page=${page}` : ""
-    }`;
+    }&per-page=8`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>

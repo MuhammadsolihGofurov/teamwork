@@ -28,7 +28,7 @@ function page({ info }) {
       budget_to ? `&budget_to=${budget_to}` : ""
     }${others && others !== "all" ? `&other=${others}` : ""}${
       page ? `&page=${page}` : ""
-    }`;
+    }&per-page=8`;
   }, [router.query]);
 
   const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>

@@ -22,12 +22,14 @@ export default function CustomSelect({
   keyFor,
   title = "",
   handleChangeRouter = () => {},
+  keyOption = "id",
 }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const isNotEqualsKeyOptionId = keyOption !== "id";
 
   const handleClickOutside = useCallback((event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -47,9 +49,9 @@ export default function CustomSelect({
     //   field.onChange(option.id);
     // }
 
-    !keyFor ? field.onChange(option.id) : handleChangeRouter(option?.id);
+    const selectedValue = keyOption !== "id" ? option?.[keyOption] : option.id;
 
-    setSelectedOption(option);
+    !keyFor ? field.onChange(selectedValue) : handleChangeRouter(selectedValue);
     switch (type) {
       case "country":
         dispatch(setCountryId(option.id));
@@ -96,9 +98,7 @@ export default function CustomSelect({
                 />
               </svg>
             )}
-            {selectedOption
-              ? selectedOption.name
-              : title}
+            {selectedOption ? selectedOption.name : title}
           </span>
           <span className="pointer-events-none">
             <svg
@@ -196,8 +196,9 @@ export default function CustomSelect({
                       />
                     </svg>
                   )}
-                  {options.find((o) => o.id === field.value)?.name ??
-                    intl.formatMessage({ id: "Tanlang" })}
+                  {options.find((o) => o?.[keyOption] === field.value)?.[
+                    isNotEqualsKeyOptionId ? keyOption : "name"
+                  ] ?? intl.formatMessage({ id: "Tanlang" })}
                 </span>
                 <span className="pointer-events-none">
                   <svg
@@ -241,7 +242,7 @@ export default function CustomSelect({
                         type="button"
                         onClick={() => handleClick(field, option)}
                         className={`p-2 hover:bg-gray-100 ${
-                          field.value === option.id
+                          field.value === option?.[keyOption]
                             ? "bg-main bg-opacity-15 font-medium"
                             : ""
                         } transition-colors text-primary duration-200 rounded-md cursor-pointer text-start`}

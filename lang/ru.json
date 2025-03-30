@@ -233,7 +233,7 @@
   "Mutaxassislik bo'yicha": "Специальности",
   "Konikmalar": "Навыки",
   "Reyting": "Рейтинг",
-  "Havaskor": "Любительский",
+  "Havaskor": "Любитель",
   "Profi": "Профессионал",
   "Platformadagi tajriba": "Опыт работы",
   "1-6 oy": "1 - 6 месяцев",
@@ -276,5 +276,17 @@
   "advBody6": "Наша команда готова вам помочь в любой не понятной ситуации.",
   "advBody7": "Наша команда готова вам помочь в любой не понятной ситуации.",
   "advBody8": "Наша команда готова вам помочь в любой не понятной ситуации.",
-  "---adv---": ""
+  "---adv---": "",
+  "level_of_expert": "Опыт",
+  "Taklif yuborish": "Отправить предложение",
+  "O’xshash topshiriq qo’shish": "Добавить похожую задачу",
+  "Berilgan takliflar": "Предложения сделаны",
+  "Ko’rishlar": "Просмотры",
+  "Soha": "Специальность",
+  "Bajarilish muddati": "Крайний срок",
+  "Shikoyat yo’llash": "Отправить жалобу",
+  "Buyurtmachiga": "Заказчику",
+  "Moderatorga": "Модератору",
+  "Taklif etilayotgan narx": "Рекомендованная цена",
+  "Sozlamar bo’limida ma’lumotlaringizni  to’liq to’ldiring": "Заполните свои данные в разделе настроек"
 }
