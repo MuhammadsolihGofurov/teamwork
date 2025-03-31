@@ -33,27 +33,27 @@ const Layout = ({ children }) => {
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/img/icons/favicon/apple-touch-icon.png"
+          href="/images/favicon.svg"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/img/icons/favicon/favicon-32x32.png"
+          href="/images/favicon.svg"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/img/icons/favicon/favicon-16x16.png"
+          href="/images/favicon.svg"
         />
         <link rel="manifest" href="/manifest.json" />
         <link
           rel="mask-icon"
-          href="/img/icons/favicon/safari-pinned-tab.svg"
+          href="/images/favicon.svg"
           color="#5bbad5"
         />
-        <link rel="shortcut icon" href="/img/icons/favicon/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.svg" />
         <meta name="msapplication-TileColor" content="#ffc40d" />
         <meta
           name="msapplication-config"
