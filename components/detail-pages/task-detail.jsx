@@ -32,6 +32,7 @@ export default function TaskDetail({ data = { owner: null } }) {
           dead_line={data?.dead_line}
           inability_to_price={data?.inability_to_price}
           budget={data?.budget}
+          attachments={data?.attachments}
         />
       </div>
     </div>

@@ -14,7 +14,11 @@ const nextConfig = {
   },
   images: {
     // like ['domen.uz']
-    domains: ["php.teamwork.uz", "teamworkbucket.s3.amazonaws.com"],
+    domains: [
+      "php.teamwork.uz",
+      "teamworkbucket.s3.amazonaws.com",
+      "teamwork.uz",
+    ],
   },
   env: {
     // like base url

@@ -130,7 +130,7 @@ export default function BioInfoChanges({ page = "profile", isMobile }) {
         necessary_information,
       };
 
-      console.error(payload);
+      // console.error(payload);
 
       const response = await authAxios.post(
         "/user/update-expert-data?expand=specialitySets.parent",

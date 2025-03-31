@@ -85,7 +85,7 @@ export default function RegisterInfo({ page }) {
         router.push("/auth/register/sms-code");
       }, 500);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);

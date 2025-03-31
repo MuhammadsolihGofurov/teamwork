@@ -31,7 +31,7 @@ export default function FilterMultiSelect({
         const response = await authAxios.post("/skill/search", { name: query });
         setFilteredOptions(response?.data?.data || []);
       } catch (error) {
-        console.error("Skill search error:", error);
+        // console.error("Skill search error:", error);
       }
     }, 500),
     []

@@ -18,7 +18,7 @@ export function IndexWrapper({ children, id, isAdvantages }) {
         </div>
       </div>
       {isAdvantages ? <Advantages /> : <></>}
-      <FilterOffcanvas type={id} />
+      {/* <FilterOffcanvas type={id} /> */}
     </>
   );
 }
@@ -34,9 +34,7 @@ export default function IndexFetchData({
   if (type == "experts") {
     return (
       <IndexWrapper id={type} isAdvantages={isAdvantages}>
-        <div className="hidden lg:block lg:w-2/6 2xl:w-[23%]">
-          <LeftExpertsFilter />
-        </div>
+        <LeftExpertsFilter />
         <div className="w-full lg:w-4/6 2xl:w-[54%]">
           <CenterData
             all_data={all_data}
@@ -53,10 +51,8 @@ export default function IndexFetchData({
 
   if (type == "tasks") {
     return (
-      <IndexWrapper id={type}>
-        <div className="hidden lg:block lg:w-2/6 2xl:w-[23%]">
-          <LeftTasksFilter />
-        </div>
+      <IndexWrapper id={type} isAdvantages={isAdvantages}>
+        <LeftTasksFilter />
         <div className="w-full lg:w-4/6 2xl:w-[54%]">
           <CenterData
             all_data={all_data}

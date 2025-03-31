@@ -45,7 +45,7 @@ export default async function fetcher(
 
     return await response.json();
   } catch (error) {
-    console.error("Fetcher Error:", error);
+    // console.error("Fetcher Error:", error);
     throw error;
   }
 }

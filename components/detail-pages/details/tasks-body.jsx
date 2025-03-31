@@ -1,6 +1,13 @@
 import { formatDateForCard, thousandSeperate } from "@/utils/funcs";
-import React from "react";
+import Image from "next/image";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
+import dynamic from "next/dynamic";
+import "lightgallery/css/lightgallery.css";
+
+const LightGallery = dynamic(() => import("lightgallery/react"), {
+  ssr: false,
+});
 
 export default function TasksBody({
   speciality_name,
@@ -12,8 +19,15 @@ export default function TasksBody({
   dead_line,
   inability_to_price,
   budget,
+  attachments,
 }) {
   const intl = useIntl();
+
+  // useEffect(() => {
+  //   const lightbox = new simpleLightbox(".gallery a");
+  //   return () => lightbox.destroy(); // Component unmount bo'lsa tozalash
+  // }, []);
+
   return (
     <div className="flex flex-col gap-5 bg-main bg-opacity-5 sm:px-0 px-4 sm:pb-0 pb-10 sm:pt-0 pt-5 sm:bg-transparent rounded-b-xl">
       {speciality_name ? (
@@ -26,10 +40,32 @@ export default function TasksBody({
       ) : (
         <></>
       )}
-      <div
-        className="text-primary text-lg"
-        dangerouslySetInnerHTML={{ __html: more_info }}
-      />
+      <p className="text-primary text-lg">{more_info}</p>
+      {attachments?.length > 0 ? (
+        <div className="flex flex-row gap-2 flex-wrap gallery">
+          <LightGallery>
+            {attachments?.map((item) => {
+              return (
+                <a
+                  href={item?.path}
+                  className="full__image w-20 h-20 rounded-lg border border-bg-3 hover:border-main transition-colors duration-150 cursor-pointer flex"
+                  key={item?.name}
+                >
+                  <Image
+                    src={item?.path}
+                    width={0}
+                    height={0}
+                    layout="responsive"
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+              );
+            })}
+          </LightGallery>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="flex items-center gap-5 flex-wrap">
         <div className="flex items-center gap-2">
           <svg
@@ -209,10 +245,14 @@ export default function TasksBody({
               {intl.formatMessage({ id: "Taklif etilayotgan narx" })}:
             </h5>
             <h6 className="font-semibold">
-              {inability_to_price
-                ? intl.formatMessage({ id: "Kelishilgan holda" })
-                : thousandSeperate(budget)}{" "}
-              {intl.formatMessage({ id: "so'm" })}
+              {inability_to_price ? (
+                intl.formatMessage({ id: "Kelishilgan holda" })
+              ) : (
+                <>
+                  {thousandSeperate(budget)}{" "}
+                  {intl.formatMessage({ id: "so'm" })}
+                </>
+              )}
             </h6>
           </div>
         </div>

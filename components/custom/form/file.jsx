@@ -6,11 +6,13 @@ import { useIntl } from "react-intl";
 export default function File({
   page = "register-info",
   onFileUpload,
+  onFileUploadId,
   existingImage,
   type = "profile_icon",
+  isReFetchData = false,
 }) {
   const [preview, setPreview] = useState(existingImage);
-  const { uploadImage } = useUploadImage();
+  const { uploadImage } = useUploadImage({ isReFetchData: isReFetchData });
   const intl = useIntl();
 
   useEffect(() => {
@@ -24,10 +26,11 @@ export default function File({
     if (!selectedFile) return;
 
     const uploadedImage = await uploadImage(selectedFile, type);
-    console.error(uploadedImage)
+    // console.error(uploadedImage)
     if (uploadedImage) {
       setPreview(uploadedImage.name);
-      onFileUpload(uploadedImage.id);
+      onFileUpload(uploadedImage.name);
+      onFileUploadId(uploadedImage.id);
     }
   };
 
@@ -53,7 +56,8 @@ export default function File({
             />
           </svg>
           <span className="text-primary">
-            {preview ?? intl.formatMessage({ id: "Pasport nusxasini biriktiring" })}
+            {preview ??
+              intl.formatMessage({ id: "Pasport nusxasini biriktiring" })}
           </span>
         </div>
         <input

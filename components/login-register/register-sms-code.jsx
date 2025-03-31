@@ -79,7 +79,7 @@ export default function RegisterSMSCode({ page }) {
         }
       }, 500);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);

@@ -36,6 +36,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
   const dispatch = useDispatch();
   // Profile rasmi
   const [image, setImage] = useState(null);
+  const [imageId, setImageId] = useState(null);
   const {
     register,
     handleSubmit,
@@ -160,7 +161,9 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
       <File
         page={page}
         onFileUpload={(file) => setImage(file)}
+        onFileUploadId={(id) => setImageId(id)}
         existingImage={image}
+        isReFetchData={true}
       />
 
       <div className="text-sm text-main sm:block hidden">

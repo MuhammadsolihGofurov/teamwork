@@ -9,6 +9,7 @@ export default function Textarea({
   validation,
   noSelected = false,
   errors,
+  page,
 }) {
   const [height, setHeight] = useState("auto");
 
@@ -23,7 +24,30 @@ export default function Textarea({
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
-  }, []); 
+  }, []);
+
+  if (page == "with-border") {
+    return (
+      <label className="flex flex-col gap-1 w-full">
+        <span className="text-sm font-semibold text-primary pb-1 pl-3">{title}</span>
+        <textarea
+          placeholder={placeholder}
+          name={name}
+          id={name}
+          required={required}
+          autoComplete="off"
+          disabled={noSelected}
+          className="rounded-lg p-4 border min-h-[150px] border-gray-300 bg-white w-full overflow-hidden placeholder:text-gray-400 text-gray-900 resize-none"
+          {...register(name, validation)}
+          style={{ height }}
+          onInput={handleInput}
+        />
+        {errors?.message && (
+          <span className="text-red-500">{errors.message}</span>
+        )}
+      </label>
+    );
+  }
 
   return (
     <label className="flex flex-col gap-1 w-full">
@@ -35,10 +59,10 @@ export default function Textarea({
         required={required}
         autoComplete="off"
         disabled={noSelected}
-        className="rounded-lg p-4 border border-gray-300 bg-white w-full overflow-hidden placeholder:text-gray-400 text-gray-900 resize-none"
+        className="rounded-lg p-4 border min-h-[150px] border-gray-300 bg-white w-full overflow-hidden placeholder:text-gray-400 text-gray-900 resize-none"
         {...register(name, validation)}
         style={{ height }}
-        onInput={handleInput} 
+        onInput={handleInput}
       />
       {errors?.message && (
         <span className="text-red-500">{errors.message}</span>

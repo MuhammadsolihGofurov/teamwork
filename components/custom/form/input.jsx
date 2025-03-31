@@ -13,6 +13,7 @@ export default function Input({
   page,
   errors,
   control,
+  icon = "",
 }) {
   if (page == "register-info") {
     return (
@@ -113,6 +114,47 @@ export default function Input({
           className="p-4 rounded-lg bg-bg-2 border border-bg-3 text-primary max-h-[58px] min-h-[58px]"
           {...register(name, validation)}
         />
+        {errors?.message ? (
+          <span className="text-sm text-red-500">{errors?.message}</span>
+        ) : (
+          <></>
+        )}
+      </label>
+    );
+  }
+
+  if (page == "with-border") {
+    return (
+      <label className="flex flex-col gap-1" htmlFor={name}>
+        <span className="text-sm font-semibold text-primary pb-1 pl-3">
+          {title}
+        </span>
+        <span className="flex w-full relative">
+          <input
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            required={required}
+            autoComplete="off"
+            disabled={noSelected}
+            className="p-4 pl-9 rounded-lg border w-full border-bg-3 text-primary max-h-[54px] min-h-[54px]"
+            {...register(name, validation)}
+          />
+          <img
+            src={icon}
+            alt={name}
+            title={name}
+            className="absolute top-2/4 left-3 -translate-y-2/4"
+          />
+          {name == "price" ? (
+            <span className="absolute top-2/4 right-3 -translate-y-2/4 text-primary text-opacity-40">
+              UZS
+            </span>
+          ) : (
+            <></>
+          )}
+        </span>
         {errors?.message ? (
           <span className="text-sm text-red-500">{errors?.message}</span>
         ) : (

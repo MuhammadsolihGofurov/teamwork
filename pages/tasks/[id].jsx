@@ -3,6 +3,7 @@ import { TaskDetailsSkeleton } from "@/components/Skeleton/details";
 import { NextLink, RightInfoAll, Wrapper } from "@/components/Utils";
 import { Breadcrumbs } from "@/components/custom";
 import { TaskDetail } from "@/components/detail-pages";
+import { MakeOfferModal } from "@/components/modals";
 import axios from "@/utils/axios";
 import { FaqsUrl, ProfileUrl, TasksUrl } from "@/utils/router";
 import { useRouter } from "next/router";
@@ -120,6 +121,8 @@ function page({ info }) {
           </div>
         </Wrapper>
       )}
+
+      <MakeOfferModal />
     </>
   );
 }

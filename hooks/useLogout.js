@@ -31,7 +31,7 @@ export default function useLogout() {
         router.push(`/${LoginUrl}`);
       }, 500);
     } catch (error) {
-      console.error("Logout failed:", error);
+      // console.error("Logout failed:", error);
     } finally {
       setLoading(false);
     }

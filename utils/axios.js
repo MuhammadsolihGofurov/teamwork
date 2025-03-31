@@ -34,7 +34,7 @@ authAxios.interceptors.request.use(
 authAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("Interceptor error:", error);
+    // console.error("Interceptor error:", error);
 
     if (!error.response || error.code === "ECONNABORTED") {
       window.alert("Network error or request timeout, Please refresh page");

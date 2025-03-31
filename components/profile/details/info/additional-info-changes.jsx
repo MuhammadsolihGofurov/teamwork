@@ -53,6 +53,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   const [imageSet, setImageSet] = useState(null);
   // Profile rasmi
   const [image, setImage] = useState(null);
+  const [imageId, setImageId] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
+  const [profilePicId, setProfilePicId] = useState(null);
   const {
     register,
     handleSubmit,
@@ -175,6 +178,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     dispatch(setSpecialityCurrent(currentSpeciality));
     setValue("speciality_id", currentSpeciality?.id);
 
+    // image
+    setProfilePic(user_info?.photo?.path);
+
     // passport
     setValue("passport.attachment_id", passport?.attachment_id);
     setValue("passport.given_by_whom", passport?.given_by_whom);
@@ -252,13 +258,14 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
           given_time: given_time?.startDate,
           given_by_whom,
           expire_date: expire_date?.startDate,
-          attachment_id: image ?? attachment_id,
+          attachment_id: imageId ?? attachment_id,
           passport_type,
         },
         necessary_information,
         level_of_expert: level_of_expert?.find(
           (item) => item?.name == data?.level_of_expert
         )?.value,
+        // photo: { attachment_id: profilePicId ?  profilePicId : user_info?.photo?.attachment_id },
       };
 
       const response = await authAxios.post(
@@ -288,6 +295,8 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     }
   };
 
+  // console.error(profilePicId, profilePic);
+
   if (loading) {
     return <AdditionalInfoUpdateSkeleton />;
   }
@@ -301,6 +310,20 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         isMobile ? "sm:hidden grid" : "sm:grid hidden"
       } grid-cols-1 lg:grid-cols-2 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
     >
+      {/* <File
+        page={page}
+        onFileUpload={(file) => setProfilePic(file)}
+        onFileUploadId={(id) => setProfilePicId(id)}
+        existingImage={profilePic}
+        // type={'expert_image'}
+      /> */}
+{/* 
+      <div className="text-sm text-main sm:block hidden">
+        <p className="pt-3">
+          {intl.formatMessage({ id: "image-required-body" })}
+        </p>
+      </div> */}
+
       <Input
         errors={errors?.full_name}
         type={"text"}
@@ -726,6 +749,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         <File
           page={"passport"}
           onFileUpload={(file) => setImage(file)}
+          onFileUploadId={(id) => setImageId(id)}
           existingImage={imageSet}
           type="passport"
         />

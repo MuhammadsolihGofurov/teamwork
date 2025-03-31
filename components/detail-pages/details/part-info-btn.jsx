@@ -104,12 +104,12 @@ export const ShareBtn = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <span className="text-primary font-medium sm:inline hidden">
+        <span className="text-primary font-medium sm:inline hidden text-[15px]">
           {intl.formatMessage({ id: "Ulashish" })}
         </span>
       </button>
 
-      <div className="absolute top-full -left-5 w-[140px] px-[10px] py-3 flex flex-col gap-0 bg-white shadow_md rounded-xl opacity-0 invisible translate-y-5 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-transform duration-150">
+      <div className="absolute top-full -right-5 sm:-left-5 w-[140px] px-[10px] py-3 flex flex-col gap-0 bg-white shadow_md rounded-xl opacity-0 invisible translate-y-5 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-transform duration-150">
         {shares.map((item) => (
           <button
             key={item.id}

@@ -156,7 +156,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   stroke: white;
 }
 .scroll__none {
-  scrollbar-width: 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer va Edge */
+}
+
+.scroll__none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari va Opera */
 }
 .bg-blue-500 {
   background: var(--main);
@@ -170,6 +175,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .shadow_md {
   box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
 }
+
 .checkbox__icon::after {
   content: "";
   /* display: block; */
@@ -191,4 +197,20 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Firefox uchun */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.modal {
+  align-items: start;
+  justify-content: center;
+}
+
+@media screen and (min-height: 570px) {
+  .modal {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.lg-backdrop {
+  background-color: rgba(34, 34, 34, 0.4) !important;
 }

@@ -43,7 +43,7 @@ export default function LikeBtn({
       <button
         type="button"
         title="like"
-        className={`group/button flex items-center gap-1 hover:text-main transition-colors font-medium duration-150 ${
+        className={`group/button flex items-center gap-1 hover:text-main transition-colors text-[15px] font-medium duration-150 ${
           is_favorite ? "text-main" : "text-primary"
         }`}
         onClick={toggleLike}

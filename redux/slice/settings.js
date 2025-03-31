@@ -13,6 +13,8 @@ const settingsSlice = createSlice({
     specialities: [],
     languagesData: [],
     filterModalConfirm: false,
+    makeOfferModal: false,
+    task_id: 0,
   },
   reducers: {
     setCountryId: (state, action) => {
@@ -45,6 +47,10 @@ const settingsSlice = createSlice({
     setToggleFilterModalConfirm: (state, action) => {
       state.filterModalConfirm = !state.filterModalConfirm;
     },
+    setToggleMakeOfferModal: (state, action) => {
+      state.makeOfferModal = !state.makeOfferModal;
+      state.task_id = action?.payload?.task_id ?? 0;
+    },
   },
 });
 
@@ -59,6 +65,7 @@ export const {
   setSpecialitiesData,
   setLanguagesData,
   setToggleFilterModalConfirm,
+  setToggleMakeOfferModal,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

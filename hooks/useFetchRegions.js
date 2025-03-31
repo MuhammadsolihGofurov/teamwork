@@ -13,7 +13,7 @@ export function useFetchRegions() {
   const fetchData = useCallback(async () => {
     if (!country_id) return;
 
-    console.error("API chaqirilyapti: /region/list?country_id=" + country_id);
+    // console.error("API chaqirilyapti: /region/list?country_id=" + country_id);
 
     setIsLoading(true);
     setError(null);

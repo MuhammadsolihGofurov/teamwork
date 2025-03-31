@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { fetchUserData } from "@/redux/slice/user";
 
-export const useUploadImage = () => {
+export const useUploadImage = ({ isReFetchData = false }) => {
   const intl = useIntl();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export const useUploadImage = () => {
         autoClose: 3000,
       });
 
-      if (type === "profile_icon") {
+      if (isReFetchData) {
         setTimeout(() => {
           dispatch(fetchUserData());
         }, 1000);
