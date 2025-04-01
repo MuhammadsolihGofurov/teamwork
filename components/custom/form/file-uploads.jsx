@@ -6,6 +6,7 @@ import {
   AiOutlineFilePdf,
 } from "react-icons/ai";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 
 const MAX_FILES = 10;
 const MAX_SIZE = 100 * 1024 * 1024; // 100MB
@@ -184,6 +185,11 @@ export default function FileUploads({ control, title }) {
           id: "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *",
         })
       );
+      toast.error(
+        intl.formatMessage({
+          id: "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *",
+        })
+      );
       return;
     }
 
@@ -255,7 +261,9 @@ export default function FileUploads({ control, title }) {
             key={index}
             className="flex flex-col gap-1 p-2 relative w-24 text-center justify-center items-center group cursor-pointer"
           >
-            <span className="h-[50px] flex items-center justify-center">{getFileIcon(file.name)}</span>
+            <span className="h-[50px] flex items-center justify-center">
+              {getFileIcon(file.name)}
+            </span>
             <span className="text-xs">{file.name}</span>
             <button
               type="button"

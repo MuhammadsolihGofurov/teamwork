@@ -126,7 +126,7 @@ const withAuth = (WrappedComponent) => {
       }
     }, [router, error]);
 
-    return is_auth ? <WrappedComponent {...props} /> : null;
+    return <WrappedComponent {...props} />;
   };
 };
 

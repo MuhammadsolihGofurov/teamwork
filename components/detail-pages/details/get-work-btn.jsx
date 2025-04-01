@@ -17,9 +17,7 @@ export default function GetWorkBtn({ id, user_id, full_name }) {
     }
     const fullName = encodeURIComponent(full_name);
 
-    router.push(
-      `/${WorkWithUrl}?&full_name=${fullName}&user_id=${user_id}`
-    );
+    router.push(`/${WorkWithUrl}?full_name=${fullName}&user_id=${user_id}`);
   };
 
   return (
