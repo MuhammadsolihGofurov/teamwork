@@ -3,6 +3,34 @@ import React from "react";
 
 export default function Lang({ type = "main" }) {
   const router = useRouter();
+
+  if (type == "offcanvas") {
+    return (
+      <div className={`lang items-center flex bg-bg-2 rounded-full p-1 w-auto`}>
+        <a
+          href={`/uz/${router.asPath}`}
+          title="uz"
+          className={`w-10 h-10 flex rounded-full items-center justify-center ${
+            router.locale == "uz" ? "bg-main text-white" : "text-primary"
+          }`}
+          locale={"uz"}
+        >
+          Uz
+        </a>
+        <a
+          href={`/ru/${router.asPath}`}
+          title="ru"
+          className={`w-10 h-10 flex rounded-full items-center justify-center ${
+            router.locale == "ru" ? "bg-main text-white" : "text-primary"
+          }`}
+          locale={"ru"}
+        >
+          Ru
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`lang ${

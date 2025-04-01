@@ -34,6 +34,8 @@ export const SavedExpertsUrl = "profile/saved/experts";
 // Portoflio
 export const PortfolioTeamworkUrl = "profile/portfolio/teamwork";
 export const PortfolioOthersUrl = "profile/portfolio/others";
+// Payment
+export const MyPaymentUrl = "profile/payment";
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";
@@ -42,6 +44,7 @@ export const FaqsUrl = "faqs";
 // experts
 export const ExpertsUrl = "experts/all";
 export const ExpertsIndexUrl = "experts";
+export const WorkWithUrl = "experts/work-with";
 // tasks
 export const TasksUrl = "tasks/all";
 export const TasksCreateUrl = "tasks/create";

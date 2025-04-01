@@ -1,6 +1,6 @@
 import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
-import { ProfileWrapper } from "@/components/Utils";
+import { MobileNavigation, ProfileWrapper } from "@/components/Utils";
 import {
   CenterInfoProfile,
   LeftInfoProfile,
@@ -66,6 +66,9 @@ function ProfilePage({ info }) {
           </>
         )}
       </ProfileWrapper>
+
+      {/* <MobileNavigation isReturn={true}/> */}
+
     </>
   );
 }

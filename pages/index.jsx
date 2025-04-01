@@ -1,6 +1,6 @@
 import { MainBanner } from "@/components";
 import Seo from "@/components/Seo/Seo";
-import { Wrapper } from "@/components/Utils";
+import { MobileNavigation, Wrapper } from "@/components/Utils";
 import IndexFetchData from "@/components/index/index-fetch-data";
 import { useParams } from "@/hooks/useParams";
 import fetcher from "@/utils/fetcher";
@@ -63,6 +63,8 @@ function page({ info }) {
           isAdvantages
         />
       </Wrapper>
+
+      {/* <MobileNavigation /> */}
     </>
   );
 }

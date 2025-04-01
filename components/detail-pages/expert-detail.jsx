@@ -40,6 +40,8 @@ export default function ExpertDetail({ data }) {
         hourly_salary={expert?.hourly_salary}
         total_count={expert?.taskSummary?.total_count}
         id={expert?.id}
+        full_name={expert?.full_name}
+        user_id={data?.id}
       />
       <ExpertTabItems
         about={expert?.necessary_information}

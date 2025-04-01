@@ -1,8 +1,20 @@
+import { setToggleMenuOffcanvas } from "@/redux/slice/settings";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 export default function Bars() {
+  const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    dispatch(setToggleMenuOffcanvas());
+  };
+
   return (
-    <button type="button" className="sm:hidden block">
+    <button
+      type="button"
+      className="sm:hidden block"
+      onClick={() => handleToggle()}
+    >
       <svg
         width="24"
         height="24"

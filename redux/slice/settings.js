@@ -15,6 +15,7 @@ const settingsSlice = createSlice({
     filterModalConfirm: false,
     makeOfferModal: false,
     task_id: 0,
+    menuOffcanvas: false,
   },
   reducers: {
     setCountryId: (state, action) => {
@@ -51,6 +52,9 @@ const settingsSlice = createSlice({
       state.makeOfferModal = !state.makeOfferModal;
       state.task_id = action?.payload?.task_id ?? 0;
     },
+    setToggleMenuOffcanvas: (state) => {
+      state.menuOffcanvas = !state.menuOffcanvas;
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setLanguagesData,
   setToggleFilterModalConfirm,
   setToggleMakeOfferModal,
+  setToggleMenuOffcanvas
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

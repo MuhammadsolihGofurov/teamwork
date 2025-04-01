@@ -37,6 +37,7 @@ authAxios.interceptors.response.use(
     // console.error("Interceptor error:", error);
 
     if (!error.response || error.code === "ECONNABORTED") {
+      // toast.error("Network error or request timeout, Please refresh page");
       window.alert("Network error or request timeout, Please refresh page");
     } else if (error.response.status === 401) {
       localStorage.removeItem(PRIVATEAUTHKEY);

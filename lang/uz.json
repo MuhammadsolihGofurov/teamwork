@@ -313,5 +313,18 @@
   "10% komissiya hisoblandi": "10% komissiya hisoblandi",
   "comissionFee": "Komissiya xizmatiga sizning xaq-huquqlaringizni himoya qilish - Arbitraj xizmatlari kiradi. ",
   "Bekor qilish": "Bekor qilish",
-  "success-send-offer": "Muvaffaqiyatli, Taklifingiz buyurtmachiga yuborildi."
+  "success-send-offer": "Muvaffaqiyatli, Taklifingiz buyurtmachiga yuborildi.",
+  "Asosiy ma’lumotlar": "Asosiy ma’lumotlar",
+  "Nima qilish kerak?": "Nima qilish kerak?",
+  "ishga yo'llash body": "Vazifaning mohiyati darhol sarlavhada yozilsa yaxshi bo'ladi. Mutaxassis sizning buyurtmangiz unga mos kelishini tezda tushunadi va siz yaxshiroq taklif olasiz.",
+  "Topshiriq sarlavhasini aniq va tushunarli qilib yozishni tavsiya qilamiz!": "Topshiriq sarlavhasini aniq va tushunarli qilib yozishni tavsiya qilamiz!",
+  "RequiredTaskTitle": "Sarlavha 150 ta belgidan oshmasligi zarur *",
+  "To'liq tavsilotlar": "To'liq tavsilotlar",
+  "Topshiriq haqida barcha ma'lumotlarni to'liq shu yerga joylashtiriing!": "Topshiriq haqida barcha ma'lumotlarni to'liq shu yerga joylashtiriing!",
+  "RequiredTaskBody": "Sarlavha 540 ta belgidan oshmasligi zarur *",
+  "Menu": "Menu",
+  "Foydali sahifalar": "Foydali sahifalar",
+  "Til": "Til",
+  "error-access-denied": "Bu kontentni ko'rish uchun tizimga kirish talab etiladi.",
+  "please-login-to-access": "Platformaning barcha imkoniyatlaridan foydalanish uchun tizimga kirishingiz kerak."
 }

@@ -3,7 +3,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import GetWorkBtn from "./get-work-btn";
 
-export default function ExpertPriceBox({ hourly_salary, total_count, id }) {
+export default function ExpertPriceBox({
+  hourly_salary,
+  total_count,
+  id,
+  full_name,
+  user_id,
+}) {
   const intl = useIntl();
 
   return (
@@ -118,7 +124,7 @@ export default function ExpertPriceBox({ hourly_salary, total_count, id }) {
         </div>
       </div>
       <div className="sm:flex hidden">
-        <GetWorkBtn id={id} />
+        <GetWorkBtn id={id} full_name={full_name} user_id={user_id} />
       </div>
     </div>
   );

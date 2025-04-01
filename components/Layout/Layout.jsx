@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserData } from "@/redux/slice/user.js";
 import { useRouter } from "next/router.js";
+import { MobileNavigation } from "../Utils/index.js";
+import MenuOffcanvas from "../modals/menu-offcanvas.jsx";
 
 const Layout = ({ children }) => {
   // const { data: settings } = useSWR("/settings", fetcher);
@@ -48,11 +50,7 @@ const Layout = ({ children }) => {
           href="/images/favicon.svg"
         />
         <link rel="manifest" href="/manifest.json" />
-        <link
-          rel="mask-icon"
-          href="/images/favicon.svg"
-          color="#5bbad5"
-        />
+        <link rel="mask-icon" href="/images/favicon.svg" color="#5bbad5" />
         <link rel="shortcut icon" href="/images/favicon.svg" />
         <meta name="msapplication-TileColor" content="#ffc40d" />
         <meta
@@ -78,7 +76,7 @@ const Layout = ({ children }) => {
       {/* <Sprites /> */}
 
       {/* Body */}
-      <div className="wrapper">
+      <div className="wrapper sm:pb-0 pb-20">
         <div className="app">
           {/* Header */}
           <Header />
@@ -90,8 +88,11 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* modals */}
 
+      <MobileNavigation />
+      <MenuOffcanvas />
+
+      {/* modals */}
 
       {/* Nav Bottom */}
       {/* <NavBottom /> */}

@@ -123,6 +123,8 @@ function page({ info }) {
       )}
 
       <MakeOfferModal />
+{/* 
+      <MobileNavigatio isReturn={true}/> */}
     </>
   );
 }
