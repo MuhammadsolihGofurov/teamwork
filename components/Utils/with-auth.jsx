@@ -100,10 +100,10 @@ const withAuth = (WrappedComponent) => {
         localStorage.removeItem(REGISTERAUTHKEY);
         localStorage.removeItem(REGISTERASUSERTYPE);
         localStorage.removeItem(REGISTERPHONENUMBER);
-        router.push("/is-not-access");
         setTimeout(() => {
           dispatch(setErrorNull());
         }, 500);
+        router.push("/is-not-access");
       }
     }, [auth_key]);
 
@@ -118,10 +118,10 @@ const withAuth = (WrappedComponent) => {
           localStorage.removeItem(REGISTERAUTHKEY);
           localStorage.removeItem(REGISTERASUSERTYPE);
           localStorage.removeItem(REGISTERPHONENUMBER);
-          router.push("/is-not-access");
           setTimeout(() => {
             dispatch(setErrorNull());
           }, 3000);
+          router.push("/is-not-access");
         }
       }
     }, [router, error]);
