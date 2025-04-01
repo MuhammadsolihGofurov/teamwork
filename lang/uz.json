@@ -326,5 +326,10 @@
   "Foydali sahifalar": "Foydali sahifalar",
   "Til": "Til",
   "error-access-denied": "Bu kontentni ko'rish uchun tizimga kirish talab etiladi.",
-  "please-login-to-access": "Platformaning barcha imkoniyatlaridan foydalanish uchun tizimga kirishingiz kerak."
+  "please-login-to-access": "Platformaning barcha imkoniyatlaridan foydalanish uchun tizimga kirishingiz kerak.",
+  "Tegishli fayllarni yuklang": "Tegishli fayllarni yuklang",
+  "Faylni olib kelib tashlang": "Faylni olib kelib tashlang",
+  "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *": "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *",
+  "yuklash": "Yuklash",
+  "Taklif etilayotgan byudjet": "Taklif etilayotgan byudjet"
 }

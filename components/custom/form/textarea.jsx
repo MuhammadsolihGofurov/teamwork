@@ -11,6 +11,7 @@ export default function Textarea({
   errors,
   page,
   minHeight,
+  hint,
 }) {
   const [height, setHeight] = useState("auto");
 
@@ -79,8 +80,18 @@ export default function Textarea({
         style={{ height }}
         onInput={handleInput}
       />
-      {errors?.message && (
-        <span className="text-red-500">{errors.message}</span>
+      {hint ? (
+        <span
+          className={`text-sm  pt-3 ${
+            errors?.message ? "text-red-500" : "text-main"
+          }`}
+        >
+          {hint}
+        </span>
+      ) : (
+        errors?.message && (
+          <span className="text-red-500">{errors.message}</span>
+        )
       )}
     </label>
   );

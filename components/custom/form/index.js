@@ -7,3 +7,4 @@ export { default as Select } from "./select";
 export { default as Textarea } from "./textarea";
 export { default as Checkbox } from "./checkbox";
 export { default as Dropdown } from "./dropdown";
+export { default as FileUploads } from "./file-uploads";

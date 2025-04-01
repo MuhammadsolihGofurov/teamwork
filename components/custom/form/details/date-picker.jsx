@@ -17,6 +17,7 @@ export default function DatePickerUi({
   errors,
   control,
   page,
+  minDate,
 }) {
   const [mounted, setMounted] = useState(false);
 
@@ -64,6 +65,7 @@ export default function DatePickerUi({
                   onChange={(date) => {
                     field.onChange(date);
                   }}
+                  minDate={minDate ?? new Date()}
                   disabled={noSelected}
                   lightMode={true}
                   primaryColor="blue"
@@ -116,6 +118,7 @@ export default function DatePickerUi({
               onChange={(date) => {
                 field.onChange(date);
               }}
+              minDate={minDate ?? new Date()}
               disabled={noSelected}
               lightMode={true}
               primaryColor="blue"

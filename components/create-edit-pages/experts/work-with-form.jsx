@@ -6,9 +6,10 @@ import { authAxios } from "@/utils/axios";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slice/user";
-import { Textarea } from "@/components/custom/form";
+import { FileUploads, Input, Textarea } from "@/components/custom/form";
 import { BioInfoUpdateSkeleton } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
+import DatePickerUi from "@/components/custom/form/details/date-picker";
 
 export default function WorkWithForm({ page = "profile", isMobile }) {
   const router = useRouter();
@@ -23,10 +24,7 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
     register,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors, isDirty, isValid },
-    setError,
-    clearErrors,
     control,
     reset,
   } = useForm({
@@ -70,9 +68,9 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
     }
   };
 
-  if (loading) {
-    return <BioInfoUpdateSkeleton />;
-  }
+  // if (loading) {
+  //   return <BioInfoUpdateSkeleton />;
+  // }
 
   return (
     <form
@@ -114,6 +112,9 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
             }}
             watch={watch}
             minHeight="min-h-[80px]"
+            hint={intl.formatMessage({
+              id: "RequiredTaskTitle",
+            })}
           />
         </div>
 
@@ -140,32 +141,64 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
               },
             }}
             watch={watch}
+            hint={intl.formatMessage({
+              id: "RequiredTaskBody",
+            })}
           />
         </div>
 
         <div className="border-b border-b-bg-3 sm:p-10 sm:pb-8 pb-8 pt-8 flex flex-col gap-5">
-          <Textarea
-            errors={errors?.more_info}
-            type={"text"}
+          <FileUploads
+            control={control}
+            title={intl.formatMessage({ id: "Tegishli fayllarni yuklang" })}
+          />
+        </div>
+
+        <div className="sm:p-10 sm:pb-8 pb-8 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <Input
+            errors={errors?.price}
+            type={"number"}
             register={register}
-            name={"more_info"}
-            title={intl.formatMessage({ id: "To'liq tavsilotlar" })}
-            placeholder={intl.formatMessage({
-              id: "Topshiriq haqida barcha ma'lumotlarni to'liq shu yerga joylashtiriing!",
-            })}
-            id={`more_info`}
+            name={"price"}
+            title={intl.formatMessage({ id: "Taklif etilayotgan byudjet" })}
+            placeholder={"00.00"}
+            id={`price`}
             required
-            page={""}
+            page={"with-border-bg"}
             validation={{
-              required: intl.formatMessage({ id: "RequiredTaskBody" }),
-              maxLength: {
-                value: /^.{1,540}$/,
-                message: intl.formatMessage({
-                  id: "RequiredTaskBody",
-                }),
-              },
+              required: intl.formatMessage({ id: "RequiredOfferPrice" }),
             }}
-            watch={watch}
+          />
+          <Input
+            errors={errors?.count_of_days}
+            type={"number"}
+            register={register}
+            name={"count_of_days"}
+            title={intl.formatMessage({ id: "Muddati" })}
+            placeholder={intl.formatMessage({ id: "Kun kiriting" })}
+            id={`count_of_days`}
+            required
+            page={"with-border-bg"}
+            icon={`/images/deadline-icon.svg`}
+            validation={{
+              required: intl.formatMessage({ id: "RequiredOfferCount" }),
+            }}
+          />
+          <DatePickerUi
+            errors={errors?.dead_line}
+            type={"number"}
+            register={register}
+            name={"dead_line"}
+            title={intl.formatMessage({ id: "Muddati" })}
+            placeholder={intl.formatMessage({ id: "Kun kiriting" })}
+            id={`dead_line`}
+            required
+            page={"profile"}
+            validation={{
+              required: intl.formatMessage({ id: "RequiredOfferCount" }),
+            }}
+            minDate
+            control={control}
           />
         </div>
       </div>

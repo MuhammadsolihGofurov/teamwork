@@ -164,6 +164,49 @@ export default function Input({
     );
   }
 
+  if (page == "with-border-bg") {
+    return (
+      <label className="flex flex-col gap-1" htmlFor={name}>
+        <span className="text-base font-medium text-primary pb-1">{title}</span>
+        <span className="flex w-full relative">
+          <input
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            required={required}
+            autoComplete="off"
+            disabled={noSelected}
+            className="p-4 pr-9 rounded-lg border w-full border-bg-3 bg-bg-2 text-primary max-h-[58px] min-h-[58px]"
+            {...register(name, validation)}
+          />
+          {icon ? (
+            <img
+              src={icon}
+              alt={name}
+              title={name}
+              className="absolute top-2/4 right-3 -translate-y-2/4"
+            />
+          ) : (
+            <></>
+          )}
+          {name == "price" ? (
+            <span className="absolute top-2/4 right-3 -translate-y-2/4 text-primary text-opacity-40">
+              UZS
+            </span>
+          ) : (
+            <></>
+          )}
+        </span>
+        {errors?.message ? (
+          <span className="text-sm text-red-500">{errors?.message}</span>
+        ) : (
+          <></>
+        )}
+      </label>
+    );
+  }
+
   return (
     <label className="flex flex-row gap-1 sm:w-auto w-full sm:bg-transparent bg-white rounded-full">
       <span>{title}</span>

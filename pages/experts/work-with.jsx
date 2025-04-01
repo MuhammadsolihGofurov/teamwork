@@ -2,19 +2,10 @@ import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import {
   LeftInfoAll,
-  ProfileWrapper,
   RightInfoAll,
   Wrapper,
 } from "@/components/Utils";
-import {
-  CenterInfoProfile,
-  LeftInfoProfile,
-  RightInfoProfile,
-} from "@/components/profile";
-import { LogOut, MenuLinksBox, PictureBox } from "@/components/profile/details";
-import { InfoTopBanner } from "@/components/profile/details/info";
-import { InfoMenu } from "@/utils/profile-menu";
-import { ExpertsUrl, ProfileUrl, WorkWithUrl } from "@/utils/router";
+import { ExpertsUrl, WorkWithUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -22,11 +13,11 @@ import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
 import { TaskDetailsSkeleton } from "@/components/Skeleton/details";
 import { Breadcrumbs } from "@/components/custom";
 import { WorkWithForm } from "@/components/create-edit-pages/experts";
+import WorkWithSkeleton from "@/components/Skeleton/create-edit-pages/work-with-skeleton";
 
 function WorkWith({ info }) {
   const router = useRouter();
   const intl = useIntl();
-  const isMobile = useIsMobile();
   const [loading, setLoading] = useState(true);
   const query = router.query;
 
@@ -35,6 +26,11 @@ function WorkWith({ info }) {
       setLoading(false);
     }, 500);
   }, []);
+
+  if (!router.query.expert_id) {
+    router.push(`/${ExpertsUrl}`);
+    return null;
+  }
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -51,7 +47,7 @@ function WorkWith({ info }) {
         body={info?.seo_home_keywords}
       />
       {loading ? (
-        <TaskDetailsSkeleton />
+        <WorkWithSkeleton />
       ) : (
         <Wrapper>
           <div className="container">

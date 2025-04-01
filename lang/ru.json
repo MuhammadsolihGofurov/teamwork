@@ -315,5 +315,10 @@
   "Foydali sahifalar": "Полезные страницы",
   "Til": "Язык",
   "error-access-denied": "Вы должны войти в систему, чтобы просмотреть этот контент.",
-  "please-login-to-access": "Вы должны войти в систему, чтобы использовать все возможности платформы."
+  "please-login-to-access": "Вы должны войти в систему, чтобы использовать все возможности платформы.",
+  "Tegishli fayllarni yuklang": "Загрузите соответствующие файлы",
+  "Faylni olib kelib tashlang": "Перетаскивание файлов",
+  "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *": "Вы можете загрузить до 10 файлов общим размером до 100 МБ*",
+  "yuklash": "Загрузить",
+  "Taklif etilayotgan byudjet": "Предлагаемый бюджет"
 }
