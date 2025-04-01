@@ -12,7 +12,7 @@ export default function Bars() {
   return (
     <button
       type="button"
-      className="sm:hidden block"
+      className="sm:hidden block p-1"
       onClick={() => handleToggle()}
     >
       <svg

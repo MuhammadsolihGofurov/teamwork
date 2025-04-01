@@ -126,6 +126,7 @@ export default function MenuOffcanvas() {
                 url={item?.url}
                 key={item?.id + item?.name}
                 className={`text-primary font-base`}
+                onClick={() => handleToggle()}
               >
                 {item?.name}
               </NextLink>
@@ -141,6 +142,7 @@ export default function MenuOffcanvas() {
                 url={item?.url}
                 key={item?.id + item?.name}
                 className={`text-primary font-base`}
+                onClick={() => handleToggle()}
               >
                 {item?.name}
               </NextLink>
