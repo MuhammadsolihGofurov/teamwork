@@ -10,16 +10,13 @@ import { FileUploads, Input, Textarea } from "@/components/custom/form";
 import { BioInfoUpdateSkeleton } from "@/components/Skeleton/profile/info";
 import { ButtonSpinner } from "@/components/custom/loading";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
+import { ExpertsIndexUrl } from "@/utils/router";
 
 export default function WorkWithForm({ page = "profile", isMobile }) {
   const router = useRouter();
   const intl = useIntl();
-  const { user_info, loading } = useSelector((state) => state.user);
   const [reqLoading, setReqLoading] = useState(false);
-  const dispatch = useDispatch();
-  const [imageSet, setImageSet] = useState(null);
   // Profile rasmi
-  const [image, setImage] = useState(null);
   const {
     register,
     handleSubmit,
@@ -30,47 +27,60 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      necessary_information: "",
+      title: "",
+      agreement_price: "",
+      dead_line: "",
+      more_info: "",
+      count_of_days: 0,
     },
   });
 
   const submitFn = async (data) => {
-    const { necessary_information } = data;
+    const { title, agreement_price, dead_line, more_info, count_of_days } =
+      data;
+    const expert_id = router.query.expert_id;
+    const user_id = router.query.user_id;
     try {
       setReqLoading(true);
 
-      const payload = {
-        necessary_information,
-      };
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("agreement_price", agreement_price);
+      formData.append("dead_line", dead_line?.startDate);
+      formData.append("more_info", more_info);
+      formData.append("count_of_days", count_of_days);
+      formData.append("expert_id", user_id);
 
-      // console.error(payload);
+      data.files.forEach((file, index) => {
+        formData.append(`files[${index}]`, file);
+      });
+
+      // console.error(formData);
 
       const response = await authAxios.post(
-        "/user/update-expert-data?expand=specialitySets.parent",
-        payload
+        "/agreement/create-directly",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
-      toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
-      setTimeout(() => {
-        dispatch(fetchUserData());
-        reset();
-      }, 1000);
-      setImage(null);
-      setImageSet(null);
+      toast.success(
+        intl.formatMessage({ id: "success-send-agreement-to-expert" })
+      );
 
-      //   setTimeout(() => {
-      //     router.push("/auth/register/sms-code");
-      //   }, 500);
+      reset();
+      setTimeout(() => {
+        router.push(`/${ExpertsIndexUrl}/${expert_id}`);
+      }, 500);
     } catch (e) {
       toast.error(e?.response?.data?.message);
     } finally {
       setReqLoading(false);
     }
   };
-
-  // if (loading) {
-  //   return <BioInfoUpdateSkeleton />;
-  // }
 
   return (
     <form
@@ -156,20 +166,20 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
 
         <div className="sm:p-10 sm:pb-8 pb-8 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Input
-            errors={errors?.price}
+            errors={errors?.agreement_price}
             type={"number"}
             register={register}
-            name={"price"}
+            name={"agreement_price"}
             title={intl.formatMessage({ id: "Taklif etilayotgan byudjet" })}
             placeholder={"00.00"}
-            id={`price`}
+            id={`agreement_price`}
             required
             page={"with-border-bg"}
             validation={{
               required: intl.formatMessage({ id: "RequiredOfferPrice" }),
             }}
           />
-          <Input
+          {/* <Input
             errors={errors?.count_of_days}
             type={"number"}
             register={register}
@@ -183,7 +193,7 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
             validation={{
               required: intl.formatMessage({ id: "RequiredOfferCount" }),
             }}
-          />
+          /> */}
           <DatePickerUi
             errors={errors?.dead_line}
             type={"number"}
@@ -215,7 +225,7 @@ export default function WorkWithForm({ page = "profile", isMobile }) {
           {reqLoading ? (
             <ButtonSpinner />
           ) : (
-            intl.formatMessage({ id: "Yangilash" })
+            intl.formatMessage({ id: "Yuborish" })
           )}
         </button>
       </div>

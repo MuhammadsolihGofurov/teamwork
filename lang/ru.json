@@ -320,5 +320,6 @@
   "Faylni olib kelib tashlang": "Перетаскивание файлов",
   "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *": "Вы можете загрузить до 10 файлов общим размером до 100 МБ*",
   "yuklash": "Загрузить",
-  "Taklif etilayotgan byudjet": "Предлагаемый бюджет"
+  "Taklif etilayotgan byudjet": "Предлагаемый бюджет",
+  "success-send-agreement-to-expert": "Успешно, данные отправлены. Пожалуйста, дождитесь ответа эксперта."
 }

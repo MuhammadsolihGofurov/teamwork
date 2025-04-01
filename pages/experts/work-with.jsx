@@ -27,7 +27,7 @@ function WorkWith({ info }) {
     }, 500);
   }, []);
 
-  if (!router.query.expert_id) {
+  if (!router.query.user_id) {
     router.push(`/${ExpertsUrl}`);
     return null;
   }

@@ -103,7 +103,7 @@ const withAuth = (WrappedComponent) => {
         setTimeout(() => {
           dispatch(setErrorNull());
         }, 500);
-        router.push("/is-not-access");
+        // router.push("/is-not-access");
       }
     }, [auth_key]);
 
@@ -121,7 +121,7 @@ const withAuth = (WrappedComponent) => {
           setTimeout(() => {
             dispatch(setErrorNull());
           }, 3000);
-          router.push("/is-not-access");
+          // router.push("/is-not-access");
         }
       }
     }, [router, error]);

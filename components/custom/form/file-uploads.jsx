@@ -249,17 +249,17 @@ export default function FileUploads({ control, title }) {
           id: "Umumiy hajmi 100 mb gacha, 10 ta fayllar yuklashingiz mumkin *",
         })}
       </p>
-      <ul className="pt-4 flex flex-row flex-wrap gap-3">
+      <ul className="pt-4 flex flex-row flex-wrap items-start gap-3">
         {files.map((file, index) => (
           <li
             key={index}
             className="flex flex-col gap-1 p-2 relative w-24 text-center justify-center items-center group cursor-pointer"
           >
-            {getFileIcon(file.name)}
+            <span className="h-[50px] flex items-center justify-center">{getFileIcon(file.name)}</span>
             <span className="text-xs">{file.name}</span>
             <button
               type="button"
-              className="text-some_red text-xs absolute top-0 right-0 group-hover:opacity-100 opacity-0"
+              className="text-some_red text-xs absolute top-0 right-0 group-hover:opacity-100 opacity-0 transition-all duration-150"
               onClick={() => handleRemove(index)}
             >
               ❌

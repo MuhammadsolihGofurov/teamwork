@@ -86,7 +86,7 @@ export default function Textarea({
             errors?.message ? "text-red-500" : "text-main"
           }`}
         >
-          {hint}
+          {errors?.message ?? hint}
         </span>
       ) : (
         errors?.message && (
