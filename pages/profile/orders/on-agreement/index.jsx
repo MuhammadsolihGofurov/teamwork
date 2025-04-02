@@ -10,16 +10,21 @@ import {
   LeftInfoProfile,
   RightInfoProfile,
 } from "@/components/profile";
-import { LogOut, MenuLinksBox, PictureBox } from "@/components/profile/details";
+import {
+  LogOut,
+  MenuLinksBox,
+  PaymentBox,
+  PictureBox,
+} from "@/components/profile/details";
 import { InfoTopBanner } from "@/components/profile/details/info";
-import { InfoMenu } from "@/utils/profile-menu";
 import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
+import { TasksMenu } from "@/utils/profile-menu";
 
-function ProfilePage({ info }) {
+function TasksIndexPage({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const isMobile = useIsMobile();
@@ -42,31 +47,18 @@ function ProfilePage({ info }) {
         breads={[
           {
             id: 1,
-            name: intl.formatMessage({ id: "profile" }),
+            name: intl.formatMessage({ id: "Topshiriqlarim" }),
             url: ProfileUrl,
             is_correct: true,
           },
         ]}
         indexNum={0}
-        tabsMenu={InfoMenu}
-        isMenuShow={false}
+        tabsMenu={TasksMenu}
+        isMenuShow={true}
       >
-        {!isMobile ? (
-          <>
-            {/* Desktop view */}
-            <LeftInfoProfile />
-            <CenterInfoProfile page={"info"} tabsMenu={InfoMenu} />
-            <RightInfoAll />
-          </>
-        ) : (
-          <>
-            {/* Mobile view */}
-            <PictureBox isMobile />
-            <InfoTopBanner isMobile />
-            <MenuLinksBox isMobile />
-            <LogOut isMobile />
-          </>
-        )}
+        <LeftInfoProfile />
+        <CenterInfoProfile page={"orders/index"} tabsMenu={TasksMenu} />
+        <RightInfoAll />
       </ProfileWrapper>
 
       {/* <MobileNavigation isReturn={true}/> */}
@@ -76,7 +68,7 @@ function ProfilePage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile Info ",
+    seo_home_title: "Customer's orders On Agreement",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -93,4 +85,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(ProfilePage);
+export default withAuth(TasksIndexPage);

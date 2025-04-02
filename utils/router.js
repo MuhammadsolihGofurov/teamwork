@@ -14,11 +14,23 @@ export const ProfileUrl = "profile/info";
 export const NotificationUrl = "profile/notifications";
 // chats
 export const ChatsUrl = "profile/chats";
-// tasks
+
+// tasks -- for EXPERT
 export const MyTasksUrl = "profile/tasks";
-export const MyTasksOrdersUrl = "profile/tasks/orders";
-// orders
+export const MyTasksOffersUrl = "profile/tasks/offers";
+export const MyTasksOnAgreementUrl = "profile/tasks/on-agreement";
+export const MyTasksFinishedUrl = "profile/tasks/finished";
+export const MyTasksCancelUrl = "profile/tasks/cancel";
+export const MyTasksArchiveUrl = "profile/tasks/archive";
+
+// orders -- for CUSTOMER
 export const MyOrdersUrl = "profile/orders";
+export const MyTasksOrdersUrl = "profile/tasks/orders";
+export const MyOrdersOnProcessUrl = "profile/orders/on-process";
+export const MyOrdersOnAgreementUrl = "profile/orders/on-agreement";
+export const MyOrdersUnPublishedUrl = "profile/orders/un-published";
+export const MyOrdersArchiveUrl = "profile/orders/archive";
+
 // vacancy
 export const VacancyUrl = "profile/vacancy";
 // info

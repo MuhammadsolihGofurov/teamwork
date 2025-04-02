@@ -23,7 +23,7 @@ export default function MenuTabs({ data, page }) {
 
   return (
     <div
-      className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden`}
+      className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden overflow-x-auto w-full scroll__none`}
     >
       {filteredRoles?.map((item) => {
         const isCorrect =
@@ -33,7 +33,7 @@ export default function MenuTabs({ data, page }) {
           <NextLink
             url={item?.url}
             key={item?.name}
-            className={`flex py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 ${
+            className={`flex py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
               isCorrect
                 ? "bg-main bg-opacity-10 text-main"
                 : "bg-white text-primary"

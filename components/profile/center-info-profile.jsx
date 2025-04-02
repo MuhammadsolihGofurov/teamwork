@@ -7,7 +7,7 @@ import {
   InfoPhysicalChanges,
   InfoTopBanner,
 } from "./details/info";
-import { MenuTabs } from "./details";
+import { MenuTabs, PaymentBox } from "./details";
 import { useIntl } from "react-intl";
 
 export default function CenterInfoProfile({
@@ -67,6 +67,25 @@ export default function CenterInfoProfile({
     );
   }
 
+  if (page === "tasks/index") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs data={tabsMenu} />
+      </CenterInfoWrapper>
+    );
+  }
+
+
+  if (page === "orders/index") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs data={tabsMenu} />
+      </CenterInfoWrapper>
+    );
+  }
+
   return <CenterInfoWrapper></CenterInfoWrapper>;
 }
 // bitta wrapper olish va uni ichida bitta top uchun section bo'ladi qoganlari pagega qarab render qilinadi xuddi register-form kabi
@@ -75,7 +94,7 @@ export const CenterInfoWrapper = ({ children, isMobile }) => {
   return (
     <div
       id="center-info-profile"
-      className={`w-full sm:w-4/6 2xl:w-3/5 ${
+      className={`w-full sm:w-4/6 2xl:w-[56%] ${
         isMobile ? "sm:hidden flex" : "sm:flex hidden"
       } flex-col gap-2`}
     >

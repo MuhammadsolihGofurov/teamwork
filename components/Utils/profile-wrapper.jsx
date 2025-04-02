@@ -22,7 +22,7 @@ export default function ProfileWrapper({
         <Breadcrumbs data={breads} isReturn={false} />
         <main
           role="main"
-          className="py-4 sm:py-5 flex flex-col sm:flex-row gap-4 2xl:gap-8 sm:items-start justify-between"
+          className="py-4 sm:py-5 flex flex-col sm:flex-row gap-4 2xl:gap-6 sm:items-start justify-between"
         >
           {children}
         </main>

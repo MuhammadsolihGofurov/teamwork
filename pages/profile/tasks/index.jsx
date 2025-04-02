@@ -1,15 +1,33 @@
 import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
-import { ProfileWrapper } from "@/components/Utils";
-import { LeftInfoProfile } from "@/components/profile";
+import {
+  MobileNavigation,
+  ProfileWrapper,
+  RightInfoAll,
+} from "@/components/Utils";
+import {
+  CenterInfoProfile,
+  LeftInfoProfile,
+  RightInfoProfile,
+} from "@/components/profile";
+import {
+  LogOut,
+  MenuLinksBox,
+  PaymentBox,
+  PictureBox,
+} from "@/components/profile/details";
+import { InfoTopBanner } from "@/components/profile/details/info";
 import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
+import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
+import { TasksMenu } from "@/utils/profile-menu";
 
-function ProfilePage({ info }) {
+function TasksIndexPage({ info }) {
   const router = useRouter();
   const intl = useIntl();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -17,6 +35,7 @@ function ProfilePage({ info }) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [router.asPath]);
+
 
   return (
     <>
@@ -29,20 +48,28 @@ function ProfilePage({ info }) {
         breads={[
           {
             id: 1,
-            name: intl.formatMessage({ id: "profile" }),
+            name: intl.formatMessage({ id: "Topshiriqlarim" }),
             url: ProfileUrl,
+            is_correct: true,
           },
         ]}
+        indexNum={0}
+        tabsMenu={TasksMenu}
+        isMenuShow={true}
       >
         <LeftInfoProfile />
+        <CenterInfoProfile page={"tasks/index"} tabsMenu={TasksMenu} />
+        <RightInfoAll />
       </ProfileWrapper>
+
+      {/* <MobileNavigation isReturn={true}/> */}
     </>
   );
 }
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile Tasks",
+    seo_home_title: "Profile Info ",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -59,4 +86,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(ProfilePage);
+export default withAuth(TasksIndexPage);
