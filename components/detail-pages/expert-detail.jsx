@@ -25,7 +25,7 @@ export default function ExpertDetail({ data }) {
     <div className="bg-white sm:border sm:border-bg-3 flex flex-col rounded-xl sm:p-7 lg:p-12 gap-8">
       <PictureBox
         type="experts"
-        image={expert?.photo_url}
+        image={expert?.photo?.path}
         is_online={data?.is_online}
         title={expert?.full_name}
         time_since_join={expert?.timeSinceJoin}
