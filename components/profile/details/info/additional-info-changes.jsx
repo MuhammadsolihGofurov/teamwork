@@ -54,8 +54,8 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
   // Profile rasmi
   const [image, setImage] = useState(null);
   const [imageId, setImageId] = useState(null);
-  const [profilePic, setProfilePic] = useState(null);
-  const [profilePicId, setProfilePicId] = useState(null);
+  // const [profilePic, setProfilePic] = useState(null);
+  // const [profilePicId, setProfilePicId] = useState(null);
   const {
     register,
     handleSubmit,
@@ -168,18 +168,8 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     const formattedLanguages = formatLanguages(user?.languages);
     dispatch(setLanguagesData(formattedLanguages));
 
-    // speciality current
-    const currentSpecialityId =
-      specialityChildren?.[0]?.parent_id ?? specialityChildren?.[0]?.id;
-    const currentSpeciality = specialities?.find(
-      (item) => item.id == currentSpecialityId
-    );
-
-    dispatch(setSpecialityCurrent(currentSpeciality));
-    setValue("speciality_id", currentSpeciality?.id);
-
     // image
-    setProfilePic(user_info?.photo?.path);
+    // setProfilePic(user?.photo?.path);
 
     // passport
     setValue("passport.attachment_id", passport?.attachment_id);
@@ -200,6 +190,18 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
       setValue("date_of_birth", { startDate: birthDate, endDate: birthDate });
     }
   }, [user_info, setValue]);
+
+  useEffect(() => {
+    // speciality current
+    const currentSpecialityId =
+      specialityChildren?.[0]?.parent_id ?? specialityChildren?.[0]?.id;
+    const currentSpeciality = specialities?.find(
+      (item) => item.id == currentSpecialityId
+    );
+
+    dispatch(setSpecialityCurrent(currentSpeciality));
+    setValue("speciality_id", currentSpeciality?.id);
+  }, [user_info, setValue, specialityChildren]);
 
   const submitFn = async (data) => {
     const {
@@ -265,7 +267,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         level_of_expert: level_of_expert?.find(
           (item) => item?.name == data?.level_of_expert
         )?.value,
-        // photo: { attachment_id: profilePicId ?  profilePicId : user_info?.photo?.attachment_id },
+        // photo_id: user_info?.photo?.id,
       };
 
       const response = await authAxios.post(
@@ -316,8 +318,8 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         onFileUploadId={(id) => setProfilePicId(id)}
         existingImage={profilePic}
         // type={'expert_image'}
-      /> */}
-{/* 
+      />
+      
       <div className="text-sm text-main sm:block hidden">
         <p className="pt-3">
           {intl.formatMessage({ id: "image-required-body" })}
@@ -493,13 +495,13 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         title={intl.formatMessage({ id: "Speciality" })}
         placeholder={""}
         id={`speciality_id${isMobile ? "1" : ""}`}
-        required
+        // required
         state={"speciality"}
         isIcon={true}
         page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredSpeciality" }),
-        }}
+        // validation={{
+        //   required: intl.formatMessage({ id: "RequiredSpeciality" }),
+        // }}
         control={control}
         isCollect={true}
       />

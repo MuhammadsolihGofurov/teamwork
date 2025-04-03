@@ -87,6 +87,7 @@ export async function getServerSideProps({ params, locale }) {
   return {
     props: { info },
   };
+  
 }
 
 // Sahifani withAuth bilan himoyalash

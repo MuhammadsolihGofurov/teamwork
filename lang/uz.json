@@ -343,5 +343,7 @@
   "Yakunlangan": "Yakunlangan",
   "Rad etilgan": "Rad etilgan",
   "Arxivlangan": "Arxivlangan",
+  "success-task-created-with-unpublished": "Muvaffaqiyatli, Buyurtmangiz <Nashr etilmaganlar> bo'limiga qo'shildi. U yerdan nashr qilishingiz mumkin.",
+  "task create body": "Bu ma'lumotlar buyurtmangizni kerakli mutaxassislar bilan tezkor va sifatli bajarilishiga zamin yaratib beradi.",
   "---profile-tasks---": ""
 }

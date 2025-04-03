@@ -311,6 +311,13 @@
   "success-send-offer": "Ваше предложение успешно отправлено клиенту.",
   "Asosiy ma’lumotlar": "Основная информация",
   "Qo’shimcha ma’lumotlar": "Дополнительная информация",
+  "Nima qilish kerak?": "Что делать?",
+  "ishga yo'llash body": "Лучше, если суть задачи будет написана сразу в заголовке. Специалист быстро поймет, что ваш заказ ему подходит, и вы получите более выгодное предложение.",
+  "Topshiriq sarlavhasini aniq va tushunarli qilib yozishni tavsiya qilamiz!": "Рекомендуем писать название задания четко и понятно!",
+  "RequiredTaskTitle": "Название не должно превышать 100 символов *",
+  "To'liq tavsilotlar": "Полная информация",
+  "Topshiriq haqida barcha ma'lumotlarni to'liq shu yerga joylashtiriing!": "Всю информацию о задании размещайте здесь!",
+  "RequiredTaskBody": "Название не должно превышать 540 символов *",
   "Menu": "Меню",
   "Foydali sahifalar": "Полезные страницы",
   "Til": "Язык",
@@ -331,5 +338,7 @@
   "Yakunlangan": "Завершенный",
   "Rad etilgan": "Отклоненный",
   "Arxivlangan": "В архиве",
+  "success-task-created-with-unpublished": "Успех, Ваш заказ добавлен в раздел <Неопубликованные>. Вы можете публиковать оттуда.",
+  "task create body": "Эта информация создает основу для быстрого и качественного выполнения вашего заказа необходимыми специалистами.",
   "---profile-tasks---": ""
 }

@@ -10,6 +10,7 @@ export default function File({
   existingImage,
   type = "profile_icon",
   isReFetchData = false,
+  isExpert,
 }) {
   const [preview, setPreview] = useState(existingImage);
   const { uploadImage } = useUploadImage({ isReFetchData: isReFetchData });
@@ -25,12 +26,14 @@ export default function File({
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
-    const uploadedImage = await uploadImage(selectedFile, type);
+    // const localPreview = URL.createObjectURL(selectedFile);
+
+    const uploadedImage = await uploadImage(selectedFile, type, isExpert);
     // console.error(uploadedImage)
     if (uploadedImage) {
-      setPreview(uploadedImage.name);
-      onFileUpload(uploadedImage.name);
+      onFileUpload(uploadedImage.path);
       onFileUploadId(uploadedImage.id);
+      setPreview(uploadedImage.path);
     }
   };
 

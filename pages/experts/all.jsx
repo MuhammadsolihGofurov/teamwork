@@ -7,13 +7,18 @@ import { useParams } from "@/hooks/useParams";
 import fetcher from "@/utils/fetcher";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useSWR from "swr";
 
 function page({ info }) {
   const router = useRouter();
+  const { is_auth } = useSelector((state) => state.user);
 
   const { findParams } = useParams();
+
+  const baseUrl = is_auth
+    ? `/user/expert-list?expand=specialitySets.parent`
+    : `/user/public-expert-list?expand=specialitySets.parent`;
 
   const url = useMemo(() => {
     const speciality_id = findParams("speciality_id");
@@ -22,7 +27,7 @@ function page({ info }) {
     // const others = findParams("other");
     const page = findParams("page");
 
-    return `/user/public-expert-list?expand=specialitySets.parent${
+    return `${baseUrl}${
       speciality_id ? `&speciality_id=${speciality_id}` : ""
     }${
       expert_level && expert_level !== "all"
@@ -31,15 +36,30 @@ function page({ info }) {
     }${experience && experience !== "all" ? `&experience=${experience}` : ""}${
       page ? `&page=${page}` : ""
     }&per-page=8`;
-  }, [router.query]);
+  }, [router.query, is_auth]);
 
-  const { data: tasks, isValidating } = useSWR([url, router.locale], (url) =>
-    fetcher(url, {
-      headers: {
-        "Accept-Language": router.locale,
+  const {
+    data: tasks,
+    isValidating,
+    mutate,
+  } = useSWR([url, router.locale], (url) =>
+    fetcher(
+      url,
+      {
+        headers: {
+          "Accept-Language": router.locale,
+        },
       },
-    })
+      {},
+      is_auth
+    )
   );
+
+  useEffect(() => {
+    if (is_auth) {
+      mutate();
+    }
+  }, [is_auth, mutate]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];

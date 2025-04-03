@@ -60,6 +60,7 @@ export const WorkWithUrl = "experts/work-with";
 // tasks
 export const TasksUrl = "tasks/all";
 export const TasksCreateUrl = "tasks/create";
+export const TasksCreatePartUrl = "tasks/create-part";
 
 // === OFFERS ===
 export const OffersTermsUrl = "offers/terms";

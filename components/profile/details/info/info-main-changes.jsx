@@ -8,12 +8,13 @@ import { toast } from "react-toastify";
 import {
   CUSTOMER,
   EXPERT,
+  PRIVATEAUTHKEY,
   REGISTERASUSERTYPE,
   REGISTERAUTHKEY,
   REGISTERPHONENUMBER,
 } from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData, setProfilePercentage } from "@/redux/slice/user";
+import user, { fetchUserData, setProfilePercentage } from "@/redux/slice/user";
 import {
   File,
   Input,
@@ -77,9 +78,9 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
       clearErrors("new_password_repeat");
     }
   }, [new_password, new_password_repeat, setError, clearErrors]);
+  const isExpert = current_user_type === EXPERT;
 
   useEffect(() => {
-    const isExpert = current_user_type === EXPERT;
     // const gender = isExpert
     //   ? user_info?.expert?.gender
     //   : user_info?.employer?.physicalPerson?.gender;
@@ -92,7 +93,11 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
     setValue("email", user_info?.email || "");
     // setValue("gender", gender || "");
 
-    setImage(user_info?.photoUrl);
+    if (isExpert) {
+      setImage(user_info?.expert?.photo?.path);
+    } else {
+      setImage(user_info?.photoUrl);
+    }
 
     // if (birthDate) {
     //   setValue("date_of_birth", { startDate: birthDate, endDate: birthDate });
@@ -127,7 +132,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
       );
 
       // localstoragega kelgan malumotlarni saqlash kerak.
-      localStorage.setItem(REGISTERAUTHKEY, response?.data?.data.auth_key);
+      localStorage.setItem(PRIVATEAUTHKEY, response?.data?.data.auth_key);
       localStorage.setItem(REGISTERPHONENUMBER, phone);
 
       toast.success(intl.formatMessage({ id: "success-update-personal-data" }));
@@ -164,6 +169,7 @@ export default function InfoMainChanges({ page = "profile", isMobile }) {
         onFileUploadId={(id) => setImageId(id)}
         existingImage={image}
         isReFetchData={true}
+        isExpert="expert_profile_icon"
       />
 
       <div className="text-sm text-main sm:block hidden">

@@ -2,15 +2,16 @@ import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import { authAxios } from "@/utils/axios";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux/slice/user";
 
 export const useUploadImage = ({ isReFetchData = false }) => {
   const intl = useIntl();
   const router = useRouter();
   const dispatch = useDispatch();
+  const { user_info } = useSelector((state) => state.user);
 
-  const uploadImage = async (file, type) => {
+  const uploadImage = async (file, type, isExpert) => {
     if (!file) {
       toast.error(intl.formatMessage({ id: "error-file-no-selected" }));
       return null;
@@ -44,6 +45,22 @@ export const useUploadImage = ({ isReFetchData = false }) => {
           },
         }
       );
+
+      if (isExpert) {
+        const ExpertPhotoUpdate = await authAxios.post(
+          `/user/update-expert-data?expand=specialitySets.parent`,
+          {
+            photo_id: response?.data?.data?.id,
+            address_name: user_info?.expert?.address?.home,
+            district_id: user_info?.expert?.address?.district?.id,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
 
       toast.update(toastId, {
         render: intl.formatMessage({

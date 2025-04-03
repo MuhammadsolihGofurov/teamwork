@@ -1,10 +1,25 @@
+import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
-import { Wrapper } from "@/components/Utils";
+import { LeftInfoAll, RightInfoAll, Wrapper } from "@/components/Utils";
+import { TasksCreateUrl } from "@/utils/router";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { Breadcrumbs } from "@/components/custom";
+import WorkWithSkeleton from "@/components/Skeleton/create-edit-pages/work-with-skeleton";
+import { TasksCreateForm } from "@/components/create-edit-pages/tasks";
+import CreateTaskSkeleton from "@/components/Skeleton/create-edit-pages/create-task-skeleton";
 
-function page({ info }) {
+function TaskCreate({ info }) {
   const router = useRouter();
+  const intl = useIntl();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -17,32 +32,57 @@ function page({ info }) {
     <>
       <Seo
         title={info?.seo_home_title}
-        description={info?.data?.seo_home_description}
-        keywords={info?.data?.seo_home_keywords}
+        description={info?.seo_home_description}
+        body={info?.seo_home_keywords}
       />
-      <Wrapper>
-        
-      </Wrapper>
+      {loading ? (
+        <CreateTaskSkeleton />
+      ) : (
+        <Wrapper>
+          <div className="container">
+            <Breadcrumbs
+              title={intl.formatMessage({ id: "addAd" })}
+              data={[
+                {
+                  id: 1,
+                  name: intl.formatMessage({ id: "addAd" }),
+                  url: TasksCreateUrl,
+                },
+              ]}
+            />
+            <div className="flex flex-row items-start gap-8 py-5">
+              <LeftInfoAll
+                data={[
+                  {
+                    id: 1,
+                    name: intl.formatMessage({ id: "Asosiy ma’lumotlar" }),
+                    url: TasksCreateUrl,
+                  },
+                  {
+                    id: 1,
+                    name: intl.formatMessage({ id: "Qo’shimcha ma’lumotlar" }),
+                    url: `${TasksCreateUrl}#create-parts`,
+                  },
+                ]}
+              />
+              <div className="w-full 2xl:w-[54%]">
+                <TasksCreateForm />
+              </div>
+              <RightInfoAll />
+            </div>
+          </div>
+        </Wrapper>
+      )}
     </>
   );
 }
 
 export async function getServerSideProps({ params, locale }) {
-  // fetch product
-  // const info = "salom";
   const info = {
-    seo_home_title: "Home for Tasks create",
+    seo_home_title: "Work with ",
     seo_home_keywords: "",
     seo_home_description: "",
   };
-  // const info = await axios
-  //   .get(`seo`, {
-  //     headers: {
-  //       "Accept-Language": locale,
-  //     },
-  //   })
-  //   .then((res) => res?.data)
-  //   .catch((err) => console.error(err));
 
   if (!info) {
     return {
@@ -51,10 +91,9 @@ export async function getServerSideProps({ params, locale }) {
   }
 
   return {
-    props: {
-      info: info,
-    },
+    props: { info },
   };
 }
 
-export default page;
+// Sahifani withAuth bilan himoyalash
+export default withAuth(TaskCreate);

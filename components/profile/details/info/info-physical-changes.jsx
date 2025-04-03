@@ -17,8 +17,6 @@ import { fetchUserData, setProfilePercentage } from "@/redux/slice/user";
 import {
   File,
   Input,
-  Password,
-  PhoneInput,
   Radio,
   Select,
 } from "@/components/custom/form";
@@ -155,7 +153,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
           given_time: given_time?.startDate,
           given_by_whom,
           expire_date: expire_date?.startDate,
-          attachment_id: image ?? attachment_id,
+          attachment_id: imageSet ?? attachment_id,
           passport_type,
         },
       };
@@ -361,11 +359,11 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         title={intl.formatMessage({ id: "Site" })}
         placeholder={intl.formatMessage({ id: "Site placeholder" })}
         id={`site${isMobile ? "1" : ""}`}
-        required
+        // required
         page={page}
         isIcon={true}
         validation={{
-          required: intl.formatMessage({ id: "RequiredSite" }),
+          // required: intl.formatMessage({ id: "RequiredSite" }),
           pattern: {
             value: /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$/,
             message: intl.formatMessage({ id: "isNotValidURL" }),
@@ -380,7 +378,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         </h4>
       </div>
 
-      <Select
+      {/* <Select
         errors={errors?.passport?.passport_type}
         type={"text"}
         register={register}
@@ -396,7 +394,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
           required: intl.formatMessage({ id: "RequiredPassportType" }),
         }}
         control={control}
-      />
+      /> */}
 
       <Input
         errors={errors?.passport?.serial}
@@ -499,6 +497,7 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
         <File
           page={"passport"}
           onFileUpload={(file) => setImage(file)}
+          onFileUploadId={(id) => setImageSet(id)}
           existingImage={imageSet}
           type="passport"
         />

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { useIntl } from "react-intl";
 
 const Datepicker = dynamic(() => import("react-tailwindcss-datepicker"), {
   ssr: false, // ✅ Serverda yuklanmaydi
@@ -18,8 +19,11 @@ export default function DatePickerUi({
   control,
   page,
   minDate,
+  isInAbilityName = "",
+  withCheckbox = false,
 }) {
   const [mounted, setMounted] = useState(false);
+  const intl = useIntl();
 
   useEffect(() => {
     setMounted(true);
@@ -29,13 +33,16 @@ export default function DatePickerUi({
 
   if (page == "profile") {
     return (
-      <label
-        className="flex flex-col gap-1 data-picker relative z-[1]"
-        htmlFor={name}
-      >
-        <span className="text-base font-medium text-primary pb-1">{title}</span>
-        <span className="w-full relative z-0">
-          {/* <span className="absolute top-2/4 -translate-y-2/4 right-6 z-[1]">
+      <div className="flex flex-col gap-3 items-start">
+        <label
+          className="flex flex-col gap-1 w-full data-picker relative z-[1]"
+          htmlFor={name}
+        >
+          <span className="text-base font-medium text-primary pb-1">
+            {title}
+          </span>
+          <span className="w-full relative z-0">
+            {/* <span className="absolute top-2/4 -translate-y-2/4 right-6 z-[1]">
             <svg
               width="18"
               height="18"
@@ -52,33 +59,62 @@ export default function DatePickerUi({
               />
             </svg>
           </span> */}
+            <Controller
+              name={name}
+              control={control}
+              rules={validation}
+              render={({ field }) => {
+                return (
+                  <Datepicker
+                    value={field.value}
+                    asSingle={true}
+                    useRange={false}
+                    onChange={(date) => {
+                      field.onChange(date);
+                    }}
+                    minDate={minDate ? new Date() : new Date("1910-01-01")}
+                    disabled={noSelected}
+                    required={required}
+                    lightMode={true}
+                    primaryColor="blue"
+                    inputClassName="w-full px-4 py-4 rounded-lg bg-bg-2 border border-bg-3 text-primary max-h-[58px] min-h-[58px]"
+                  />
+                );
+              }}
+            />
+          </span>
+          {errors?.message && (
+            <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
+          )}
+        </label>
+        {withCheckbox ? (
           <Controller
-            name={name}
+            name={isInAbilityName}
             control={control}
-            rules={validation}
-            render={({ field }) => {
-              return (
-                <Datepicker
-                  value={field.value}
-                  asSingle={true}
-                  useRange={false}
-                  onChange={(date) => {
-                    field.onChange(date);
-                  }}
-                  minDate={minDate ?? new Date()}
-                  disabled={noSelected}
-                  lightMode={true}
-                  primaryColor="blue"
-                  inputClassName="w-full px-4 py-4 rounded-lg bg-bg-2 border border-bg-3 text-primary max-h-[58px] min-h-[58px]"
+            render={({ field }) => (
+              <label
+                htmlFor={isInAbilityName}
+                className="checkbox__item flex items-center gap-2 cursor-pointer  p-2 rounded relative"
+              >
+                <input
+                  type="checkbox"
+                  id={isInAbilityName}
+                  name={isInAbilityName}
+                  className="hidden opacity-0 peer cursor-pointer"
+                  required={false}
+                  {...register(isInAbilityName)}
                 />
-              );
-            }}
+                <div className="w-5 h-5 flex items-center justify-center border rounded-md bg-bg-1 border-bg-3 peer-checked:border-main peer-checked:bg-main checkbox__icon after:opacity-0 peer-checked:after:opacity-100 transition"></div>
+                <span className="checkbox__text peer-checked:text-main font-medium  text-primary select-none">
+                  {intl.formatMessage({ id: "Kelishilgan holda" })}
+                </span>
+              </label>
+            )}
           />
-        </span>
-        {errors?.message && (
-          <span className="text-sm text-red-500 pl-6">{errors?.message}</span>
+        ) : (
+          <></>
         )}
-      </label>
+      </div>
     );
   }
 
@@ -120,6 +156,7 @@ export default function DatePickerUi({
               }}
               minDate={minDate ?? new Date()}
               disabled={noSelected}
+              required={required}
               lightMode={true}
               primaryColor="blue"
               inputClassName="w-full py-5 pl-[50px] pr-6 rounded-[32px] bg-white border-none text-primary"

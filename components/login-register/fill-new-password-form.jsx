@@ -78,7 +78,7 @@ export default function FillNewPasswordForm({ page }) {
       };
 
       const response = await axios.post(
-        "/auth/confirm-reset-password",
+        "/auth/resend-confirm-reset-password-code",
         payload
       );
 

@@ -11,6 +11,7 @@ export default function Breadcrumbs({
   indexNum = 0,
   tabsMenu = [],
   isMenuShow = false,
+  title,
 }) {
   const intl = useIntl();
   const { user_info } = useSelector((state) => state.user);
@@ -136,6 +137,7 @@ export default function Breadcrumbs({
           </NextLink>
         );
       })}
+      {title ? <h1 className="text-primary font-medium text-lg pl-20">{title}</h1> : <></>}
     </div>
   );
 }

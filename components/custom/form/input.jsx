@@ -1,5 +1,6 @@
 import React from "react";
 import DatePickerUi from "./details/date-picker";
+import { useIntl } from "react-intl";
 
 export default function Input({
   type,
@@ -14,7 +15,10 @@ export default function Input({
   errors,
   control,
   icon = "",
+  isInAbilityName = "",
+  withCheckbox = false,
 }) {
+  const intl = useIntl();
   if (page == "register-info") {
     return (
       <label className="flex flex-col gap-2" htmlFor={name}>
@@ -166,44 +170,69 @@ export default function Input({
 
   if (page == "with-border-bg") {
     return (
-      <label className="flex flex-col gap-1" htmlFor={name}>
-        <span className="text-base font-medium text-primary pb-1">{title}</span>
-        <span className="flex w-full relative">
-          <input
-            type={type}
-            placeholder={placeholder}
-            name={name}
-            id={name}
-            required={required}
-            autoComplete="off"
-            disabled={noSelected}
-            className="p-4 pr-9 rounded-lg border w-full border-bg-3 bg-bg-2 text-primary max-h-[58px] min-h-[58px]"
-            {...register(name, validation)}
-          />
-          {icon ? (
-            <img
-              src={icon}
-              alt={name}
-              title={name}
-              className="absolute top-2/4 right-3 -translate-y-2/4"
+      <div className="flex flex-col items-start gap-3">
+        <label className="flex flex-col gap-1 w-full" htmlFor={name}>
+          <span className="text-base font-medium text-primary pb-1">
+            {title}
+          </span>
+          <span className="flex w-full relative">
+            <input
+              type={type}
+              placeholder={placeholder}
+              name={name}
+              id={name}
+              required={required}
+              autoComplete="off"
+              disabled={noSelected}
+              className="p-4 pr-9 rounded-lg border w-full border-bg-3 bg-bg-2 text-primary max-h-[58px] min-h-[58px]"
+              {...register(name, validation)}
             />
+            {icon ? (
+              <img
+                src={icon}
+                alt={name}
+                title={name}
+                className="absolute top-2/4 right-3 -translate-y-2/4"
+              />
+            ) : (
+              <></>
+            )}
+            {name == "price" ? (
+              <span className="absolute top-2/4 right-3 -translate-y-2/4 text-primary text-opacity-40">
+                UZS
+              </span>
+            ) : (
+              <></>
+            )}
+          </span>
+          {errors?.message ? (
+            <span className="text-sm text-red-500">{errors?.message}</span>
           ) : (
             <></>
           )}
-          {name == "price" ? (
-            <span className="absolute top-2/4 right-3 -translate-y-2/4 text-primary text-opacity-40">
-              UZS
+        </label>
+        {withCheckbox ? (
+          <label
+            htmlFor={isInAbilityName}
+            className="checkbox__item flex items-center gap-2 cursor-pointer  p-2 rounded relative"
+          >
+            <input
+              type="checkbox"
+              id={isInAbilityName}
+              name={isInAbilityName}
+              required={false}
+              className="hidden opacity-0 peer cursor-pointer"
+              {...register(isInAbilityName)}
+            />
+            <div className="w-5 h-5 flex items-center justify-center border rounded-md bg-bg-1 border-bg-3 peer-checked:border-main peer-checked:bg-main checkbox__icon after:opacity-0 peer-checked:after:opacity-100 transition"></div>
+            <span className="checkbox__text peer-checked:text-main font-medium  text-primary select-none">
+              {intl.formatMessage({ id: "Kelishilgan holda" })}
             </span>
-          ) : (
-            <></>
-          )}
-        </span>
-        {errors?.message ? (
-          <span className="text-sm text-red-500">{errors?.message}</span>
+          </label>
         ) : (
           <></>
         )}
-      </label>
+      </div>
     );
   }
 

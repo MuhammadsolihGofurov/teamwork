@@ -9,7 +9,7 @@ export default function IndexExpertCard({ data }) {
   const intl = useIntl();
   const url = `experts/${data?.user_id}`;
   const [imgSrc, setImgSrc] = useState(
-    data?.photo ?? "/images/default.png"
+    data?.photo?.path ?? "/images/default.png"
   );
 
   return (
@@ -28,7 +28,7 @@ export default function IndexExpertCard({ data }) {
           url={url}
           className="flex flex-col items-center justify-center gap-1"
         >
-          <div className="w-16 small:w-[90px] h-16 small:h-[90px]">
+          <div className="w-16 small:w-[90px] h-16 small:h-[90px] overflow-hidden full__image rounded-full">
             <Image
               src={imgSrc}
               title={data?.full_name}
@@ -90,7 +90,7 @@ export default function IndexExpertCard({ data }) {
               <p>{data?.level_of_expert} </p>
               <LikeBtn
                 is_favorite={data?.is_favourite}
-                id={data?.user_id}
+                id={data?.id}
                 type="experts"
               />
             </div>
