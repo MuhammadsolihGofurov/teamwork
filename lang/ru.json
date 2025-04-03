@@ -337,8 +337,13 @@
   "Takliflar": "Предложения",
   "Yakunlangan": "Завершенный",
   "Rad etilgan": "Отклоненный",
-  "Arxivlangan": "В архиве",
+  "Arxivlangan": "Архив",
+  "Chop etilgan": "Опубликовано",
+  "Bajarilmoqda": "Выполняется",
+  "Kelishuv arafasida": "Накануне соглашения",
+  "Chop etilmagan": "Неопубликовано",
   "success-task-created-with-unpublished": "Успех, Ваш заказ добавлен в раздел <Неопубликованные>. Вы можете публиковать оттуда.",
   "task create body": "Эта информация создает основу для быстрого и качественного выполнения вашего заказа необходимыми специалистами.",
+  "Kelishilgan": "Согласованный",
   "---profile-tasks---": ""
 }

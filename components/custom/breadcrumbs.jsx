@@ -12,6 +12,7 @@ export default function Breadcrumbs({
   tabsMenu = [],
   isMenuShow = false,
   title,
+  tabsMenuCounts,
 }) {
   const intl = useIntl();
   const { user_info } = useSelector((state) => state.user);
@@ -68,7 +69,7 @@ export default function Breadcrumbs({
         </NextLink>
         {isMenuShow ? (
           <div className="flex flex-row w-full gap-1 overflow-x-auto scroll__none pr-5">
-            {filteredRoles?.map((item) => {
+            {filteredRoles?.map((item, index) => {
               const isCorrect =
                 `/${item?.url}` == router.pathname ||
                 `/${item?.additional_url}` == router.pathname;
@@ -82,7 +83,8 @@ export default function Breadcrumbs({
                       : "bg-white text-primary"
                   }`}
                 >
-                  {intl.formatMessage({ id: item?.name })}
+                  {intl.formatMessage({ id: item?.name })}{" "}
+                  {tabsMenuCounts ? `(${tabsMenuCounts?.[index]})` : ""}
                 </NextLink>
               );
             })}
@@ -137,7 +139,11 @@ export default function Breadcrumbs({
           </NextLink>
         );
       })}
-      {title ? <h1 className="text-primary font-medium text-lg pl-20">{title}</h1> : <></>}
+      {title ? (
+        <h1 className="text-primary font-medium text-lg pl-20">{title}</h1>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

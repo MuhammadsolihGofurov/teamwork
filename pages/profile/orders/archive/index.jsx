@@ -7,19 +7,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { OrdersMenu } from "@/utils/profile-menu";
-import useSWR from "swr";
-import fetcher from "@/utils/fetcher";
-import {
-  ARCHIVED,
-  IN_PROGRESS,
-  NOT_PUBLISHED,
-  PUBLISHED,
-  VERGE_OF_AGREEMENT,
-} from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
 
-function MyOrdersPage({ info }) {
+function MyOrdersArchive({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -84,7 +75,6 @@ function MyOrdersPage({ info }) {
             unpublishedOrders?.length,
             archivedOrders?.length,
           ]}
-          card_type="published"
         />
         <RightInfoAll />
       </ProfileWrapper>
@@ -113,4 +103,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MyOrdersPage);
+export default withAuth(MyOrdersArchive);

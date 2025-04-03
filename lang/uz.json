@@ -343,7 +343,12 @@
   "Yakunlangan": "Yakunlangan",
   "Rad etilgan": "Rad etilgan",
   "Arxivlangan": "Arxivlangan",
+  "Chop etilgan": "Chop etilganlar",
+  "Bajarilmoqda": "Bajarilmoqda",
+  "Kelishuv arafasida": "Kelishuv arafasida",
+  "Chop etilmagan": "Chop etilmaganlar",
   "success-task-created-with-unpublished": "Muvaffaqiyatli, Buyurtmangiz <Nashr etilmaganlar> bo'limiga qo'shildi. U yerdan nashr qilishingiz mumkin.",
   "task create body": "Bu ma'lumotlar buyurtmangizni kerakli mutaxassislar bilan tezkor va sifatli bajarilishiga zamin yaratib beradi.",
+  "Kelishilgan": "Kelishilgan",
   "---profile-tasks---": ""
 }

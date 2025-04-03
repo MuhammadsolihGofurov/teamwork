@@ -96,7 +96,7 @@ export default function PictureBox({
             <TimeSinceJoin time_since_join={time_since_join} isIcon />
             <div className="hidden sm:flex items-center gap-5">
               <ShareBtn />
-              <LikeBtn page="details" id={id} is_favorite={is_favorite} />
+              <LikeBtn page="details" id={id} type={type} is_favorite={is_favorite} />
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function PictureBox({
             <GetWorkBtn id={id} />
             <div className="flex items-center gap-3">
               <ShareBtn />
-              <LikeBtn page="details" id={id} is_favorite={is_favorite} />
+              <LikeBtn page="details" id={id} type={type} is_favorite={is_favorite} />
             </div>
           </div>
           <div className="w-full flex items-center flex-wrap gap-1">

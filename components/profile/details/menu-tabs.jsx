@@ -5,8 +5,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 
-export default function MenuTabs({ data, page }) {
-  const { user_info,loading } = useSelector((state) => state.user);
+export default function MenuTabs({ data, page, tabsMenuCounts }) {
+  const { user_info, loading } = useSelector((state) => state.user);
   const intl = useIntl();
   const router = useRouter();
 
@@ -15,17 +15,15 @@ export default function MenuTabs({ data, page }) {
     (item) => item?.role == "all" || item?.role == user_info?.type?.value
   );
 
-  if(loading){
-    return(
-      <MenuTabsSkeleton />
-    )
+  if (loading) {
+    return <MenuTabsSkeleton />;
   }
 
   return (
     <div
       className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden overflow-x-auto w-full scroll__none`}
     >
-      {filteredRoles?.map((item) => {
+      {filteredRoles?.map((item, index) => {
         const isCorrect =
           `/${item?.url}` == router.pathname ||
           `/${item?.additional_url}` == router.pathname;
@@ -39,7 +37,8 @@ export default function MenuTabs({ data, page }) {
                 : "bg-white text-primary"
             }`}
           >
-            {intl.formatMessage({ id: item?.name })}
+            {intl.formatMessage({ id: item?.name })}{" "}
+            {tabsMenuCounts ? `(${tabsMenuCounts?.[index]})` : ""}
           </NextLink>
         );
       })}

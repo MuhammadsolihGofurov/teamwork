@@ -38,7 +38,7 @@ export default function PartInfoBtn({
       </div>
       <div className="flex items-center gap-5">
         <ShareBtn />
-        <LikeBtn page="details" id={id} is_favorite={is_favorite} />
+        <LikeBtn page="details" id={id} type={type} is_favorite={is_favorite} />
       </div>
     </div>
   );

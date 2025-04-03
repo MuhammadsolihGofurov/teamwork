@@ -68,7 +68,11 @@ export default function LikeBtn({
           />
         </svg>
 
-        <span className="sm:inline hidden">
+        <span
+          className={`sm:inline hidden group-hover/button:text-main transition-colors duration-150 ${
+            isFavorite ? "text-main" : "text-primary"
+          }`}
+        >
           {intl.formatMessage({ id: "Saralangan" })}
         </span>
       </button>

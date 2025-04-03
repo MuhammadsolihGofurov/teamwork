@@ -9,11 +9,15 @@ import {
 } from "./details/info";
 import { MenuTabs, PaymentBox } from "./details";
 import { useIntl } from "react-intl";
+import { CenterDataWrapper } from "./details/orders";
 
 export default function CenterInfoProfile({
   page = "",
   tabsMenu,
   isMobile = false,
+  tabsMenuCounts,
+  data,
+  card_type
 }) {
   const intl = useIntl();
 
@@ -76,12 +80,12 @@ export default function CenterInfoProfile({
     );
   }
 
-
   if (page === "orders/index") {
     return (
       <CenterInfoWrapper isMobile={isMobile}>
         <PaymentBox />
-        <MenuTabs data={tabsMenu} />
+        <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
+        <CenterDataWrapper data={data} page={page} card_type={card_type}/>
       </CenterInfoWrapper>
     );
   }

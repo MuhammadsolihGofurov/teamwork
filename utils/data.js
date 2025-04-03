@@ -25,3 +25,10 @@ export const PASSPORT = "PASSPORT";
 export const UZBEK_LG = "uz";
 export const RUSSIAN_LG = "ru";
 export const ENGLISH_LG = "en";
+
+// === MY ORDERS STATUS ===
+export const NOT_PUBLISHED = "NOT_PUBLISHED";
+export const PUBLISHED = "PUBLISHED";
+export const VERGE_OF_AGREEMENT = "VERGE_OF_AGREEMENT";
+export const IN_PROGRESS = "IN_PROGRESS";
+export const ARCHIVED = "ARCHIVED";
