@@ -24,7 +24,7 @@ import { useIntl } from "react-intl";
 import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
 import { TasksMenu } from "@/utils/profile-menu";
 
-function TasksIndexPage({ info }) {
+function page({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const isMobile = useIsMobile();
@@ -85,4 +85,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(TasksIndexPage);
+export default withAuth(page);
