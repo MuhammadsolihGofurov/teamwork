@@ -18,11 +18,14 @@ import {
 } from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { CenterDataWrapper } from "@/components/profile/details/orders";
 
 function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const {
     orders,
     publishedOrders,
@@ -72,21 +75,33 @@ function MyOrdersUnPublishedpage({ info }) {
           archivedOrders?.length,
         ]}
       >
-        <LeftInfoProfile />
-        <CenterInfoProfile
-          page={"orders/index"}
-          tabsMenu={OrdersMenu}
-          data={unpublishedOrders}
-          tabsMenuCounts={[
-            publishedOrders?.length,
-            inProgressOrders?.length,
-            vergeOfAgreementOrders?.length,
-            unpublishedOrders?.length,
-            archivedOrders?.length,
-          ]}
-          card_type="un_published"
-        />
-        <RightInfoAll />
+        {!isMobile ? (
+          <>
+            <LeftInfoProfile />
+            <CenterInfoProfile
+              page={"orders/index"}
+              tabsMenu={OrdersMenu}
+              data={unpublishedOrders}
+              tabsMenuCounts={[
+                publishedOrders?.length,
+                inProgressOrders?.length,
+                vergeOfAgreementOrders?.length,
+                unpublishedOrders?.length,
+                archivedOrders?.length,
+              ]}
+              card_type="un_published"
+            />
+            <RightInfoAll />
+          </>
+        ) : (
+          <>
+            <CenterDataWrapper
+              data={unpublishedOrders}
+              page={"orders/index"}
+              card_type={"un_published"}
+            />
+          </>
+        )}
       </ProfileWrapper>
 
       {/* <MobileNavigation isReturn={true}/> */}

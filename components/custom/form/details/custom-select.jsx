@@ -64,7 +64,7 @@ export default function CustomSelect({
         break;
       case "speciality":
         dispatch(setSpecialityCurrent(option));
-        dispatch(setSpecialityIds([]));
+        dispatch(setSpecialityIds(option.children));
         break;
       default:
         break;

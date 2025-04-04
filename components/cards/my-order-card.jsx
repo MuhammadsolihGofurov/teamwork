@@ -2,6 +2,11 @@ import { formatDateForCard, thousandSeperate } from "@/utils/funcs";
 import React from "react";
 import { useIntl } from "react-intl";
 import { NextLink } from "../Utils";
+import { useModal } from "@/context/modal-provider";
+import { authAxios } from "@/utils/axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { fetchOrders } from "@/redux/slice/my-orders";
 
 // === type ===
 // published => offers, experts, stops, deletes knopkalari bilan
@@ -13,8 +18,21 @@ import { NextLink } from "../Utils";
 export default function MyOrderCard({ data, card_type = "archive" }) {
   const intl = useIntl();
   const url = "";
+  const { showModal } = useModal();
+  const dispatch = useDispatch();
 
-  const deleteOrderFunc = () => {};
+  const deleteOrderFunc = async (id) => {
+    // console.error(data?.id);
+    toast.promise(authAxios.delete(`/task/my-task-delete?id=${id}`), {
+      pending: intl.formatMessage({ id: "E'lon o'chirilmoqda..." }),
+      success: intl.formatMessage({ id: "E'lon muvaffaqiyatli o'chirildi!" }),
+      error: intl.formatMessage({
+        id: "E'lonni o'chirishda xatolik yuz berdi.",
+      }),
+    });
+    dispatch(fetchOrders(router.locale));
+  };
+
   const stopOrderFunc = () => {};
 
   const buttons = [
@@ -25,9 +43,10 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       <path d="M4.6665 4.66674H3.99984C3.64622 4.66674 3.30708 4.80721 3.05703 5.05726C2.80698 5.30731 2.6665 5.64645 2.6665 6.00007V12.0001C2.6665 12.3537 2.80698 12.6928 3.05703 12.9429C3.30708 13.1929 3.64622 13.3334 3.99984 13.3334H9.99984C10.3535 13.3334 10.6926 13.1929 10.9426 12.9429C11.1927 12.6928 11.3332 12.3537 11.3332 12.0001V11.3334M10.6665 3.3334L12.6665 5.3334M13.5898 4.39007C13.8524 4.12751 13.9999 3.77139 13.9999 3.40007C13.9999 3.02875 13.8524 2.67264 13.5898 2.41007C13.3273 2.14751 12.9712 2 12.5998 2C12.2285 2 11.8724 2.14751 11.6098 2.41007L5.99984 8.00007V10.0001H7.99984L13.5898 4.39007Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       `,
-      url: `tasks/edit/${data?.id}`,
+      url: `tasks/edit?task_id=${data?.id}`,
       type: ["un_published"],
       isMobileName: false,
+      color: "hover:text-main hover:border-main",
     },
     {
       id: 2,
@@ -38,11 +57,13 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       `,
       url: false,
       confirmModal: true,
-      modalTitle: "",
-      modalBody: "",
+      modalTitle: "E'lonni o'chirishni istaysizmi?",
+      modalBody:
+        "E’lonni o‘chirsangiz, uni qayta tiklab bo‘lmaydi. Davom etishni xohlaysizmi?",
       modalFunc: deleteOrderFunc,
       type: ["un_published", "published"],
       isMobileName: false,
+      color: "hover:text-some_red hover:border-some_red",
     },
     {
       id: 3,
@@ -54,6 +75,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       url: `tasks/edit/${data?.id}`,
       type: ["on_agreement"],
       isMobileName: true,
+      color: "hover:text-main hover:border-main",
     },
     {
       id: 4,
@@ -63,6 +85,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       count: 0,
       type: ["on_process"],
       isMobileName: true,
+      color: "hover:text-main hover:border-main",
     },
     {
       id: 5,
@@ -75,6 +98,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       count: 0,
       type: ["on_process"],
       isMobileName: true,
+      color: "hover:text-main hover:border-main",
     },
     {
       id: 6,
@@ -84,6 +108,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       count: 0,
       type: ["published"],
       isMobileName: true,
+      color: "hover:text-main hover:border-main",
     },
     {
       id: 7,
@@ -99,14 +124,50 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       modalFunc: stopOrderFunc,
       type: ["published"],
       isMobileName: false,
+      color: "hover:text-main hover:border-main",
     },
   ];
 
+  const filteredButtons = buttons.filter((button) =>
+    button.type.includes(card_type)
+  );
+
+  const renderButton = (button) =>
+    button.url ? (
+      <NextLink
+        key={button.name}
+        url={button.url}
+        className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
+      >
+        {button.icon && (
+          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+        )}
+        <span className="flex-1">{button.name}</span>
+      </NextLink>
+    ) : (
+      <button
+        key={button.name}
+        onClick={() =>
+          showModal({
+            title: button.modalTitle,
+            message: button.modalBody,
+            onConfirm: () => button.modalFunc(data?.id),
+          })
+        }
+        className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
+      >
+        {button.icon && (
+          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+        )}
+        <span className="flex-1">{button.name}</span>
+      </button>
+    );
+
   return (
-    <div className="p-8 rounded-lg bg-white border border-bg-3 flex flex-col gap-4">
-      <div className="card_header flex items-center justify-between pb-1">
-        <div className="flex items-center gap-6">
-          <p className="text-sm font-semibold text-primary">
+    <div className="px-3 py-5 small:p-5 sm:p-8 rounded-lg bg-white border border-bg-3 flex flex-col gap-4">
+      <div className="card_header flex items-start sm:items-center justify-between pb-1">
+        <div className="flex items-center gap-x-6 gap-y-1 flex-wrap flex-1">
+          <p className="text-xs xs:text-sm font-semibold text-primary">
             {formatDateForCard(data?.created_at)}
           </p>
           <div className="flex items-center gap-1">
@@ -132,7 +193,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-orange font-semibold text-sm flex-1">
+            <span className="text-orange font-semibold text-xs xs:text-sm flex-1">
               {data?.inability_to_price ? (
                 intl.formatMessage({ id: "Kelishilgan holda" })
               ) : (
@@ -161,7 +222,8 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-sm font-semibold text-primary flex-1">
+            <span className="text-xs xs:text-sm font-semibold text-primary flex-1">
+              <span className="small:inline hidden">{intl.formatMessage({ id: "Muddati" })}:</span>
               {data?.inability_to_dead_line ? (
                 intl.formatMessage({ id: "Kelishilgan holda" })
               ) : (
@@ -210,7 +272,12 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap-1"></div>
+      <div className="flex flex-col-reverse sm:flex-col gap-4">
+        <div className="flex flex-wrap items-center gap-1 w-full">
+          {filteredButtons.map(renderButton)}
+        </div>
+        <div className="flex w-full items-center justify-start bg-bg-2 h-[2px]"></div>
+      </div>
     </div>
   );
 }

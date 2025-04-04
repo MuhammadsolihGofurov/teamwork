@@ -162,7 +162,9 @@ export default function InfoPhysicalChanges({ page = "profile", isMobile }) {
     setValue("skill_ids", user?.skillSets);
     dispatch(setSkillIds(user?.skillSets ?? []));
     setValue("speciality_ids", user?.specialitySets);
-    dispatch(setSpecialityIds(user?.specialitySets ?? []));
+    dispatch(
+      setSpecialityIds(user?.specialitySets ? user?.specialitySets : [])
+    );
 
     // languages sets
     const formattedLanguages = formatLanguages(user?.languages);

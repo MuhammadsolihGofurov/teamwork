@@ -345,5 +345,10 @@
   "success-task-created-with-unpublished": "Успех, Ваш заказ добавлен в раздел <Неопубликованные>. Вы можете публиковать оттуда.",
   "task create body": "Эта информация создает основу для быстрого и качественного выполнения вашего заказа необходимыми специалистами.",
   "Kelishilgan": "Согласованный",
+  "E'lonni o'chirishni istaysizmi?": "Хотите удалить объявление?",
+  "E’lonni o‘chirsangiz, uni qayta tiklab bo‘lmaydi. Davom etishni xohlaysizmi?": "Если вы удалите объявление, его невозможно будет восстановить. Хотите продолжить?",
+  "E'lon o'chirilmoqda...": "Объявление удаляется...",
+  "E'lon muvaffaqiyatli o'chirildi!": "Объявление успешно удалено!",
+  "E'lonni o'chirishda xatolik yuz berdi.": "Произошла ошибка при удалении объявления.",
   "---profile-tasks---": ""
 }

@@ -350,5 +350,10 @@
   "success-task-created-with-unpublished": "Muvaffaqiyatli, Buyurtmangiz <Nashr etilmaganlar> bo'limiga qo'shildi. U yerdan nashr qilishingiz mumkin.",
   "task create body": "Bu ma'lumotlar buyurtmangizni kerakli mutaxassislar bilan tezkor va sifatli bajarilishiga zamin yaratib beradi.",
   "Kelishilgan": "Kelishilgan",
+  "E'lonni o'chirishni istaysizmi?": "E'lonni o'chirishni istaysizmi?",
+  "E’lonni o‘chirsangiz, uni qayta tiklab bo‘lmaydi. Davom etishni xohlaysizmi?": "E’lonni o‘chirsangiz, uni qayta tiklab bo‘lmaydi. Davom etishni xohlaysizmi?",
+  "E'lon o'chirilmoqda...": "E'lon o'chirilmoqda...",
+  "E'lon muvaffaqiyatli o'chirildi!": "E'lon muvaffaqiyatli o'chirildi!",
+  "E'lonni o'chirishda xatolik yuz berdi.": "E'lonni o'chirishda xatolik yuz berdi.",
   "---profile-tasks---": ""
 }
