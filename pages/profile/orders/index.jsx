@@ -18,11 +18,14 @@ import {
 } from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { CenterDataWrapper } from "@/components/profile/details/orders";
 
-function MyOrdersPage({ info }) {
+function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const {
     orders,
     publishedOrders,
@@ -56,7 +59,7 @@ function MyOrdersPage({ info }) {
         breads={[
           {
             id: 1,
-            name: intl.formatMessage({ id: "Topshiriqlarim" }),
+            name: intl.formatMessage({ id: "Buyurtmalarim" }),
             url: ProfileUrl,
             is_correct: true,
           },
@@ -72,21 +75,33 @@ function MyOrdersPage({ info }) {
           archivedOrders?.length,
         ]}
       >
-        <LeftInfoProfile />
-        <CenterInfoProfile
-          page={"orders/index"}
-          tabsMenu={OrdersMenu}
-          data={publishedOrders}
-          tabsMenuCounts={[
-            publishedOrders?.length,
-            inProgressOrders?.length,
-            vergeOfAgreementOrders?.length,
-            unpublishedOrders?.length,
-            archivedOrders?.length,
-          ]}
-          card_type="published"
-        />
-        <RightInfoAll />
+        {!isMobile ? (
+          <>
+            <LeftInfoProfile />
+            <CenterInfoProfile
+              page={"orders/index"}
+              tabsMenu={OrdersMenu}
+              data={publishedOrders}
+              tabsMenuCounts={[
+                publishedOrders?.length,
+                inProgressOrders?.length,
+                vergeOfAgreementOrders?.length,
+                unpublishedOrders?.length,
+                archivedOrders?.length,
+              ]}
+              card_type="published"
+            />
+            <RightInfoAll />
+          </>
+        ) : (
+          <>
+            <CenterDataWrapper
+              data={publishedOrders}
+              page={"orders/index"}
+              card_type={"published"}
+            />
+          </>
+        )}
       </ProfileWrapper>
 
       {/* <MobileNavigation isReturn={true}/> */}
@@ -96,7 +111,7 @@ function MyOrdersPage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Customer's orders",
+    seo_home_title: "Customer's orders un published",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -113,4 +128,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MyOrdersPage);
+export default withAuth(MyOrdersUnPublishedpage);

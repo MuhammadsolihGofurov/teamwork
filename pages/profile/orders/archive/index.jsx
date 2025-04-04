@@ -7,13 +7,25 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { OrdersMenu } from "@/utils/profile-menu";
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
+import {
+  ARCHIVED,
+  IN_PROGRESS,
+  NOT_PUBLISHED,
+  PUBLISHED,
+  VERGE_OF_AGREEMENT,
+} from "@/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { CenterDataWrapper } from "@/components/profile/details/orders";
 
-function MyOrdersArchive({ info }) {
+function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const {
     orders,
     publishedOrders,
@@ -47,7 +59,7 @@ function MyOrdersArchive({ info }) {
         breads={[
           {
             id: 1,
-            name: intl.formatMessage({ id: "Topshiriqlarim" }),
+            name: intl.formatMessage({ id: "Buyurtmalarim" }),
             url: ProfileUrl,
             is_correct: true,
           },
@@ -63,20 +75,33 @@ function MyOrdersArchive({ info }) {
           archivedOrders?.length,
         ]}
       >
-        <LeftInfoProfile />
-        <CenterInfoProfile
-          page={"orders/index"}
-          tabsMenu={OrdersMenu}
-          data={publishedOrders}
-          tabsMenuCounts={[
-            publishedOrders?.length,
-            inProgressOrders?.length,
-            vergeOfAgreementOrders?.length,
-            unpublishedOrders?.length,
-            archivedOrders?.length,
-          ]}
-        />
-        <RightInfoAll />
+        {!isMobile ? (
+          <>
+            <LeftInfoProfile />
+            <CenterInfoProfile
+              page={"orders/index"}
+              tabsMenu={OrdersMenu}
+              data={archivedOrders}
+              tabsMenuCounts={[
+                publishedOrders?.length,
+                inProgressOrders?.length,
+                vergeOfAgreementOrders?.length,
+                unpublishedOrders?.length,
+                archivedOrders?.length,
+              ]}
+              card_type="archive"
+            />
+            <RightInfoAll />
+          </>
+        ) : (
+          <>
+            <CenterDataWrapper
+              data={archivedOrders}
+              page={"orders/index"}
+              card_type={"archive"}
+            />
+          </>
+        )}
       </ProfileWrapper>
 
       {/* <MobileNavigation isReturn={true}/> */}
@@ -86,7 +111,7 @@ function MyOrdersArchive({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Customer's orders",
+    seo_home_title: "Customer's orders archived",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -103,4 +128,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MyOrdersArchive);
+export default withAuth(MyOrdersUnPublishedpage);

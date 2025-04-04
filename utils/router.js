@@ -30,6 +30,7 @@ export const MyOrdersOnProcessUrl = "profile/orders/on-process";
 export const MyOrdersOnAgreementUrl = "profile/orders/on-agreement";
 export const MyOrdersUnPublishedUrl = "profile/orders/un-published";
 export const MyOrdersArchiveUrl = "profile/orders/archive";
+export const MyOrdersViewIdUrl = "profile/orders/views";
 
 // vacancy
 export const VacancyUrl = "profile/vacancy";
@@ -53,10 +54,12 @@ export const MyPaymentUrl = "profile/payment";
 export const AddAdsUrl = "add-ad";
 export const SearchOrders = "orders";
 export const FaqsUrl = "faqs";
+
 // experts
 export const ExpertsUrl = "experts/all";
 export const ExpertsIndexUrl = "experts";
 export const WorkWithUrl = "experts/work-with";
+
 // tasks
 export const TasksUrl = "tasks/all";
 export const TasksCreateUrl = "tasks/create";

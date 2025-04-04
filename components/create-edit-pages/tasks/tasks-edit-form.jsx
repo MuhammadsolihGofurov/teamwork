@@ -50,7 +50,6 @@ export default function TasksEditForm({ oldData = {} }) {
       //   files: []
     },
   });
-
   const inabilityToPrice = watch("inability_to_price");
   const inabilityToDeadLine = watch("inability_to_dead_line");
   const isPrice = inabilityToPrice == 1;
@@ -89,16 +88,24 @@ export default function TasksEditForm({ oldData = {} }) {
       formData.append("is_pro_account", is_pro_account);
 
       data.files.forEach((file, index) => {
-        formData.append(`files[${index}]`, file);
+        if (file.old) {
+          // 'old: true' bo'lsa, old_attachments[] ga qo'shish
+          formData.append(`old_attachments[${index}]`, file?.attachment_id);
+        } else {
+          // 'old' bo'lmasa, yangi fayl bo'lib files[] ga qo'shish
+          formData.append(`files[${index}]`, file.file || file);
+        }
       });
 
-      //   console.error(formData);
-
-      const response = await authAxios.post("/task/create", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await authAxios.post(
+        `/task/update?id=${router.query.task_id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       toast.success(
         intl.formatMessage({ id: "success-task-created-with-unpublished" })
@@ -125,10 +132,18 @@ export default function TasksEditForm({ oldData = {} }) {
     setValue("more_info", oldData?.more_info);
     setValue("inability_to_price", oldData?.inability_to_price);
     setValue("inability_to_dead_line", oldData?.inability_to_dead_line);
-    // dispatch(setSpecialityIds(oldData?.specialitySets ?? []));
-    // setValue("speciality_id", oldData?.speciality?.id);
     setValue("speciality_parent_id", oldData?.speciality?.parent?.id);
     setValue("speciality_id", oldData?.speciality?.id);
+    if (oldData?.attachments) {
+      const filesArray = oldData.attachments.map((file, index) => {
+        const newFile = new File([file], file.name || `file_${index}`, {
+          type: file.type,
+        });
+
+        return { ...file, old: true, attachment_id: file?.id };
+      });
+      setValue("files", filesArray);
+    }
   }, [oldData, setValue]);
 
   useEffect(() => {
@@ -217,6 +232,7 @@ export default function TasksEditForm({ oldData = {} }) {
           <FileUploads
             control={control}
             title={intl.formatMessage({ id: "Tegishli fayllarni yuklang" })}
+            defaultValue={watch("files")}
           />
         </div>
 

@@ -1,7 +1,7 @@
 import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
 import { LeftInfoAll, RightInfoAll, Wrapper } from "@/components/Utils";
-import { TasksCreateUrl, TasksEditUrl } from "@/utils/router";
+import { MyOrdersUrl, TasksCreateUrl, TasksEditUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -50,6 +50,10 @@ function TaskEditPage({ info }) {
         true
       )
   );
+
+  if (!router.query.task_id) {
+    router.push(`/${MyOrdersUrl}`);
+  }
 
   return (
     <>

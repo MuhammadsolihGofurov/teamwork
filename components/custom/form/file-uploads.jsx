@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
 import {
   AiOutlineFileWord,
@@ -12,7 +12,7 @@ const MAX_FILES = 10;
 const MAX_SIZE = 100 * 1024 * 1024; // 100MB
 
 const getFileIcon = (fileName) => {
-  if (fileName.endsWith(".doc") || fileName.endsWith(".docx")) {
+  if (fileName?.endsWith(".doc") || fileName?.endsWith(".docx")) {
     return (
       <svg
         width="50"
@@ -82,7 +82,7 @@ const getFileIcon = (fileName) => {
       </svg>
     );
   }
-  if (fileName.endsWith(".xls") || fileName.endsWith(".xlsx")) {
+  if (fileName?.endsWith(".xls") || fileName?.endsWith(".xlsx")) {
     return (
       <svg
         width="50"
@@ -153,22 +153,29 @@ const getFileIcon = (fileName) => {
       </svg>
     );
   }
-  if (fileName.endsWith(".pdf")) {
+  if (fileName?.endsWith(".pdf")) {
     return <AiOutlineFilePdf className="text-red-500 text-3xl" />;
   }
   return <span className="text-gray-500 text-3xl">📄</span>;
 };
 
-export default function FileUploads({ control, title }) {
+export default function FileUploads({ control, title, defaultValue = [] }) {
   const intl = useIntl();
   const { field } = useController({
     name: "files",
     control,
-    defaultValue: [],
+    defaultValue: defaultValue,
   });
 
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (defaultValue.length > 0) {
+      setFiles(defaultValue);
+      field.onChange(defaultValue); // react-hook-form ga ham ma'lumotni berish
+    }
+  }, [defaultValue]);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -261,10 +268,10 @@ export default function FileUploads({ control, title }) {
             key={index}
             className="flex flex-col gap-1 p-2 relative w-24 text-center justify-center items-center group cursor-pointer"
           >
-            <span className="h-[50px] flex items-center justify-center">
+            <span className="h-[50px] flex items-center justify-center ">
               {getFileIcon(file.name)}
             </span>
-            <span className="text-xs">{file.name}</span>
+            <span className="text-xs break-words  w-full">{file.name}</span>
             <button
               type="button"
               className="text-some_red text-xs absolute top-0 right-0 group-hover:opacity-100 opacity-0 transition-all duration-150"

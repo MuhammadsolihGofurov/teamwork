@@ -13,6 +13,10 @@ export default function TasksHead({ title, id }) {
   const router = useRouter();
 
   const handleMakeOfferModal = () => {
+    if (!is_auth) {
+      toast.error(intl.formatMessage({ id: "error-access-with-auth-token" }));
+      return;
+    }
     dispatch(setToggleMakeOfferModal({ task_id: id }));
   };
 

@@ -30,13 +30,14 @@ export default function UserNameBox() {
       </div>
 
       <div className="flex w-full">
-        {router.pathname?.split("/")?.[2] === "info" ? (
+        <ChangeRoles />
+        {/* {router.pathname?.split("/")?.[2] === "info" ? (
           <ChangeRoles />
         ) : (
           <p className="pb-5 line-clamp-2 text-primary text-opacity-60 sm:hidden block">
             {user_info?.expert?.necessary_information}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );
