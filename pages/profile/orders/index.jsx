@@ -89,7 +89,7 @@ function MyOrdersUnPublishedpage({ info }) {
                 unpublishedOrders?.length,
                 archivedOrders?.length,
               ]}
-              card_type="published"
+              card_type={PUBLISHED}
             />
             <RightInfoAll />
           </>
@@ -98,7 +98,7 @@ function MyOrdersUnPublishedpage({ info }) {
             <CenterDataWrapper
               data={publishedOrders}
               page={"orders/index"}
-              card_type={"published"}
+              card_type={PUBLISHED}
             />
           </>
         )}

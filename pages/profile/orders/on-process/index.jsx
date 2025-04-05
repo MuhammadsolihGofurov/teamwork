@@ -89,7 +89,7 @@ function MyOrdersUnPublishedpage({ info }) {
                 unpublishedOrders?.length,
                 archivedOrders?.length,
               ]}
-              card_type="on_process"
+              card_type={IN_PROGRESS}
             />
             <RightInfoAll />
           </>
@@ -98,7 +98,7 @@ function MyOrdersUnPublishedpage({ info }) {
             <CenterDataWrapper
               data={inProgressOrders}
               page={"orders/index"}
-              card_type={"on_process"}
+              card_type={IN_PROGRESS}
             />
           </>
         )}

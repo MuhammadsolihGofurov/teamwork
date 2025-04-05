@@ -19,6 +19,8 @@ export default function CenterInfoProfile({
   tabsMenuCounts,
   data,
   card_type,
+  tabsMenuQuery,
+  pageDetails,
 }) {
   const intl = useIntl();
 
@@ -95,8 +97,12 @@ export default function CenterInfoProfile({
     return (
       <CenterInfoWrapper isMobile={isMobile}>
         <PaymentBox />
-        <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
-        <CenterMyTaskDetails data={data} />
+        <MenuTabs
+          data={tabsMenu}
+          tabsMenuCounts={tabsMenuCounts}
+          tabsMenuQuery={tabsMenuQuery}
+        />
+        <CenterMyTaskDetails data={data} pageDetails={pageDetails} />
       </CenterInfoWrapper>
     );
   }

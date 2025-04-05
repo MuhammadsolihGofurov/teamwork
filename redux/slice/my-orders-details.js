@@ -23,7 +23,7 @@ export const fetchOrderOffers = createAsyncThunk(
   "orders/fetchOrderOffers",
   async ({ locale, id }) => {
     const response = await fetcher(
-      `/offer/list-by-task-id?task_id=${id}&expand=chatId&per-page=3`,
+      `/offer/list-by-task-id?task_id=${id}&expand=expert,chatId,specialitySets,parent&per-page=3`,
       {
         headers: {
           "Accept-Language": locale,
@@ -54,6 +54,9 @@ export const fetchOrderExperts = createAsyncThunk(
     return response.data;
   }
 );
+
+// offer/sort?id=3327&sort=1
+
 
 const myOrdersDetails = createSlice({
   name: "myOrdersDetails",

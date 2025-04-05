@@ -5,7 +5,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 
-export default function MenuTabs({ data, page, tabsMenuCounts }) {
+export default function MenuTabs({
+  data,
+  page,
+  tabsMenuCounts,
+  tabsMenuQuery,
+}) {
   const { user_info, loading } = useSelector((state) => state.user);
   const intl = useIntl();
   const router = useRouter();
@@ -29,7 +34,7 @@ export default function MenuTabs({ data, page, tabsMenuCounts }) {
           `/${item?.additional_url}` == router.pathname;
         return (
           <NextLink
-            url={item?.url}
+            url={`${item?.url}${tabsMenuQuery}`}
             key={item?.name}
             className={`flex py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
               isCorrect

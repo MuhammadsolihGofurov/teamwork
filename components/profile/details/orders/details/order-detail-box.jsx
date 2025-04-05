@@ -16,7 +16,7 @@ export default function OrderDetailBox({ data }) {
       <div className="py-6 px-5 rounded-t-lg bg-some_btn ">
         <h2 className="text-primary font-medium text-xl">{data?.title}</h2>
       </div>
-      <div className="px-5 py-7 bg-some_btn bg-opacity-10 flex flex-col gap-5 rounded-b-lg">
+      <div className="px-5 py-7 bg-some_btn bg-opacity-5 flex flex-col gap-5 rounded-b-lg">
         <div className="flex flex-wrap gap-x-5 gap-y-1">
           <p className="text-sm text-primary font-medium">
             #{data?.speciality?.name}

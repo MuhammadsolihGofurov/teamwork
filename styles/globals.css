@@ -213,5 +213,12 @@ input[type="number"] {
 }
 
 .lg-backdrop {
-  background-color: rgba(34, 34, 34, 0.4) !important;
+  background-color: rgba(34, 34, 34, 0.5) !important;
+}
+
+.lg-react-element {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  width: 100%;
 }

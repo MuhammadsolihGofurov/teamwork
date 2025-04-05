@@ -65,13 +65,13 @@ function page({ info }) {
         indexNum={0}
         tabsMenu={MySingleOrderMenu}
         isMenuShow={true}
+        tabsMenuQuery={`?task_id=${router.query.task_id}`}
         tabsMenuCounts={[
           "none",
           order_offers?.length,
           order_experts?.length,
           "none",
         ]}
-
       >
         {!isMobile ? (
           <>
@@ -80,6 +80,7 @@ function page({ info }) {
               page={"orders/details"}
               tabsMenu={MySingleOrderMenu}
               data={order_details}
+              tabsMenuQuery={`?task_id=${router.query.task_id}`}
               tabsMenuCounts={[
                 "none",
                 order_offers?.length,

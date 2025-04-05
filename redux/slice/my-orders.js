@@ -1,3 +1,4 @@
+import { authAxios } from "@/utils/axios";
 import {
   ARCHIVED,
   IN_PROGRESS,
@@ -7,8 +8,8 @@ import {
 } from "@/utils/data";
 import fetcher from "@/utils/fetcher";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
-// Asinxron so'rovni yaratamiz
 export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
   async (locale) => {
@@ -23,6 +24,66 @@ export const fetchOrders = createAsyncThunk(
       true
     );
     return response.data.items;
+  }
+);
+
+// deleteOrder action
+export const deleteOrder = createAsyncThunk(
+  "orders/deleteOrder",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.delete(`/task/my-task-delete?id=${id}`);
+      dispatch(fetchOrders());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// unpublishOrder action
+export const unpublishOrder = createAsyncThunk(
+  "orders/unpublishOrder",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.post(`/task/unpublish?id=${id}`);
+      dispatch(fetchOrders());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// publishOrder action
+export const publishOrder = createAsyncThunk(
+  "orders/publishOrder",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.post(`/task/publish?id=${id}`);
+      dispatch(fetchOrders());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// archiveOrder action
+export const archiveOrder = createAsyncThunk(
+  "orders/archiveOrder",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.post(`/task/to-archive?id=${id}`);
+      dispatch(fetchOrders());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error?.message);
+    }
   }
 );
 
@@ -45,6 +106,7 @@ const myOrdersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // fetch orders
       .addCase(fetchOrders.pending, (state) => {
         state.loading = true;
       })
@@ -72,6 +134,46 @@ const myOrdersSlice = createSlice({
       .addCase(fetchOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+
+      .addCase(deleteOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteOrder.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(deleteOrder.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(unpublishOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(unpublishOrder.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(unpublishOrder.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(publishOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(publishOrder.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(publishOrder.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(archiveOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(archiveOrder.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(archiveOrder.rejected, (state, action) => {
+        state.loading = false;
       });
   },
 });

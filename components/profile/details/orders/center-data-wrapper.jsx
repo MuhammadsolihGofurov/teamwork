@@ -3,6 +3,7 @@ import { Pagination } from "@/components/Utils";
 import { MyOrderCard } from "@/components/cards";
 import { useRouter } from "next/router";
 import React, { useMemo, useState } from "react";
+import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 
 export default function CenterDataWrapper({
@@ -10,6 +11,7 @@ export default function CenterDataWrapper({
   page = "orders/index",
   card_type,
 }) {
+  const intl = useIntl();
   const { loading } = useSelector((state) => state.user);
   const router = useRouter();
   const currentPage = parseInt(router.query.page) || 1;
@@ -33,11 +35,17 @@ export default function CenterDataWrapper({
 
   return (
     <div className="flex flex-col gap-2">
-      {currentData?.map((item) => {
-        return (
-          <MyOrderCard data={item} key={item?.title} card_type={card_type} />
-        );
-      })}
+      {currentData?.length !== 0 ? (
+        currentData?.map((item) => {
+          return (
+            <MyOrderCard data={item} key={item?.title} card_type={card_type} />
+          );
+        })
+      ) : (
+        <p className="text-base text-primary font-normal text-center py-10">
+          {intl.formatMessage({ id: "empty-tasks" })}
+        </p>
+      )}
       <Pagination
         data={{
           totalCount: data.length,
