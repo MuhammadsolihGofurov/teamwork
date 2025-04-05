@@ -96,7 +96,7 @@ export default function LeftTasksFilter({
       onClick={() => handleToggle()}
     >
       <div
-        className={`w-11/12 small:w-[300px] sm:w-full h-screen lg:h-auto  flex flex-col gap-5 bg-white rounded-tl-xl rounded-bl-xl p-5 lg:p-0 overflow-y-scroll lg:overflow-y-hidden scroll__none lg:opacity-100 lg:visible lg:z-0 lg:translate-x-0 ${
+        className={`w-11/12 small:w-[300px] sm:w-full h-screen lg:h-auto  flex flex-col gap-5 bg-white rounded-tl-xl rounded-bl-xl p-5 lg:p-0 overflow-y-scroll lg:overflow-visible scroll__none lg:opacity-100 lg:visible lg:z-0 lg:translate-x-0 ${
           filterModalConfirm
             ? "translate-x-0 opacity-100 visible"
             : "translate-x-full opacity-0 invisible"

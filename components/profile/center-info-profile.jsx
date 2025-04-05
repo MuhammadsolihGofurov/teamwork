@@ -11,6 +11,7 @@ import { MenuTabs, PaymentBox } from "./details";
 import { useIntl } from "react-intl";
 import { CenterDataWrapper, CenterMyTaskDetails } from "./details/orders";
 import { Pagination } from "../Utils";
+import { CenterSavedData } from "./details/saved";
 
 export default function CenterInfoProfile({
   page = "",
@@ -21,6 +22,7 @@ export default function CenterInfoProfile({
   card_type,
   tabsMenuQuery,
   pageDetails,
+  pagination,
 }) {
   const intl = useIntl();
 
@@ -103,6 +105,20 @@ export default function CenterInfoProfile({
           tabsMenuQuery={tabsMenuQuery}
         />
         <CenterMyTaskDetails data={data} pageDetails={pageDetails} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "saved") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
+        <CenterSavedData
+          pageDetails={pageDetails}
+          data={data}
+          pagination={pagination}
+        />
       </CenterInfoWrapper>
     );
   }

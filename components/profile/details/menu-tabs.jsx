@@ -9,7 +9,7 @@ export default function MenuTabs({
   data,
   page,
   tabsMenuCounts,
-  tabsMenuQuery,
+  tabsMenuQuery = "",
 }) {
   const { user_info, loading } = useSelector((state) => state.user);
   const intl = useIntl();

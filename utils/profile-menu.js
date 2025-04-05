@@ -21,6 +21,8 @@ import {
   MyTasksOnAgreementUrl,
   MyTasksUrl,
   PhysicalInfoUrl,
+  SavedExpertsUrl,
+  SavedTasksUrl,
 } from "./router";
 
 export const InfoMenu = [
@@ -171,6 +173,23 @@ export const MySingleOrderMenu = [
     name: "Saralanganlar",
     url: MyOrdersViewSavedUrl,
     role: CUSTOMER,
+    additional_url: false,
+  },
+];
+
+export const MySavedMenu = [
+  {
+    id: 1,
+    name: "Topshiriqlar",
+    url: SavedTasksUrl,
+    role: "all",
+    additional_url: false,
+  },
+  {
+    id: 2,
+    name: "Mutaxassislar",
+    url: SavedExpertsUrl,
+    role: "all",
     additional_url: false,
   },
 ];

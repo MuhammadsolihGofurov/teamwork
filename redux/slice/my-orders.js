@@ -87,6 +87,42 @@ export const archiveOrder = createAsyncThunk(
   }
 );
 
+// fetch saved tasks
+export const fetchSavedTasks = createAsyncThunk(
+  "orders/fetchSavedTasks",
+  async (locale) => {
+    const response = await fetcher(
+      `/task/published-list?page=1&expand=speciality.parent,owner.employer&per-page=3&is_favourite=1`,
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      },
+      {},
+      true
+    );
+    return response.data;
+  }
+);
+
+// fetch saved experts
+export const fetchSavedExperts = createAsyncThunk(
+  "orders/fetchSavedExperts",
+  async ({ locale, page = 1 }) => {
+    const response = await fetcher(
+      `/user/expert-list?expand=specialitySets.parent&is_favourite=1&per-page=3&page=${page}`,
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      },
+      {},
+      true
+    );
+    return response.data;
+  }
+);
+
 const myOrdersSlice = createSlice({
   name: "myOrders",
   initialState: {
@@ -98,6 +134,8 @@ const myOrdersSlice = createSlice({
     vergeOfAgreementOrders: [],
     loading: false,
     error: null,
+    saved_experts: [],
+    saved_experts_meta: {},
   },
   reducers: {
     setMyOrders: (state, action) => {
@@ -136,6 +174,7 @@ const myOrdersSlice = createSlice({
         state.error = action.error.message;
       })
 
+      // delete order
       .addCase(deleteOrder.pending, (state) => {
         state.loading = true;
       })
@@ -146,6 +185,7 @@ const myOrdersSlice = createSlice({
         state.loading = false;
       })
 
+      //  unpublish order
       .addCase(unpublishOrder.pending, (state) => {
         state.loading = true;
       })
@@ -156,6 +196,7 @@ const myOrdersSlice = createSlice({
         state.loading = false;
       })
 
+      // publish order
       .addCase(publishOrder.pending, (state) => {
         state.loading = true;
       })
@@ -166,6 +207,7 @@ const myOrdersSlice = createSlice({
         state.loading = false;
       })
 
+      // archive order
       .addCase(archiveOrder.pending, (state) => {
         state.loading = true;
       })
@@ -173,6 +215,19 @@ const myOrdersSlice = createSlice({
         state.loading = false;
       })
       .addCase(archiveOrder.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      // saved experts order
+      .addCase(fetchSavedExperts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchSavedExperts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.saved_experts = action.payload?.items;
+        state.saved_experts_meta = action.payload?._meta;
+      })
+      .addCase(fetchSavedExperts.rejected, (state, action) => {
         state.loading = false;
       });
   },
