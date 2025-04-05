@@ -31,6 +31,9 @@ export const MyOrdersOnAgreementUrl = "profile/orders/on-agreement";
 export const MyOrdersUnPublishedUrl = "profile/orders/un-published";
 export const MyOrdersArchiveUrl = "profile/orders/archive";
 export const MyOrdersViewIdUrl = "profile/orders/views";
+export const MyOrdersViewOffersUrl = "profile/orders/views/offers";
+export const MyOrdersViewExpertsUrl = "profile/orders/views/experts";
+export const MyOrdersViewSavedUrl = "profile/orders/views/saved";
 
 // vacancy
 export const VacancyUrl = "profile/vacancy";

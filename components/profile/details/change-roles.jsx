@@ -43,7 +43,8 @@ export default function ChangeRoles() {
       });
 
       setTimeout(() => {
-        router.replace(router.asPath);
+        // if(router.pathname == `/${InfoUrl}`, router.path)
+        router.replace(`/${InfoUrl}`);
       }, 500);
     } catch (error) {
       toast.update(toastId, {

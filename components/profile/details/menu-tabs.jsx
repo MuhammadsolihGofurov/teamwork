@@ -38,7 +38,11 @@ export default function MenuTabs({ data, page, tabsMenuCounts }) {
             }`}
           >
             {intl.formatMessage({ id: item?.name })}{" "}
-            {tabsMenuCounts ? `(${tabsMenuCounts?.[index]})` : ""}
+            {tabsMenuCounts
+              ? tabsMenuCounts?.[index] !== "none"
+                ? `(${tabsMenuCounts?.[index]})`
+                : ""
+              : ""}
           </NextLink>
         );
       })}

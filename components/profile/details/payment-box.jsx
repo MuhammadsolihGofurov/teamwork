@@ -1,3 +1,4 @@
+import { PaymentBoxSkeleton } from "@/components/Skeleton/profile";
 import { thousandSeperate } from "@/utils/funcs";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -5,7 +6,11 @@ import { useSelector } from "react-redux";
 
 export default function PaymentBox({ isMobile = false }) {
   const intl = useIntl();
-  const { user_info } = useSelector((state) => state.user);
+  const { user_info, loading } = useSelector((state) => state.user);
+
+  if (loading) {
+    return <PaymentBoxSkeleton />;
+  }
 
   return (
     <div

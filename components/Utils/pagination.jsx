@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { usePagination } from "@/hooks/usePagination";
 import { useParams } from "@/hooks/useParams";
 
-const Pagination = ({ data, onPageChange, page = "default", id }) => {
+const Pagination = ({ data, page = "bg-bg-2", id }) => {
   const paginationRange = usePagination({ data });
   const { updateParams, findParams } = useParams();
 
@@ -24,7 +24,7 @@ const Pagination = ({ data, onPageChange, page = "default", id }) => {
   return (
     <div className="flex items-center justify-center py-10 gap-3">
       <button
-        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100"
+        className={`w-[50px] h-[50px] flex items-center justify-center rounded-lg ${page} disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100`}
         onClick={() => {
           updateParams("page", currentPage - 1);
         }}
@@ -48,24 +48,26 @@ const Pagination = ({ data, onPageChange, page = "default", id }) => {
       </button>
 
       <div className="flex flex-row gap-1">
-        {paginationRange.map((page, index) => (
+        {paginationRange.map((count, index) => (
           <button
             key={index}
-            className={`w-12 h-[50px] flex items-center justify-center rounded-lg border border-bg-2 hover:border-main bg-bg-2 disabled:opacity-50 transition-all  ${
-              currentPage === page ? "bg-main text-white" : "text-primary"
+            className={`w-12 h-[50px] flex items-center justify-center rounded-lg border border-bg-2 hover:border-main   disabled:opacity-50 transition-all  ${
+              currentPage === count
+                ? "bg-main text-white"
+                : `text-primary ${page}`
             }`}
             onClick={() =>
-              typeof page === "number" && updateParams("page", page)
+              typeof count === "number" && updateParams("page", count)
             }
-            disabled={page === "..."}
+            disabled={count === "..."}
           >
-            {page}
+            {count}
           </button>
         ))}
       </div>
 
       <button
-        className="w-[50px] h-[50px] flex items-center justify-center rounded-lg bg-bg-2 disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100"
+        className={`w-[50px] h-[50px] flex items-center justify-center rounded-lg ${page}  disabled:opacity-50 border border-bg-2 hover:border-main transition-colors duration-100`}
         onClick={() => {
           updateParams("page", currentPage + 1);
         }}

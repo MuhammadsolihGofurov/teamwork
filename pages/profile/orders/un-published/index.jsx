@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { CenterDataWrapper } from "@/components/profile/details/orders";
+import { PaymentBox } from "@/components/profile/details";
 
 function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();

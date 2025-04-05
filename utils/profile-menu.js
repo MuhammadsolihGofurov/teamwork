@@ -10,6 +10,10 @@ import {
   MyOrdersOnProcessUrl,
   MyOrdersUnPublishedUrl,
   MyOrdersUrl,
+  MyOrdersViewExpertsUrl,
+  MyOrdersViewIdUrl,
+  MyOrdersViewOffersUrl,
+  MyOrdersViewSavedUrl,
   MyTasksArchiveUrl,
   MyTasksCancelUrl,
   MyTasksFinishedUrl,
@@ -135,6 +139,37 @@ export const OrdersMenu = [
     id: 5,
     name: "Arxivlangan",
     url: MyOrdersArchiveUrl,
+    role: CUSTOMER,
+    additional_url: false,
+  },
+];
+
+export const MySingleOrderMenu = [
+  {
+    id: 1,
+    name: "Topshiriq haqida",
+    url: MyOrdersViewIdUrl,
+    role: CUSTOMER,
+    additional_url: false,
+  },
+  {
+    id: 2,
+    name: "Takliflar",
+    url: MyOrdersViewOffersUrl,
+    role: CUSTOMER,
+    additional_url: false,
+  },
+  {
+    id: 3,
+    name: "Bajaruvchilar",
+    url: MyOrdersViewExpertsUrl,
+    role: CUSTOMER,
+    additional_url: false,
+  },
+  {
+    id: 4,
+    name: "Saralanganlar",
+    url: MyOrdersViewSavedUrl,
     role: CUSTOMER,
     additional_url: false,
   },

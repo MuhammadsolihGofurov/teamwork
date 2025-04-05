@@ -116,7 +116,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
       id: 3,
       name: intl.formatMessage({ id: "Takliflar:" }),
       icon: false,
-      url: `${MyOrdersViewIdUrl}/${data?.id}`,
+      url: `${MyOrdersViewIdUrl}?task_id=${data?.id}`,
       count: data?.count_of_offer,
       type: ["published"],
       isMobileName: true,
@@ -296,7 +296,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-end sm:items-center sm:flex-row flex-col gap-x-3 gap-y-1">
           <div className="flex items-center gap-1">
             <svg
               width="16"
@@ -324,6 +324,50 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
               )}
             </span>
           </div>
+          {card_type === "on_process" ? (
+            <div className="w-[30px] h-[30px] rounded-full bg-bg-2 flex items-center justify-center">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g opacity="0.7">
+                  <path
+                    d="M10 5.83333V10L12.5 12.5M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z"
+                    stroke="#222222"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </svg>
+            </div>
+          ) : (
+            <></>
+          )}
+          {card_type === "on_agreement" ? (
+            <div className="w-[30px] h-[30px] rounded-full bg-main flex items-center justify-center">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.83366 10.0007L10.0003 14.1673L18.3337 5.83398M1.66699 10.0007L5.83366 14.1673M10.0003 10.0007L14.167 5.83398"
+                  stroke="white"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <NextLink
