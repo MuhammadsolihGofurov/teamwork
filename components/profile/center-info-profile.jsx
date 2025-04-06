@@ -12,6 +12,7 @@ import { useIntl } from "react-intl";
 import { CenterDataWrapper, CenterMyTaskDetails } from "./details/orders";
 import { Pagination } from "../Utils";
 import { CenterSavedData } from "./details/saved";
+import { CenterRatesData } from "./details/rates";
 
 export default function CenterInfoProfile({
   page = "",
@@ -115,6 +116,20 @@ export default function CenterInfoProfile({
         <PaymentBox />
         <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
         <CenterSavedData
+          pageDetails={pageDetails}
+          data={data}
+          pagination={pagination}
+        />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "rates") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
+        <CenterRatesData
           pageDetails={pageDetails}
           data={data}
           pagination={pagination}

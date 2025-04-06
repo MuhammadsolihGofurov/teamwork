@@ -48,7 +48,7 @@ const Pagination = ({ data, page = "bg-bg-2", id }) => {
       </button>
 
       <div className="flex flex-row gap-1">
-        {paginationRange.map((count, index) => (
+        {paginationRange?.map((count, index) => (
           <button
             key={index}
             className={`w-12 h-[50px] flex items-center justify-center rounded-lg border border-bg-2 hover:border-main   disabled:opacity-50 transition-all  ${

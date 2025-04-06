@@ -3,6 +3,7 @@ import { EXPERT, CUSTOMER } from "@/utils/data";
 import {
   InfoUrl,
   MyOrdersUrl,
+  MyRatesAllUrl,
   MyTasksUrl,
   PortfolioTeamworkUrl,
   SavedTasksUrl,
@@ -117,7 +118,7 @@ export default function MenuLinksBox({ isMobile = false }) {
       <path d="M5.33366 6.51506H10.667M5.33366 9.18172H9.33366M2.66699 14.5151V5.84839C2.66699 5.31796 2.87771 4.80925 3.25278 4.43418C3.62785 4.0591 4.13656 3.84839 4.66699 3.84839H11.3337C11.8641 3.84839 12.3728 4.0591 12.7479 4.43418C13.1229 4.80925 13.3337 5.31796 13.3337 5.84839V9.84839C13.3337 10.3788 13.1229 10.8875 12.7479 11.2626C12.3728 11.6377 11.8641 11.8484 11.3337 11.8484H5.33366L2.66699 14.5151Z" stroke="#222222" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       `,
-      url: "",
+      url: MyRatesAllUrl,
       is_mobile: true,
     },
     {
@@ -155,7 +156,10 @@ export default function MenuLinksBox({ isMobile = false }) {
       >
         {Array.from({ length: 7 }).map((item, index) => {
           return (
-            <div className="flex w-full items-center gap-2 sm:px-0 sm:py-0 px-5 py-3 border border-bg-3 rounded-lg sm:border-none" key={index}>
+            <div
+              className="flex w-full items-center gap-2 sm:px-0 sm:py-0 px-5 py-3 border border-bg-3 rounded-lg sm:border-none"
+              key={index}
+            >
               <Skeleton width={24} height={24} />
               <Skeleton width={120} height={10} />
             </div>

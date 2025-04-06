@@ -35,6 +35,12 @@ export const MyOrdersViewOffersUrl = "profile/orders/views/offers";
 export const MyOrdersViewExpertsUrl = "profile/orders/views/experts";
 export const MyOrdersViewSavedUrl = "profile/orders/views/saved";
 
+// rate -- for CUSTOMER
+export const MyRatesAllUrl = "profile/rates";
+export const MyRatesPositiveUrl = "profile/rates/positive";
+export const MyRatesNegativeUrl = "profile/rates/negative";
+export const MyRatesNeutralUrl = "profile/rates/neutral";
+
 // vacancy
 export const VacancyUrl = "profile/vacancy";
 // info

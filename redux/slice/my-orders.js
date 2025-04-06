@@ -123,6 +123,26 @@ export const fetchSavedExperts = createAsyncThunk(
   }
 );
 
+// fetch saved experts
+export const fetchMyRates = createAsyncThunk(
+  "orders/fetchMyRates",
+  async ({ locale, page = 1, rate }) => {
+    const response = await fetcher(
+      `/comment/about-me?expand=agreement,commentator,user&per-page=3&page=${page}`,
+      {
+        method: "POST",
+        headers: {
+          "Accept-Language": locale,
+        },
+        body: JSON.stringify({ rate: rate }),
+      },
+      {},
+      true
+    );
+    return response.data;
+  }
+);
+
 const myOrdersSlice = createSlice({
   name: "myOrders",
   initialState: {
@@ -228,6 +248,19 @@ const myOrdersSlice = createSlice({
         state.saved_experts_meta = action.payload?._meta;
       })
       .addCase(fetchSavedExperts.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      // fetch my rates
+      .addCase(fetchMyRates.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMyRates.fulfilled, (state, action) => {
+        state.loading = false;
+        state.my_rates = action.payload?.items;
+        state.my_rates_meta = action.payload?._meta;
+      })
+      .addCase(fetchMyRates.rejected, (state, action) => {
         state.loading = false;
       });
   },

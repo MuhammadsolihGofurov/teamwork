@@ -14,6 +14,10 @@ import {
   MyOrdersViewIdUrl,
   MyOrdersViewOffersUrl,
   MyOrdersViewSavedUrl,
+  MyRatesAllUrl,
+  MyRatesNegativeUrl,
+  MyRatesNeutralUrl,
+  MyRatesPositiveUrl,
   MyTasksArchiveUrl,
   MyTasksCancelUrl,
   MyTasksFinishedUrl,
@@ -189,6 +193,37 @@ export const MySavedMenu = [
     id: 2,
     name: "Mutaxassislar",
     url: SavedExpertsUrl,
+    role: "all",
+    additional_url: false,
+  },
+];
+
+export const MyRatesMenu = [
+  {
+    id: 1,
+    name: "Barcha sharxlar",
+    url: MyRatesAllUrl,
+    role: "all",
+    additional_url: false,
+  },
+  {
+    id: 2,
+    name: "Ijobiylar",
+    url: MyRatesPositiveUrl,
+    role: "all",
+    additional_url: false,
+  },
+  {
+    id: 3,
+    name: "Neytral",
+    url: MyRatesNeutralUrl,
+    role: "all",
+    additional_url: false,
+  },
+  {
+    id: 4,
+    name: "Salbiylar",
+    url: MyRatesNegativeUrl,
     role: "all",
     additional_url: false,
   },
