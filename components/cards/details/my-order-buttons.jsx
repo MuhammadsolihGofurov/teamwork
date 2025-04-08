@@ -21,6 +21,7 @@ import {
 import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function MyOrderButtons({
   id,
@@ -50,6 +51,7 @@ export default function MyOrderButtons({
       }
     );
   };
+
   const stopOrderFunc = async (id) => {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -263,7 +265,7 @@ export default function MyOrderButtons({
           showModal({
             title: button.modalTitle,
             message: button.modalBody,
-            onConfirm: () => button.modalFunc(data?.id),
+            onConfirm: () => button.modalFunc(id),
           })
         }
         className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}

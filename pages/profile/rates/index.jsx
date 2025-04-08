@@ -13,7 +13,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { CenterSavedData } from "@/components/profile/details/saved";
 import { CenterRatesData } from "@/components/profile/details/rates";
 
-function MySavedExperts({ info }) {
+function MyRates({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -104,4 +104,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MySavedExperts);
+export default withAuth(MyRates);

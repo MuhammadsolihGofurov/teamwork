@@ -2,11 +2,17 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
 import { OrderDetailBox } from "./details";
-import { NextLink } from "@/components/Utils";
+import { NextLink, Pagination } from "@/components/Utils";
 import { FaqsUrl, ProfileUrl } from "@/utils/router";
 import { MyOrderButtons } from "@/components/cards/details";
+import { MyOrderExperts } from "@/components/cards";
 
-export default function CenterMyTaskDetails({ data, isMobile, pageDetails }) {
+export default function CenterMyTaskDetails({
+  data,
+  isMobile,
+  pageDetails,
+  pagination,
+}) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -15,7 +21,14 @@ export default function CenterMyTaskDetails({ data, isMobile, pageDetails }) {
   }
 
   if (pageDetails == "experts") {
-    return <>Experts</>;
+    return (
+      <div className="flex flex-col gap-2">
+        {data?.map((item) => {
+          return <MyOrderExperts data={item} key={item?.id} type="experts" />;
+        })}
+        <Pagination data={pagination} page="bg-white" />
+      </div>
+    );
   }
 
   if (pageDetails == "saved") {

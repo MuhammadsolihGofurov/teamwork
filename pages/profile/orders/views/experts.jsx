@@ -24,8 +24,12 @@ function page({ info }) {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
 
-  const { order_details, loading, error, order_offers, order_experts } =
-    useSelector((state) => state.myOrdersDetails);
+  const {
+    order_details,
+    order_offers,
+    order_experts,
+    order_experts_meta,
+  } = useSelector((state) => state.myOrdersDetails);
 
   useEffect(() => {
     dispatch(
@@ -80,7 +84,7 @@ function page({ info }) {
               page={"orders/details"}
               pageDetails="experts"
               tabsMenu={MySingleOrderMenu}
-              data={order_details}
+              data={order_experts}
               tabsMenuQuery={`?task_id=${router.query.task_id}`}
               tabsMenuCounts={[
                 "none",
@@ -88,12 +92,17 @@ function page({ info }) {
                 order_experts?.length,
                 "none",
               ]}
+              pagination={order_experts_meta}
             />
             <RightInfoAll />
           </>
         ) : (
           <>
-            <CenterMyTaskDetails isMobile={isMobile} data={order_details} />
+            <CenterMyTaskDetails
+              isMobile={isMobile}
+              data={order_experts}
+              pagination={order_experts_meta}
+            />
           </>
         )}
       </ProfileWrapper>

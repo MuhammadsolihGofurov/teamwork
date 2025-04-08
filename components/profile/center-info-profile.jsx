@@ -105,7 +105,7 @@ export default function CenterInfoProfile({
           tabsMenuCounts={tabsMenuCounts}
           tabsMenuQuery={tabsMenuQuery}
         />
-        <CenterMyTaskDetails data={data} pageDetails={pageDetails} />
+        <CenterMyTaskDetails data={data} pageDetails={pageDetails} pagination={pagination}/>
       </CenterInfoWrapper>
     );
   }
