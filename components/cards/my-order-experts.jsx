@@ -4,42 +4,90 @@ import Image from "next/image";
 import { ProfileRate } from "./details";
 import { useIntl } from "react-intl";
 import { formatDate, formatDateForCard, thousandSeperate } from "@/utils/funcs";
+import { MyOrdersViewIdUrl } from "@/utils/router";
 
 export default function MyOrderExperts({ type = "experts", data = {} }) {
   const expert = data?.expert;
   const intl = useIntl();
+  const view_url = `${MyOrdersViewIdUrl}?task_id=${data?.task_id}`;
+
+  if (type == "offers") {
+    return (
+      <div className="p-7 rounded-lg bg-white border border-bg-3 flex flex-row gap-5">
+        <div className="flex flex-col gap-1 items-center">
+          <ProfileRate
+            rate={data?.rate}
+            full_name={data?.expert?.full_name}
+            path={data?.expert?.photo?.path}
+          />
+        </div>
+        <div className="flex flex-col items-start gap-3 w-full flex-1">
+          <div className="flex flex-row flex-wrap gap-y-1 justify-between">
+            <h4 className="text-xl font-semibold text-primary w-5/6">
+              {expert?.full_name}
+            </h4>
+            <div className="flex flex-row gap-3 w-1/6 justify-end">
+              <p className="text-primary text-sm font-semibold text-opacity-60">
+                {expert?.level_of_expert}
+              </p>
+            </div>
+            <div className="flex flex-row flex-wrap w-full gap-x-3 gap-y-1">
+              {expert?.specialitySets?.map((item) => (
+                <p className="text-primary font-medium text-[15px]">
+                  {item?.name}
+                </p>
+              ))}
+            </div>
+          </div>
+          <p className="text-primary text-lg font-medium">
+            {data?.status?.label}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-7 rounded-lg bg-white border border-bg-3 flex flex-row gap-5">
-      <div className="flex flex-col gap-1 items-center">
+    <div className="p-4 sm:p-7 rounded-lg bg-white border border-bg-3 flex sm:flex-row gap-5">
+      <div className="hidden sm:flex flex-col gap-1 items-center">
         <ProfileRate
           rate={data?.rate}
           full_name={data?.expert?.full_name}
           path={data?.expert?.photo?.path}
         />
       </div>
-      <div className="flex flex-col gap-3 w-full flex-1">
-        <div className="flex flex-row flex-wrap gap-y-1 justify-between">
-          <h4 className="text-xl font-semibold text-primary w-5/6">
-            {expert?.full_name}
-          </h4>
-          <div className="flex flex-row gap-3 w-1/6 justify-end">
-            <p className="text-primary text-sm font-semibold">
-              {expert?.level_of_expert}
-            </p>
+      <div className="flex flex-col items-start gap-4 sm:gap-3 w-full flex-1">
+        <div className="flex flex-row gap-3">
+          <div className="sm:hidden flex flex-col gap-1 items-center">
+            <ProfileRate
+              rate={data?.rate}
+              full_name={data?.expert?.full_name}
+              path={data?.expert?.photo?.path}
+            />
           </div>
-          <div className="flex flex-row flex-wrap w-full gap-x-3 gap-y-1">
-            {expert?.specialitySets?.map((item) => (
-              <p className="text-primary font-medium text-[15px]">
-                {item?.name}
+          <div className="flex flex-row flex-wrap gap-y-1 justify-between">
+            <h4 className="text-lg leading-5 sm:leading-6 sm:text-xl font-semibold text-primary w-full sm:w-5/6 order-1 sm:order-1">
+              {expert?.full_name}
+            </h4>
+            <div className="flex flex-row gap-3 w-full sm:w-1/6 sm:justify-end order-3 sm:order-2">
+              <p className="text-primary text-sm font-semibold text-opacity-60">
+                {expert?.level_of_expert}
               </p>
-            ))}
+            </div>
+            <div className="flex flex-row flex-wrap w-full gap-x-3 sm:gap-y-1 order-2 sm:order-3">
+              {expert?.specialitySets?.map((item) => (
+                <p className="text-primary font-medium text-[15px]">
+                  {item?.name}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
+
         <p className="text-primary text-lg font-medium">
           {data?.status?.label}
         </p>
-        <div className="grid grid-cols-3 gap-1">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-1 w-full">
           <div className="flex flex-col gap-1">
             <p className="text-sm text-primary">
               {intl.formatMessage({ id: "Buyurtma raqami" })}:
@@ -128,7 +176,7 @@ export default function MyOrderExperts({ type = "experts", data = {} }) {
           </div>
         </div>
         <NextLink
-          url={""}
+          url={view_url}
           className={`flex items-center gap-1 text-main text-sm font-medium py-4 group`}
         >
           <span>{intl.formatMessage({ id: "Kelishuv haqida batafsil" })}</span>

@@ -16,15 +16,13 @@ export default function CenterMyTaskDetails({
   const intl = useIntl();
   const router = useRouter();
 
-  if (pageDetails == "offers") {
-    return <>Offers</>;
-  }
-
-  if (pageDetails == "experts") {
+  if (pageDetails == "experts" || pageDetails == "offers") {
     return (
       <div className="flex flex-col gap-2">
         {data?.map((item) => {
-          return <MyOrderExperts data={item} key={item?.id} type="experts" />;
+          return (
+            <MyOrderExperts data={item} key={item?.id} type={pageDetails} />
+          );
         })}
         <Pagination data={pagination} page="bg-white" />
       </div>

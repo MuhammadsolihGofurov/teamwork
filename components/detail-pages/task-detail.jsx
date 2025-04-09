@@ -8,7 +8,7 @@ export default function TaskDetail({ data = { owner: null } }) {
     <div className="bg-white sm:border sm:border-bg-3 flex flex-col rounded-xl sm:p-7 lg:p-12">
       <PictureBox
         type="tasks"
-        image={owner?.photo_url}
+        image={owner?.expert.photo?.path}
         is_online={owner?.is_online}
         title={owner?.full_name}
         time_since_join={owner?.employer?.timeSinceJoin}

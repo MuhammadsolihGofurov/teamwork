@@ -22,6 +22,7 @@ export default function PictureBox({
 }) {
   const intl = useIntl();
   const isTasks = type == "tasks";
+  const [imgSrc, setImgSrc] = useState(image ?? "/images/default.png");
 
   if (type === "experts") {
     return (
@@ -96,7 +97,12 @@ export default function PictureBox({
             <TimeSinceJoin time_since_join={time_since_join} isIcon />
             <div className="hidden sm:flex items-center gap-5">
               <ShareBtn />
-              <LikeBtn page="details" id={id} type={type} is_favorite={is_favorite} />
+              <LikeBtn
+                page="details"
+                id={id}
+                type={type}
+                is_favorite={is_favorite}
+              />
             </div>
           </div>
         </div>
@@ -105,7 +111,12 @@ export default function PictureBox({
             <GetWorkBtn id={id} />
             <div className="flex items-center gap-3">
               <ShareBtn />
-              <LikeBtn page="details" id={id} type={type} is_favorite={is_favorite} />
+              <LikeBtn
+                page="details"
+                id={id}
+                type={type}
+                is_favorite={is_favorite}
+              />
             </div>
           </div>
           <div className="w-full flex items-center flex-wrap gap-1">
@@ -121,19 +132,14 @@ export default function PictureBox({
       <div className="flex flex-row gap-3 sm:gap-5 sm:w-auto w-full">
         <div className="xs:w-[90px] w-16 h-16 xs:h-[90px] rounded-full overflow-hidden">
           <Image
-            src={
-              image
-                ? image?.startsWith("http")
-                  ? image
-                  : `${process.env.NEXT_PUBLIC_API_PATH_IMAGE}${image}`
-                : "/images/default.png"
-            }
+            src={imgSrc}
             width={90}
             height={90}
             alt=""
             title={title}
             layout="responsive"
             className="w-full h-full object-cover"
+            onError={() => setImgSrc("/images/defaultAvatar.png")}
           />
         </div>
         <TasksTitle

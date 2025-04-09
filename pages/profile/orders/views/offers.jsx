@@ -24,19 +24,26 @@ function page({ info }) {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
 
-  const { order_details, loading, error, order_offers, order_experts } =
-    useSelector((state) => state.myOrdersDetails);
+  const {
+    order_details,
+    order_offers,
+    order_experts,
+    order_experts_meta,
+    order_offers_meta,
+  } = useSelector((state) => state.myOrdersDetails);
 
   useEffect(() => {
-    dispatch(
-      fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
-    );
+    if (!order_details) {
+      dispatch(
+        fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
+      );
+    }
   }, [router.locale]);
 
   useEffect(() => {
@@ -80,7 +87,7 @@ function page({ info }) {
               page={"orders/details"}
               pageDetails="offers"
               tabsMenu={MySingleOrderMenu}
-              data={order_details}
+              data={order_offers}
               tabsMenuQuery={`?task_id=${router.query.task_id}`}
               tabsMenuCounts={[
                 "none",
@@ -88,12 +95,18 @@ function page({ info }) {
                 order_experts?.length,
                 "none",
               ]}
+              pagination={order_offers_meta}
             />
             <RightInfoAll />
           </>
         ) : (
           <>
-            <CenterMyTaskDetails isMobile={isMobile} data={order_details} />
+            <CenterMyTaskDetails
+              isMobile={isMobile}
+              data={order_offers}
+              pageDetails="offers"
+              pagination={order_offers_meta}
+            />
           </>
         )}
       </ProfileWrapper>
@@ -103,7 +116,7 @@ function page({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Customer's orders Offers",
+    seo_home_title: "Customer's orders Experts",
     seo_home_keywords: "",
     seo_home_description: "",
   };

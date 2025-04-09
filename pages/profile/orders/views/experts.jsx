@@ -24,23 +24,21 @@ function page({ info }) {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
 
-  const {
-    order_details,
-    order_offers,
-    order_experts,
-    order_experts_meta,
-  } = useSelector((state) => state.myOrdersDetails);
+  const { order_details, order_offers, order_experts, order_experts_meta } =
+    useSelector((state) => state.myOrdersDetails);
 
   useEffect(() => {
-    dispatch(
-      fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
-    );
+    if (!order_details) {
+      dispatch(
+        fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
+      );
+    }
   }, [router.locale]);
 
   useEffect(() => {
@@ -101,6 +99,7 @@ function page({ info }) {
             <CenterMyTaskDetails
               isMobile={isMobile}
               data={order_experts}
+              pageDetails="experts"
               pagination={order_experts_meta}
             />
           </>

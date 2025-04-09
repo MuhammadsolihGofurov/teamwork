@@ -57,11 +57,10 @@ export const fetchOrderExperts = createAsyncThunk(
 
 // offer/sort?id=3327&sort=1
 
-
 const myOrdersDetails = createSlice({
   name: "myOrdersDetails",
   initialState: {
-    order_details: {},
+    order_details: null,
     order_offers: [],
     order_offers_meta: {},
     order_experts: [],

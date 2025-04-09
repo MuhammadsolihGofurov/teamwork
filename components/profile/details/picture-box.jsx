@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { ChangeRoles } from ".";
 import { PictureBoxSkeleton } from "@/components/Skeleton/profile";
 import { EXPERT } from "@/utils/data";
-import { NextLink } from "@/components/Utils";
+import { NextLink, Rates } from "@/components/Utils";
 import { InfoEditUrl } from "@/utils/router";
 
 export default function PictureBox({ isMobile = false }) {
@@ -29,7 +29,10 @@ export default function PictureBox({ isMobile = false }) {
     >
       <div className="flex items-center flex-col text-center gap-2 justify-center col-span-1 sm:col-span-1 sm:pl-0 pl-5">
         <Image
-          src={user_info?.photoUrl ?? "/images/defaultAvatar.png"}
+          src={
+            (user_info?.photoUrl || user_info?.photo?.url) ??
+            "/images/defaultAvatar.png"
+          }
           title={user_info?.full_name}
           alt={"Profile image"}
           role="img"
@@ -37,84 +40,11 @@ export default function PictureBox({ isMobile = false }) {
           height={140}
           className="rounded-full object-cover bg-bg-2"
         />
-        <p className="text-sm font-medium text-primary">4.7 | 67</p>
-        <div className="flex flex-row gap-1">
-          <svg
-            width="13"
-            height="12"
-            viewBox="0 0 13 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.50041 8.87498L3.41441 10.4975L4.00391 7.06098L1.50391 4.62748L4.95391 4.12748L6.49691 1.00098L8.03991 4.12748L11.4899 4.62748L8.98991 7.06098L9.57941 10.4975L6.50041 8.87498Z"
-              fill="#98BE00"
-              stroke="#98BE00"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <svg
-            width="13"
-            height="12"
-            viewBox="0 0 13 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.50041 8.87498L3.41441 10.4975L4.00391 7.06098L1.50391 4.62748L4.95391 4.12748L6.49691 1.00098L8.03991 4.12748L11.4899 4.62748L8.98991 7.06098L9.57941 10.4975L6.50041 8.87498Z"
-              fill="#98BE00"
-              stroke="#98BE00"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <svg
-            width="13"
-            height="12"
-            viewBox="0 0 13 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.50041 8.87498L3.41441 10.4975L4.00391 7.06098L1.50391 4.62748L4.95391 4.12748L6.49691 1.00098L8.03991 4.12748L11.4899 4.62748L8.98991 7.06098L9.57941 10.4975L6.50041 8.87498Z"
-              fill="#98BE00"
-              stroke="#98BE00"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <svg
-            width="13"
-            height="12"
-            viewBox="0 0 13 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.50041 8.87498L3.41441 10.4975L4.00391 7.06098L1.50391 4.62748L4.95391 4.12748L6.49691 1.00098L8.03991 4.12748L11.4899 4.62748L8.98991 7.06098L9.57941 10.4975L6.50041 8.87498Z"
-              fill="#98BE00"
-              stroke="#98BE00"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <svg
-            width="13"
-            height="12"
-            viewBox="0 0 13 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6.50041 8.87498L3.41441 10.4975L4.00391 7.06098L1.50391 4.62748L4.95391 4.12748L6.49691 1.00098L8.03991 4.12748L11.4899 4.62748L8.98991 7.06098L9.57941 10.4975L6.50041 8.87498Z"
-              fill="#98BE00"
-              stroke="#98BE00"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
+        <p className="text-sm font-medium text-primary">
+          {" "}
+          {user_info?.rate || 0}
+        </p>
+        <Rates current_rate={user_info?.rate} isBig />
       </div>
 
       <div className="sm:hidden flex flex-col gap-1 col-span-2 sm:pr-0 pr-5">

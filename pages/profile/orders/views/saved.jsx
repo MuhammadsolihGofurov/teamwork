@@ -28,15 +28,17 @@ function page({ info }) {
     useSelector((state) => state.myOrdersDetails);
 
   useEffect(() => {
-    dispatch(
-      fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
-    );
-    dispatch(
-      fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
-    );
+    if (!order_details) {
+      dispatch(
+        fetchOrderDetails({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
+      );
+      dispatch(
+        fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
+      );
+    }
   }, [router.locale]);
 
   useEffect(() => {
