@@ -55,6 +55,36 @@ export const fetchOrderExperts = createAsyncThunk(
   }
 );
 
+// cancel offers
+export const cancelOrdersOffer = createAsyncThunk(
+  "orders/cancelOrdersOffer",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.post(`/offer/cancel?id=${id}`);
+      dispatch(fetchOrderDetails());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error?.message);
+    }
+  }
+);
+
+// approve offers
+export const approveOrdersOffer = createAsyncThunk(
+  "orders/approveOrdersOffer",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await authAxios.post(`/offer/cancel?id=${id}`);
+      dispatch(fetchOrderDetails());
+      return response.data;
+    } catch (error) {
+      toast.error(error?.message);
+      return rejectWithValue(error?.message);
+    }
+  }
+);
+
 // offer/sort?id=3327&sort=1
 
 const myOrdersDetails = createSlice({
@@ -116,6 +146,17 @@ const myOrdersDetails = createSlice({
       .addCase(fetchOrderExperts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+
+      // cancel offers
+      .addCase(cancelOrdersOffer.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(cancelOrdersOffer.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(cancelOrdersOffer.rejected, (state, action) => {
+        state.loading = false;
       });
   },
 });

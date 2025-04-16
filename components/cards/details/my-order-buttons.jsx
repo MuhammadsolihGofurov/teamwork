@@ -6,6 +6,7 @@ import {
   deleteOrder,
   publishOrder,
 } from "@/redux/slice/my-orders";
+import { cancelOrdersOffer } from "@/redux/slice/my-orders-details";
 import {
   IN_PROGRESS,
   NOT_PUBLISHED,
@@ -29,6 +30,8 @@ export default function MyOrderButtons({
   count_of_candidate,
   count_of_offer,
   card_type,
+  chat_id,
+  sorted = false,
 }) {
   const intl = useIntl();
   const { showModal } = useModal();
@@ -115,6 +118,28 @@ export default function MyOrderButtons({
 
   const approveOfferFunc = async (id) => {};
 
+  const sortedOfferFunc = async (id) => {};
+
+  const cancelOfferFunc = async (id) => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    toast.promise(
+      (async () => {
+        await delay(500);
+        return dispatch(cancelOrdersOffer(id));
+      })(),
+      {
+        pending: intl.formatMessage({ id: "Taklif bekor qilinmoqda..." }),
+        success: intl.formatMessage({
+          id: "Taklif bekor qilindi!",
+        }),
+        error: intl.formatMessage({
+          id: "Taklifni bekor qilishda xatolik yuz berdi.",
+        }),
+      }
+    );
+  };
+
   const buttons = [
     // tahrirlash
     {
@@ -150,7 +175,7 @@ export default function MyOrderButtons({
       url: `${MyOrdersViewOffersUrl}?task_id=${id}`,
       count: count_of_offer,
       type: [PUBLISHED],
-      isMobileName: true,
+      isMobileName: false,
       color: "hover:text-main hover:border-main",
     },
     // bajaruvchilar
@@ -161,7 +186,7 @@ export default function MyOrderButtons({
       url: `${MyOrdersViewExpertsUrl}?task_id=${id}`,
       count: count_of_candidate,
       type: [PUBLISHED, IN_PROGRESS],
-      isMobileName: true,
+      isMobileName: false,
       color: "hover:text-main hover:border-main",
     },
     // chat
@@ -172,7 +197,7 @@ export default function MyOrderButtons({
       <path d="M5 9.49935C6.66667 11.166 9.33333 11.166 11 9.49935M11.868 12.0272C11.868 12.0272 11.9193 11.9906 12.0013 11.9279C13.23 10.9779 14 9.60124 14 8.06858C14 5.21124 11.3133 2.89258 8.00133 2.89258C4.688 2.89258 2 5.21124 2 8.06858C2 10.9272 4.68667 13.1659 8 13.1659C8.28267 13.1659 8.74667 13.1472 9.392 13.1099C10.2333 13.6566 11.4613 14.1052 12.536 14.1052C12.8687 14.1052 13.0253 13.8319 12.812 13.5532C12.488 13.1559 12.0413 12.5199 11.868 12.0272Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       `,
-      url: `tasks/edit/${id}`,
+      url: `chats/${chat_id}`,
       count: false,
       type: [IN_PROGRESS, ORDER_DETAILS_OFFERS],
       isMobileName: true,
@@ -265,6 +290,40 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-main hover:border-main",
     },
+    // sarlangan -> offer uchun
+    {
+      id: 10,
+      name: intl.formatMessage({ id: "Saralash" }),
+      icon: `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.9999 8.88047L7.99987 13.8325L2.99988 8.88047C2.67008 8.55955 2.4103 8.17382 2.23691 7.74757C2.06351 7.32131 1.98025 6.86378 1.99237 6.40376C2.00448 5.94375 2.11172 5.49123 2.30731 5.0747C2.50291 4.65817 2.78263 4.28664 3.12887 3.98353C3.4751 3.68041 3.88035 3.45227 4.31908 3.31346C4.75782 3.17466 5.22055 3.1282 5.67812 3.17701C6.1357 3.22582 6.57821 3.36885 6.97779 3.59708C7.37738 3.82531 7.72537 4.13381 7.99987 4.50314C8.27556 4.13649 8.62397 3.83069 9.02328 3.60488C9.42258 3.37907 9.8642 3.23811 10.3205 3.19082C10.7768 3.14353 11.2379 3.19094 11.6751 3.33007C12.1122 3.4692 12.5159 3.69706 12.8609 3.99938C13.2059 4.30171 13.4848 4.672 13.6802 5.08707C13.8755 5.50214 13.983 5.95306 13.9961 6.41161C14.0091 6.87016 13.9274 7.32647 13.756 7.75197C13.5845 8.17748 13.3271 8.56302 12.9999 8.88447" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      `,
+      url: false,
+      confirmModal: true,
+      modalTitle: "Taklifni qabul qilmoqchimisiz?",
+      modalBody:
+        "Taklifni qabul qilsangiz, topshiriq bo'yicha kelishuvga rozi bo'lgan bo'lasiz.",
+      modalFunc: approveOfferFunc,
+      type: [""],
+      isMobileName: false,
+      color: "hover:text-main hover:border-main",
+      isActive: sorted,
+    },
+    // bekor qilish -> offer uchun
+    {
+      id: 11,
+      name: intl.formatMessage({ id: "Bekor qilish" }),
+      icon: ``,
+      url: false,
+      confirmModal: true,
+      modalTitle: "Taklifni bekor qilmoqchimisiz?",
+      modalBody:
+        "Taklifni bekor qilsangiz, bu taklifni qayta qabul qila olmaysiz.",
+      modalFunc: cancelOfferFunc,
+      type: [ORDER_DETAILS_OFFERS],
+      isMobileName: false,
+      color: "hover:text-some_red hover:border-some_red",
+    },
   ];
 
   const filteredButtons = buttons.filter((button) =>
@@ -279,12 +338,11 @@ export default function MyOrderButtons({
         className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
       >
         {button.icon && (
-          <span
-            className={`${button.isMobileName ? "sm:inline hidden" : ""}`}
-            dangerouslySetInnerHTML={{ __html: button.icon }}
-          />
+          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
         )}
-        <span className="flex-1">
+        <span
+          className={`${button.isMobileName ? "sm:inline hidden" : ""} flex-1`}
+        >
           {button.name} {button.count}
         </span>
       </NextLink>
@@ -298,13 +356,14 @@ export default function MyOrderButtons({
             onConfirm: () => button.modalFunc(id),
           })
         }
-        className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
+        className={` items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${
+          button.color
+        } text-primary text-xs xs:text-base transition-colors duration-150 ${
+          button.isMobileName ? "sm:flex hidden" : "flex"
+        }`}
       >
         {button.icon && (
-          <span
-            className={`${button.isMobileName ? "sm:inline hidden" : ""}`}
-            dangerouslySetInnerHTML={{ __html: button.icon }}
-          />
+          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
         )}
         <span className="flex-1">
           {button.name} {button.count}

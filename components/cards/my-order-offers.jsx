@@ -13,7 +13,7 @@ export default function MyOrderOffersCard({ data }) {
 
   return (
     <div className="p-7 rounded-lg bg-white border border-bg-3 flex flex-row gap-5">
-      <div className="flex flex-col gap-1 items-center">
+      <div className="sm:flex hidden flex-col gap-1 items-center">
         <ProfileRate
           rate={expert?.rate}
           full_name={expert?.full_name}
@@ -21,27 +21,41 @@ export default function MyOrderOffersCard({ data }) {
         />
       </div>
       <div className="flex flex-col items-start gap-3 w-full flex-1">
-        <div className="flex flex-row flex-wrap gap-y-1 justify-between">
-          <h4 className="text-xl font-semibold text-primary w-5/6">
-            {expert?.full_name}
-          </h4>
-          <div className="flex flex-row gap-3 w-1/6 justify-end">
-            <p className="text-primary text-sm font-semibold text-opacity-60">
-              {expert?.level_of_expert}
-            </p>
+        <div className="flex flex-row w-full gap-3">
+          <div className="flex sm:hidden flex-col gap-1 items-center">
+            <ProfileRate
+              rate={expert?.rate}
+              full_name={expert?.full_name}
+              path={expert?.photo?.path}
+            />
           </div>
-          <div className="flex flex-row flex-wrap w-full gap-x-3 gap-y-1">
-            {expert?.specialitySets?.map((item) => (
-              <p className="text-primary font-medium text-[15px]">
-                {item?.name}
+          <div className="flex flex-row flex-wrap gap-y-1 justify-between">
+            <h4 className="text-lg sm:text-xl font-semibold text-primary w-full lg:w-5/6">
+              {expert?.full_name}
+            </h4>
+            <div className="sm:flex hidden flex-row gap-3 w-1/6 justify-end">
+              <p className="text-primary text-sm font-semibold text-opacity-60">
+                {expert?.level_of_expert}
               </p>
-            ))}
+            </div>
+            <div className="flex flex-row flex-wrap w-full gap-x-3 sm:gap-y-1">
+              {expert?.specialitySets?.map((item) => (
+                <p className="text-primary font-medium text-sm sm:text-[15px]">
+                  {item?.name}
+                </p>
+              ))}
+            </div>
+            <div className="flex sm:hidden flex-row gap-3 w-full">
+              <p className="text-primary text-sm font-semibold text-opacity-60">
+                {expert?.level_of_expert}
+              </p>
+            </div>
           </div>
         </div>
         {/* <p className="text-primary text-lg font-medium">
           {data?.status?.label}
         </p> */}
-        <div className="flex items-center gap-x-4 flex-wrap">
+        <div className="flex items-center gap-x-4 gap-y-1 flex-wrap">
           <div className="flex items-center gap-1 ">
             <svg
               width="16"
@@ -104,7 +118,12 @@ export default function MyOrderOffersCard({ data }) {
           <div className="message__offer_shape w-5 h-5 bg-bg-2 absolute -top-4 "></div>
         </div>
 
-        <MyOrderButtons card_type={ORDER_DETAILS_OFFERS} />
+        <MyOrderButtons
+          card_type={ORDER_DETAILS_OFFERS}
+          chat_id={data?.chatId}
+          sorted={data?.sorted}
+          id={data?.id}
+        />
       </div>
     </div>
   );
