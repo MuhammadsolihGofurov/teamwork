@@ -9,6 +9,7 @@ import {
 import {
   IN_PROGRESS,
   NOT_PUBLISHED,
+  ORDER_DETAILS_OFFERS,
   PUBLISHED,
   VERGE_OF_AGREEMENT,
 } from "@/utils/data";
@@ -112,7 +113,10 @@ export default function MyOrderButtons({
     );
   };
 
+  const approveOfferFunc = async (id) => {};
+
   const buttons = [
+    // tahrirlash
     {
       id: 1,
       name: intl.formatMessage({ id: "Tahrirlash" }),
@@ -125,6 +129,7 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-main hover:border-main",
     },
+    // hujjatlar
     {
       id: 2,
       name: intl.formatMessage({ id: "Hujjatlar" }),
@@ -137,6 +142,7 @@ export default function MyOrderButtons({
       isMobileName: true,
       color: "hover:text-main hover:border-main",
     },
+    // takliflar
     {
       id: 3,
       name: intl.formatMessage({ id: "Takliflar:" }),
@@ -147,6 +153,7 @@ export default function MyOrderButtons({
       isMobileName: true,
       color: "hover:text-main hover:border-main",
     },
+    // bajaruvchilar
     {
       id: 4,
       name: intl.formatMessage({ id: "Bajaruvchilar:" }),
@@ -157,19 +164,21 @@ export default function MyOrderButtons({
       isMobileName: true,
       color: "hover:text-main hover:border-main",
     },
+    // chat
     {
       id: 5,
-      name: intl.formatMessage({ id: "Yozishmalar" }),
-      icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.99967 2V4.66667C9.99967 4.84348 10.0699 5.01305 10.1949 5.13807C10.32 5.2631 10.4895 5.33333 10.6663 5.33333H13.333M9.99967 2H7.33301C6.97939 2 6.64025 2.14048 6.3902 2.39052C6.14015 2.64057 5.99967 2.97971 5.99967 3.33333V10C5.99967 10.3536 6.14015 10.6928 6.3902 10.9428C6.64025 11.1929 6.97939 11.3333 7.33301 11.3333H11.9997C12.3533 11.3333 12.6924 11.1929 12.9425 10.9428C13.1925 10.6928 13.333 10.3536 13.333 10V5.33333M9.99967 2L13.333 5.33333M10.6663 11.3333V12.6667C10.6663 13.0203 10.5259 13.3594 10.2758 13.6095C10.0258 13.8595 9.68663 14 9.33301 14H4.66634C4.31272 14 3.97358 13.8595 3.72353 13.6095C3.47348 13.3594 3.33301 13.0203 3.33301 12.6667V6C3.33301 5.64638 3.47348 5.30724 3.72353 5.05719C3.97358 4.80714 4.31272 4.66667 4.66634 4.66667H5.99967" stroke="#222222" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          `,
+      name: intl.formatMessage({ id: "Chat" }),
+      icon: `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 9.49935C6.66667 11.166 9.33333 11.166 11 9.49935M11.868 12.0272C11.868 12.0272 11.9193 11.9906 12.0013 11.9279C13.23 10.9779 14 9.60124 14 8.06858C14 5.21124 11.3133 2.89258 8.00133 2.89258C4.688 2.89258 2 5.21124 2 8.06858C2 10.9272 4.68667 13.1659 8 13.1659C8.28267 13.1659 8.74667 13.1472 9.392 13.1099C10.2333 13.6566 11.4613 14.1052 12.536 14.1052C12.8687 14.1052 13.0253 13.8319 12.812 13.5532C12.488 13.1559 12.0413 12.5199 11.868 12.0272Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      `,
       url: `tasks/edit/${id}`,
-      count: 0,
-      type: [IN_PROGRESS],
+      count: false,
+      type: [IN_PROGRESS, ORDER_DETAILS_OFFERS],
       isMobileName: true,
       color: "hover:text-main hover:border-main",
     },
+    // to'xtatish
     {
       id: 6,
       name: intl.formatMessage({ id: "To’xtatish" }),
@@ -187,6 +196,7 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-main hover:border-main",
     },
+    // chop etish
     {
       id: 7,
       name: intl.formatMessage({ id: "Chop etish" }),
@@ -204,6 +214,7 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-blue hover:border-blue",
     },
+    // arxivlash
     {
       id: 9,
       name: intl.formatMessage({ id: "Arxivlash" }),
@@ -221,6 +232,7 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-primary hover:border-primary",
     },
+    // e'lonni o'chirish
     {
       id: 8,
       name: intl.formatMessage({ id: "Elonni o’chirish" }),
@@ -238,6 +250,21 @@ export default function MyOrderButtons({
       isMobileName: false,
       color: "hover:text-some_red hover:border-some_red",
     },
+    // qabul qilish -> offer uchun
+    {
+      id: 9,
+      name: intl.formatMessage({ id: "Qabul qilish" }),
+      icon: ``,
+      url: false,
+      confirmModal: true,
+      modalTitle: "Taklifni qabul qilmoqchimisiz?",
+      modalBody:
+        "Taklifni qabul qilsangiz, topshiriq bo'yicha kelishuvga rozi bo'lgan bo'lasiz.",
+      modalFunc: approveOfferFunc,
+      type: [ORDER_DETAILS_OFFERS],
+      isMobileName: false,
+      color: "hover:text-main hover:border-main",
+    },
   ];
 
   const filteredButtons = buttons.filter((button) =>
@@ -252,7 +279,10 @@ export default function MyOrderButtons({
         className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
       >
         {button.icon && (
-          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+          <span
+            className={`${button.isMobileName ? "sm:inline hidden" : ""}`}
+            dangerouslySetInnerHTML={{ __html: button.icon }}
+          />
         )}
         <span className="flex-1">
           {button.name} {button.count}
@@ -271,7 +301,10 @@ export default function MyOrderButtons({
         className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
       >
         {button.icon && (
-          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+          <span
+            className={`${button.isMobileName ? "sm:inline hidden" : ""}`}
+            dangerouslySetInnerHTML={{ __html: button.icon }}
+          />
         )}
         <span className="flex-1">
           {button.name} {button.count}

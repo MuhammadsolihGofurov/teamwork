@@ -222,3 +222,7 @@ input[type="number"] {
   flex-wrap: wrap;
   width: 100%;
 }
+
+.message__offer_shape {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}

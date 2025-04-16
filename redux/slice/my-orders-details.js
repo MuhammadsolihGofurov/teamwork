@@ -23,7 +23,7 @@ export const fetchOrderOffers = createAsyncThunk(
   "orders/fetchOrderOffers",
   async ({ locale, id }) => {
     const response = await fetcher(
-      `/offer/list-by-task-id?task_id=${id}&expand=expert,chatId,specialitySets,parent&per-page=3`,
+      `/offer/list-by-task-id?task_id=${id}&expand=owner.expert,chatId,specialitySets,parent&per-page=3&size=3`,
       {
         headers: {
           "Accept-Language": locale,

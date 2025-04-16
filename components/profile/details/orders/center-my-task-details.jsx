@@ -5,7 +5,7 @@ import { OrderDetailBox } from "./details";
 import { NextLink, Pagination } from "@/components/Utils";
 import { FaqsUrl, ProfileUrl } from "@/utils/router";
 import { MyOrderButtons } from "@/components/cards/details";
-import { MyOrderExperts } from "@/components/cards";
+import { MyOrderExperts, MyOrderOffersCard } from "@/components/cards";
 
 export default function CenterMyTaskDetails({
   data,
@@ -16,13 +16,22 @@ export default function CenterMyTaskDetails({
   const intl = useIntl();
   const router = useRouter();
 
-  if (pageDetails == "experts" || pageDetails == "offers") {
+  if (pageDetails == "experts") {
     return (
       <div className="flex flex-col gap-2">
         {data?.map((item) => {
-          return (
-            <MyOrderExperts data={item} key={item?.id} type={pageDetails} />
-          );
+          return <MyOrderExperts data={item} key={item?.id} />;
+        })}
+        <Pagination data={pagination} page="bg-white" />
+      </div>
+    );
+  }
+
+  if (pageDetails == "offers") {
+    return (
+      <div className="flex flex-col gap-2">
+        {data?.map((item) => {
+          return <MyOrderOffersCard data={item} key={item?.id} />;
         })}
         <Pagination data={pagination} page="bg-white" />
       </div>

@@ -6,46 +6,11 @@ import { useIntl } from "react-intl";
 import { formatDate, formatDateForCard, thousandSeperate } from "@/utils/funcs";
 import { MyOrdersViewIdUrl } from "@/utils/router";
 
-export default function MyOrderExperts({ type = "experts", data = {} }) {
+export default function MyOrderExperts({ data = {} }) {
   const expert = data?.expert;
   const intl = useIntl();
   const view_url = `${MyOrdersViewIdUrl}?task_id=${data?.task_id}`;
 
-  if (type == "offers") {
-    return (
-      <div className="p-7 rounded-lg bg-white border border-bg-3 flex flex-row gap-5">
-        <div className="flex flex-col gap-1 items-center">
-          <ProfileRate
-            rate={data?.rate}
-            full_name={data?.expert?.full_name}
-            path={data?.expert?.photo?.path}
-          />
-        </div>
-        <div className="flex flex-col items-start gap-3 w-full flex-1">
-          <div className="flex flex-row flex-wrap gap-y-1 justify-between">
-            <h4 className="text-xl font-semibold text-primary w-5/6">
-              {expert?.full_name}
-            </h4>
-            <div className="flex flex-row gap-3 w-1/6 justify-end">
-              <p className="text-primary text-sm font-semibold text-opacity-60">
-                {expert?.level_of_expert}
-              </p>
-            </div>
-            <div className="flex flex-row flex-wrap w-full gap-x-3 gap-y-1">
-              {expert?.specialitySets?.map((item) => (
-                <p className="text-primary font-medium text-[15px]">
-                  {item?.name}
-                </p>
-              ))}
-            </div>
-          </div>
-          <p className="text-primary text-lg font-medium">
-            {data?.status?.label}
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="p-4 sm:p-7 rounded-lg bg-white border border-bg-3 flex sm:flex-row gap-5">
