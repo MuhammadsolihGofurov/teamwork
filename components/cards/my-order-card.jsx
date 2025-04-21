@@ -178,6 +178,7 @@ export default function MyOrderCard({ data, card_type = "archive" }) {
           count_of_candidate={data?.count_of_candidate}
           count_of_offer={data?.count_of_offer}
           card_type={card_type}
+          edit_status={true}
         />
         <div className="flex w-full items-center justify-start bg-bg-2 h-[2px]"></div>
       </div>

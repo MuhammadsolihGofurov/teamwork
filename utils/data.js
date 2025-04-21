@@ -33,3 +33,9 @@ export const VERGE_OF_AGREEMENT = "VERGE_OF_AGREEMENT";
 export const IN_PROGRESS = "IN_PROGRESS";
 export const ARCHIVED = "ARCHIVED";
 export const ORDER_DETAILS_OFFERS = "ORDER_DETAILS_OFFERS";
+export const ORDER_DETAILS_EXPERTS = "ORDER_DETAILS_EXPERTS";
+export const ORDER_DETAILS_AGREEMENT_VIEW = "ORDER_DETAILS_AGREEMENT_VIEW";
+
+// === MY METHOD STATUS ===
+export const METHOD_STATUS_SEND = "SEND"; // for send function
+export const METHOD_STATUS_EDIT = "EDIT"; // for edit function

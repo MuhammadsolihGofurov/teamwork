@@ -1,7 +1,8 @@
+import { authAxios } from "@/utils/axios";
 import fetcher from "@/utils/fetcher";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// Asinxron so'rovni yaratamiz
+// order details
 export const fetchOrderDetails = createAsyncThunk(
   "orders/fetchOrderDetails",
   async ({ locale, id }) => {
@@ -19,6 +20,7 @@ export const fetchOrderDetails = createAsyncThunk(
   }
 );
 
+// order's offers
 export const fetchOrderOffers = createAsyncThunk(
   "orders/fetchOrderOffers",
   async ({ locale, id }) => {
@@ -36,6 +38,7 @@ export const fetchOrderOffers = createAsyncThunk(
   }
 );
 
+// order's experts
 export const fetchOrderExperts = createAsyncThunk(
   "orders/fetchOrderExperts",
   async ({ locale, id }) => {
@@ -70,18 +73,36 @@ export const cancelOrdersOffer = createAsyncThunk(
   }
 );
 
-// approve offers
-export const approveOrdersOffer = createAsyncThunk(
-  "orders/approveOrdersOffer",
-  async (id, { dispatch, rejectWithValue }) => {
-    try {
-      const response = await authAxios.post(`/offer/cancel?id=${id}`);
-      dispatch(fetchOrderDetails());
-      return response.data;
-    } catch (error) {
-      toast.error(error?.message);
-      return rejectWithValue(error?.message);
-    }
+// sorted offers
+export const sortedOrdersOffer = createAsyncThunk(
+  "orders/sortedOrdersOffer",
+  async ({ id, sorted, locale }) => {
+    const response = await fetcher(
+      `/offer/sort?id=${id}&sort=${sorted ? 0 : 1}`,
+      {},
+      {},
+      true
+    );
+    dispatch(fetchOrderOffers({ locale, id }));
+    return response.data;
+  }
+);
+
+// order's offer's details
+export const fetchOrderOfferDetails = createAsyncThunk(
+  "orders/fetchOrderOfferDetails",
+  async ({ locale, id }) => {
+    const response = await fetcher(
+      `/offer/by-id?id=${id}&expand=task`,
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      },
+      {},
+      true
+    );
+    return response.data;
   }
 );
 
@@ -97,6 +118,7 @@ const myOrdersDetails = createSlice({
     order_experts_meta: {},
     loading: false,
     error: null,
+    order_offer_solo: null,
   },
   reducers: {
     setMyOrders: (state, action) => {
@@ -157,6 +179,31 @@ const myOrdersDetails = createSlice({
       })
       .addCase(cancelOrdersOffer.rejected, (state, action) => {
         state.loading = false;
+      })
+
+      // sorted offers
+      .addCase(sortedOrdersOffer.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(sortedOrdersOffer.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(sortedOrdersOffer.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      // Order's offer's details
+      .addCase(fetchOrderOfferDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchOrderOfferDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.order_offer_solo = action.payload;
+      })
+      .addCase(fetchOrderOfferDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });

@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { NextLink, Rates } from "../Utils";
 import Image from "next/image";
-import { ProfileRate } from "./details";
+import { MyOrderButtons, ProfileRate } from "./details";
 import { useIntl } from "react-intl";
 import { formatDate, formatDateForCard, thousandSeperate } from "@/utils/funcs";
-import { MyOrdersViewIdUrl } from "@/utils/router";
+import {
+  MyOrderAgreementEditUrl,
+  MyOrderAgreementEditUrlQuery,
+  MyOrderAgreementViewUrl,
+  MyOrderAgreementViewUrlQuery,
+  MyOrdersViewIdUrl,
+} from "@/utils/router";
+import { ORDER_DETAILS_EXPERTS } from "@/utils/data";
 
 export default function MyOrderExperts({ data = {} }) {
   const expert = data?.expert;
   const intl = useIntl();
-  const view_url = `${MyOrdersViewIdUrl}?task_id=${data?.task_id}`;
-
+  const view_url = `${MyOrderAgreementViewUrl}?task_id=${data?.task_id}&offer_id=${data?.offer_id}&${MyOrderAgreementViewUrlQuery}`;
 
   return (
     <div className="p-4 sm:p-7 rounded-lg bg-white border border-bg-3 flex sm:flex-row gap-5">
@@ -161,6 +167,14 @@ export default function MyOrderExperts({ data = {} }) {
             />
           </svg>
         </NextLink>
+
+        <MyOrderButtons
+          card_type={ORDER_DETAILS_EXPERTS}
+          chat_id={data?.chatId}
+          id={data?.id}
+          edit_url={`${MyOrderAgreementEditUrl}?task_id=${data?.task_id}&agreement_id=${data?.id}&offer_id=${data?.offer_id}&${MyOrderAgreementEditUrlQuery}`}
+          edit_status={data?.canEdit}
+        />
       </div>
     </div>
   );

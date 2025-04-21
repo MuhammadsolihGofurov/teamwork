@@ -36,18 +36,23 @@ export default function MenuTabs({
           <NextLink
             url={`${item?.url}${tabsMenuQuery}`}
             key={item?.name}
-            className={`flex py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
+            className={`flex items-center gap-2 py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
               isCorrect
                 ? "bg-main bg-opacity-10 text-main"
                 : "bg-white text-primary"
             }`}
           >
-            {intl.formatMessage({ id: item?.name })}{" "}
-            {tabsMenuCounts
-              ? tabsMenuCounts?.[index] !== "none"
-                ? `(${tabsMenuCounts?.[index]})`
-                : ""
-              : ""}
+            {item.icon && (
+              <span dangerouslySetInnerHTML={{ __html: item?.icon }} />
+            )}
+            <span className="flex items-center">
+              {intl.formatMessage({ id: item?.name })}{" "}
+              {tabsMenuCounts
+                ? tabsMenuCounts?.[index] !== "none"
+                  ? `(${tabsMenuCounts?.[index]})`
+                  : ""
+                : ""}
+            </span>
           </NextLink>
         );
       })}

@@ -9,7 +9,12 @@ import {
 } from "./details/info";
 import { MenuTabs, PaymentBox } from "./details";
 import { useIntl } from "react-intl";
-import { CenterDataWrapper, CenterMyTaskDetails } from "./details/orders";
+import {
+  CenterAgreementCreate,
+  CenterAgreementView,
+  CenterDataWrapper,
+  CenterMyTaskDetails,
+} from "./details/orders";
 import { Pagination } from "../Utils";
 import { CenterSavedData } from "./details/saved";
 import { CenterRatesData } from "./details/rates";
@@ -24,6 +29,7 @@ export default function CenterInfoProfile({
   tabsMenuQuery,
   pageDetails,
   pagination,
+  method,
 }) {
   const intl = useIntl();
 
@@ -105,7 +111,39 @@ export default function CenterInfoProfile({
           tabsMenuCounts={tabsMenuCounts}
           tabsMenuQuery={tabsMenuQuery}
         />
-        <CenterMyTaskDetails data={data} pageDetails={pageDetails} pagination={pagination}/>
+        <CenterMyTaskDetails
+          data={data}
+          pageDetails={pageDetails}
+          pagination={pagination}
+        />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "orders/agreement/create") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs
+          data={tabsMenu}
+          tabsMenuCounts={tabsMenuCounts}
+          tabsMenuQuery={tabsMenuQuery}
+        />
+        <CenterAgreementCreate data={data} type={page} method={method} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "orders/agreement/view") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs
+          data={tabsMenu}
+          tabsMenuCounts={tabsMenuCounts}
+          tabsMenuQuery={tabsMenuQuery}
+        />
+        <CenterAgreementView data={data} type={page} method={method} />
       </CenterInfoWrapper>
     );
   }

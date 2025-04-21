@@ -4,6 +4,8 @@ import { Rates } from "../Utils";
 import { formatDateForCard } from "@/utils/funcs";
 
 export default function MyRateCard({ data = {} }) {
+  const agreement = data?.agreement;
+
   return (
     <div className="flex items-start gap-2 sm:p-5">
       <div className="w-14 h-14 rounded-full bg-main flex items-center justify-center">
@@ -18,16 +20,16 @@ export default function MyRateCard({ data = {} }) {
         />
       </div>
       <div className="flex flex-col gap-2 flex-1">
-        <Rates current_rate={data?.rate} isBig />
+        <Rates current_rate={data?.rate_by_commentator} isBig />
         <h3
           role="heading"
           className="w-full sm:w-3/4 text-base sm:text-lg font-semibold sm:pr-0 pr-5 leading-5 sm:leading-6"
         >
           <span className="bg-main transition-colors text-primary duration-200">
-            {data?.title}
+            {agreement?.title}
           </span>
         </h3>
-        <p className="text-primary sm:text-base text-sm">{data?.message}</p>
+        <p className="text-primary sm:text-base text-sm">{data?.text}</p>
         <p className="text-primary text-sm text-opacity-60">
           {formatDateForCard(data?.created_at)}
         </p>

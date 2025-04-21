@@ -390,5 +390,15 @@
   "Taklif bekor qilinmoqda...": "Отмена предложения...",
   "Taklif bekor qilindi!": "Предложение отменено!",
   "Taklifni bekor qilishda xatolik yuz berdi.": "При отмене предложения произошла ошибка.",
+  "Taklifni saralashdan olib tashlamoqchimisiz?": "Хотите удалить предложение из подборки?",
+  "Taklifni saralashdan olib tashlasangiz, ushbu taklifni qayta saralash kerak bo'ladi.": "Если вы исключите предложение из числа квалификационных, вам необходимо будет повторно квалифицировать это предложение.",
+  "Biroz kuting...": "Подождите, пожалуйста, минутку...",
+  "Muvafaqqiyatli!": "Успешный!",
+  "Xatolik yuz berdi. Qayta urining.": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+  "Orqaga": "Назад",
+  "Tasdiqlangan": "Подтвержденный",
+  "Kelishuv shartlarini yuborish": "Отправить условия соглашения",
+  "Komissiya xizmatiga sizning xaq-huquqlaringizni himoya qilish - Arbitraj xizmatlari kiradi. ": "Услуги Комиссии включают защиту Ваших прав - Арбитражные услуги.",
+  "success-agreement-create-to-send-expert": "Успешно, отправлено специалисту.",
   "---profile-tasks---": ""
 }

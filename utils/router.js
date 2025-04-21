@@ -34,6 +34,13 @@ export const MyOrdersViewIdUrl = "profile/orders/views";
 export const MyOrdersViewOffersUrl = "profile/orders/views/offers";
 export const MyOrdersViewExpertsUrl = "profile/orders/views/experts";
 export const MyOrdersViewSavedUrl = "profile/orders/views/saved";
+export const MyOrderAgreementCreateUrl = "profile/orders/views/agreement";
+export const MyOrderAgreementCreateUrlQuery = "agreement=create";
+export const MyOrderAgreementEditUrl = "profile/orders/views/agreement/edit";
+export const MyOrderAgreementEditUrlQuery = "agreement=edit";
+export const MyOrderAgreementViewUrl = "profile/orders/views/agreement/view";
+export const MyOrderAgreementViewUrlQuery = "agreement=view";
+
 
 // rate -- for CUSTOMER
 export const MyRatesAllUrl = "profile/rates";

@@ -6,20 +6,28 @@ import {
   deleteOrder,
   publishOrder,
 } from "@/redux/slice/my-orders";
-import { cancelOrdersOffer } from "@/redux/slice/my-orders-details";
+import {
+  cancelOrdersOffer,
+  sortedOrdersOffer,
+} from "@/redux/slice/my-orders-details";
 import {
   IN_PROGRESS,
   NOT_PUBLISHED,
+  ORDER_DETAILS_AGREEMENT_VIEW,
+  ORDER_DETAILS_EXPERTS,
   ORDER_DETAILS_OFFERS,
   PUBLISHED,
   VERGE_OF_AGREEMENT,
 } from "@/utils/data";
 import {
+  MyOrderAgreementCreateUrl,
+  MyOrderAgreementCreateUrlQuery,
   MyOrdersViewExpertsUrl,
   MyOrdersViewIdUrl,
   MyOrdersViewOffersUrl,
   TasksEditUrl,
 } from "@/utils/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
@@ -32,9 +40,13 @@ export default function MyOrderButtons({
   card_type,
   chat_id,
   sorted = false,
+  task_id,
+  edit_url = `${TasksEditUrl}?task_id=${id}`,
+  edit_status = false,
 }) {
   const intl = useIntl();
   const { showModal } = useModal();
+  const router = useRouter();
   const dispatch = useDispatch();
   const url = `${MyOrdersViewIdUrl}?task_id=${id}`;
 
@@ -116,9 +128,29 @@ export default function MyOrderButtons({
     );
   };
 
-  const approveOfferFunc = async (id) => {};
+  const sortedOfferFunc = async (id) => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const sortedOfferFunc = async (id) => {};
+    toast.promise(
+      (async () => {
+        await delay(500);
+        return dispatch(
+          sortedOrdersOffer({ id, sorted, locale: router.locale })
+        );
+      })(),
+      {
+        pending: intl.formatMessage({
+          id: "Biroz kuting...",
+        }),
+        success: intl.formatMessage({
+          id: "Muvafaqqiyatli!",
+        }),
+        error: intl.formatMessage({
+          id: "Xatolik yuz berdi. Qayta urining.",
+        }),
+      }
+    );
+  };
 
   const cancelOfferFunc = async (id) => {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -149,10 +181,11 @@ export default function MyOrderButtons({
           <path d="M4.6665 4.66674H3.99984C3.64622 4.66674 3.30708 4.80721 3.05703 5.05726C2.80698 5.30731 2.6665 5.64645 2.6665 6.00007V12.0001C2.6665 12.3537 2.80698 12.6928 3.05703 12.9429C3.30708 13.1929 3.64622 13.3334 3.99984 13.3334H9.99984C10.3535 13.3334 10.6926 13.1929 10.9426 12.9429C11.1927 12.6928 11.3332 12.3537 11.3332 12.0001V11.3334M10.6665 3.3334L12.6665 5.3334M13.5898 4.39007C13.8524 4.12751 13.9999 3.77139 13.9999 3.40007C13.9999 3.02875 13.8524 2.67264 13.5898 2.41007C13.3273 2.14751 12.9712 2 12.5998 2C12.2285 2 11.8724 2.14751 11.6098 2.41007L5.99984 8.00007V10.0001H7.99984L13.5898 4.39007Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           `,
-      url: `${TasksEditUrl}?task_id=${id}`,
-      type: [NOT_PUBLISHED],
+      url: edit_url,
+      type: [NOT_PUBLISHED, ORDER_DETAILS_EXPERTS],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
+      is_displayed: edit_status,
     },
     // hujjatlar
     {
@@ -164,8 +197,10 @@ export default function MyOrderButtons({
           `,
       url: url,
       type: [VERGE_OF_AGREEMENT],
+      // type: [VERGE_OF_AGREEMENT, ORDER_DETAILS_AGREEMENT_VIEW], --> hujjat uchun link tayyorlash kerak so'ng ochiladi
       isMobileName: true,
       color: "hover:text-main hover:border-main",
+      is_displayed: true,
     },
     // takliflar
     {
@@ -177,6 +212,7 @@ export default function MyOrderButtons({
       type: [PUBLISHED],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
+      is_displayed: true,
     },
     // bajaruvchilar
     {
@@ -188,6 +224,7 @@ export default function MyOrderButtons({
       type: [PUBLISHED, IN_PROGRESS],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
+      is_displayed: true,
     },
     // chat
     {
@@ -199,9 +236,15 @@ export default function MyOrderButtons({
       `,
       url: `chats/${chat_id}`,
       count: false,
-      type: [IN_PROGRESS, ORDER_DETAILS_OFFERS],
+      type: [
+        IN_PROGRESS,
+        ORDER_DETAILS_OFFERS,
+        ORDER_DETAILS_EXPERTS,
+        ORDER_DETAILS_AGREEMENT_VIEW,
+      ],
       isMobileName: true,
       color: "hover:text-main hover:border-main",
+      is_displayed: true,
     },
     // to'xtatish
     {
@@ -220,6 +263,7 @@ export default function MyOrderButtons({
       type: [PUBLISHED],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
+      is_displayed: true,
     },
     // chop etish
     {
@@ -238,6 +282,7 @@ export default function MyOrderButtons({
       type: [NOT_PUBLISHED],
       isMobileName: false,
       color: "hover:text-blue hover:border-blue",
+      is_displayed: true,
     },
     // arxivlash
     {
@@ -256,6 +301,7 @@ export default function MyOrderButtons({
       type: [NOT_PUBLISHED],
       isMobileName: false,
       color: "hover:text-primary hover:border-primary",
+      is_displayed: true,
     },
     // e'lonni o'chirish
     {
@@ -274,44 +320,27 @@ export default function MyOrderButtons({
       type: [NOT_PUBLISHED, PUBLISHED],
       isMobileName: false,
       color: "hover:text-some_red hover:border-some_red",
+      is_displayed: true,
     },
     // qabul qilish -> offer uchun
     {
       id: 9,
       name: intl.formatMessage({ id: "Qabul qilish" }),
       icon: ``,
-      url: false,
-      confirmModal: true,
+      url: `${MyOrderAgreementCreateUrl}?task_id=${task_id}&offer_id=${id}&${MyOrderAgreementCreateUrlQuery}`,
+      confirmModal: false,
       modalTitle: "Taklifni qabul qilmoqchimisiz?",
       modalBody:
         "Taklifni qabul qilsangiz, topshiriq bo'yicha kelishuvga rozi bo'lgan bo'lasiz.",
-      modalFunc: approveOfferFunc,
+      modalFunc: "",
       type: [ORDER_DETAILS_OFFERS],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
-    },
-    // sarlangan -> offer uchun
-    {
-      id: 10,
-      name: intl.formatMessage({ id: "Saralash" }),
-      icon: `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12.9999 8.88047L7.99987 13.8325L2.99988 8.88047C2.67008 8.55955 2.4103 8.17382 2.23691 7.74757C2.06351 7.32131 1.98025 6.86378 1.99237 6.40376C2.00448 5.94375 2.11172 5.49123 2.30731 5.0747C2.50291 4.65817 2.78263 4.28664 3.12887 3.98353C3.4751 3.68041 3.88035 3.45227 4.31908 3.31346C4.75782 3.17466 5.22055 3.1282 5.67812 3.17701C6.1357 3.22582 6.57821 3.36885 6.97779 3.59708C7.37738 3.82531 7.72537 4.13381 7.99987 4.50314C8.27556 4.13649 8.62397 3.83069 9.02328 3.60488C9.42258 3.37907 9.8642 3.23811 10.3205 3.19082C10.7768 3.14353 11.2379 3.19094 11.6751 3.33007C12.1122 3.4692 12.5159 3.69706 12.8609 3.99938C13.2059 4.30171 13.4848 4.672 13.6802 5.08707C13.8755 5.50214 13.983 5.95306 13.9961 6.41161C14.0091 6.87016 13.9274 7.32647 13.756 7.75197C13.5845 8.17748 13.3271 8.56302 12.9999 8.88447" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      `,
-      url: false,
-      confirmModal: true,
-      modalTitle: "Taklifni qabul qilmoqchimisiz?",
-      modalBody:
-        "Taklifni qabul qilsangiz, topshiriq bo'yicha kelishuvga rozi bo'lgan bo'lasiz.",
-      modalFunc: approveOfferFunc,
-      type: [""],
-      isMobileName: false,
-      color: "hover:text-main hover:border-main",
-      isActive: sorted,
+      is_displayed: true,
     },
     // bekor qilish -> offer uchun
     {
-      id: 11,
+      id: 10,
       name: intl.formatMessage({ id: "Bekor qilish" }),
       icon: ``,
       url: false,
@@ -323,6 +352,28 @@ export default function MyOrderButtons({
       type: [ORDER_DETAILS_OFFERS],
       isMobileName: false,
       color: "hover:text-some_red hover:border-some_red",
+      is_displayed: true,
+    },
+    // sarlangan -> offer uchun
+    {
+      id: 11,
+      name: "",
+      icon: `<svg width="18" height="19" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.9999 8.88047L7.99987 13.8325L2.99988 8.88047C2.67008 8.55955 2.4103 8.17382 2.23691 7.74757C2.06351 7.32131 1.98025 6.86378 1.99237 6.40376C2.00448 5.94375 2.11172 5.49123 2.30731 5.0747C2.50291 4.65817 2.78263 4.28664 3.12887 3.98353C3.4751 3.68041 3.88035 3.45227 4.31908 3.31346C4.75782 3.17466 5.22055 3.1282 5.67812 3.17701C6.1357 3.22582 6.57821 3.36885 6.97779 3.59708C7.37738 3.82531 7.72537 4.13381 7.99987 4.50314C8.27556 4.13649 8.62397 3.83069 9.02328 3.60488C9.42258 3.37907 9.8642 3.23811 10.3205 3.19082C10.7768 3.14353 11.2379 3.19094 11.6751 3.33007C12.1122 3.4692 12.5159 3.69706 12.8609 3.99938C13.2059 4.30171 13.4848 4.672 13.6802 5.08707C13.8755 5.50214 13.983 5.95306 13.9961 6.41161C14.0091 6.87016 13.9274 7.32647 13.756 7.75197C13.5845 8.17748 13.3271 8.56302 12.9999 8.88447" stroke="currentColor" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          `,
+      url: false,
+      confirmModal: sorted,
+      modalTitle: "Taklifni saralashdan olib tashlamoqchimisiz?",
+      modalBody:
+        "Taklifni saralashdan olib tashlasangiz, ushbu taklifni qayta saralash kerak bo'ladi.",
+      modalFunc: sortedOfferFunc,
+      type: [ORDER_DETAILS_OFFERS],
+      isMobileName: false,
+      color: "hover:text-main hover:border-main fill-main",
+      activeIcon: true,
+      isActive: sorted,
+      is_displayed: true,
     },
   ];
 
@@ -335,45 +386,77 @@ export default function MyOrderButtons({
       <NextLink
         key={button.name}
         url={button.url}
-        className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${button.color} text-primary text-xs xs:text-base transition-colors duration-150`}
+        className={`flex items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${
+          button.color
+        } ${
+          button.isActive ? "text-main" : "text-primary"
+        } text-xs xs:text-base transition-colors duration-150`}
       >
         {button.icon && (
-          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+          <span
+            dangerouslySetInnerHTML={{
+              __html: button.icon.replace(
+                /fill="[^"]*"/g,
+                `fill="${button.isActive ? "var(--main)" : "transparent"}"`
+              ),
+            }}
+          />
         )}
-        <span
-          className={`${button.isMobileName ? "sm:inline hidden" : ""} flex-1`}
-        >
-          {button.name} {button.count}
-        </span>
+        {button.name && (
+          <span
+            className={`${
+              button.isMobileName ? "sm:inline hidden" : ""
+            } flex-1`}
+          >
+            {button.name} {button.count}
+          </span>
+        )}
       </NextLink>
     ) : (
       <button
         key={button.name}
-        onClick={() =>
-          showModal({
-            title: button.modalTitle,
-            message: button.modalBody,
-            onConfirm: () => button.modalFunc(id),
-          })
-        }
+        onClick={() => {
+          if (button.confirmModal) {
+            showModal({
+              title: button.modalTitle,
+              message: button.modalBody,
+              onConfirm: () => button.modalFunc(id),
+            });
+          } else {
+            button.modalFunc(id);
+          }
+        }}
         className={` items-center justify-center gap-1 py-3 px-5 sm:py-4 sm:px-7 rounded-full border border-bg-3 text-sm group ${
           button.color
-        } text-primary text-xs xs:text-base transition-colors duration-150 ${
+        } ${
+          button.isActive ? "text-main" : "text-primary"
+        } text-xs xs:text-base transition-colors duration-150 ${
           button.isMobileName ? "sm:flex hidden" : "flex"
         }`}
       >
         {button.icon && (
-          <span dangerouslySetInnerHTML={{ __html: button.icon }} />
+          <span
+            dangerouslySetInnerHTML={{
+              __html: button.icon.replace(
+                /fill="[^"]*"/g,
+                `fill="${button.isActive ? "var(--main)" : "transparent"}"`
+              ),
+            }}
+          />
         )}
-        <span className="flex-1">
-          {button.name} {button.count}
-        </span>
+        {button.name && (
+          <span className="flex-1">
+            {button.name} {button.count}
+          </span>
+        )}
       </button>
     );
 
   return (
-    <div className="flex flex-wrap items-center gap-1 w-full">
-      {filteredButtons.map(renderButton)}
+    <div className="flex flex-wrap gap-1 w-full">
+      {filteredButtons.map((button) =>
+        button.is_displayed ? renderButton(button) : null
+      )}
     </div>
   );
 }

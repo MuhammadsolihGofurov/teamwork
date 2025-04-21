@@ -4,12 +4,14 @@ import { useIntl } from "react-intl";
 import { MyOrderButtons, ProfileRate } from "./details";
 import { thousandSeperate } from "@/utils/funcs";
 import { ORDER_DETAILS_OFFERS } from "@/utils/data";
+import { useRouter } from "next/router";
 
 export default function MyOrderOffersCard({ data }) {
   const expert = data?.owner?.expert;
   const intl = useIntl();
   const view_url = `${MyOrdersViewIdUrl}?task_id=${data?.task_id}`;
   const task_summary = expert?.taskSummary;
+  const router = useRouter();
 
   return (
     <div className="p-7 rounded-lg bg-white border border-bg-3 flex flex-row gap-5">
@@ -40,7 +42,7 @@ export default function MyOrderOffersCard({ data }) {
             </div>
             <div className="flex flex-row flex-wrap w-full gap-x-3 sm:gap-y-1">
               {expert?.specialitySets?.map((item) => (
-                <p className="text-primary font-medium text-sm sm:text-[15px]">
+                <p className="text-primary font-medium text-sm sm:text-[15px]" key={item?.name}>
                   {item?.name}
                 </p>
               ))}
@@ -123,6 +125,7 @@ export default function MyOrderOffersCard({ data }) {
           chat_id={data?.chatId}
           sorted={data?.sorted}
           id={data?.id}
+          task_id={router.query.task_id}
         />
       </div>
     </div>
