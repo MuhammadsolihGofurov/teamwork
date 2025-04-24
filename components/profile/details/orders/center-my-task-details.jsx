@@ -56,6 +56,7 @@ export default function CenterMyTaskDetails({
           count_of_candidate={data?.count_of_candidate}
           count_of_offer={data?.count_of_offer}
           card_type={data?.task_status}
+          edit_status={true}
         />
       </div>
       <div className="flex flex-wrap gap-y-5 gap-10 items-start w-full py-7">

@@ -79,7 +79,10 @@ function page({ info }) {
               tabsMenuQuery={`?task_id=${router.query.task_id}`}
               method={METHOD_STATUS_SEND}
             />
-            <RightInfoAll />
+            <RightInfoAll
+              page="orders/agreement/view"
+              status={order_offer_solo?.status?.value}
+            />
           </>
         ) : (
           <>

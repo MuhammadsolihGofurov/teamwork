@@ -18,6 +18,7 @@ import {
 import { Pagination } from "../Utils";
 import { CenterSavedData } from "./details/saved";
 import { CenterRatesData } from "./details/rates";
+import { CenterChatsData } from "./details/chats";
 
 export default function CenterInfoProfile({
   page = "",
@@ -172,6 +173,14 @@ export default function CenterInfoProfile({
           data={data}
           pagination={pagination}
         />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "chats") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <CenterChatsData data={data}/>
       </CenterInfoWrapper>
     );
   }

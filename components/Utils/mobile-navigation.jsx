@@ -18,7 +18,12 @@ export default function MobileNavigation() {
     router.back();
   };
 
-  const isReturnUnUsePath = ["/", `/${SavedTasksUrl}`, `/${MyTasksUrl}`];
+  const isReturnUnUsePath = [
+    "/",
+    `/${SavedTasksUrl}`,
+    `/${MyTasksUrl}`,
+    `/${ChatsUrl}`,
+  ];
   const isReturn = !isReturnUnUsePath.includes(router.pathname);
 
   const links = [

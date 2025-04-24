@@ -14,6 +14,7 @@ export const ProfileUrl = "profile/info";
 export const NotificationUrl = "profile/notifications";
 // chats
 export const ChatsUrl = "profile/chats";
+export const SoloChatUrl = "profile/chats/messages";
 
 // tasks -- for EXPERT
 export const MyTasksUrl = "profile/tasks";
@@ -40,7 +41,6 @@ export const MyOrderAgreementEditUrl = "profile/orders/views/agreement/edit";
 export const MyOrderAgreementEditUrlQuery = "agreement=edit";
 export const MyOrderAgreementViewUrl = "profile/orders/views/agreement/view";
 export const MyOrderAgreementViewUrlQuery = "agreement=view";
-
 
 // rate -- for CUSTOMER
 export const MyRatesAllUrl = "profile/rates";

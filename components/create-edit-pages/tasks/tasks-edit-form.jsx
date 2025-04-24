@@ -13,6 +13,7 @@ import DatePickerUi from "@/components/custom/form/details/date-picker";
 import {
   ExpertsIndexUrl,
   MyOrdersUnPublishedUrl,
+  MyOrdersUrl,
   TasksUrl,
 } from "@/utils/router";
 import { setSpecialityCurrent, setSpecialityIds } from "@/redux/slice/settings";
@@ -108,12 +109,12 @@ export default function TasksEditForm({ oldData = {} }) {
       );
 
       toast.success(
-        intl.formatMessage({ id: "success-task-created-with-unpublished" })
+        intl.formatMessage({ id: "success-task-edited" })
       );
 
       reset();
       setTimeout(() => {
-        router.push(`/${MyOrdersUnPublishedUrl}`);
+        router.push(`/${MyOrdersUrl}`);
       }, 1000);
     } catch (e) {
       toast.error(e?.response?.data?.message);

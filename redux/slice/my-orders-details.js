@@ -23,9 +23,9 @@ export const fetchOrderDetails = createAsyncThunk(
 // order's offers
 export const fetchOrderOffers = createAsyncThunk(
   "orders/fetchOrderOffers",
-  async ({ locale, id }) => {
+  async ({ locale, id, page = 1 }) => {
     const response = await fetcher(
-      `/offer/list-by-task-id?task_id=${id}&expand=owner.expert,chatId,specialitySets,parent&per-page=3&size=3`,
+      `/offer/list-by-task-id?task_id=${id}&expand=owner.expert,chatId,specialitySets,parent&per-page=3&size=3&page=${page}`,
       {
         headers: {
           "Accept-Language": locale,
@@ -41,9 +41,9 @@ export const fetchOrderOffers = createAsyncThunk(
 // order's experts
 export const fetchOrderExperts = createAsyncThunk(
   "orders/fetchOrderExperts",
-  async ({ locale, id }) => {
+  async ({ locale, id, page = 1 }) => {
     const response = await fetcher(
-      `/agreement/list?expand=expert&per-page=3`,
+      `/agreement/list?expand=expert,chatId&per-page=3&page=${page}`,
       {
         method: "POST",
         headers: {
@@ -93,7 +93,7 @@ export const fetchOrderOfferDetails = createAsyncThunk(
   "orders/fetchOrderOfferDetails",
   async ({ locale, id }) => {
     const response = await fetcher(
-      `/offer/by-id?id=${id}&expand=task`,
+      `/offer/by-id?id=${id}&expand=task,chatId`,
       {
         headers: {
           "Accept-Language": locale,

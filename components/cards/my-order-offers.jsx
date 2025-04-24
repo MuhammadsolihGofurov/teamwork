@@ -31,7 +31,7 @@ export default function MyOrderOffersCard({ data }) {
               path={expert?.photo?.path}
             />
           </div>
-          <div className="flex flex-row flex-wrap gap-y-1 justify-between">
+          <div className="flex flex-row flex-1 flex-wrap gap-y-1 justify-between">
             <h4 className="text-lg sm:text-xl font-semibold text-primary w-full lg:w-5/6">
               {expert?.full_name}
             </h4>

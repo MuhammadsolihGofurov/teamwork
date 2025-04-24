@@ -18,7 +18,7 @@ export default function CenterAgreementView({ type = "", data, method }) {
         type={type}
         full_name={owner?.full_name}
         user_type={owner?.level_of_expert}
-        chat_id={data?.chat_id}
+        chat_id={data?.chatId}
       />
       <OrderDetailBox data={data?.task} method={method} />
     </div>

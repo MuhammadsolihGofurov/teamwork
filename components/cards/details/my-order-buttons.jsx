@@ -182,7 +182,7 @@ export default function MyOrderButtons({
           </svg>
           `,
       url: edit_url,
-      type: [NOT_PUBLISHED, ORDER_DETAILS_EXPERTS],
+      type: [PUBLISHED, NOT_PUBLISHED, ORDER_DETAILS_EXPERTS],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
       is_displayed: edit_status,

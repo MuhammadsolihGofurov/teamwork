@@ -24,6 +24,9 @@ function page({ info }) {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
 
+  // page for pagination
+  const page = router.query.page;
+
   const { order_details, order_offers, order_experts, order_experts_meta } =
     useSelector((state) => state.myOrdersDetails);
 
@@ -31,10 +34,17 @@ function page({ info }) {
     dispatch(
       fetchOrderOffers({ locale: router.locale, id: router.query.task_id })
     );
-    dispatch(
-      fetchOrderExperts({ locale: router.locale, id: router.query.task_id })
-    );
   }, [router.locale]);
+
+  useEffect(() => {
+    dispatch(
+      fetchOrderExperts({
+        locale: router.locale,
+        id: router.query.task_id,
+        page,
+      })
+    );
+  }, [router.locale, page]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
