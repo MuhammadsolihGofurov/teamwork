@@ -103,13 +103,13 @@ export const TasksMenu = [
     role: EXPERT,
     additional_url: false,
   },
-  {
-    id: 6,
-    name: "Arxivlangan",
-    url: MyTasksArchiveUrl,
-    role: EXPERT,
-    additional_url: false,
-  },
+  // {
+  //   id: 6,
+  //   name: "Arxivlangan",
+  //   url: MyTasksArchiveUrl,
+  //   role: EXPERT,
+  //   additional_url: false,
+  // },
 ];
 
 export const OrdersMenu = [
@@ -234,6 +234,20 @@ export const ReturnToSoloOffer = [
     id: 1,
     name: "Orqaga",
     url: `${MyOrdersViewOffersUrl}`,
+    role: "all",
+    additional_url: false,
+    icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33301 8H12.6663M3.33301 8L7.33301 12M3.33301 8L7.33301 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    `,
+  },
+];
+
+export const ReturnToOffers = [
+  {
+    id: 1,
+    name: "Orqaga",
+    url: `${MyTasksOffersUrl}`,
     role: "all",
     additional_url: false,
     icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

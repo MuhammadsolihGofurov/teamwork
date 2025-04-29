@@ -5,6 +5,8 @@ import { SoloChatUrl } from "@/utils/router";
 import { LeftInfoProfilePicture } from "./details/chats";
 import { useRouter } from "next/router";
 import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { EXPERT } from "@/utils/data";
 
 export default function LeftInfoProfile({
   isMobile = false,
@@ -46,12 +48,16 @@ export const Wrapper = ({ children, isMobile }) => {
 export const ChatsLists = ({ chats }) => {
   const router = useRouter();
   const intl = useIntl();
+  const { current_user_type } = useSelector((state) => state.user);
 
   return (
     <div className="flex flex-col gap-0 bg-white rounded-lg sm:border border-bg-3 sm:p-2 text-sm sm:h-[462px] sm:overflow-y-auto scroll__none">
       {chats && chats?.length > 0 ? (
         chats?.map((item, index) => {
-          const expert = item?.partner?.expert;
+          const expert =
+            current_user_type === EXPERT
+              ? item?.creator
+              : item?.partner?.expert;
           const isActive = router.query.chat_id == item?.id;
 
           return (
@@ -60,6 +66,7 @@ export const ChatsLists = ({ chats }) => {
               className={`flex gap-3 p-2 rounded-lg hover:bg-main hover:bg-opacity-5 transition-colors duration-200 relative ${
                 isActive ? "bg-main bg-opacity-5" : ""
               }`}
+              key={expert?.full_name}
             >
               <LeftInfoProfilePicture
                 path={expert?.photo?.path}

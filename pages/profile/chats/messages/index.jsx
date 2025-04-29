@@ -8,18 +8,20 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { fetchChats } from "@/redux/slice/my-chats";
+import { fetchChats, fetchChatSolo } from "@/redux/slice/my-chats";
 
-function MyOrdersUnPublishedpage({ info }) {
+function MyChatSolo({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const { chats } = useSelector((state) => state.myChats);
   const { current_user_type } = useSelector((state) => state.user);
+  const chat_id = router.query.chat_id;
 
   useEffect(() => {
     dispatch(fetchChats({ locale: router.locale, type: current_user_type }));
+    dispatch(fetchChatSolo({ locale: router.locale, id: chat_id }));
   }, [router.locale]);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ function MyOrdersUnPublishedpage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Chats",
+    seo_home_title: "Chats Index",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -82,4 +84,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MyOrdersUnPublishedpage);
+export default withAuth(MyChatSolo);

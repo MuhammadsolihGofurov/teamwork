@@ -1,0 +1,9 @@
+This is info for redux slices.
+
+my-chats.js -- for my all chats
+my-orders-details -- for customer (ish beruvchi) order's solo details
+my-orders -- for customer (ish beruvchi) orders
+my-tasks -- for expert (mutaxassis) tasks
+pagination -- for pagination
+settings -- for all
+user -

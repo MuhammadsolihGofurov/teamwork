@@ -5,6 +5,7 @@ import settingsReducer from "../slice/settings";
 import myOrdersReducer from "../slice/my-orders";
 import myOrdersDetailsReducer from "../slice/my-orders-details";
 import myChatsReducer from "../slice/my-chats";
+import myTasksReducer from "../slice/my-tasks";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     myOrders: myOrdersReducer,
     myOrdersDetails: myOrdersDetailsReducer,
     myChats: myChatsReducer,
+    myTasks: myTasksReducer,
   },
 });
 

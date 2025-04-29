@@ -1,6 +1,7 @@
 import { authAxios } from "@/utils/axios";
 import {
   ARCHIVED,
+  EXPERT,
   IN_PROGRESS,
   NOT_PUBLISHED,
   PUBLISHED,
@@ -12,9 +13,28 @@ import { toast } from "react-toastify";
 
 export const fetchChats = createAsyncThunk(
   "orders/fetchChats",
-  async (locale) => {
+  async ({ locale, type }) => {
+    const url = type == EXPERT ? `offer,creator` : `offer,partner.expert`;
+
     const response = await fetcher(
-      `/chat/my-chats?expand=offer,partner.expert`,
+      `/chat/my-chats?expand=${url}`,
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      },
+      {},
+      true
+    );
+    return response.data.items;
+  }
+);
+
+export const fetchChatSolo = createAsyncThunk(
+  "orders/fetchChatSolo",
+  async ({ locale, id }) => {
+    const response = await fetcher(
+      `/chat/by-id?id=${id}&expand=messages`,
       {
         headers: {
           "Accept-Language": locale,
@@ -31,6 +51,7 @@ const myChatsSlice = createSlice({
   name: "myChats",
   initialState: {
     chats: [],
+    solo_chat: null,
   },
   reducers: {
     setMyChats: (state, action) => {
@@ -45,10 +66,22 @@ const myChatsSlice = createSlice({
       })
       .addCase(fetchChats.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload;
         state.chats = action.payload;
       })
       .addCase(fetchChats.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      // fetch solo chat
+      .addCase(fetchChatSolo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchChatSolo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.solo_chat = action.payload;
+      })
+      .addCase(fetchChatSolo.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

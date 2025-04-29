@@ -20,7 +20,7 @@ export default function CenterDataWrapper({
   const currentData = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
     const end = start + pageSize;
-    return data.slice(start, end);
+    return data?.slice(start, end);
   }, [data, currentPage]);
 
   if (loading) {
@@ -48,9 +48,9 @@ export default function CenterDataWrapper({
       )}
       <Pagination
         data={{
-          totalCount: data.length,
+          totalCount: data?.length,
           currentPage: currentPage,
-          pageCount: Math.ceil(data.length / pageSize),
+          pageCount: Math.ceil(data?.length / pageSize),
         }}
         page="bg-white"
       />

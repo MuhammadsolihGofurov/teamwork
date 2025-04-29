@@ -1,33 +1,46 @@
 import { withAuth } from "@/components";
 import Seo from "@/components/Seo/Seo";
-import {
-  MobileNavigation,
-  ProfileWrapper,
-  RightInfoAll,
-} from "@/components/Utils";
-import {
-  CenterInfoProfile,
-  LeftInfoProfile,
-  RightInfoProfile,
-} from "@/components/profile";
-import {
-  LogOut,
-  MenuLinksBox,
-  PaymentBox,
-  PictureBox,
-} from "@/components/profile/details";
-import { InfoTopBanner } from "@/components/profile/details/info";
+import { ProfileWrapper, RightInfoAll } from "@/components/Utils";
+import { CenterInfoProfile, LeftInfoProfile } from "@/components/profile";
 import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
-import { TasksMenu } from "@/utils/profile-menu";
+import { OrdersMenu, TasksMenu } from "@/utils/profile-menu";
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
+import {
+  ARCHIVED,
+  IN_PROGRESS,
+  IN_PROGRESS_TASK,
+  NOT_PUBLISHED,
+  PUBLISHED,
+  VERGE_OF_AGREEMENT,
+} from "@/utils/data";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "@/redux/slice/my-orders";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { CenterDataWrapper } from "@/components/profile/details/orders";
+import { fetchMyOffers, fetchMyTasks } from "@/redux/slice/my-tasks";
 
-function page({ info }) {
+function MyTasks({ info }) {
   const router = useRouter();
   const intl = useIntl();
+  const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const {
+    my_tasks,
+    my_tasks_meta,
+    my_offers,
+    my_tasks_on_agreement,
+    my_tasks_finished,
+    my_tasks_canceled,
+  } = useSelector((state) => state.myTasks);
+
+  useEffect(() => {
+    dispatch(fetchMyTasks({ locale: router.locale }));
+    dispatch(fetchMyOffers({ locale: router.locale }));
+  }, [router.locale]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -35,7 +48,6 @@ function page({ info }) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [router.asPath]);
-
 
   return (
     <>
@@ -48,7 +60,7 @@ function page({ info }) {
         breads={[
           {
             id: 1,
-            name: intl.formatMessage({ id: "Topshiriqlarim" }),
+            name: intl.formatMessage({ id: "Buyurtmalarim" }),
             url: ProfileUrl,
             is_correct: true,
           },
@@ -56,10 +68,41 @@ function page({ info }) {
         indexNum={0}
         tabsMenu={TasksMenu}
         isMenuShow={true}
+        tabsMenuCounts={[
+          my_tasks?.length,
+          my_offers?.length,
+          my_tasks_on_agreement?.length,
+          my_tasks_finished?.length,
+          my_tasks_canceled?.length,
+        ]}
       >
-        <LeftInfoProfile />
-        <CenterInfoProfile page={"tasks/index"} tabsMenu={TasksMenu} />
-        <RightInfoAll />
+        {!isMobile ? (
+          <>
+            <LeftInfoProfile />
+            <CenterInfoProfile
+              page={"orders/index"}
+              tabsMenu={TasksMenu}
+              data={my_tasks}
+              tabsMenuCounts={[
+                my_tasks?.length,
+                my_offers?.length,
+                my_tasks_on_agreement?.length,
+                my_tasks_finished?.length,
+                my_tasks_canceled?.length,
+              ]}
+              card_type={IN_PROGRESS_TASK}
+            />
+            <RightInfoAll />
+          </>
+        ) : (
+          <>
+            <CenterDataWrapper
+              data={my_tasks}
+              page={"orders/index"}
+              card_type={IN_PROGRESS_TASK}
+            />
+          </>
+        )}
       </ProfileWrapper>
 
       {/* <MobileNavigation isReturn={true}/> */}
@@ -69,7 +112,7 @@ function page({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile Info ",
+    seo_home_title: "Customer's orders un published",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -86,4 +129,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(page);
+export default withAuth(MyTasks);

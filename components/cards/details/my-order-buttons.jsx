@@ -12,6 +12,8 @@ import {
 } from "@/redux/slice/my-orders-details";
 import {
   IN_PROGRESS,
+  IN_PROGRESS_TASK,
+  MY_OFFERS_TO_ORDER,
   NOT_PUBLISHED,
   ORDER_DETAILS_AGREEMENT_VIEW,
   ORDER_DETAILS_EXPERTS,
@@ -182,7 +184,7 @@ export default function MyOrderButtons({
           </svg>
           `,
       url: edit_url,
-      type: [PUBLISHED, NOT_PUBLISHED, ORDER_DETAILS_EXPERTS],
+      type: [PUBLISHED, NOT_PUBLISHED, ORDER_DETAILS_EXPERTS, MY_OFFERS_TO_ORDER],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
       is_displayed: edit_status,
@@ -241,6 +243,7 @@ export default function MyOrderButtons({
         ORDER_DETAILS_OFFERS,
         ORDER_DETAILS_EXPERTS,
         ORDER_DETAILS_AGREEMENT_VIEW,
+        IN_PROGRESS_TASK,
       ],
       isMobileName: true,
       color: "hover:text-main hover:border-main",
@@ -375,6 +378,18 @@ export default function MyOrderButtons({
       isActive: sorted,
       is_displayed: true,
     },
+    // read more -> my task
+    // {
+    //   id: 13,
+    //   name: intl.formatMessage({ id: "Ko'proq ko'rish" }),
+    //   icon: "",
+    //   url: `chats/${chat_id}`,
+    //   count: false,
+    //   type: [IN_PROGRESS_TASK],
+    //   isMobileName: true,
+    //   color: "hover:text-main hover:border-main",
+    //   is_displayed: true,
+    // },
   ];
 
   const filteredButtons = buttons.filter((button) =>

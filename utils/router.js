@@ -23,6 +23,7 @@ export const MyTasksOnAgreementUrl = "profile/tasks/on-agreement";
 export const MyTasksFinishedUrl = "profile/tasks/finished";
 export const MyTasksCancelUrl = "profile/tasks/cancel";
 export const MyTasksArchiveUrl = "profile/tasks/archive";
+export const MyTasksOffersEditUrl = "profile/tasks/offers/edit"
 
 // orders -- for CUSTOMER
 export const MyOrdersUrl = "profile/orders";
