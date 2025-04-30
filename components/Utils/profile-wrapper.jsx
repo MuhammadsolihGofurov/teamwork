@@ -9,18 +9,21 @@ export default function ProfileWrapper({
   isMenuShow,
   tabsMenuCounts,
   tabsMenuQuery,
+  page = "profile",
+  user_data = {},
 }) {
   return (
     <section className="4xl:mx-5 4xl:bg-bg-2 rounded-2xl mt-20 sm:mt-[100px] sm:py-3">
       <Breadcrumbs
         data={breads}
         isReturn={false}
-        page="profile"
+        page={page}
         indexNum={indexNum}
         tabsMenu={tabsMenu}
         isMenuShow={isMenuShow}
         tabsMenuCounts={tabsMenuCounts}
         tabsMenuQuery={tabsMenuQuery}
+        user_data={user_data}
       />
       <div className="container">
         <Breadcrumbs data={breads} isReturn={false} />

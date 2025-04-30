@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LogOut, MenuLinksBox, PictureBox, UserNameBox } from "./details";
 import { NextLink } from "../Utils";
 import { SoloChatUrl } from "@/utils/router";
@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { EXPERT } from "@/utils/data";
+import Skeleton from "react-loading-skeleton";
 
 export default function LeftInfoProfile({
   isMobile = false,
@@ -15,7 +16,7 @@ export default function LeftInfoProfile({
 }) {
   if (page === "chats") {
     return (
-      <Wrapper isMobile={isMobile}>
+      <Wrapper>
         <ChatsLists chats={chats} />
       </Wrapper>
     );
@@ -34,9 +35,7 @@ export const Wrapper = ({ children, isMobile }) => {
   return (
     <div
       id="left-info-profile"
-      className={`w-full sm:w-2/6 2xl:w-[21%] ${
-        isMobile ? "sm:hidden flex" : "sm:flex hidden"
-      } flex-col gap-2 `}
+      className={`w-full sm:w-2/6 2xl:w-[21%] flex flex-col gap-2 `}
     >
       <PictureBox />
       {/* <UserNameBox /> */}
@@ -49,6 +48,27 @@ export const ChatsLists = ({ chats }) => {
   const router = useRouter();
   const intl = useIntl();
   const { current_user_type } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [router.locale]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-0 bg-white rounded-lg sm:border border-bg-3 sm:p-2 text-sm sm:h-[462px] sm:overflow-y-auto scroll__none">
+        <div className="flex items-center gap-2">
+          <Skeleton width={40} height={40} circle/>
+          <div className="flex flex-col w-full">
+            <Skeleton height={14}/>
+            <Skeleton height={10}/>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-0 bg-white rounded-lg sm:border border-bg-3 sm:p-2 text-sm sm:h-[462px] sm:overflow-y-auto scroll__none">
@@ -66,7 +86,7 @@ export const ChatsLists = ({ chats }) => {
               className={`flex gap-3 p-2 rounded-lg hover:bg-main hover:bg-opacity-5 transition-colors duration-200 relative ${
                 isActive ? "bg-main bg-opacity-5" : ""
               }`}
-              key={expert?.full_name}
+              key={item?.id}
             >
               <LeftInfoProfilePicture
                 path={expert?.photo?.path}

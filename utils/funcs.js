@@ -75,3 +75,46 @@ export const formatDateForCard = (dateString) => {
   const year = date.getFullYear();
   return `${day} ${month} | ${year}`;
 };
+
+export function extractTime(datetimeStr) {
+  const date = new Date(datetimeStr);
+
+  if (isNaN(date)) {
+    return "Invalid date";
+  }
+
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+}
+
+export function groupMessagesByDate(messages) {
+  const grouped = messages.reduce((acc, msg) => {
+    const dateKey = formatDate(msg.created_at); // masalan: "26.02.2023"
+    if (!acc[dateKey]) acc[dateKey] = [];
+    acc[dateKey].push(msg);
+    return acc;
+  }, {});
+
+  // Har bir guruhni ichida sort qilamiz: eski > yangi
+  for (const key in grouped) {
+    grouped[key].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+  }
+
+  // object ni tartiblangan array ko'rinishiga o'tkazamiz
+  const sortedEntries = Object.entries(grouped).sort((a, b) => {
+    const dateA = new Date(a[1][0].created_at);
+    const dateB = new Date(b[1][0].created_at);
+    return dateA - dateB; // eski sanalar birinchi
+  });
+
+  // qaytib object holiga o'tkazamiz
+  const sortedGrouped = {};
+  for (const [key, value] of sortedEntries) {
+    sortedGrouped[key] = value;
+  }
+
+  return sortedGrouped;
+}
+

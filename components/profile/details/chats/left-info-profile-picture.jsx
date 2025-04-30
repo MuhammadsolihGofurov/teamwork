@@ -1,11 +1,17 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function LeftInfoProfilePicture({ path, full_name, is_online }) {
+export default function LeftInfoProfilePicture({
+  path,
+  full_name,
+  is_online,
+  type = "small",
+}) {
   const [imgSrc, setImgSrc] = useState(path ?? "/images/default.png");
+  const size = type == "small" ? "w-10 h-10" : "sm:w-14 w-10 h-10 sm:h-14";
   return (
-    <span className="relative w-10 h-10">
-      <span className="w-10 h-10 rounded-full overflow-hidden full__image">
+    <span className={`relative ${size}`}>
+      <span className={`${size} rounded-full overflow-hidden full__image`}>
         <Image
           src={imgSrc}
           title={full_name}

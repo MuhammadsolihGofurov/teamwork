@@ -20,7 +20,7 @@ function MyOrdersUnPublishedpage({ info }) {
 
   useEffect(() => {
     dispatch(fetchChats({ locale: router.locale, type: current_user_type }));
-  }, [router.locale]);
+  }, [router.locale, current_user_type]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];

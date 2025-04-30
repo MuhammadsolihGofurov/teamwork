@@ -1,6 +1,7 @@
 import { authAxios } from "@/utils/axios";
 import {
   ARCHIVED,
+  CUSTOMER,
   EXPERT,
   IN_PROGRESS,
   NOT_PUBLISHED,
@@ -13,7 +14,7 @@ import { toast } from "react-toastify";
 
 export const fetchChats = createAsyncThunk(
   "orders/fetchChats",
-  async ({ locale, type }) => {
+  async ({ locale, type = EXPERT }) => {
     const url = type == EXPERT ? `offer,creator` : `offer,partner.expert`;
 
     const response = await fetcher(
@@ -34,7 +35,7 @@ export const fetchChatSolo = createAsyncThunk(
   "orders/fetchChatSolo",
   async ({ locale, id }) => {
     const response = await fetcher(
-      `/chat/by-id?id=${id}&expand=messages`,
+      `/chat/by-id?id=${id}&expand=messages,task,offer,creator`,
       {
         headers: {
           "Accept-Language": locale,
@@ -43,7 +44,24 @@ export const fetchChatSolo = createAsyncThunk(
       {},
       true
     );
-    return response.data.items;
+    return response.data;
+  }
+);
+
+export const fetchMessages = createAsyncThunk(
+  "orders/fetchMessages",
+  async ({ locale, id }) => {
+    const response = await fetcher(
+      `/chat/message-list-by-chat-id?chat_id=${id}`,
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      },
+      {},
+      true
+    );
+    return response.data;
   }
 );
 
@@ -52,6 +70,8 @@ const myChatsSlice = createSlice({
   initialState: {
     chats: [],
     solo_chat: null,
+    loading: true,
+    messages: [],
   },
   reducers: {
     setMyChats: (state, action) => {
@@ -82,6 +102,19 @@ const myChatsSlice = createSlice({
         state.solo_chat = action.payload;
       })
       .addCase(fetchChatSolo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      // fetch messages
+      .addCase(fetchMessages.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        state.loading = false;
+        state.messages = action.payload;
+      })
+      .addCase(fetchMessages.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

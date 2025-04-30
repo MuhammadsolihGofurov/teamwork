@@ -80,10 +80,14 @@ import {
   REGISTERAUTHKEY,
   REGISTERPHONENUMBER,
 } from "@/utils/data";
+import { useSocket } from "@/hooks/useSocket";
+import { fetchMessages } from "@/redux/slice/my-chats";
 
 const withAuth = (WrappedComponent) => {
   return function AuthComponent(props) {
-    const { is_auth, error, loading } = useSelector((state) => state.user);
+    const { is_auth, error, loading, user_info } = useSelector(
+      (state) => state.user
+    );
     const dispatch = useDispatch();
     const router = useRouter();
     const intl = useIntl();
@@ -125,6 +129,17 @@ const withAuth = (WrappedComponent) => {
         }
       }
     }, [router, error]);
+
+    useSocket(user_info?.socket_key, (data) => {
+      // console.error("Real-time message:", data);
+      toast.info(
+        `${intl.formatMessage({ id: "Yangi xabar" })}, ${data?.data?.sender?.full_name}`
+      );
+      // Optional: Redux dispatch to save message
+      if (router.query.chat_id) {
+        dispatch(fetchMessages({ locale: router.locale, id: router.query.chat_id }));
+      }
+    });
 
     return <WrappedComponent {...props} />;
   };
