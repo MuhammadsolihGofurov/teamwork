@@ -14,7 +14,8 @@ import { toast } from "react-toastify";
 
 export const fetchChats = createAsyncThunk(
   "orders/fetchChats",
-  async ({ locale, type = EXPERT }) => {
+  async ({ locale, type }) => {
+    const user_type = await type;
     const url = type == EXPERT ? `offer,creator` : `offer,partner.expert`;
 
     const response = await fetcher(
@@ -72,10 +73,11 @@ const myChatsSlice = createSlice({
     solo_chat: null,
     loading: true,
     messages: [],
+    send_message: false,
   },
   reducers: {
-    setMyChats: (state, action) => {
-      state.chats = [];
+    toggleSendMessage: (state, action) => {
+      state.send_message = !state.send_message;
     },
   },
   extraReducers: (builder) => {
@@ -121,6 +123,6 @@ const myChatsSlice = createSlice({
   },
 });
 
-export const { setMyChats } = myChatsSlice.actions;
+export const { toggleSendMessage } = myChatsSlice.actions;
 
 export default myChatsSlice.reducer;

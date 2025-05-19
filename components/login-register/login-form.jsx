@@ -9,7 +9,7 @@ import { WithFacebook, WithGoogle } from "./details";
 import { ButtonSpinner } from "../custom/loading";
 import { unmaskPhone } from "@/utils/funcs";
 import axios from "@/utils/axios";
-import { ForgotPassword, ProfileUrl, RegisterUrl } from "@/utils/router";
+import { ForgotPassword, MyOrdersUrl, MyTasksUrl, ProfileUrl, RegisterUrl } from "@/utils/router";
 import { PersonImages } from "../custom";
 import { toast } from "react-toastify";
 import { PRIVATEAUTHKEY, REGISTERAUTHKEY } from "@/utils/data";
@@ -45,13 +45,21 @@ export default function LoginForm() {
       const response = await axios.post("/auth/login", payload);
 
       // localhost auth_key
+      console.error(response);
       localStorage.setItem(PRIVATEAUTHKEY, response?.data?.data?.auth_key);
 
       toast.success(intl.formatMessage({ id: "login-success-message" }));
 
-      setTimeout(() => {
-        router.push(`/${ProfileUrl}`);
-      }, 500);
+      if(response?.data?.data?.incomplete_user){
+        setTimeout(() => {
+          router.push(`/${ProfileUrl}`);
+        }, 500);
+      }else{
+        setTimeout(() => {
+          router.push(`/${MyOrdersUrl}`);
+        }, 500);
+      }
+
     } catch (e) {
       // console.error(e);
       toast.error(e?.response?.data?.message);
@@ -148,12 +156,12 @@ export default function LoginForm() {
           url={RegisterUrl}
           className="font-semibold text-main underline"
         >
-          {intl.formatMessage({ id: "Ro'yhatdan o'tish" })}
+          {intl.formatMessage({ id: "Ro'yxatdan o'ting" })}
         </NextLink>
       </div>
       <div className="flex flex-col items-start w-full gap-1">
         <h6 className="font-normal text-primary">
-          12 984 ta ro'yhatdan o'tgan foydalanuvchi
+          {intl.formatMessage({ id: "Ro'yxatdan o'tgan foydalanuvchilar" })}
         </h6>
         <PersonImages
           type="small"

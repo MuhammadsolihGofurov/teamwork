@@ -1,5 +1,5 @@
 import { NextLink } from "@/components/Utils";
-import { ExpertsUrl, FaqsUrl, TasksCreateUrl } from "@/utils/router";
+import { ExpertsUrl, FaqsUrl, TasksCreateUrl, TasksUrl } from "@/utils/router";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -9,8 +9,8 @@ export default function Menu({ type = "main" }) {
   const data = [
     {
       id: 1,
-      name: intl.formatMessage({ id: "addAd" }),
-      url: TasksCreateUrl,
+      name: intl.formatMessage({ id: "Topshiriqlar" }),
+      url: TasksUrl,
     },
     {
       id: 2,
@@ -19,9 +19,14 @@ export default function Menu({ type = "main" }) {
     },
     {
       id: 3,
-      name: intl.formatMessage({ id: "menuFAQ" }),
-      url: FaqsUrl,
+      name: intl.formatMessage({ id: "addAd" }),
+      url: TasksCreateUrl,
     },
+    // {
+    //   id: 3,
+    //   name: intl.formatMessage({ id: "menuFAQ" }),
+    //   url: FaqsUrl,
+    // },
   ];
 
   return (

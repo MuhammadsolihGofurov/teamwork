@@ -28,7 +28,7 @@ function MyChatSolo({ info }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
-  const { chats, solo_chat, loading, messages } = useSelector(
+  const { chats, solo_chat, loading, messages, send_message } = useSelector(
     (state) => state.myChats
   );
   const { current_user_type, user_info } = useSelector((state) => state.user);
@@ -38,7 +38,7 @@ function MyChatSolo({ info }) {
     dispatch(fetchChats({ locale: router.locale, type: current_user_type }));
     dispatch(fetchChatSolo({ locale: router.locale, id: chat_id }));
     dispatch(fetchMessages({ locale: router.locale, id: chat_id }));
-  }, [router.locale, current_user_type, chat_id]);
+  }, [router.locale, current_user_type, chat_id, send_message]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -46,7 +46,6 @@ function MyChatSolo({ info }) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [router.asPath]);
-
 
   const user_data = solo_chat?.creator
     ? solo_chat?.creator

@@ -132,13 +132,18 @@ const withAuth = (WrappedComponent) => {
 
     useSocket(user_info?.socket_key, (data) => {
       // console.error("Real-time message:", data);
-      toast.info(
-        `${intl.formatMessage({ id: "Yangi xabar" })}, ${data?.data?.sender?.full_name}`
-      );
-      // Optional: Redux dispatch to save message
-      if (router.query.chat_id) {
-        dispatch(fetchMessages({ locale: router.locale, id: router.query.chat_id }));
+      console.error(data);
+      if (user_info?.id == "") {
+        toast.info(
+          `${intl.formatMessage({ id: "Yangi xabar" })}, ${
+            data?.data?.sender?.full_name
+          }`
+        );
       }
+      // Optional: Redux dispatch to save message
+      // if (router.query.chat_id) {
+      //   dispatch(fetchMessages({ locale: router.locale, id: router.query.chat_id }));
+      // }
     });
 
     return <WrappedComponent {...props} />;

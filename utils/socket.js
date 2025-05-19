@@ -37,7 +37,7 @@ export const connectSocket = (token, onMessageCallback) => {
 
   socket.onerror = (error) => {
     console.error("WebSocket error:", error);
-    socket.close();
+    socket?.close();
   };
 };
 
@@ -55,7 +55,7 @@ const attemptReconnect = (token, onMessageCallback) => {
 
 export const disconnectSocket = () => {
   if (socket) {
-    socket.close();
+    socket?.close();
     clearTimeout(reconnectTimer);
     socket = null;
   }
@@ -63,7 +63,7 @@ export const disconnectSocket = () => {
 
 export const sendMessage = (message) => {
   if (socket?.readyState === WebSocket.OPEN) {
-    socket.send(JSON.stringify(message));
+    socket?.send(JSON.stringify(message));
   } else {
     toast.warning("⛔ Xabar yuborilmadi. Socket ulanmagan.");
   }

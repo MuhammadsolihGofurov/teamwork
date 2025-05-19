@@ -62,8 +62,10 @@ export const BioInfoUrl = "profile/info/bio-info";
 export const SavedTasksUrl = "profile/saved/tasks";
 export const SavedExpertsUrl = "profile/saved/experts";
 // Portoflio
-export const PortfolioTeamworkUrl = "profile/portfolio/teamwork";
-export const PortfolioOthersUrl = "profile/portfolio/others";
+// export const PortfolioTeamworkUrl = "profile/portfolio/teamwork";
+export const PortfolioTeamworkUrl = "assoon";
+// export const PortfolioOthersUrl = "profile/portfolio/others";
+export const PortfolioOthersUrl = "assoon";
 // Payment
 export const MyPaymentUrl = "profile/payment";
 

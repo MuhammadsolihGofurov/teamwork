@@ -2,7 +2,12 @@ import { formatDateForCard, thousandSeperate } from "@/utils/funcs";
 import React from "react";
 import { useIntl } from "react-intl";
 import { NextLink } from "../Utils";
-import { MyOrdersViewIdUrl, MyTasksOffersEditUrl } from "@/utils/router";
+import {
+  MyOrdersViewExpertsUrl,
+  MyOrdersViewIdUrl,
+  MyOrdersViewOffersUrl,
+  MyTasksOffersEditUrl,
+} from "@/utils/router";
 import { MyOrderButtons } from "./details";
 import {
   EXPERT,
@@ -22,10 +27,19 @@ import { useSelector } from "react-redux";
 export default function MyOrderCard({ data, card_type = "archive" }) {
   const { current_user_type } = useSelector((state) => state.user);
   const intl = useIntl();
-  const url =
-    current_user_type == EXPERT
-      ? `#`
-      : `${MyOrdersViewIdUrl}?task_id=${data?.id}`;
+  let url = ``;
+
+  if (current_user_type == EXPERT) {
+    url = "#";
+  } else {
+    if (data?.count_of_offer > 0) {
+      url = `${MyOrdersViewOffersUrl}?task_id=${data?.id}`;
+    } else if (data?.count_of_candidate > 0) {
+      url = `${MyOrdersViewExpertsUrl}?task_id=${data?.id}`;
+    } else {
+      url = `${MyOrdersViewIdUrl}?task_id=${data?.id}`;
+    }
+  }
 
   if (card_type === MY_OFFERS_TO_ORDER) {
     return (

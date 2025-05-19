@@ -1,11 +1,40 @@
+import { useMessageReadObserver } from "@/hooks/useMessageReadObserver";
+import { authAxios } from "@/utils/axios";
 import { extractTime, groupMessagesByDate } from "@/utils/funcs";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function MessageBody({ messages = [], task_id }) {
   const { user_info } = useSelector((state) => state.user);
+  const router = useRouter();
+  const chat_id = router.query.chat_id;
 
   const groupedMessages = groupMessagesByDate(messages);
+
+  const [seenMessages, setSeenMessages] = useState(new Set());
+
+  const handleSeen = useCallback(
+    async (messageId) => {
+      if (seenMessages.has(messageId)) return;
+
+      try {
+        await authAxios.post(`/chat/mark-as-read?chat_id=${chat_id}`, [
+          messageId,
+        ]);
+
+        setSeenMessages((prev) => new Set(prev).add(messageId));
+      } catch (error) {
+        console.error("Failed to mark as read:", error);
+      }
+    },
+    [chat_id, seenMessages]
+  );
+
+  const { observe } = useMessageReadObserver({
+    chatId: chat_id,
+    onSeen: handleSeen,
+  });
 
   return (
     <div className="sm:p-5 h-[450px] sm:h-[490px] bg-white scroll__none flex flex-col items-start overflow-y-auto">
@@ -57,6 +86,16 @@ export default function MessageBody({ messages = [], task_id }) {
             return (
               <div
                 className={`flex w-full pb-8 ${isOwnerWrapper}`}
+                ref={(el) => {
+                  if (
+                    el &&
+                    !item?.read &&
+                    item?.sender_id !== user_info?.id 
+                  ) {
+                    observe(el);
+                  }
+                }}
+                data-id={item?.id}
                 key={item?.id}
               >
                 <div

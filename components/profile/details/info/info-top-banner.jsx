@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { StatusChangeBtn } from ".";
 import { InfoTopSkeleton } from "@/components/Skeleton/profile";
+import { toast } from "react-toastify";
 
 export default function InfoTopBanner({ isMobile = false }) {
   const intl = useIntl();
@@ -42,6 +43,7 @@ export default function InfoTopBanner({ isMobile = false }) {
       role: EXPERT,
       isCorrect: false,
       isAccept: false,
+      assson: true,
     },
   ];
 
@@ -86,7 +88,13 @@ export default function InfoTopBanner({ isMobile = false }) {
             <button
               type="button"
               role="button"
-              onClick={() => setChangedStatus(item.id)}
+              onClick={() => {
+                if (item.assson) {
+                  toast.success(intl.formatMessage({ id: "Tez kunda" }));
+                } else {
+                  setChangedStatus(item.id);
+                }
+              }}
               key={item?.name}
               className={`flex ${
                 changedStatus === item.id

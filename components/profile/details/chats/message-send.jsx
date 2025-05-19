@@ -1,4 +1,4 @@
-import { fetchMessages } from "@/redux/slice/my-chats";
+import { fetchMessages, toggleSendMessage } from "@/redux/slice/my-chats";
 import { authAxios } from "@/utils/axios";
 import { sendMessage } from "@/utils/socket";
 import { useRouter } from "next/router";
@@ -46,7 +46,9 @@ export default function MessageSend() {
       );
 
       //   sendMessage(message); // WebSocket orqali yuborish
-      dispatch(fetchMessages({ locale: router.locale, id: chat_id }));
+      if (response) {
+        dispatch(toggleSendMessage());
+      }
       reset(); // forma tozalanadi
     } catch (error) {
       console.error("Xatolik:", error);
@@ -71,7 +73,7 @@ export default function MessageSend() {
           <path
             d="M13 4.99996L6.50001 11.5C6.10218 11.8978 5.87869 12.4374 5.87869 13C5.87869 13.5626 6.10218 14.1021 6.50001 14.5C6.89783 14.8978 7.4374 15.1213 8.00001 15.1213C8.56262 15.1213 9.10218 14.8978 9.50001 14.5L16 7.99996C16.7957 7.20432 17.2427 6.12518 17.2427 4.99996C17.2427 3.87475 16.7957 2.79561 16 1.99996C15.2044 1.20432 14.1252 0.757324 13 0.757324C11.8748 0.757324 10.7957 1.20432 10 1.99996L3.50001 8.49996C2.30653 9.69344 1.63605 11.3121 1.63605 13C1.63605 14.6878 2.30653 16.3065 3.50001 17.5C4.69348 18.6934 6.31218 19.3639 8.00001 19.3639C9.68784 19.3639 11.3065 18.6934 12.5 17.5L19 11"
             stroke="#222222"
-            strokewidth="1.4"
+            strokeWidth="1.4"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

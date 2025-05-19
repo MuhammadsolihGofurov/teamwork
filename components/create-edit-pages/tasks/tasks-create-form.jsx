@@ -46,6 +46,14 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
     },
   });
 
+  useEffect(() => {
+    const savedDraft = localStorage.getItem("taskDraft");
+    if (savedDraft) {
+      const parsedDraft = JSON.parse(savedDraft);
+      reset(parsedDraft);
+    }
+  }, [reset]);
+
   const inabilityToPrice = watch("inability_to_price");
   const inabilityToDeadLine = watch("inability_to_dead_line");
   const isPrice = inabilityToPrice == 1;
@@ -109,6 +117,41 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
       setReqLoading(false);
     }
   };
+
+  const saveToArchive = () => {
+    const formValues = watch();
+
+    try {
+      localStorage.setItem("taskDraft", JSON.stringify(formValues));
+      toast.success(intl.formatMessage({ id: "Qoralama saqlandi!" }));
+    } catch (err) {
+      toast.error(intl.formatMessage({ id: "Qoralama saqlanmadi!" }));
+    }
+  };
+
+  useEffect(() => {
+    // const handleBeforeUnload = () => {
+    //   const formValues = watch();
+    //   localStorage.setItem("taskDraft", JSON.stringify(formValues));
+    // };
+
+    // Sahifadan chiqish yoki boshqa sahifaga o‘tishda chaqiriladi
+    window.addEventListener("beforeunload", saveToArchive);
+    window.addEventListener("pagehide", saveToArchive); // mobil brauzerlar uchun
+
+    return () => {
+      window.removeEventListener("beforeunload", saveToArchive);
+      window.removeEventListener("pagehide", saveToArchive);
+    };
+  }, [watch]);
+
+  useEffect(() => {
+    router.events.on("routeChangeStart", saveToArchive);
+
+    return () => {
+      router.events.off("routeChangeStart", saveToArchive);
+    };
+  }, [watch, router]);
 
   return (
     <form
@@ -294,6 +337,18 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
         </div>
       </div>
       <div className="flex gap-5 sm:gap-1 flex-col-reverse sm:flex-row col-span-1 sm:w-auto w-full pt-5">
+        <button
+          type="button"
+          className={`py-4 font-semibold  bg-primary w-full rounded-lg flex items-center justify-center text-center transition-opacity duration-300 text-white`}
+          // disabled={reqLoading || !isValid}
+          onClick={() => saveToArchive()}
+        >
+          {reqLoading ? (
+            <ButtonSpinner />
+          ) : (
+            intl.formatMessage({ id: "Qoralama sifatida saqlash" })
+          )}
+        </button>
         <button
           type="submit"
           className={`py-4 font-semibold  bg-main w-full rounded-lg flex items-center justify-center text-center transition-opacity duration-300 ${

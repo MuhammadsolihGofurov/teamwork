@@ -14,6 +14,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function MenuLinksBox({ isMobile = false }) {
   const intl = useIntl();
@@ -98,6 +99,7 @@ export default function MenuLinksBox({ isMobile = false }) {
       `,
       url: PortfolioTeamworkUrl,
       is_mobile: true,
+      assoon: true,
     },
     {
       id: 7,
@@ -109,6 +111,7 @@ export default function MenuLinksBox({ isMobile = false }) {
       `,
       url: "",
       is_mobile: true,
+      assoon: true,
     },
     {
       id: 8,
@@ -131,6 +134,7 @@ export default function MenuLinksBox({ isMobile = false }) {
       `,
       url: "",
       is_mobile: true,
+      assoon: true,
     },
     {
       id: 10,
@@ -142,6 +146,7 @@ export default function MenuLinksBox({ isMobile = false }) {
       `,
       url: "",
       is_mobile: false,
+      assoon: true,
     },
   ];
 
@@ -177,6 +182,53 @@ export default function MenuLinksBox({ isMobile = false }) {
     >
       {filteredLinks?.map((link) => {
         const isCorrect = currentRouter == link?.url?.split("/")?.[1];
+
+        if (link?.assoon) {
+          return (
+            <button
+              onClick={() => toast.success(intl.formatMessage({id: "Tez kunda"}))}
+              key={link?.name}
+              className={` items-center relative z-0 px-5 py-3 sm:py-0 sm:px-0 border sm:border-none border-bg-3 w-full rounded-lg ${
+                link?.is_mobile ? "flex" : " sm:flex hidden"
+              } gap-2 ${
+                isCorrect ? "text-main" : "text-primary"
+              }  font-medium text-sm group hover:text-main transition-colors duration-200`}
+            >
+              <span className="w-4 flex items-center justify-center">
+                <span
+                  className={`group-hover:text-main ${
+                    isCorrect ? "text-main" : "text-primary"
+                  } transition-colors duration-200`}
+                  dangerouslySetInnerHTML={{
+                    __html: link?.icon.replace(
+                      /stroke="[^"]*"/g,
+                      'stroke="currentColor"'
+                    ),
+                  }}
+                />
+              </span>
+              <span>{link?.name}</span>
+
+              {/* Arrow */}
+              <svg
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute top-2/4 -translate-y-2/4 right-5 sm:hidden block"
+              >
+                <path
+                  d="M6.75 5L11.25 9.5L6.75 14"
+                  stroke="#222222"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          );
+        }
 
         return (
           <NextLink
