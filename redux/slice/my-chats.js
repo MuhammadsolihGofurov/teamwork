@@ -74,10 +74,14 @@ const myChatsSlice = createSlice({
     loading: true,
     messages: [],
     send_message: false,
+    reply_for: {},
   },
   reducers: {
     toggleSendMessage: (state, action) => {
       state.send_message = !state.send_message;
+    },
+    toggleReplyFor: (state, action) => {
+      state.reply_for = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -123,6 +127,6 @@ const myChatsSlice = createSlice({
   },
 });
 
-export const { toggleSendMessage } = myChatsSlice.actions;
+export const { toggleSendMessage, toggleReplyFor } = myChatsSlice.actions;
 
 export default myChatsSlice.reducer;

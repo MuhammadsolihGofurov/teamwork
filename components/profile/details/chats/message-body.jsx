@@ -1,16 +1,21 @@
 import { useMessageReadObserver } from "@/hooks/useMessageReadObserver";
+import { toggleReplyFor } from "@/redux/slice/my-chats";
 import { authAxios } from "@/utils/axios";
 import { extractTime, groupMessagesByDate } from "@/utils/funcs";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MessageBody({ messages = [], task_id }) {
   const { user_info } = useSelector((state) => state.user);
+  const { reply_for } = useSelector((state) => state.myChats);
   const router = useRouter();
   const chat_id = router.query.chat_id;
+  const dispatch = useDispatch();
 
   const groupedMessages = groupMessagesByDate(messages);
+
+  const repliedMessages = "";
 
   const [seenMessages, setSeenMessages] = useState(new Set());
 
@@ -37,7 +42,7 @@ export default function MessageBody({ messages = [], task_id }) {
   });
 
   return (
-    <div className="sm:p-5 h-[450px] sm:h-[490px] bg-white scroll__none flex flex-col items-start overflow-y-auto">
+    <div className="sm:p-5 h-[450px] sm:h-[490px] bg-white scroll__none flex flex-col items-start overflow-y-auto relative z-0">
       {Object.entries(groupedMessages).map(([date, msgs, index]) => (
         <div key={date + index} className="w-full">
           <div className="text-center text-xs font-normal text-primary text-opacity-60 my-4">
@@ -87,11 +92,7 @@ export default function MessageBody({ messages = [], task_id }) {
               <div
                 className={`flex w-full pb-8 ${isOwnerWrapper}`}
                 ref={(el) => {
-                  if (
-                    el &&
-                    !item?.read &&
-                    item?.sender_id !== user_info?.id 
-                  ) {
+                  if (el && !item?.read && item?.sender_id !== user_info?.id) {
                     observe(el);
                   }
                 }}
@@ -101,13 +102,24 @@ export default function MessageBody({ messages = [], task_id }) {
                 <div
                   className={`px-5 py-4 rounded-2xl ${isOwnerMessage} pr-8 flex flex-col gap-1 max-w-[400px] relative min-w-[120px]`}
                 >
-                  <h5 className="text-primary">{item?.content}</h5>
+                  <h5 className="text-primary break-words">{item?.content}</h5>
                   <p className="text-xs text-primary text-opacity-80">
                     {extractTime(item?.created_at)}
                   </p>
 
                   {!isState && (
-                    <button type="button" className="absolute top-4 right-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        dispatch(
+                          toggleReplyFor({
+                            id: item?.id,
+                            message: item?.content,
+                          })
+                        );
+                      }}
+                      className="absolute top-4 right-3"
+                    >
                       <svg
                         width="16"
                         height="16"
@@ -161,6 +173,30 @@ export default function MessageBody({ messages = [], task_id }) {
           })}
         </div>
       ))}
+
+      {/* reply message */}
+      {reply_for && (
+        <div className="w-3/5 flex items-center justify-between rounded-md text-primary text-sm gap-3 py-2 px-5 bg-primary bg-opacity-5 sticky left-0 bottom-3 sm:bottom-0">
+          <span className="line-clamp-1">{reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message}</span>
+          <button type="button" onClick={() => dispatch(toggleReplyFor(null))}>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.99609 1L0.996094 9M0.996094 1L8.99609 9"
+                stroke="#222222"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

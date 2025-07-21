@@ -4,6 +4,7 @@ import {
   MyTasksUrl,
   SavedExpertsUrl,
   SavedTasksUrl,
+  SoloChatUrl,
 } from "@/utils/router";
 import { useRouter } from "next/router";
 import React from "react";
@@ -23,6 +24,7 @@ export default function MobileNavigation() {
     `/${SavedTasksUrl}`,
     `/${MyTasksUrl}`,
     `/${ChatsUrl}`,
+    // `/${SoloChatUrl}`
   ];
   const isReturn = !isReturnUnUsePath.includes(router.pathname);
 

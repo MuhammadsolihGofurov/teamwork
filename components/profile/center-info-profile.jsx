@@ -185,6 +185,16 @@ export default function CenterInfoProfile({
     );
   }
 
+  if (page === "my-vacancy/index") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
+        <CenterDataWrapper data={data} page={page} card_type={card_type} />
+      </CenterInfoWrapper>
+    );
+  }
+
   return <CenterInfoWrapper></CenterInfoWrapper>;
 }
 // bitta wrapper olish va uni ichida bitta top uchun section bo'ladi qoganlari pagega qarab render qilinadi xuddi register-form kabi

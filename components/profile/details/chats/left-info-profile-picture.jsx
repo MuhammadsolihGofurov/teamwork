@@ -18,7 +18,7 @@ export default function LeftInfoProfilePicture({
           alt=""
           width={0}
           height={0}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-full"
           layout="responsive"
           onError={() => setImgSrc("/images/defaultAvatar.png")}
         />
