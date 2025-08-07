@@ -16,6 +16,7 @@ const nextConfig = {
     // like ['domen.uz']
     domains: [
       "php.teamwork.uz",
+      "billing.teamwork.uz",
       "teamworkbucket.s3.amazonaws.com",
       "teamwork.uz",
     ],
