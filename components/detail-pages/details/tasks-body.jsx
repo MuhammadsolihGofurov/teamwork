@@ -40,7 +40,10 @@ export default function TasksBody({
       ) : (
         <></>
       )}
-      <p className="text-primary text-lg">{more_info}</p>
+      {/* <p className="text-primary text-lg">{more_info}</p> */}
+      <div>
+        <div className="text-primary text-lg" dangerouslySetInnerHTML={{ __html: more_info }}/>
+      </div>
       {attachments?.length > 0 ? (
         <div className="flex flex-row gap-2 flex-wrap gallery">
           <LightGallery>
