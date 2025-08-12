@@ -28,14 +28,20 @@ export default function MultiSelect({
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(null);
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const [searchedOptions, setSearchedOptions] = useState([]);
+
+  // console.error("Selected State:", selectedState);
+  // console.error("Options:", options);
+  // console.error("Filtered Options:", filteredOptions);
+  // console.error("Searched Options:", searchedOptions);
 
   const fetchSkills = useCallback(
     debounce(async (query) => {
       try {
         const response = await authAxios.post("/skill/search", { name: query });
-        setFilteredOptions(response?.data?.data || []);
+        setSearchedOptions(response?.data?.data || []);
       } catch (error) {
         // console.error("Skill search error:", error);
       }
@@ -48,17 +54,32 @@ export default function MultiSelect({
       if (search) {
         fetchSkills(search);
       } else if (JSON.stringify(filteredOptions) !== JSON.stringify(options)) {
-        setFilteredOptions(options);
+        setSearchedOptions(options);
       }
     } else {
-      const newOptions = options.filter((option) =>
-        option.name.toLowerCase().includes(search.toLowerCase())
-      );
-      if (JSON.stringify(newOptions) !== JSON.stringify(filteredOptions)) {
-        setFilteredOptions(newOptions);
+      setSearchedOptions(options);
+      if (search !== null && search !== "") {
+        const newOptions = options.filter((option) =>
+          option.name.toLowerCase().includes(search?.toLowerCase())
+        );
+        if (JSON.stringify(newOptions) !== JSON.stringify(searchedOptions)) {
+          setSearchedOptions(newOptions);
+        }
       }
     }
   }, [search, select_type, options]);
+
+
+  useEffect(() => {
+    if (selectedState && selectedState.length > 0) {
+      const initialSelected = options.filter((option) =>
+        selectedState.some((selected) => selected.id === option.id)
+      );
+      setFilteredOptions(initialSelected);
+    } else {
+      setFilteredOptions([]);
+    }
+  }, [selectedState]);
 
   const handleClickOutside = useCallback((event) => {
     if (
@@ -79,18 +100,20 @@ export default function MultiSelect({
   }, [handleClickOutside]);
 
   const handleSelect = (field, option) => {
-    let updatedOptions = [...selectedState];
+    let updatedOptions = [...filteredOptions];
     if (updatedOptions.some((o) => o.id === option.id)) {
       updatedOptions = updatedOptions.filter((o) => o.id !== option.id);
     } else {
+      setFilteredOptions((prev) => [...prev, option]);
       updatedOptions.push(option);
     }
     dispatch(setSelectedAction(updatedOptions));
+    setFilteredOptions(updatedOptions);
     field.onChange(updatedOptions.map((o) => o.id));
   };
 
   const removeOption = (field, option) => {
-    let updatedOptions = selectedState.filter((o) => o.id !== option.id);
+    let updatedOptions = filteredOptions?.filter((o) => o.id !== option.id);
     dispatch(setSelectedAction(updatedOptions));
     field.onChange(updatedOptions.map((o) => o.id));
   };
@@ -151,18 +174,18 @@ export default function MultiSelect({
             transition-transform duration-150`}
                 ref={dropdownRef}
               >
-                {filteredOptions?.length === 0 ? (
+                {searchedOptions?.length === 0 ? (
                   <p className="text-center py-4 text-sm text-gray-500">
                     {empty_message}
                   </p>
                 ) : (
-                  filteredOptions?.map((option) => (
+                  searchedOptions?.map((option) => (
                     <button
                       type="button"
                       key={option?.name + option?.id}
                       onClick={() => handleSelect(field, option)}
                       className={`p-2 hover:bg-gray-100 flex items-center gap-2 ${
-                        selectedState.some((o) => o.id === option.id)
+                        filteredOptions?.some((o) => o.id === option.id)
                           ? "bg-main bg-opacity-15 font-medium"
                           : ""
                       } transition-colors text-primary duration-200 rounded-md cursor-pointer text-start`}
@@ -174,31 +197,9 @@ export default function MultiSelect({
               </div>
             </div>
 
-            {selectedState?.length > 0 && (
+            {filteredOptions?.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-3">
-                {selectedState?.map((option) => (
-                  // <Tooltip
-                  //   key={option?.name + option.id}
-                  //   placement={"bottom"}
-                  //   content={intl.formatMessage({
-                  //     id: "O'chirish uchun ustiga bosing",
-                  //   })}
-                  // >
-                  //   <button
-                  //     type="button"
-                  //     onClick={() => removeOption(field, option)}
-                  //     className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
-                  //   >
-                  //     {option.name}
-                  //   </button>
-                  // </Tooltip>
-                  // <Tooltip
-
-                  //   placement={"bottom"}
-                  //   content={intl.formatMessage({
-                  //     id: "O'chirish uchun ustiga bosing",
-                  //   })}
-                  // >
+                {filteredOptions?.map((option) => (
                   <button
                     type="button"
                     key={option?.name + option.id}
@@ -207,7 +208,6 @@ export default function MultiSelect({
                   >
                     {option.name}
                   </button>
-                  // </Tooltip>
                 ))}
               </div>
             )}
@@ -272,12 +272,12 @@ export default function MultiSelect({
             transition-transform duration-150`}
               ref={dropdownRef}
             >
-              {filteredOptions.length === 0 ? (
+              {options.length === 0 ? (
                 <p className="text-center py-4 text-sm text-gray-500">
                   {empty_message}
                 </p>
               ) : (
-                filteredOptions.map((option) => (
+                options.map((option) => (
                   <button
                     type="button"
                     key={option?.name + option?.id}
@@ -295,31 +295,9 @@ export default function MultiSelect({
             </div>
           </div>
 
-          {selectedState.length > 0 && (
+          {filteredOptions.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-3 pl-5">
-              {selectedState.map((option) => (
-                // <Tooltip
-                //   key={option?.name + option.id}
-                //   placement={"bottom"}
-                //   content={intl.formatMessage({
-                //     id: "O'chirish uchun ustiga bosing",
-                //   })}
-                // >
-                //   <button
-                //     type="button"
-                //     onClick={() => removeOption(field, option)}
-                //     className="flex items-center bg-white px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-red-200"
-                //   >
-                //     {option.name}
-                //   </button>
-                // </Tooltip>
-                // <Tooltip
-
-                //   placement={"bottom"}
-                //   content={intl.formatMessage({
-                //     id: "O'chirish uchun ustiga bosing",
-                //   })}
-                // >
+              {filteredOptions.map((option) => (
                 <button
                   type="button"
                   key={option?.name + option.id}
@@ -328,7 +306,6 @@ export default function MultiSelect({
                 >
                   {option.name}
                 </button>
-                // </Tooltip>
               ))}
             </div>
           )}

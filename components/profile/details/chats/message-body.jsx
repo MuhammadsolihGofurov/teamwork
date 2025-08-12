@@ -175,7 +175,7 @@ export default function MessageBody({ messages = [], task_id }) {
       ))}
 
       {/* reply message */}
-      {reply_for && (
+      {/* {reply_for ? (
         <div className="w-3/5 flex items-center justify-between rounded-md text-primary text-sm gap-3 py-2 px-5 bg-primary bg-opacity-5 sticky left-0 bottom-3 sm:-bottom-0">
           <span className="line-clamp-1">{reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message} {reply_for?.message}</span>
           <button type="button" onClick={() => dispatch(toggleReplyFor(null))}>
@@ -196,7 +196,7 @@ export default function MessageBody({ messages = [], task_id }) {
             </svg>
           </button>
         </div>
-      )}
+      ): <></>} */}
     </div>
   );
 }

@@ -3,7 +3,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { MyOrderButtons } from ".";
-import { ORDER_DETAILS_AGREEMENT_VIEW, ORDER_DETAILS_EXPERTS } from "@/utils/data";
+import {
+  ORDER_DETAILS_AGREEMENT_VIEW,
+  ORDER_DETAILS_EXPERTS,
+} from "@/utils/data";
 
 export default function ProfileRate({
   rate,
@@ -14,6 +17,7 @@ export default function ProfileRate({
   specialities,
   chat_id,
   id,
+  is_online,
 }) {
   const [imgSrc, setImgSrc] = useState(path ?? "/images/default.png");
   const intl = useIntl();
@@ -96,6 +100,7 @@ export default function ProfileRate({
             <h3 className="font-medium text-lg sm:text-xl leading-5 sm:leading-6 pt-1">
               {full_name}
             </h3>
+
             <div className="flex flex-row flex-wrap gap-y-0 gap-x-1">
               {specialities?.map((item) => {
                 return (
@@ -211,6 +216,14 @@ export default function ProfileRate({
             <h3 className="font-medium text-lg sm:text-xl leading-5 sm:leading-6 pt-1">
               {full_name}
             </h3>
+            <p className="text-sm text-main font-normal">
+              <span>{intl.formatMessage({ id: "Holati" })}:</span>{" "}
+              <span>
+                {intl.formatMessage({
+                  id: is_online ? "online" : "online emas",
+                })}
+              </span>
+            </p>
             <div className="flex flex-row flex-wrap gap-y-0 gap-x-1">
               {specialities?.map((item) => {
                 return (

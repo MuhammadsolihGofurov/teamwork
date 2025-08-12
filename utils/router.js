@@ -18,6 +18,7 @@ export const SoloChatUrl = "profile/chats/messages";
 
 // tasks -- for EXPERT
 export const MyTasksUrl = "profile/tasks";
+export const MyTaskPublishedUrl = "profile/tasks";
 export const MyTasksOffersUrl = "profile/tasks/offers";
 export const MyTasksOnAgreementUrl = "profile/tasks/on-agreement";
 export const MyTasksFinishedUrl = "profile/tasks/finished";
@@ -27,6 +28,7 @@ export const MyTasksOffersEditUrl = "profile/tasks/offers/edit"
 
 // orders -- for CUSTOMER
 export const MyOrdersUrl = "profile/orders";
+export const MyOrdersPublishedUrl = "profile/orders/published";
 export const MyTasksOrdersUrl = "profile/tasks/orders";
 export const MyOrdersOnProcessUrl = "profile/orders/on-process";
 export const MyOrdersOnAgreementUrl = "profile/orders/on-agreement";

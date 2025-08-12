@@ -56,7 +56,7 @@ export default function MakeOfferModal() {
 
       const payload = {
         task_id,
-        count_of_days,
+        count_of_days: Number(count_of_days),
         price,
         text,
       };

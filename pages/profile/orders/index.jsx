@@ -68,6 +68,7 @@ function MyOrdersUnPublishedpage({ info }) {
         tabsMenu={OrdersMenu}
         isMenuShow={true}
         tabsMenuCounts={[
+          orders?.length,
           publishedOrders?.length,
           inProgressOrders?.length,
           vergeOfAgreementOrders?.length,
@@ -81,8 +82,9 @@ function MyOrdersUnPublishedpage({ info }) {
             <CenterInfoProfile
               page={"orders/index"}
               tabsMenu={OrdersMenu}
-              data={publishedOrders}
+              data={orders}
               tabsMenuCounts={[
+                orders?.length,
                 publishedOrders?.length,
                 inProgressOrders?.length,
                 vergeOfAgreementOrders?.length,
@@ -96,7 +98,7 @@ function MyOrdersUnPublishedpage({ info }) {
         ) : (
           <>
             <CenterDataWrapper
-              data={publishedOrders}
+              data={orders}
               page={"orders/index"}
               card_type={PUBLISHED}
             />
@@ -111,7 +113,7 @@ function MyOrdersUnPublishedpage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Customer's orders un published",
+    seo_home_title: "Customer's orders all",
     seo_home_keywords: "",
     seo_home_description: "",
   };

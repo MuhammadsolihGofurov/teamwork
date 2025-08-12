@@ -68,6 +68,7 @@ function MyOrdersUnPublishedpage({ info }) {
         tabsMenu={OrdersMenu}
         isMenuShow={true}
         tabsMenuCounts={[
+          orders?.length,
           publishedOrders?.length,
           inProgressOrders?.length,
           vergeOfAgreementOrders?.length,
@@ -83,6 +84,7 @@ function MyOrdersUnPublishedpage({ info }) {
               tabsMenu={OrdersMenu}
               data={inProgressOrders}
               tabsMenuCounts={[
+                orders?.length,
                 publishedOrders?.length,
                 inProgressOrders?.length,
                 vergeOfAgreementOrders?.length,

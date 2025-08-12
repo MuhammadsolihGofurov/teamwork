@@ -8,6 +8,7 @@ import {
   MyOrdersArchiveUrl,
   MyOrdersOnAgreementUrl,
   MyOrdersOnProcessUrl,
+  MyOrdersPublishedUrl,
   MyOrdersUnPublishedUrl,
   MyOrdersUrl,
   MyOrdersViewExpertsUrl,
@@ -18,6 +19,7 @@ import {
   MyRatesNegativeUrl,
   MyRatesNeutralUrl,
   MyRatesPositiveUrl,
+  MyTaskPublishedUrl,
   MyTasksArchiveUrl,
   MyTasksCancelUrl,
   MyTasksFinishedUrl,
@@ -71,7 +73,7 @@ export const TasksMenu = [
   {
     id: 1,
     name: "Faol buyurtmalar",
-    url: MyTasksUrl,
+    url: MyTaskPublishedUrl,
     role: EXPERT,
     additional_url: false,
   },
@@ -114,9 +116,16 @@ export const TasksMenu = [
 
 export const OrdersMenu = [
   {
+    id: 0,
+    name: "Barchasi",
+    url: MyOrdersUrl,
+    role: CUSTOMER,
+    additional_url: false,
+  },
+  {
     id: 1,
     name: "Chop etilgan",
-    url: MyOrdersUrl,
+    url: MyOrdersPublishedUrl,
     role: CUSTOMER,
     additional_url: false,
   },

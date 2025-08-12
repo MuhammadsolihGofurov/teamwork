@@ -21,6 +21,7 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
   const router = useRouter();
   const intl = useIntl();
   const [reqLoading, setReqLoading] = useState(false);
+  const [saveDraftLoading, setSaveDraftLoading] = useState(false);
   const { specialityChildren } = useSelector((state) => state.settings);
   const {
     register,
@@ -122,10 +123,14 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
     const formValues = watch();
 
     try {
+      setSaveDraftLoading(true);
       localStorage.setItem("taskDraft", JSON.stringify(formValues));
       toast.success(intl.formatMessage({ id: "Qoralama saqlandi!" }));
     } catch (err) {
+      setSaveDraftLoading(false);
       toast.error(intl.formatMessage({ id: "Qoralama saqlanmadi!" }));
+    }finally{
+      setSaveDraftLoading(false);
     }
   };
 
@@ -343,7 +348,7 @@ export default function TasksCreateForm({ page = "profile", isMobile }) {
           // disabled={reqLoading || !isValid}
           onClick={() => saveToArchive()}
         >
-          {reqLoading ? (
+          {saveDraftLoading ? (
             <ButtonSpinner />
           ) : (
             intl.formatMessage({ id: "Qoralama sifatida saqlash" })

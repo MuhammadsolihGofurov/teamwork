@@ -6,7 +6,7 @@ import { AgreementCreateForm } from "./details";
 export default function CenterAgreementCreate({ type = "", data, method }) {
   const isMobile = useIsMobile();
 
-  const owner = data?.owner?.expert;
+  const owner = data?.owner;
 
   return (
     <div
@@ -18,6 +18,7 @@ export default function CenterAgreementCreate({ type = "", data, method }) {
         type={type}
         full_name={owner?.full_name}
         user_type={owner?.level_of_expert}
+        is_online={owner?.is_online}
       />
       <AgreementCreateForm oldData={data?.task} method={method}/>
     </div>

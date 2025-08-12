@@ -101,10 +101,6 @@ const myTasks = createSlice({
           (item) => item?.status?.value === ACCEPTED_ORDER_BY_EMPLOYER
         );
 
-        // my tasks finished
-        state.my_tasks_finished = action.payload?.items?.filter(
-          (item) => item?.status?.value === ACCEPTED_ORDER_BY_EMPLOYER
-        );
         // my tasks on agreement
         state.my_tasks_on_agreement = action.payload?.items?.filter(
           (item) => item?.status?.value === VERGE_OF_AGREEMENT_TASK

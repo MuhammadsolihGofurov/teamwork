@@ -4,7 +4,7 @@ import { ProfileWrapper, RightInfoAll } from "@/components/Utils";
 import { CenterInfoProfile, LeftInfoProfile } from "@/components/profile";
 import { ChatsUrl } from "@/utils/router";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -19,19 +19,18 @@ import {
   MessageHeader,
   MessageSend,
 } from "@/components/profile/details/chats";
-import { EXPERT } from "@/utils/data";
-import { connectSocket } from "@/utils/socket";
-import { useSocket } from "@/hooks/useSocket";
+import { CUSTOMER, EXPERT } from "@/utils/data";
 
 function MyChatSolo({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const [userData, setUserData] = useState();
   const { chats, solo_chat, loading, messages } = useSelector(
     (state) => state.myChats
   );
-  const { current_user_type, user_info } = useSelector((state) => state.user);
+  const { current_user_type } = useSelector((state) => state.user);
   const chat_id = router.query.chat_id;
 
   useEffect(() => {
@@ -41,24 +40,30 @@ function MyChatSolo({ info }) {
   }, [router.locale, current_user_type, chat_id]);
 
   useEffect(() => {
+  const isCreator = current_user_type === CUSTOMER;
+
+  setUserData({
+    full_name: isCreator
+      ? solo_chat?.offer?.owner?.full_name
+      : solo_chat?.creator?.full_name,
+    photo: isCreator
+      ? solo_chat?.offer?.owner?.photo?.url
+      : solo_chat?.creator?.photo?.url,
+    is_online: isCreator
+      ? solo_chat?.offer?.owner?.is_online
+      : solo_chat?.creator?.is_online,
+    loading: loading,
+    text: solo_chat?.title,
+    task_id: solo_chat?.task_id,
+  });
+}, [solo_chat, loading]);
+
+  useEffect(() => {
     const hash = router.asPath.split("#")[1];
     if (hash) {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [router.asPath]);
-
-  const user_data = solo_chat?.creator
-    ? solo_chat?.creator
-    : solo_chat?.partner?.expert;
-
-  const currentInfo = {
-    full_name: user_data?.full_name,
-    photo_url: user_data?.photo?.url,
-    is_online: user_data?.is_online,
-    loading: loading,
-    text: solo_chat?.title,
-    task_id: solo_chat?.task_id,
-  };
 
   return (
     <>
@@ -76,14 +81,14 @@ function MyChatSolo({ info }) {
           },
         ]}
         page="chats"
-        user_data={currentInfo}
+        user_data={userData}
       >
         {!isMobile ? (
           <>
             <LeftInfoProfile page="chats" chats={chats} />
             <CenterInfoWrapper>
               <div className="flex flex-col border border-bg-3 rounded-lg overflow-hidden">
-                <MessageHeader user_data={currentInfo} />
+                <MessageHeader user_data={userData} />
                 <MessageBody messages={messages} task_id={solo_chat?.task_id} />
                 <MessageSend />
               </div>

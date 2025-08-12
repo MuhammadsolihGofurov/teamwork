@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
 
 export default function MenuTabs({
   data,
@@ -28,34 +31,43 @@ export default function MenuTabs({
     <div
       className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden overflow-x-auto w-full scroll__none`}
     >
-      {filteredRoles?.map((item, index) => {
-        const isCorrect =
-          `/${item?.url}` == router.pathname ||
-          `/${item?.additional_url}` == router.pathname;
-        return (
-          <NextLink
-            url={`${item?.url}${tabsMenuQuery}`}
-            key={item?.name}
-            className={`flex items-center gap-2 py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
-              isCorrect
-                ? "bg-main bg-opacity-10 text-main"
-                : "bg-white text-primary"
-            }`}
-          >
-            {item.icon && (
-              <span dangerouslySetInnerHTML={{ __html: item?.icon }} />
-            )}
-            <span className="flex items-center">
-              {intl.formatMessage({ id: item?.name })}{" "}
-              {tabsMenuCounts
-                ? tabsMenuCounts?.[index] !== "none"
-                  ? `(${tabsMenuCounts?.[index]})`
-                  : ""
-                : ""}
-            </span>
-          </NextLink>
-        );
-      })}
+      <Swiper
+        spaceBetween={10}
+        slidesPerView="auto"
+        freeMode={true}
+        grabCursor={true}
+        style={{ padding: "0 4px" }}
+      >
+        {filteredRoles?.map((item, index) => {
+          const isCorrect =
+            `/${item?.url}` == router.pathname ||
+            `/${item?.additional_url}` == router.pathname;
+          return (
+            <SwiperSlide key={item?.name} style={{ width: "auto" }}>
+              <NextLink
+                url={`${item?.url}${tabsMenuQuery}`}
+                className={`flex items-center gap-2 py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
+                  isCorrect
+                    ? "bg-main bg-opacity-10 text-main"
+                    : "bg-white text-primary"
+                }`}
+              >
+                {item.icon && (
+                  <span dangerouslySetInnerHTML={{ __html: item?.icon }} />
+                )}
+                <span className="flex items-center">
+                  {intl.formatMessage({ id: item?.name })}{" "}
+                  {tabsMenuCounts
+                    ? tabsMenuCounts?.[index] !== "none"
+                      ? `(${tabsMenuCounts?.[index]})`
+                      : ""
+                    : ""}
+                </span>
+              </NextLink>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
   );
 }

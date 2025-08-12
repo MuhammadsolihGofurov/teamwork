@@ -6,13 +6,12 @@ import { ProfileUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { OrdersMenu, TasksMenu } from "@/utils/profile-menu";
+import { OrdersMenu } from "@/utils/profile-menu";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
 import {
   ARCHIVED,
   IN_PROGRESS,
-  IN_PROGRESS_TASK,
   NOT_PUBLISHED,
   PUBLISHED,
   VERGE_OF_AGREEMENT,
@@ -21,25 +20,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { CenterDataWrapper } from "@/components/profile/details/orders";
-import { fetchMyOffers, fetchMyTasks } from "@/redux/slice/my-tasks";
 
-function MyTasks({ info }) {
+function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const {
-    my_tasks,
-    my_tasks_meta,
-    my_offers,
-    my_tasks_on_agreement,
-    my_tasks_finished,
-    my_tasks_canceled,
-  } = useSelector((state) => state.myTasks);
+    orders,
+    publishedOrders,
+    unpublishedOrders,
+    archivedOrders,
+    inProgressOrders,
+    vergeOfAgreementOrders,
+    loading,
+    error,
+  } = useSelector((state) => state.myOrders);
 
   useEffect(() => {
-    dispatch(fetchMyTasks({ locale: router.locale }));
-    dispatch(fetchMyOffers({ locale: router.locale }));
+    dispatch(fetchOrders(router.locale));
   }, [router.locale]);
 
   useEffect(() => {
@@ -66,14 +65,15 @@ function MyTasks({ info }) {
           },
         ]}
         indexNum={0}
-        tabsMenu={TasksMenu}
+        tabsMenu={OrdersMenu}
         isMenuShow={true}
         tabsMenuCounts={[
-          my_tasks?.length,
-          my_offers?.length,
-          my_tasks_on_agreement?.length,
-          my_tasks_finished?.length,
-          my_tasks_canceled?.length,
+          orders?.length,
+          publishedOrders?.length,
+          inProgressOrders?.length,
+          vergeOfAgreementOrders?.length,
+          unpublishedOrders?.length,
+          archivedOrders?.length,
         ]}
       >
         {!isMobile ? (
@@ -81,25 +81,26 @@ function MyTasks({ info }) {
             <LeftInfoProfile />
             <CenterInfoProfile
               page={"orders/index"}
-              tabsMenu={TasksMenu}
-              data={my_tasks}
+              tabsMenu={OrdersMenu}
+              data={publishedOrders}
               tabsMenuCounts={[
-                my_tasks?.length,
-                my_offers?.length,
-                my_tasks_on_agreement?.length,
-                my_tasks_finished?.length,
-                my_tasks_canceled?.length,
+                orders?.length,
+                publishedOrders?.length,
+                inProgressOrders?.length,
+                vergeOfAgreementOrders?.length,
+                unpublishedOrders?.length,
+                archivedOrders?.length,
               ]}
-              card_type={IN_PROGRESS_TASK}
+              card_type={PUBLISHED}
             />
             <RightInfoAll />
           </>
         ) : (
           <>
             <CenterDataWrapper
-              data={my_tasks}
+              data={publishedOrders}
               page={"orders/index"}
-              card_type={IN_PROGRESS_TASK}
+              card_type={PUBLISHED}
             />
           </>
         )}
@@ -112,7 +113,7 @@ function MyTasks({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Customer's Archived Tasks",
+    seo_home_title: "Customer's orders un published",
     seo_home_keywords: "",
     seo_home_description: "",
   };
@@ -129,4 +130,4 @@ export async function getServerSideProps({ params, locale }) {
 }
 
 // Sahifani withAuth bilan himoyalash
-export default withAuth(MyTasks);
+export default withAuth(MyOrdersUnPublishedpage);

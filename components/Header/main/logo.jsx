@@ -13,7 +13,7 @@ export default function LogoMain() {
         className="block w-[125px] sm:w-[150px]"
       >
         <img
-          src="/images/logo-old.svg"
+          src="/images/logo-new.svg"
           alt="logo"
           title="logo"
           loading="lazy"

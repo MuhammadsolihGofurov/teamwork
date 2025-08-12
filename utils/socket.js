@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 let socket = null;
 let reconnectAttempts = 0;
 const MAX_RECONNECT_ATTEMPTS = 5;
-const RECONNECT_INTERVAL = 3000; // 3 sekund
+const RECONNECT_INTERVAL = 100000;
 
 let reconnectTimer = null;
 
