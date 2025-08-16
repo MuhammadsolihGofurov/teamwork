@@ -6,7 +6,7 @@ export default function Header() {
   return (
     // <header className="py-3 sm:py-5 fixed top-0 left-0 right-0 w-full z-[100] bg-white sm:border-0 border-b border-black border-opacity-10">
     <header className="pb-5 fixed top-0 left-0 right-0 w-full z-[100] bg-white sm:border-0 border-b border-black border-opacity-10">
-      <a href="https://teamwork.uz" target="_blank" className="flex items-center justify-center text-white font-medium gap-2 pb-2 pt-2 bg-main mb-1">
+      <a href="https://old.teamwork.uz" target="_blank" className="flex items-center justify-center text-white font-medium gap-2 pb-2 pt-2 bg-main mb-1">
         <span>{intl.formatMessage({ id: "Avvalgi talqinga qaytish" })}</span>
         <span className="rotate-180 inline-block">
           <svg

@@ -97,6 +97,10 @@ const Layout = ({ children }) => {
       {/* Nav Bottom */}
       {/* <NavBottom /> */}
 
+      {
+        router.locale == "uz" ? <script src="replain_uz.js"></script> : <script src="replain_ru.js"></script>
+      }
+
       {/* Scripts */}
       {/* <Script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></Script> */}
       {/* <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></Script> */}
