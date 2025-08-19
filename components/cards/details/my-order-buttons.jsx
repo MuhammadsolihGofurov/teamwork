@@ -184,7 +184,12 @@ export default function MyOrderButtons({
           </svg>
           `,
       url: edit_url,
-      type: [PUBLISHED, NOT_PUBLISHED, ORDER_DETAILS_EXPERTS, MY_OFFERS_TO_ORDER],
+      type: [
+        PUBLISHED,
+        NOT_PUBLISHED,
+        ORDER_DETAILS_EXPERTS,
+        MY_OFFERS_TO_ORDER,
+      ],
       isMobileName: false,
       color: "hover:text-main hover:border-main",
       is_displayed: edit_status,
@@ -432,7 +437,7 @@ export default function MyOrderButtons({
         key={button.name}
         onClick={() => {
           if (button.confirmModal) {
-            showModal({
+            showModal("confirm", {
               title: button.modalTitle,
               message: button.modalBody,
               onConfirm: () => button.modalFunc(id),

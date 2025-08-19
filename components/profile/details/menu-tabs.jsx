@@ -29,23 +29,29 @@ export default function MenuTabs({
 
   return (
     <div
-      className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden overflow-x-auto w-full scroll__none`}
+      className={`p-1 rounded-lg bg-white border border-bg-3 sm:flex hidden overflow-x-auto w-full scroll__none menu_swiper`}
     >
       <Swiper
         spaceBetween={10}
         slidesPerView="auto"
         freeMode={true}
         grabCursor={true}
+        centeredSlides={false}
+        initialSlide={0}
         style={{ padding: "0 4px" }}
+        className="custom-swiper"
       >
         {filteredRoles?.map((item, index) => {
           const isCorrect =
             `/${item?.url}` == router.pathname ||
             `/${item?.additional_url}` == router.pathname;
+
           return (
             <SwiperSlide key={item?.name} style={{ width: "auto" }}>
               <NextLink
-                url={`${item?.url}${tabsMenuQuery}`}
+                url={`${item?.url}${tabsMenuQuery}${
+                  item?.query ? item?.query : ""
+                }`}
                 className={`flex items-center gap-2 py-3 px-5 rounded-lg font-semibold hover:text-main transition-colors duration-200 text-nowrap ${
                   isCorrect
                     ? "bg-main bg-opacity-10 text-main"

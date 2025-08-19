@@ -5,3 +5,4 @@ export { default as MenuLinksBox } from "./menu-links-box";
 export { default as LogOut } from "./log-out";
 export { default as MenuTabs } from "./menu-tabs";
 export { default as PaymentBox } from "./payment-box";
+export { default as PaymentTable } from "./payment/payment-table";

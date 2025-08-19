@@ -425,5 +425,15 @@
   "Yangi xabar": "Новое сообщение",
   "Matningizni yozing": "Напишите свой текст",
   "---profile-tasks---": "",
-  "Avvalgi talqinga qaytish": "Вернуться к предыдущему просмотру"
+  "Avvalgi talqinga qaytish": "Вернуться к предыдущему просмотру",
+  "--payment--": "",
+  "Kirim": "Доход",
+  "Chiqim": "Расходы",
+  "Barcha tranzaksiyalar": "Все транзакции",
+  "Hisobni to'ldirish": "Пополнение счёта",
+  "Hisobingizni qancha miqdorda to’ldirmoqchisiz?": "На какую сумму вы хотите пополнить счёт?",
+  "To‘lov tizimlaridan birini tanlang": "Выберите одну из платёжных систем",
+  "To’lovni amalga oshirish shartlari": "Условия проведения платежа",
+  "bilan tanishdim va roziman": "Ознакомлен и согласен",
+  "---payment---": ""
 }

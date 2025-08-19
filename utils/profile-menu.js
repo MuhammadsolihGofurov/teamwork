@@ -15,6 +15,9 @@ import {
   MyOrdersViewIdUrl,
   MyOrdersViewOffersUrl,
   MyOrdersViewSavedUrl,
+  MyPaymentIncomeUrl,
+  MyPaymentOutgoingsUrl,
+  MyPaymentUrl,
   MyRatesAllUrl,
   MyRatesNegativeUrl,
   MyRatesNeutralUrl,
@@ -263,5 +266,31 @@ export const ReturnToOffers = [
     <path d="M3.33301 8H12.6663M3.33301 8L7.33301 12M3.33301 8L7.33301 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     `,
+  },
+];
+
+export const PaymentMenu = [
+  {
+    id: 1,
+    name: "Barcha tranzaksiyalar",
+    url: MyPaymentUrl,
+    role: "all",
+    additional_url: false,
+  },
+  {
+    id: 2,
+    name: "Kirim",
+    url: MyPaymentIncomeUrl,
+    role: "all",
+    additional_url: false,
+    query: "?type=1"
+  },
+  {
+    id: 3,
+    name: "Chiqim",
+    url: MyPaymentOutgoingsUrl,
+    role: "all",
+    additional_url: false,
+    query: "?type=2"
   },
 ];

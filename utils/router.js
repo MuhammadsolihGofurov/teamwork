@@ -70,6 +70,8 @@ export const PortfolioTeamworkUrl = "assoon";
 export const PortfolioOthersUrl = "assoon";
 // Payment
 export const MyPaymentUrl = "profile/payment";
+export const MyPaymentIncomeUrl = "profile/payment/income";
+export const MyPaymentOutgoingsUrl = "profile/payment/outgoings"
 
 // === WITHOUT AUTH ===
 export const AddAdsUrl = "add-ad";

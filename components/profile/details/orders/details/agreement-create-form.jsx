@@ -76,11 +76,8 @@ export default function AgreementCreateForm({ oldData = {}, method }) {
 
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("agreement_price", inability_to_price ? "" : budget);
-      formData.append(
-        "dead_line",
-        inability_to_dead_line ? "" : dead_line?.startDate
-      );
+      formData.append("agreement_price", budget);
+      formData.append("dead_line", dead_line?.startDate);
       formData.append("more_info", more_info);
       //   formData.append("count_of_days", count_of_days);
       // formData.append("inability_to_price", inability_to_price ? 1 : 0);

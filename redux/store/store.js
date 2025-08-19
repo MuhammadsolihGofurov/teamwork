@@ -6,6 +6,7 @@ import myOrdersReducer from "../slice/my-orders";
 import myOrdersDetailsReducer from "../slice/my-orders-details";
 import myChatsReducer from "../slice/my-chats";
 import myTasksReducer from "../slice/my-tasks";
+import myPayment from "../slice/payment";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     myOrdersDetails: myOrdersDetailsReducer,
     myChats: myChatsReducer,
     myTasks: myTasksReducer,
+    myPayment: myPayment,
   },
 });
 

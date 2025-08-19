@@ -95,6 +95,7 @@ html,
 body {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  padding-top: 10px;
 }
 
 img {
@@ -225,4 +226,18 @@ input[type="number"] {
 
 .message__offer_shape {
   clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+
+.modal{
+  align-items: start;
+  overflow-y: auto;
+}
+
+
+@media screen and (min-height: 450px) {
+  .modal {
+    align-items: center;
+    overflow-y: hidden;
+  }
 }

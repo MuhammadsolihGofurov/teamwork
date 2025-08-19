@@ -9,7 +9,7 @@ export default function ConfirmModal() {
 
   useEffect(() => {
     if (modal.isOpen) {
-      setTimeout(() => setVisible(true), 10); 
+      setTimeout(() => setVisible(true), 10);
     } else {
       setVisible(false);
     }
@@ -22,6 +22,8 @@ export default function ConfirmModal() {
       className={`fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 ${
         visible ? "opacity-100 z-[1000]" : "opacity-0 z-[-1]"
       }`}
+      role="dialog"
+      aria-modal="true"
       onClick={closeModal}
     >
       <div
@@ -54,17 +56,17 @@ export default function ConfirmModal() {
         </button>
 
         <h3 className="text-lg font-semibold text-primary pt-4 pb-2 leading-5">
-          {intl.formatMessage({ id: modal.title })}
+          {intl.formatMessage({ id: modal?.props?.title })}
         </h3>
         <p className="text-sm font-normal text-opacity-65 text-primary">
-          {intl.formatMessage({ id: modal.message })}
+          {intl.formatMessage({ id: modal?.props?.message })}
         </p>
 
         <div className="flex gap-2 justify-center pt-5">
           <button
             type="button"
             onClick={() => {
-              modal.onConfirm();
+              modal?.props?.onConfirm();
               closeModal();
             }}
             className="px-5 py-2 w-[120px] bg-main font-medium text-white rounded-lg hover:bg-white border-2 border-main hover:text-main transition-colors duration-200"

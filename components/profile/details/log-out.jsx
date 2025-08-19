@@ -36,7 +36,7 @@ export default function LogOut({ isMobile = false }) {
       type="button"
       role="button"
       onClick={() =>
-        showModal({
+        showModal("confirm", {
           title: "logOutModalTitle",
           message: "logOutModalBody",
           onConfirm: handleLogOut,

@@ -24,7 +24,7 @@ import "../styles/globals.css";
 import { Bounce, Flip, ToastContainer } from "react-toastify";
 import { fetchUserData } from "@/redux/slice/user";
 import { ModalProvider } from "@/context/modal-provider";
-import { ConfirmModal } from "@/components/modals";
+import { ConfirmModal, PaymentModal } from "@/components/modals";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -81,7 +81,8 @@ export default function App({ Component, pageProps }) {
                 <Component {...pageProps} />
 
                 {/* modals */}
-                <ConfirmModal />
+                {/* <ConfirmModal /> */}
+                {/* <PaymentModal /> */}
               </Layout>
               <ToastContainer
                 position="top-right"

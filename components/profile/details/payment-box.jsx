@@ -1,4 +1,5 @@
 import { PaymentBoxSkeleton } from "@/components/Skeleton/profile";
+import { useModal } from "@/context/modal-provider";
 import { thousandSeperate } from "@/utils/funcs";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -7,6 +8,7 @@ import { useSelector } from "react-redux";
 export default function PaymentBox({ isMobile = false }) {
   const intl = useIntl();
   const { user_info, loading } = useSelector((state) => state.user);
+  const { showModal } = useModal();
 
   if (loading) {
     return <PaymentBoxSkeleton />;
@@ -63,6 +65,7 @@ export default function PaymentBox({ isMobile = false }) {
             <button
               type="button"
               className="min-h-14 max-h-14 w-14 rounded-full flex items-center justify-center border border-bg-3 hover:border-main transition-colors duration-200 group "
+              onClick={() => showModal("payment")}
             >
               <svg
                 width="16"

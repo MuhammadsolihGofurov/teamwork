@@ -7,7 +7,7 @@ import {
   InfoPhysicalChanges,
   InfoTopBanner,
 } from "./details/info";
-import { MenuTabs, PaymentBox } from "./details";
+import { MenuTabs, PaymentBox, PaymentTable } from "./details";
 import { useIntl } from "react-intl";
 import {
   CenterAgreementCreate,
@@ -135,6 +135,25 @@ export default function CenterInfoProfile({
     );
   }
 
+  if (page === "payment") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <PaymentBox />
+        <MenuTabs
+          data={tabsMenu}
+          tabsMenuCounts={tabsMenuCounts}
+          tabsMenuQuery={tabsMenuQuery}
+        />
+        <PaymentTable
+          data={data}
+          type={page}
+          method={method}
+          pagination={pagination}
+        />
+      </CenterInfoWrapper>
+    );
+  }
+
   if (page === "orders/agreement/view") {
     return (
       <CenterInfoWrapper isMobile={isMobile}>
@@ -180,7 +199,7 @@ export default function CenterInfoProfile({
   if (page === "chats") {
     return (
       <CenterInfoWrapper isMobile={isMobile}>
-        <CenterChatsData data={data}/>
+        <CenterChatsData data={data} />
       </CenterInfoWrapper>
     );
   }

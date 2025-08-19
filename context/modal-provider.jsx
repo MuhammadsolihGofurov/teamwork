@@ -1,3 +1,4 @@
+import ModalManager from "@/components/modals/modal-manager";
 import { createContext, useContext, useState } from "react";
 
 const ModalContext = createContext();
@@ -5,25 +6,28 @@ const ModalContext = createContext();
 export function ModalProvider({ children }) {
   const [modal, setModal] = useState({
     isOpen: false,
-    title: "",
-    message: "",
-    onConfirm: () => {},
+    type: null,    
+    props: {},      
   });
 
-  const showModal = ({ title, message, onConfirm }) => {
-    setModal({ isOpen: true, title, message, onConfirm });
+  const showModal = (type, props = {}) => {
+    setModal({ isOpen: true, type, props });
   };
 
   const closeModal = () => {
-    setModal({ ...modal, isOpen: false });
+    setModal((prev) => ({ ...prev, isOpen: false }));
   };
 
   return (
     <ModalContext.Provider value={{ modal, showModal, closeModal }}>
       {children}
+      <ModalManager modal={modal} closeModal={closeModal} />
     </ModalContext.Provider>
   );
 }
+
+
+
 
 export function useModal() {
   return useContext(ModalContext);
