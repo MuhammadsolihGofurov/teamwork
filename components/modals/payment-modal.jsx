@@ -86,27 +86,35 @@ export default function PaymentModal() {
     }
 
     try {
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "https://checkout.paycom.uz";
+      // const form = document.createElement("form");
+      // form.method = "POST";
+      // form.action = "https://checkout.paycom.uz";
 
-      const inputs = [
-        { name: "merchant", value: "6284d69d72a6247c4200586b" },
-        { name: "amount", value: send_amount(data?.amount) },
-        { name: "account[clientID]", value: user_info?.id },
-        { name: "callback", value: `${window.location.origin}/payment` },
-      ];
+      // const inputs = [
+      //   { name: "merchant", value: "68a46e520523f2f9efc01386" },
+      //   { name: "amount", value: send_amount(data?.amount) },
+      //   { name: "account[clientID]", value: user_info?.id },
+      //   { name: "callback", value: `${window.location.origin}/payment` },
+      // ];
 
-      inputs.forEach(({ name, value }) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = name;
-        input.value = value;
-        form.appendChild(input);
-      });
+      // inputs.forEach(({ name, value }) => {
+      //   const input = document.createElement("input");
+      //   input.type = "hidden";
+      //   input.name = name;
+      //   input.value = value;
+      //   form.appendChild(input);
+      // });
 
-      document.body.appendChild(form);
-      form.submit();
+      // // console.error(form)
+
+      // document.body.appendChild(form);
+      // form.submit();
+
+      const clientId = user_info?.id; // user id
+      const merchantId = "68a46e520523f2f9efc01386"; // sizning merchant id
+
+      // Payme fallback sahifasiga redirect
+      window.location.href = `https://payme.uz/fallback/merchant/?id=${merchantId}&userid=${clientId}&amount=${send_amount(data?.amount)}`;
 
       reset();
     } catch (e) {

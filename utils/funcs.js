@@ -49,14 +49,14 @@ export function unmaskPhone(value) {
 }
 
 export const maskPhoneNumber = (phone) => {
-  if (!phone || phone.length < 4) return ""; 
+  if (!phone || phone.length < 4) return "";
   return `***-${phone.slice(-4, -2)}-${phone.slice(-2)}`;
 };
 
 export const formatDate = (date) => {
   if (!date) return "";
   const parsedDate = new Date(date);
-  if (isNaN(parsedDate.getTime())) return "Invalid Date"; 
+  if (isNaN(parsedDate.getTime())) return "Invalid Date";
 
   const day = String(parsedDate.getDate()).padStart(2, "0");
   const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
@@ -67,7 +67,18 @@ export const formatDate = (date) => {
 
 export const formatDateForCard = (dateString) => {
   const months = [
-    "yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr"
+    "yanvar",
+    "fevral",
+    "mart",
+    "aprel",
+    "may",
+    "iyun",
+    "iyul",
+    "avgust",
+    "sentyabr",
+    "oktyabr",
+    "noyabr",
+    "dekabr",
   ];
   const date = new Date(dateString);
   const day = date.getDate();
@@ -83,8 +94,8 @@ export function extractTime(datetimeStr) {
     return "Invalid date";
   }
 
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
 
   return `${hours}:${minutes}`;
 }
@@ -99,7 +110,9 @@ export function groupMessagesByDate(messages) {
 
   // Har bir guruhni ichida sort qilamiz: eski > yangi
   for (const key in grouped) {
-    grouped[key].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    grouped[key].sort(
+      (a, b) => new Date(a.created_at) - new Date(b.created_at)
+    );
   }
 
   // object ni tartiblangan array ko'rinishiga o'tkazamiz
@@ -118,7 +131,6 @@ export function groupMessagesByDate(messages) {
   return sortedGrouped;
 }
 
-
 export function formatDateForPayment(date) {
   const d = new Date(date);
 
@@ -134,6 +146,5 @@ export function formatDateForPayment(date) {
 
 export function send_amount(amount) {
   if (!amount) return "0";
-  return amount.toString().replace(/\s/g, "") + "00";
+  return (parseFloat(amount.toString().replace(/\s/g, "")) * 100).toFixed(0);
 }
-
