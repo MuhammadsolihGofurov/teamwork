@@ -94,28 +94,28 @@ export default function IndexExpertCard({ data }) {
                 <div className="w-[90px] h-[60px] rounded-md overflow-hidden">
                   <img
                     src="/images/left-banner.png"
-                    alt=""
+                    alt="Teamwork platform banner"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="w-[90px] h-[60px] rounded-md overflow-hidden">
                   <img
                     src="/images/left-banner.png"
-                    alt=""
+                    alt="Teamwork platform banner"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="w-[90px] h-[60px] rounded-md overflow-hidden">
                   <img
                     src="/images/left-banner.png"
-                    alt=""
+                    alt="Teamwork platform banner"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="w-[90px] h-[60px] rounded-md overflow-hidden">
                   <img
                     src="/images/left-banner.png"
-                    alt=""
+                    alt="Teamwork platform banner"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -186,28 +186,28 @@ export default function IndexExpertCard({ data }) {
             <div className="w-full h-[60px] rounded-md overflow-hidden">
               <img
                 src="/images/left-banner.png"
-                alt=""
+                alt="Teamwork platform banner"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="w-full h-[60px] rounded-md overflow-hidden">
               <img
                 src="/images/left-banner.png"
-                alt=""
+                alt="Teamwork platform banner"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="w-full h-[60px] rounded-md overflow-hidden">
               <img
                 src="/images/left-banner.png"
-                alt=""
+                alt="Teamwork platform banner"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="w-full h-[60px] rounded-md overflow-hidden">
               <img
                 src="/images/left-banner.png"
-                alt=""
+                alt="Teamwork platform banner"
                 className="w-full h-full object-cover"
               />
             </div>

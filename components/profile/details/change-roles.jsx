@@ -73,7 +73,7 @@ export default function ChangeRoles() {
             disabled={isCurrent}
             key={role?.name}
             onClick={() => {
-              showModal({
+              showModal("confirm", {
                 title: "RoleChangeTitle",
                 message: "RoleChangeBody",
                 onConfirm: () => handleChangeRole(role?.code),

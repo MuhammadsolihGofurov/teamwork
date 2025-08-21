@@ -165,7 +165,7 @@ export default function PaymentModal() {
           {intl.formatMessage({ id: "Hisobni to'ldirish" })}
         </h1>
 
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex flex-col w-full">
           <p className="text-sm text-primary">
             {intl.formatMessage({
               id: "Hisobingizni qancha miqdorda to’ldirmoqchisiz?",
@@ -182,7 +182,7 @@ export default function PaymentModal() {
             required
             page={"with-border-bg"}
             validation={{
-              required: intl.formatMessage({ id: "RequiredOfferPrice" }),
+              required: intl.formatMessage({ id: "RequiredAmount" }),
             }}
           />
         </div>

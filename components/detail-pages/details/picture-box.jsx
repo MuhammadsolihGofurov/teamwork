@@ -135,7 +135,7 @@ export default function PictureBox({
             src={imgSrc}
             width={90}
             height={90}
-            alt=""
+            alt="Teamwork platform banner"
             title={title}
             layout="responsive"
             className="w-full h-full object-cover"

@@ -1,4 +1,8 @@
-User-Agent: *
-Disallow: /*compare
+# Umumiy qoidalar
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
 
-Sitemap: must be a link
+# XML sitemap manzili
+Sitemap: https://www.sizning-domeningiz.uz/sitemap.xml

@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/redux/slice/my-orders";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { CenterDataWrapper } from "@/components/profile/details/orders";
+import { MenuTabs } from "@/components/profile/details";
+import { CenterSavedData } from "@/components/profile/details/saved";
 
 function MySavedTasks({ info }) {
   const router = useRouter();
@@ -71,7 +73,14 @@ function MySavedTasks({ info }) {
             <RightInfoAll />
           </>
         ) : (
-          <></>
+          <>
+            <MenuTabs data={MySavedMenu} tabsMenuCounts={[]} />
+            <CenterSavedData
+              pageDetails={"tasks"}
+              data={publishedOrders}
+              // pagination={pagination}
+            />
+          </>
         )}
       </ProfileWrapper>
 

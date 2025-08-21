@@ -95,7 +95,10 @@ html,
 body {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  padding-top: 10px;
+}
+
+body{
+  padding-top: 40px;
 }
 
 img {
@@ -229,15 +232,15 @@ input[type="number"] {
 }
 
 
-.modal{
+/* .modal{
   align-items: start;
   overflow-y: auto;
 }
 
 
-@media screen and (min-height: 450px) {
+@media screen and (min-height: 500px) {
   .modal {
     align-items: center;
     overflow-y: hidden;
   }
-}
+} */

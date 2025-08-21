@@ -82,7 +82,7 @@ export default function File({
       <div className="w-[100px] h-[100px] rounded-full bg-main flex items-center justify-center relative z-0">
         <img
           src={preview}
-          alt=""
+          alt="Teamwork platform banner"
           title="profile-img"
           className="w-full h-full object-cover bg-main rounded-full"
         />

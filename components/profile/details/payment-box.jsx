@@ -145,6 +145,7 @@ export default function PaymentBox({ isMobile = false }) {
       <button
         type="button"
         className="py-3 px-5 rounded-lg bg-main bg-opacity-10 text-main font-medium mx-1 border border-transparent hover:border-main transition-colors duration-200 sm:text-base text-sm flex items-center justify-center"
+        onClick={() => showModal("money-withdraw")}
       >
         {intl.formatMessage({ id: "Pul yechish" })}
       </button>
