@@ -78,7 +78,7 @@ export default function Breadcrumbs({
                 `/${item?.additional_url}` == router.pathname;
               return (
                 <NextLink
-                  url={`${item?.url}${tabsMenuQuery}`}
+                  url={`${item?.url}${tabsMenuQuery ?? ""}`}
                   key={item?.name}
                   className={`flex py-[6px] px-3 text-sm text-nowrap rounded-full font-medium hover:text-main transition-colors duration-200 ${
                     isCorrect

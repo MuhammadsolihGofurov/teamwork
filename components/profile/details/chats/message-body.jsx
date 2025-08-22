@@ -42,7 +42,7 @@ export default function MessageBody({ messages = [], task_id }) {
   });
 
   return (
-    <div className="sm:p-5 h-[450px] sm:h-[490px] bg-white scroll__none flex flex-col items-start overflow-y-auto relative z-0">
+    <div className="sm:p-5 h-[400px] sm:h-[430px] bg-white scroll__none flex flex-col items-start overflow-y-auto relative z-0">
       {Object.entries(groupedMessages).map(([date, msgs, index]) => (
         <div key={date + index} className="w-full">
           <div className="text-center text-xs font-normal text-primary text-opacity-60 my-4">

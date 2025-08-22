@@ -16,6 +16,7 @@ import {
 import CenterInfoWrapper from "@/components/profile/center-wrapper";
 import {
   MessageBody,
+  MessageBtns,
   MessageHeader,
   MessageSend,
 } from "@/components/profile/details/chats";
@@ -40,23 +41,23 @@ function MyChatSolo({ info }) {
   }, [router.locale, current_user_type, chat_id]);
 
   useEffect(() => {
-  const isCreator = current_user_type === CUSTOMER;
+    const isCreator = current_user_type === CUSTOMER;
 
-  setUserData({
-    full_name: isCreator
-      ? solo_chat?.offer?.owner?.full_name
-      : solo_chat?.creator?.full_name,
-    photo: isCreator
-      ? solo_chat?.offer?.owner?.photo?.url
-      : solo_chat?.creator?.photo?.url,
-    is_online: isCreator
-      ? solo_chat?.offer?.owner?.is_online
-      : solo_chat?.creator?.is_online,
-    loading: loading,
-    text: solo_chat?.title,
-    task_id: solo_chat?.task_id,
-  });
-}, [solo_chat, loading]);
+    setUserData({
+      full_name: isCreator
+        ? solo_chat?.offer?.owner?.full_name
+        : solo_chat?.creator?.full_name,
+      photo: isCreator
+        ? solo_chat?.offer?.owner?.photo?.url
+        : solo_chat?.creator?.photo?.url,
+      is_online: isCreator
+        ? solo_chat?.offer?.owner?.is_online
+        : solo_chat?.creator?.is_online,
+      loading: loading,
+      text: solo_chat?.title,
+      task_id: solo_chat?.task_id,
+    });
+  }, [solo_chat, loading]);
 
   useEffect(() => {
     const hash = router.asPath.split("#")[1];
@@ -67,6 +68,7 @@ function MyChatSolo({ info }) {
 
   return (
     <>
+      {console.log(solo_chat)}
       <Seo
         title={info?.seo_home_title}
         description={info?.data?.seo_home_description}
@@ -90,6 +92,12 @@ function MyChatSolo({ info }) {
               <div className="flex flex-col border border-bg-3 rounded-lg overflow-hidden">
                 <MessageHeader user_data={userData} />
                 <MessageBody messages={messages} task_id={solo_chat?.task_id} />
+                <MessageBtns
+                  stage={solo_chat?.stage?.value}
+                  agreement={solo_chat?.agreement}
+                  task_id={solo_chat?.task_id}
+                  offer={solo_chat?.offer}
+                />
                 <MessageSend />
               </div>
             </CenterInfoWrapper>
@@ -99,6 +107,12 @@ function MyChatSolo({ info }) {
           <>
             <div className="flex flex-col rounded-lg overflow-hidden">
               <MessageBody messages={messages} task_id={solo_chat?.task_id} />
+              <MessageBtns
+                stage={solo_chat?.stage?.value}
+                agreement={solo_chat?.agreement}
+                task_id={solo_chat?.task_id}
+                offer={solo_chat?.offer}
+              />
               <MessageSend />
             </div>
           </>
