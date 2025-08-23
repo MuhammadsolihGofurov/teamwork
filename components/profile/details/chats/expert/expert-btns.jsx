@@ -1,7 +1,11 @@
 import { Button } from "@/components/custom/button";
 import { NextLink } from "@/components/Utils";
 import { useModal } from "@/context/modal-provider";
-import { acceptAgreementByExpert, startJobByExpert } from "@/redux/slice/stages";
+import {
+  acceptAgreementByExpert,
+  startJobByExpert,
+  submitJobByExpert,
+} from "@/redux/slice/stages";
 import {
   MyOrderAgreementCreateUrl,
   MyOrderAgreementCreateUrlQuery,
@@ -14,8 +18,9 @@ import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ExpertBtns({ stage, task_id, agreement, offer }) {
-  const { confirm_agreement, start_job } = useSelector((state) => state.stages);
-
+  const { confirm_agreement, start_job, submit_job, can_evaluate_employer } =
+    useSelector((state) => state.stages);
+  const { showModal } = useModal();
   const router = useRouter();
   const dispatch = useDispatch();
   const intl = useIntl();
@@ -31,6 +36,7 @@ export default function ExpertBtns({ stage, task_id, agreement, offer }) {
                 locale: router.locale,
                 id: agreement?.id,
                 confirm: 0,
+                intl,
               })
             );
           }}
@@ -44,6 +50,7 @@ export default function ExpertBtns({ stage, task_id, agreement, offer }) {
                 locale: router.locale,
                 id: agreement?.id,
                 confirm: 1,
+                intl,
               })
             );
           }}
@@ -63,6 +70,7 @@ export default function ExpertBtns({ stage, task_id, agreement, offer }) {
               startJobByExpert({
                 locale: router.locale,
                 id: agreement?.id,
+                intl,
               })
             );
           }}
@@ -73,7 +81,40 @@ export default function ExpertBtns({ stage, task_id, agreement, offer }) {
     );
   }
 
-  return <div>Expert Btns</div>;
+  if (submit_job) {
+    return (
+      <>
+        <CurrentButton
+          clickedFunction={() => {
+            dispatch(
+              submitJobByExpert({
+                locale: router.locale,
+                id: agreement?.id,
+                intl,
+              })
+            );
+          }}
+        >
+          {intl.formatMessage({ id: "Ishni topshirish" })}
+        </CurrentButton>
+      </>
+    );
+  }
+
+  if (can_evaluate_employer) {
+    return (
+      <CurrentButton
+        color="info"
+        clickedFunction={() => {
+          showModal("comment", { agreement, offer, forWho: "employer" });
+        }}
+      >
+        {intl.formatMessage({ id: "Sharh qoldirish" })}
+      </CurrentButton>
+    );
+  }
+
+  return null;
 }
 
 export const CurrentButton = ({
@@ -81,11 +122,20 @@ export const CurrentButton = ({
   children,
   clickedFunction = () => {},
 }) => {
-  const coloredClass =
-    color == "main"
-      ? "bg-main border-main hover:border-main hover:text-main"
-      : "bg-some_red border-some_red hover:border-some_red hover:text-some_red";
+  let coloredClass = "";
 
+  switch (color) {
+    case "main":
+      coloredClass = "bg-main border-main hover:border-main hover:text-main";
+      break;
+    case "red":
+      coloredClass =
+        "bg-some_red border-some_red hover:border-some_red hover:text-some_red";
+      break;
+    case "info":
+      coloredClass = "bg-blue border-blue hover:border-blue hover:text-blue";
+      break;
+  }
   return (
     <button
       type="button"

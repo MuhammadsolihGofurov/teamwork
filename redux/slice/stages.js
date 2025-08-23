@@ -1,96 +1,134 @@
 import fetcher from "@/utils/fetcher";
+import { thunkWrapper } from "@/utils/thunk-wrapper";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 // === for experts === //
-export const acceptAgreementByExpert = createAsyncThunk(
+export const acceptAgreementByExpert = thunkWrapper(
   "agreement/acceptAgreementByExpert",
-  async ({ locale, id, confirm = 1 }) => {
-    try {
-      const response = await fetcher(
-        `/agreement/confirm?id=${id}&confirm=${confirm}`,
-        {
-          method: "POST",
-          headers: {
-            "Accept-Language": locale,
-          },
-          // body: JSON.stringify({ task_id: id }),
-        },
-        {},
-        true
-      );
-      let success_message = locale == "ru" ? "Успешный" : "Muvaffaqiyatli";
-
-      toast.success(success_message);
-      return response.data;
-    } catch (error) {
-      toast.error(
-        error?.response?.data?.message ||
-          "Xatolik yuz berdi, qayta urinib ko‘ring."
-      );
-      return null;
-    }
+  async ({ locale, id }) => {
+    const response = await fetcher(
+      `/agreement/confirm?id=${id}&confirm=${confirm}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success: "Muvaffaqiyatli",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
   }
 );
 
-export const startJobByExpert = createAsyncThunk(
+export const startJobByExpert = thunkWrapper(
   "agreement/startJobByExpert",
-  async ({ locale, id }) => {
-    try {
-      const response = await fetcher(
-        `/agreement/start-job?id=${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Accept-Language": locale,
-          },
-          // body: JSON.stringify({ task_id: id }),
-        },
-        {},
-        true
-      );
-      let success_message = locale == "ru" ? "Успешный" : "Muvaffaqiyatli";
+  async ({ locale, id, intl }) => {
+    const response = await fetcher(
+      `/agreement/start-job?id=${id}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success: "Ishni boshlashingiz mumkin",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
+  }
+);
 
-      toast.success(success_message);
-      return response.data;
-    } catch (error) {
-      toast.error(
-        error?.response?.data?.message ||
-          "Xatolik yuz berdi, qayta urinib ko‘ring."
-      );
-      return error;
-    }
+export const submitJobByExpert = thunkWrapper(
+  "agreement/submitJobByExpert",
+  async ({ locale, id, intl }) => {
+    const response = await fetcher(
+      `/agreement/submit-job?id=${id}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success:
+      "Ish muvaffaqiyatli topshirildi. Iltimos, Buyurtmachini javobini kuting.",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
   }
 );
 
 // === for customers === //
-export const confirmPaymentByCustomer = createAsyncThunk(
+export const confirmPaymentByCustomer = thunkWrapper(
   "agreement/confirmPaymentByCustomer",
   async ({ locale, id }) => {
-    try {
-      const response = await fetcher(
-        `/agreement/confirm-payment?id=${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Accept-Language": locale,
-          },
-          // body: JSON.stringify({ task_id: id }),
-        },
-        {},
-        true
-      );
-      let success_message = locale == "ru" ? "Успешный" : "Muvaffaqiyatli";
+    const response = await fetcher(
+      `/agreement/confirm-payment?id=${id}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success: "To'lov muvaffaqiyatli kafolatlandi.",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
+  }
+);
 
-      toast.success(success_message);
-      return response.data;
-    } catch (error) {
-      toast.error(
-        error?.response?.data?.message ||
-          "Xatolik yuz berdi, qayta urinib ko‘ring."
-      );
-      return error;
-    }
+export const acceptJobByCustomer = thunkWrapper(
+  "agreement/acceptJobByCustomer",
+  async ({ locale, id, intl }) => {
+    const response = await fetcher(
+      `/agreement/accept-job?id=${id}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success: "Ish qabul qilindi. Mutahassis uchun izoh qoldirishingiz mumkin.",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
+  }
+);
+
+export const reviewJobByCustomer = thunkWrapper(
+  "agreement/reviewJobByCustomer",
+  async ({ locale, id, intl }) => {
+    const response = await fetcher(
+      `/agreement/review-job?id=${id}`,
+      {
+        method: "POST",
+        headers: { "Accept-Language": locale },
+      },
+      {},
+      true
+    );
+    return response.data;
+  },
+  {
+    pending: "Ajoyib, biroz kuting...",
+    success: "Ish qayta ko'rish uchun mutahassisga jo'natildi.",
+    error: "Qandaydir xatolik yuz berdi, birozdan so'ng qayta urining",
   }
 );
 
@@ -116,8 +154,8 @@ const stagesSlice = createSlice({
       const offer = action?.payload?.offer;
 
       // console.error(action);
-      state.can_create_agreement = !action?.payload;
-      state.can_edit_agreement = action?.payload?.canEdit;
+      state.can_create_agreement = !action?.payload?.agreement;
+      state.can_edit_agreement = action?.payload?.agreement?.canEdit;
       state.can_edit_offer = offer?.canEdit;
       state.send_to_expert = agreement_status == "NEW_ORDER";
       state.confirm_agreement =
@@ -128,8 +166,13 @@ const stagesSlice = createSlice({
         agreement_status == "ORDER_IN_PROGRESS" ||
         agreement_status == "RETURNED_ORDER_BY_EMPLOYER";
       state.accept_job = agreement_status == "WAITING_EMPLOYER_ACCEPT_ORDER";
-      state.can_evaluate_expert = action?.payload?.canEvaluateExpert;
-      state.can_evaluate_employer = action?.payload?.canEvaluateEmployer;
+
+      state.can_evaluate_expert = action?.payload?.agreement?.canEvaluateExpert;
+      state.can_evaluate_employer =
+        action?.payload?.agreement?.canEvaluateEmployer;
+    },
+    setChangedData: (state, action) => {
+      state.accept_data = action?.payload;
     },
   },
   extraReducers: (builder) => {
@@ -160,7 +203,6 @@ const stagesSlice = createSlice({
         state.error = action.error.message;
       })
 
-
       .addCase(startJobByExpert.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -172,10 +214,49 @@ const stagesSlice = createSlice({
       .addCase(startJobByExpert.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+
+      .addCase(submitJobByExpert.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitJobByExpert.fulfilled, (state, action) => {
+        state.loading = false;
+        state.accept_data = action.payload;
+      })
+      .addCase(submitJobByExpert.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(acceptJobByCustomer.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(acceptJobByCustomer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.accept_data = action.payload;
+      })
+      .addCase(acceptJobByCustomer.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(reviewJobByCustomer.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(reviewJobByCustomer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.accept_data = action.payload;
+      })
+      .addCase(reviewJobByCustomer.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setAgreementStatus } = stagesSlice.actions;
+export const { setAgreementStatus, setChangedData } = stagesSlice.actions;
 
 export default stagesSlice.reducer;

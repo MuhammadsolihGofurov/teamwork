@@ -10,7 +10,9 @@ import { NextLink, Rates } from "@/components/Utils";
 import { InfoEditUrl } from "@/utils/router";
 
 export default function PictureBox({ isMobile = false }) {
-  const { user_info, loading } = useSelector((state) => state.user);
+  const { user_info, loading, current_user_type } = useSelector(
+    (state) => state.user
+  );
   const router = useRouter();
   const userSinceJoin =
     user_info?.type?.value == EXPERT
@@ -42,9 +44,18 @@ export default function PictureBox({ isMobile = false }) {
         />
         <p className="text-sm font-medium text-primary">
           {" "}
-          {user_info?.rate || 0}
+          {current_user_type === EXPERT
+            ? user_info?.expert?.rate
+            : user_info?.rate}
         </p>
-        <Rates current_rate={user_info?.rate} isBig />
+        <Rates
+          current_rate={
+            current_user_type === EXPERT
+              ? user_info?.expert?.rate
+              : user_info?.rate
+          }
+          isBig
+        />
       </div>
 
       <div className="sm:hidden flex flex-col gap-1 col-span-2 sm:pr-0 pr-5">

@@ -59,6 +59,37 @@ export default function Textarea({
     );
   }
 
+  if (page == "with-bg") {
+    return (
+      <label className="flex flex-col gap-1 w-full">
+        {title ? (
+          <span className="text-sm font-semibold text-primary pb-1 pl-3">
+            {title}
+          </span>
+        ) : (
+          <></>
+        )}
+        <textarea
+          placeholder={placeholder}
+          name={name}
+          id={name}
+          required={required}
+          autoComplete="off"
+          disabled={noSelected}
+          className={`rounded-lg p-4 border ${
+            minHeight ? minHeight : "min-h-[150px]"
+          } border-bg-3  bg-bg-2 w-full overflow-hidden placeholder:text-gray-400 text-gray-900 resize-none`}
+          {...register(name, validation)}
+          style={{ height }}
+          onInput={handleInput}
+        />
+        {errors?.message && (
+          <span className="text-red-500">{errors.message}</span>
+        )}
+      </label>
+    );
+  }
+
   return (
     <label className="flex flex-col gap-1 w-full">
       {title ? (

@@ -41,6 +41,7 @@ export default function SelectInput({
     district: `/district/list?region_id=${region_id}`,
     speciality: `/speciality/parent-list?expand=children`,
     skill_ids: `/skill/list`,
+    reason_lists: `/agreement/cancel-reason-list`,
     passport: [
       { id: 1, name: intl.formatMessage({ id: "ID Karta" }), value: ID_CARD },
       { id: 2, name: intl.formatMessage({ id: "Passport" }), value: PASSPORT },

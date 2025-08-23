@@ -42,7 +42,7 @@ export default function MessageBody({ messages = [], task_id }) {
   });
 
   return (
-    <div className="sm:p-5 h-[400px] sm:h-[430px] bg-white scroll__none flex flex-col items-start overflow-y-auto relative z-0">
+    <div className="sm:p-5 h-[400px] sm:h-[460px] bg-white scroll__none flex flex-col items-start overflow-y-auto relative z-0">
       {Object.entries(groupedMessages).map(([date, msgs, index]) => (
         <div key={date + index} className="w-full">
           <div className="text-center text-xs font-normal text-primary text-opacity-60 my-4">
@@ -63,7 +63,10 @@ export default function MessageBody({ messages = [], task_id }) {
                     key={item?.id}
                   >
                     <div className="flex flex-col items-start gap-1 p-5">
-                      <h4 className="text-primary text-sm">{item?.content}</h4>
+                      <span
+                        className="text-primary text-sm"
+                        dangerouslySetInnerHTML={{ __html: item?.content }}
+                      />
                       <p className="text-main text-xs font-medium flex items-center gap-1 py-1 px-2 bg-white rounded-full">
                         <svg
                           width="16"

@@ -40,12 +40,12 @@ export default function MessageBtns({ stage, task_id, agreement, offer }) {
     );
   }
 
-  return <MessageBtnsWrapper>EXPERT</MessageBtnsWrapper>;
+  return null;
 }
 
 export const MessageBtnsWrapper = ({ children }) => {
   return (
-    <div className="py-5 min-h-[60px] bg-gray-100 flex items-center justify-center gap-2">
+    <div className="bg-gray-100 py-1 flex items-center justify-center gap-2 flex-wrap">
       {children}
     </div>
   );
