@@ -33,12 +33,13 @@ function MyChatSolo({ info }) {
   );
   const { current_user_type } = useSelector((state) => state.user);
   const chat_id = router.query.chat_id;
+  const { accept_data } = useSelector((state) => state.stages);
 
   useEffect(() => {
     dispatch(fetchChats({ locale: router.locale, type: current_user_type }));
     dispatch(fetchChatSolo({ locale: router.locale, id: chat_id }));
     dispatch(fetchMessages({ locale: router.locale, id: chat_id }));
-  }, [router.locale, current_user_type, chat_id]);
+  }, [router.locale, current_user_type, chat_id, accept_data]);
 
   useEffect(() => {
     const isCreator = current_user_type === CUSTOMER;
