@@ -30,6 +30,10 @@ import {
   MyTasksOnAgreementUrl,
   MyTasksUrl,
   PhysicalInfoUrl,
+  ResumeAchievementsUrl,
+  ResumeExperienceUrl,
+  ResumeSkillsUrl,
+  ResumeUrl,
   SavedExpertsUrl,
   SavedTasksUrl,
 } from "./router";
@@ -68,6 +72,37 @@ export const InfoMenu = [
     name: "Yuridik shaxs",
     url: LegalInfoUrl,
     role: CUSTOMER,
+    additional_url: false,
+  },
+];
+
+export const ResumeMenu = [
+  {
+    id: 1,
+    name: "Ta'lim",
+    url: ResumeUrl,
+    role: EXPERT,
+    additional_url: false,
+  },
+  {
+    id: 2,
+    name: "Tajriba",
+    url: ResumeExperienceUrl,
+    role: EXPERT,
+    additional_url: false,
+  },
+  {
+    id: 3,
+    name: "Ko'nikmalar",
+    url: ResumeSkillsUrl,
+    role: EXPERT,
+    additional_url: false,
+  },
+  {
+    id: 4,
+    name: "Yutuqlar",
+    url: ResumeAchievementsUrl,
+    role: EXPERT,
     additional_url: false,
   },
 ];
@@ -283,7 +318,7 @@ export const PaymentMenu = [
     url: MyPaymentIncomeUrl,
     role: "all",
     additional_url: false,
-    query: "?type=1"
+    query: "?type=1",
   },
   {
     id: 3,
@@ -291,6 +326,6 @@ export const PaymentMenu = [
     url: MyPaymentOutgoingsUrl,
     role: "all",
     additional_url: false,
-    query: "?type=2"
+    query: "?type=2",
   },
 ];

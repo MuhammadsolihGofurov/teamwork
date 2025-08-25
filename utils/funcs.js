@@ -148,3 +148,8 @@ export function send_amount(amount) {
   if (!amount) return "0";
   return (parseFloat(amount.toString().replace(/\s/g, "")) * 100).toFixed(0);
 }
+
+
+export function getYear(dateString) {
+  return dateString.split("-")[0]; // "2025-08-29" → "2025"
+}

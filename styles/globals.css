@@ -97,7 +97,7 @@ body {
   scroll-behavior: smooth;
 }
 
-body{
+body {
   padding-top: 40px;
 }
 
@@ -231,7 +231,6 @@ input[type="number"] {
   clip-path: polygon(0 0, 100% 100%, 0 100%);
 }
 
-
 /* .modal{
   align-items: start;
   overflow-y: auto;
@@ -244,3 +243,14 @@ input[type="number"] {
     overflow-y: hidden;
   }
 } */
+
+.menu_swiper .custom-swiper {
+  /* justify-content: flex-start;
+   */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.menu_swiper .swiper-slide {
+  width: max-content;
+}

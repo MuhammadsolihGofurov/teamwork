@@ -16,6 +16,12 @@ export const NotificationUrl = "profile/notifications";
 export const ChatsUrl = "profile/chats";
 export const SoloChatUrl = "profile/chats/messages";
 
+// resume
+export const ResumeUrl = "profile/resume";
+export const ResumeExperienceUrl = "profile/resume/experience";
+export const ResumeSkillsUrl = "profile/resume/skills";
+export const ResumeAchievementsUrl = "profile/resume/achievements";
+
 // tasks -- for EXPERT
 export const MyTasksUrl = "profile/tasks";
 export const MyTaskPublishedUrl = "profile/tasks";

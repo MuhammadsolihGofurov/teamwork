@@ -77,10 +77,10 @@ export default function MenuTabs({
       </button>
       <Swiper
         spaceBetween={10}
-        grabCursor={true}
-        centeredSlides={false}
+        // grabCursor={true}
+        // centeredSlides={false}
         initialSlide={0}
-        style={{ padding: "0 32px" }}
+        style={{ padding: "0 16px" }}
         className="custom-swiper"
         modules={[Navigation]}
         navigation={{
@@ -92,10 +92,10 @@ export default function MenuTabs({
           swiper.params.navigation.nextEl = nextRef.current;
         }}
         breakpoints={{
-          320: { slidesPerView: 2, spaceBetween: 8 },
-          800: { slidesPerView: 2.5, spaceBetween: 12 },
-          1024: { slidesPerView: 3, spaceBetween: 16 },
-          2000: { slidesPerView: 3.5, spaceBetween: 16 },
+          320: { slidesPerView: "auto", spaceBetween: 8 },
+          800: { slidesPerView: "auto", spaceBetween: 12 },
+          1024: { slidesPerView: "auto", spaceBetween: 16 },
+          2000: { slidesPerView: "auto", spaceBetween: 16 },
         }}
       >
         {filteredRoles?.map((item, index) => {

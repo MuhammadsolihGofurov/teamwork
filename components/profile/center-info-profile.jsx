@@ -6,6 +6,7 @@ import {
   InfoMainChanges,
   InfoPhysicalChanges,
   InfoTopBanner,
+  ResumeForm,
 } from "./details/info";
 import { MenuTabs, PaymentBox, PaymentTable } from "./details";
 import { useIntl } from "react-intl";
@@ -19,6 +20,7 @@ import { Pagination } from "../Utils";
 import { CenterSavedData } from "./details/saved";
 import { CenterRatesData } from "./details/rates";
 import { CenterChatsData } from "./details/chats";
+import { EduResumeForm } from "./details/resume";
 
 export default function CenterInfoProfile({
   page = "",
@@ -210,6 +212,16 @@ export default function CenterInfoProfile({
         <PaymentBox />
         <MenuTabs data={tabsMenu} tabsMenuCounts={tabsMenuCounts} />
         <CenterDataWrapper data={data} page={page} card_type={card_type} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "resume-edu") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <EduResumeForm isMobile={isMobile} />
       </CenterInfoWrapper>
     );
   }
