@@ -63,7 +63,7 @@ export default function Textarea({
     return (
       <label className="flex flex-col gap-1 w-full">
         {title ? (
-          <span className="text-sm font-semibold text-primary pb-1 pl-3">
+          <span className="font-medium text-primary pb-1 pl-3">
             {title}
           </span>
         ) : (

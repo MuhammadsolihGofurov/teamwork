@@ -4,6 +4,7 @@ import {
   ConfirmModal,
   MoneyWithdrawModal,
   PaymentModal,
+  UpdateEduResumeModal,
 } from ".";
 
 function ModalManager({ modal, closeModal }) {
@@ -20,6 +21,8 @@ function ModalManager({ modal, closeModal }) {
       return <ComplaintModal {...modal.props} onClose={closeModal} />;
     case "comment":
       return <CommentModal {...modal.props} onClose={closeModal} />;
+    case "edu-resume-update":
+      return <UpdateEduResumeModal {...modal.props} onClose={closeModal} />;
     default:
       return null;
   }

@@ -5,3 +5,4 @@ export { default as PaymentModal } from "./payment-modal";
 export { default as MoneyWithdrawModal } from "./moneyWithdraw-modal";
 export { default as ComplaintModal } from "./complaint-modal";
 export { default as CommentModal } from "./comment-modal";
+export { default as UpdateEduResumeModal } from "./update-edu-resume-modal";

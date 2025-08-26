@@ -1,10 +1,8 @@
 import { Input, Select } from "@/components/custom/form";
 import DatePickerUi from "@/components/custom/form/details/date-picker";
 import { ButtonSpinner } from "@/components/custom/loading";
-import { EduFormSkeleton } from "@/components/Skeleton/profile/resume";
 import { authAxios } from "@/utils/axios";
 import { getYear } from "@/utils/funcs";
-import { ResumeUrl } from "@/utils/router";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,19 +10,13 @@ import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-export default function EduResumeForm({
-  isMobile,
-  page = "profile",
-  type = "create",
-}) {
+export default function SkillsResumeForm({ isMobile, page = "profile" }) {
   const router = useRouter();
   const intl = useIntl();
   const { user_info, loading } = useSelector((state) => state.user);
   const [reqLoading, setReqLoading] = useState(false);
   const dispatch = useDispatch();
-  const [imageSet, setImageSet] = useState(null);
-  // Profile rasmi
-  const [image, setImage] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -75,19 +67,13 @@ export default function EduResumeForm({
         end_edu_year: getYear(end_edu_year.startDate),
       };
 
-      await authAxios.post("/resume-edu/create", payload);
+      const response = await authAxios.post("/resume-edu/create", payload);
 
       toast.success(
         intl.formatMessage({
           id: "Muvaffaqiyatli, Ta'lim ma'lumotlaringiz qo'shildi!",
         })
       );
-
-      reset();
-
-      setTimeout(() => {
-        router.push(`/${ResumeUrl}`);
-      }, 1500);
     } catch (e) {
       toast.error(e?.response?.data?.message);
     } finally {
@@ -96,7 +82,7 @@ export default function EduResumeForm({
   };
 
   if (loading) {
-    return <EduFormSkeleton />;
+    return <></>;
   }
 
   return (
@@ -106,73 +92,46 @@ export default function EduResumeForm({
       autoComplete="off"
       className={`bg-white grid  grid-cols-1 md:grid-cols-2 items-start gap-6 pt-5 sm:p-8 rounded-lg sm:border border-bg-3`}
     >
-      <Select
-        errors={errors?.country_id}
+      <Input
+        errors={errors?.title}
         type={"text"}
         register={register}
-        name={"country_id"}
-        title={intl.formatMessage({ id: "Mamlakat" })}
-        placeholder={""}
-        id={`country_id${isMobile ? "1" : ""}`}
+        name={"title"}
+        title={intl.formatMessage({ id: "Sarlavha" })}
+        placeholder={intl.formatMessage({ id: "Ko'nikma nomi" })}
+        id={`title${isMobile ? "1" : ""}`}
         required
-        state={"country"}
+        page={page}
+        validation={{
+          required: intl.formatMessage({ id: "Majburiy" }),
+        }}
+      />
+      <Select
+        errors={errors?.speciality_id}
+        type={"text"}
+        register={register}
+        name={`speciality_id`}
+        title={intl.formatMessage({ id: "Speciality" })}
+        placeholder={""}
+        id={`speciality_id${isMobile ? "1" : ""}`}
+        // required
+        state={"speciality"}
         isIcon={true}
         page={page}
-        validation={{
-          required: intl.formatMessage({ id: "RequiredCountry" }),
-        }}
+        // validation={{
+        //   required: intl.formatMessage({ id: "RequiredSpeciality" }),
+        // }}
         control={control}
-      />
-      <Input
-        errors={errors?.universty_name}
-        type={"text"}
-        register={register}
-        name={"universty_name"}
-        title={intl.formatMessage({ id: "Universitet nomi" })}
-        placeholder={intl.formatMessage({ id: "Toshkent davlat universiteti" })}
-        id={`universty_name${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "Majburiy" }),
-        }}
-      />
-      <Input
-        errors={errors?.field_of_study}
-        type={"text"}
-        register={register}
-        name={"field_of_study"}
-        title={intl.formatMessage({ id: "Ta'lim yo'nalishi" })}
-        placeholder={intl.formatMessage({ id: "Moliya" })}
-        id={`field_of_study${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "Majburiy" }),
-        }}
-      />
-      <Input
-        errors={errors?.degree}
-        type={"text"}
-        register={register}
-        name={"degree"}
-        title={intl.formatMessage({ id: "Ta'lim darajasi" })}
-        placeholder={intl.formatMessage({ id: "1-kurs" })}
-        id={`degree${isMobile ? "1" : ""}`}
-        required
-        page={page}
-        validation={{
-          required: intl.formatMessage({ id: "Majburiy" }),
-        }}
+        isCollect={true}
       />
       <DatePickerUi
-        errors={errors?.begin_edu_year}
+        errors={errors?.date_achieved}
         type={"date"}
         register={register}
-        name={"begin_edu_year"}
-        title={intl.formatMessage({ id: "Ta'lim boshlanish yili" })}
+        name={"date_achieved"}
+        title={intl.formatMessage({ id: "Erishilgan sana" })}
         placeholder={""}
-        id={`begin_edu_year${isMobile ? "1" : ""}`}
+        id={`date_achieved${isMobile ? "1" : ""}`}
         required
         page={page}
         validation={{

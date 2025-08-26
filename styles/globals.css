@@ -207,12 +207,14 @@ input[type="number"] {
 .modal {
   align-items: start;
   justify-content: center;
+  overflow-y: auto;
 }
 
 @media screen and (min-height: 570px) {
   .modal {
     align-items: center;
     justify-content: center;
+    overflow-y: hidden;
   }
 }
 

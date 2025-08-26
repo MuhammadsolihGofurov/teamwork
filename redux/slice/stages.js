@@ -135,7 +135,6 @@ export const reviewJobByCustomer = thunkWrapper(
 const stagesSlice = createSlice({
   name: "stages",
   initialState: {
-    currentPage: 1,
     can_create_agreement: false,
     can_edit_agreement: false,
     can_edit_offer: false,

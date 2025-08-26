@@ -21,6 +21,7 @@ export default function DatePickerUi({
   minDate,
   isInAbilityName = "",
   withCheckbox = false,
+  checkBoxName = "Kelishilgan holda",
 }) {
   const [mounted, setMounted] = useState(false);
   const intl = useIntl();
@@ -89,7 +90,7 @@ export default function DatePickerUi({
                 />
                 <div className="w-5 h-5 flex items-center justify-center border rounded-md bg-bg-1 border-bg-3 peer-checked:border-main peer-checked:bg-main checkbox__icon after:opacity-0 peer-checked:after:opacity-100 transition"></div>
                 <span className="checkbox__text peer-checked:text-main font-medium  text-primary select-none">
-                  {intl.formatMessage({ id: "Kelishilgan holda" })}
+                  {intl.formatMessage({ id: checkBoxName })}
                 </span>
               </label>
             )}

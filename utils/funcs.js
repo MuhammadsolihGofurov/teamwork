@@ -153,3 +153,11 @@ export function send_amount(amount) {
 export function getYear(dateString) {
   return dateString.split("-")[0]; // "2025-08-29" → "2025"
 }
+
+export function getMonth(dateString) {
+  return dateString.split("-")[1]; // "2025-08-29" → "08"
+}
+
+export function getDay(dateString) {
+  return dateString.split("-")[2]; // "2025-08-29" → "2025"
+}

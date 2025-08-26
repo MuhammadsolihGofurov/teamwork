@@ -1,0 +1,1 @@
+export { default as EduSlider } from "./edu-slider";

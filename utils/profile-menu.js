@@ -31,6 +31,7 @@ import {
   MyTasksUrl,
   PhysicalInfoUrl,
   ResumeAchievementsUrl,
+  ResumeEducationUrl,
   ResumeExperienceUrl,
   ResumeSkillsUrl,
   ResumeUrl,
@@ -79,27 +80,34 @@ export const InfoMenu = [
 export const ResumeMenu = [
   {
     id: 1,
-    name: "Ta'lim",
+    name: "Barchasi",
     url: ResumeUrl,
     role: EXPERT,
     additional_url: false,
   },
   {
     id: 2,
-    name: "Tajriba",
-    url: ResumeExperienceUrl,
+    name: "Ta'lim",
+    url: ResumeEducationUrl,
     role: EXPERT,
     additional_url: false,
   },
   {
     id: 3,
-    name: "Ko'nikmalar",
-    url: ResumeSkillsUrl,
+    name: "Tajriba",
+    url: ResumeExperienceUrl,
     role: EXPERT,
     additional_url: false,
   },
+  // {
+  //   id: 4,
+  //   name: "Ko'nikmalar",
+  //   url: ResumeSkillsUrl,
+  //   role: EXPERT,
+  //   additional_url: false,
+  // },
   {
-    id: 4,
+    id: 5,
     name: "Yutuqlar",
     url: ResumeAchievementsUrl,
     role: EXPERT,
@@ -296,6 +304,20 @@ export const ReturnToOffers = [
     name: "Orqaga",
     url: `${MyTasksOffersUrl}`,
     role: "all",
+    additional_url: false,
+    icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.33301 8H12.6663M3.33301 8L7.33301 12M3.33301 8L7.33301 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    `,
+  },
+];
+
+export const ReturnToResume = [
+  {
+    id: 1,
+    name: "Orqaga",
+    url: `${ResumeUrl}`,
+    role: EXPERT,
     additional_url: false,
     icon: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M3.33301 8H12.6663M3.33301 8L7.33301 12M3.33301 8L7.33301 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>

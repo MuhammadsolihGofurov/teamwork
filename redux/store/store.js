@@ -8,6 +8,7 @@ import myChatsReducer from "../slice/my-chats";
 import myTasksReducer from "../slice/my-tasks";
 import myPayment from "../slice/payment";
 import stages from "../slice/stages";
+import resume from "../slice/resume";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     myTasks: myTasksReducer,
     myPayment: myPayment,
     stages: stages,
+    resume: resume,
   },
 });
 

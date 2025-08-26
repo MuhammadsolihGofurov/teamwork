@@ -18,9 +18,14 @@ export const SoloChatUrl = "profile/chats/messages";
 
 // resume
 export const ResumeUrl = "profile/resume";
+export const ResumeEducationUrl = "profile/resume/education";
+export const ResumeEducationUpdateUrl = "profile/resume/education/update";
 export const ResumeExperienceUrl = "profile/resume/experience";
+export const ResumeExperienceUpdateUrl = "profile/resume/experience/update";
 export const ResumeSkillsUrl = "profile/resume/skills";
+export const ResumeSkillsUpdateUrl = "profile/resume/skills/update";
 export const ResumeAchievementsUrl = "profile/resume/achievements";
+export const ResumeAchievementsUpdateUrl = "profile/resume/achievements/update";
 
 // tasks -- for EXPERT
 export const MyTasksUrl = "profile/tasks";

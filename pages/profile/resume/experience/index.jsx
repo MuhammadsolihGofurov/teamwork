@@ -19,7 +19,8 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useIsMobile } from "@/hooks/useIsMobile"; // Hook'ni import qilamiz
-import { EduResumeForm, ResumeAll } from "@/components/profile/details/resume";
+import { EduResumeForm } from "@/components/profile/details/resume";
+import ExperienceResumeForm from "@/components/profile/details/resume/experience-resume-form";
 
 function ProfilePage({ info }) {
   const router = useRouter();
@@ -57,13 +58,13 @@ function ProfilePage({ info }) {
           <>
             {/* Desktop view */}
             <LeftInfoProfile />
-            <CenterInfoProfile page={"resume-all"} tabsMenu={ResumeMenu} />
+            <CenterInfoProfile page={"resume-experience"} tabsMenu={ResumeMenu} />
             <RightInfoAll />
           </>
         ) : (
           <>
             {/* Mobile view */}
-            <ResumeAll isMobile={isMobile} />
+            <ExperienceResumeForm isMobile={isMobile} />
           </>
         )}
       </ProfileWrapper>
@@ -76,7 +77,7 @@ function ProfilePage({ info }) {
 
 export async function getServerSideProps({ params, locale }) {
   const info = {
-    seo_home_title: "Profile resume for expert ",
+    seo_home_title: "Profile resume experience for expert ",
     seo_home_keywords: "",
     seo_home_description: "",
   };

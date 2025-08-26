@@ -20,7 +20,13 @@ import { Pagination } from "../Utils";
 import { CenterSavedData } from "./details/saved";
 import { CenterRatesData } from "./details/rates";
 import { CenterChatsData } from "./details/chats";
-import { EduResumeForm } from "./details/resume";
+import {
+  AchievResumeForm,
+  EduResumeForm,
+  ExperienceResumeForm,
+  ResumeAll,
+  SkillsResumeForm,
+} from "./details/resume";
 
 export default function CenterInfoProfile({
   page = "",
@@ -221,7 +227,47 @@ export default function CenterInfoProfile({
       <CenterInfoWrapper isMobile={isMobile}>
         <InfoTopBanner />
         <MenuTabs data={tabsMenu} />
-        <EduResumeForm isMobile={isMobile} />
+        <EduResumeForm isMobile={isMobile} type={pageDetails} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "resume-experience") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <ExperienceResumeForm isMobile={isMobile} type={pageDetails} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "resume-achiev") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <AchievResumeForm isMobile={isMobile} type={pageDetails} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "resume-skills") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <SkillsResumeForm isMobile={isMobile} type={pageDetails} />
+      </CenterInfoWrapper>
+    );
+  }
+
+  if (page === "resume-all") {
+    return (
+      <CenterInfoWrapper isMobile={isMobile}>
+        <InfoTopBanner />
+        <MenuTabs data={tabsMenu} />
+        <ResumeAll />
       </CenterInfoWrapper>
     );
   }
