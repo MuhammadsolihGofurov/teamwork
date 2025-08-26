@@ -9,6 +9,8 @@ import {
   OffersSecurityUrl,
   OffersTermsUrl,
   SearchOrders,
+  TasksCreateUrl,
+  TasksUrl,
 } from "@/utils/router";
 import { NextLink } from "../Utils";
 import { TEAMWORK_EMAIL, TEAMWORK_PHONE } from "@/utils/data";
@@ -20,7 +22,7 @@ export default function Footer() {
     {
       id: 1,
       name: intl.formatMessage({ id: "addAd" }),
-      url: AddAdsUrl,
+      url: TasksCreateUrl,
     },
     {
       id: 2,
@@ -30,7 +32,7 @@ export default function Footer() {
     {
       id: 3,
       name: intl.formatMessage({ id: "Buyurtmalarni qidirish" }),
-      url: SearchOrders,
+      url: TasksUrl,
     },
     {
       id: 4,
@@ -77,8 +79,7 @@ export default function Footer() {
       <div className="footer__top py-10">
         <div className="container">
           <h6 className="uppercase font-normal text-lg">
-            OOO <br />
-            TEAMWORK IT SOLUTIONS
+            TEAMWORK IT SOLUTIONS MCHJ
           </h6>
           <div className="flex items-start gap-10 pt-6">
             <Socials />

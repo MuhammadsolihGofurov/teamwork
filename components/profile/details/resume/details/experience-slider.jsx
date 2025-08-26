@@ -5,16 +5,16 @@ import { useIntl } from "react-intl";
 import useSWR from "swr";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { EduResumeCard } from "@/components/cards";
+import { ExperienceResumeCard } from "@/components/cards";
 
-export default function EduSlider() {
+export default function ExperienceSlider() {
   const router = useRouter();
   const intl = useIntl();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const { data: educations, isValidating } = useSWR(
-    ["/resume-edu", router.locale],
+  const { data: works, isValidating } = useSWR(
+    ["/resume-works", router.locale],
     (url) =>
       fetcher(
         url,
@@ -31,11 +31,11 @@ export default function EduSlider() {
   return (
     <div className="flex flex-col gap-5 w-full">
       <h4 className="font-semibold text-primary text-lg">
-        {intl.formatMessage({ id: "Ta'lim ma'lumotlari" })}
+        {intl.formatMessage({ id: "Tajriba ma'lumotlari" })}
       </h4>
       <div className="w-full relative">
         {/* Swiper */}
-        {educations?.data?.length > 0 && educations ? (
+        {works?.data?.length > 0 && works ? (
           <Swiper
             spaceBetween={16}
             grabCursor={true}
@@ -57,9 +57,9 @@ export default function EduSlider() {
               1024: { slidesPerView: 2.6, spaceBetween: 16 },
             }}
           >
-            {educations?.data?.map((edu, index) => (
+            {works?.data?.map((edu, index) => (
               <SwiperSlide key={index}>
-                <EduResumeCard data={edu} />
+                <ExperienceResumeCard data={edu} />
               </SwiperSlide>
             ))}
           </Swiper>

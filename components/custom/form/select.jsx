@@ -72,6 +72,33 @@ export default function SelectInput({
       },
       { id: 3, name: intl.formatMessage({ id: "Profi" }), value: "PROFI" },
     ],
+    degree: [
+      {
+        id: 1,
+        name: intl.formatMessage({ id: "O'rta maxsus" }), // SCHOOL
+        value: "1",
+      },
+      {
+        id: 2,
+        name: intl.formatMessage({ id: "O'rta ta'lim (litsey/kollej)" }), // HIGH_SCHOOL
+        value:"2",
+      },
+      {
+        id: 3,
+        name: intl.formatMessage({ id: "Bakalavr" }), // BACHELOR
+        value: "3",
+      },
+      {
+        id: 4,
+        name: intl.formatMessage({ id: "Magistratura" }), // MASTER
+        value: "4",
+      },
+      {
+        id: 5,
+        name: intl.formatMessage({ id: "Doktorantura" }), // DOCTOR
+        value: "5",
+      },
+    ],
   };
 
   const shouldFetch =

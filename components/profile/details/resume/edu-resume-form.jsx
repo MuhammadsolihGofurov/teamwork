@@ -70,7 +70,7 @@ export default function EduResumeForm({
         country_id,
         universty_name,
         field_of_study,
-        degree,
+        degree: `${degree}`,
         begin_edu_year: getYear(begin_edu_year.startDate),
         end_edu_year: getYear(end_edu_year.startDate),
       };
@@ -119,7 +119,7 @@ export default function EduResumeForm({
         isIcon={true}
         page={page}
         validation={{
-          required: intl.formatMessage({ id: "RequiredCountry" }),
+          required: intl.formatMessage({ id: "Majburiy" }),
         }}
         control={control}
       />
@@ -151,19 +151,23 @@ export default function EduResumeForm({
           required: intl.formatMessage({ id: "Majburiy" }),
         }}
       />
-      <Input
+      <Select
         errors={errors?.degree}
         type={"text"}
         register={register}
         name={"degree"}
         title={intl.formatMessage({ id: "Ta'lim darajasi" })}
-        placeholder={intl.formatMessage({ id: "1-kurs" })}
+        placeholder={""}
         id={`degree${isMobile ? "1" : ""}`}
         required
+        state={"degree"}
+        isIcon={true}
         page={page}
         validation={{
           required: intl.formatMessage({ id: "Majburiy" }),
         }}
+        control={control}
+        withState={"static"}
       />
       <DatePickerUi
         errors={errors?.begin_edu_year}

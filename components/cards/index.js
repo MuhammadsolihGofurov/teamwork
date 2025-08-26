@@ -7,3 +7,5 @@ export { default as MyOrderOffersCard } from "./my-order-offers";
 export { default as MyVacancyCardAsCustomer } from "./my-vacancy-card-as-customer";
 export { default as PaymentCard } from "./payment-card";
 export { default as EduResumeCard } from "./edu-resume-card";
+export { default as ExperienceResumeCard } from "./experience-resume-card";
+export { default as AchievResumeCard } from "./achiev-resume-card";

@@ -80,7 +80,7 @@ export default function CommentModal() {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 py-10 modal ${
+      className={`fixed top-0 left-0 w-full inset-0 min-h-screen overflow-y-auto bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 py-10 modal ${
         visible ? "opacity-100 z-[1000]" : "opacity-0 z-[-1]"
       }`}
       onClick={closeModal}

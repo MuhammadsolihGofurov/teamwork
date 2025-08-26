@@ -6,3 +6,5 @@ export { default as MoneyWithdrawModal } from "./moneyWithdraw-modal";
 export { default as ComplaintModal } from "./complaint-modal";
 export { default as CommentModal } from "./comment-modal";
 export { default as UpdateEduResumeModal } from "./update-edu-resume-modal";
+export { default as UpdateExpResumeModal } from "./update-exp-resume-modal";
+export { default as UpdateAchievResumeModal } from "./update-achiev-resume-modal";

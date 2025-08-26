@@ -47,3 +47,32 @@ export const MY_OFFERS_TO_ORDER = "MY_OFFERS_TO_ORDER";
 // === MY METHOD STATUS ===
 export const METHOD_STATUS_SEND = "SEND"; // for send function
 export const METHOD_STATUS_EDIT = "EDIT"; // for edit function
+
+// === DEGERE LEVELS ===
+export const DEGREE_LEVELS = [
+  {
+    id: 1,
+    name: "O'rta maxsus", // SCHOOL
+    value: "1",
+  },
+  {
+    id: 2,
+    name: "O'rta ta'lim (litsey/kollej)", // HIGH_SCHOOL
+    value: "2",
+  },
+  {
+    id: 3,
+    name: "Bakalavr", // BACHELOR
+    value: "3",
+  },
+  {
+    id: 4,
+    name: "Magistratura", // MASTER
+    value: "4",
+  },
+  {
+    id: 5,
+    name: "Doktorantura", // DOCTOR
+    value: "5",
+  },
+];

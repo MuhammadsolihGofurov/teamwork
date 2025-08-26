@@ -1,19 +1,18 @@
 import { useModal } from "@/context/modal-provider";
 import { authAxios } from "@/utils/axios";
-import { DEGREE_LEVELS } from "@/utils/data";
 import { useRouter } from "next/router";
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 
-export default function EduResumeCard({ data }) {
+export default function AchievResumeCard({ data }) {
   const intl = useIntl();
   const { showModal } = useModal();
   const router = useRouter();
 
-  const deleteEduInfo = async (id) => {
+  const deleteExp = async (id) => {
     try {
-      await authAxios.delete(`/resume-edu/delete?id=${id}`);
+      await authAxios.post(`/user-achievements/delete?id=${id}`);
       toast.success(
         intl.formatMessage({ id: "Ma’lumot muvaffaqiyatli o‘chirildi!" })
       );
@@ -26,29 +25,18 @@ export default function EduResumeCard({ data }) {
   return (
     <div className="p-4 flex flex-col gap-3 rounded-xl border border-bg-3 shadow-sm">
       <div className="flex flex-col gap-1">
-        <h5 className="font-medium text-primary text-base">
-          {data?.universty_name}
-        </h5>
+        <h5 className="font-medium text-primary text-base">{data?.title}</h5>
         <hr />
-        <p className="text-sm text-gray-600">
-          {data?.field_of_study} •{" "}
-          {intl.formatMessage({
-            id: `${
-              DEGREE_LEVELS?.find((item) => item?.value == data?.degree)?.name
-            }`,
-          })}
-        </p>
+        <p className="text-sm text-gray-600">{data?.description}</p>
       </div>
-      <p className="text-xs text-gray-500 mt-1">
-        {data?.begin_edu_year} - {data?.end_edu_year}
-      </p>
+      <p className="text-xs text-gray-500 mt-1">{data?.date_achieved}</p>
 
       {/* buttons */}
       <div className="flex items-center justify-end gap-1">
         <button
           type="button"
           role="button"
-          onClick={() => showModal("edu-resume-update", { data: data })}
+          onClick={() => showModal("achiev-resume-update", { data: data })}
           className="hover:text-some_btn transition-colors duration-150"
         >
           <svg
@@ -75,7 +63,7 @@ export default function EduResumeCard({ data }) {
               title: "Ma'lumotni o'chirishni istaysizmi?",
               message:
                 "Agar ushbu ma'lumotlarni o'chirsangiz, ma'lumotlarni tiklash uchun qayta qo'shishingiz kerak bo'ladi!",
-              onConfirm: () => deleteEduInfo(data?.id),
+              onConfirm: () => deleteExp(data?.id),
             })
           }
           className="hover:text-some_red transition-colors duration-150"
