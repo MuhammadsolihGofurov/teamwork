@@ -14,12 +14,12 @@ export const connectSocket = (token, onMessageCallback) => {
   socket.onopen = () => {
     reconnectAttempts = 0;
     // toast.success("🔌 Socket ulandi!");
-    console.log("✅ WebSocket connected");
+    // console.log("✅ WebSocket connected");
   };
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log("📩 Message: ", data);
+    // console.log("📩 Message: ", data);
 
     // if (data?.type === "chat_new_message") {
     //   toast.info(`💬 Yangi xabar: ${data.content}`);
@@ -31,12 +31,12 @@ export const connectSocket = (token, onMessageCallback) => {
   };
 
   socket.onclose = () => {
-    console.warn("❌ WebSocket closed");
+    // console.warn("❌ WebSocket closed");
     attemptReconnect(token, onMessageCallback);
   };
 
   socket.onerror = (error) => {
-    console.error("WebSocket error:", error);
+    // console.error("WebSocket error:", error);
     socket?.close();
   };
 };

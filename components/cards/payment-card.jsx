@@ -52,7 +52,7 @@ export default function PaymentCard({ data }) {
       </td>
       <td className="w-1/5 text-primary">
         <p className="text-primary text-sm">
-          {thousandSeperate(data?.total || 0)}{" "}
+          {thousandSeperate(data?.value || 0)}{" "}
           {intl.formatMessage({ id: "so'm" })}
         </p>
       </td>

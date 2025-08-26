@@ -55,22 +55,22 @@ export default function Footer() {
     {
       id: 1,
       name: intl.formatMessage({ id: "Copyright" }),
-      url: "",
+      url: "#",
     },
-    {
-      id: 2,
-      name: intl.formatMessage({ id: "Biz haqimizda" }),
-      url: AboutUsUrl,
-    },
-    {
-      id: 3,
-      name: intl.formatMessage({ id: "Yordam" }),
-      url: HelpUrl,
-    },
+    // {
+    //   id: 2,
+    //   name: intl.formatMessage({ id: "Biz haqimizda" }),
+    //   url: AboutUsUrl,
+    // },
+    // {
+    //   id: 3,
+    //   name: intl.formatMessage({ id: "Yordam" }),
+    //   url: HelpUrl,
+    // },
     {
       id: 4,
       name: "Toshkent shahri, Temur Malik dahasi, Farobiy ko'chasi 150A",
-      url: "",
+      url: "#",
     },
   ];
 
@@ -79,7 +79,11 @@ export default function Footer() {
       <div className="footer__top py-10">
         <div className="container">
           <h6 className="uppercase font-normal text-lg">
-            TEAMWORK IT SOLUTIONS MCHJ
+            <span
+              dangerouslySetInnerHTML={{
+                __html: intl.formatMessage({ id: "Teamwork footer text" }),
+              }}
+            />
           </h6>
           <div className="flex items-start gap-10 pt-6">
             <Socials />

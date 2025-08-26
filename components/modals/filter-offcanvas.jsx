@@ -15,7 +15,7 @@ export default function FilterOffcanvas({ type = "tasks" }) {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full min-h-screen flex lg:hidden bg-primary bg-opacity-10 items-start justify-end ${
+      className={`fixed top-0 left-0 w-full min-h-screen flex sm:hidden bg-primary bg-opacity-10 items-start justify-end ${
         filterModalConfirm
           ? "opacit-100 visible z-[1002]"
           : "opacity-0 invisible z-[-2]"

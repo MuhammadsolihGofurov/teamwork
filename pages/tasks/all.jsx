@@ -27,7 +27,7 @@ function page({ info }) {
     }${budget_from ? `&budget_from=${budget_from}` : ""}${
       budget_to ? `&budget_to=${budget_to}` : ""
     }${others && others !== "all" ? `&other=${others}` : ""}${
-      page ? `&page=${page}` : ""
+      `&page=${page ? page : 1}`
     }&per-page=8`;
   }, [router.query]);
 
@@ -62,8 +62,6 @@ function page({ info }) {
           pagination={tasks?.data?._meta}
         />
       </Wrapper>
-
-      
     </>
   );
 }

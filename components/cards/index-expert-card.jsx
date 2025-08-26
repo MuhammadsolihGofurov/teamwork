@@ -143,7 +143,7 @@ export default function IndexExpertCard({ data }) {
                 />
               </svg>
               <span>
-                {intl.formatMessage({ id: "Loyhalar" })}{" "}
+                {intl.formatMessage({ id: "Bajarilgan topshiriqlar" })}{": "}
                 {data?.taskSummary?.success_count}
               </span>
             </div>

@@ -15,7 +15,7 @@ export default function Lang({ type = "main" }) {
           }`}
           locale={"uz"}
         >
-          Uz
+          uz
         </a>
         <a
           href={`/ru/${router.asPath}`}
@@ -25,7 +25,7 @@ export default function Lang({ type = "main" }) {
           }`}
           locale={"ru"}
         >
-          Ru
+          ru
         </a>
       </div>
     );
@@ -45,7 +45,7 @@ export default function Lang({ type = "main" }) {
         }`}
         locale={"uz"}
       >
-        Uz
+        uz
       </a>
       <span>|</span>
       <a
@@ -56,7 +56,7 @@ export default function Lang({ type = "main" }) {
         }`}
         locale={"ru"}
       >
-        Ru
+        ru
       </a>
     </div>
   );

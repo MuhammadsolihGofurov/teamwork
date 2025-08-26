@@ -88,7 +88,7 @@ export default function LeftTasksFilter({
   return (
     <div
       id="left-tasks-filter"
-      className={`lg:w-2/6 2xl:w-[23%] fixed lg:relative top-0 left-0 w-full min-h-screen flex lg:bg-transparent bg-primary bg-opacity-10 items-start justify-end lg:opacity-100 lg:visible lg:z-0 ${
+      className={`lg:w-[23%] fixed lg:relative top-0 left-0 w-full min-h-screen flex lg:bg-transparent bg-primary bg-opacity-10 items-start justify-end lg:opacity-100 lg:visible lg:z-0 ${
         filterModalConfirm
           ? "opacit-100 visible z-[1002]"
           : "opacity-0 invisible z-[-2]"
@@ -96,7 +96,7 @@ export default function LeftTasksFilter({
       onClick={() => handleToggle()}
     >
       <div
-        className={`w-11/12 small:w-[300px] sm:w-full h-screen lg:h-auto  flex flex-col gap-5 bg-white rounded-tl-xl rounded-bl-xl p-5 lg:p-0 overflow-y-scroll lg:overflow-visible scroll__none lg:opacity-100 lg:visible lg:z-0 lg:translate-x-0 ${
+        className={`w-11/12 small:w-[300px] h-screen lg:h-auto  flex flex-col gap-5 bg-white rounded-tl-xl rounded-bl-xl p-5 lg:p-0 overflow-y-scroll lg:overflow-visible scroll__none lg:opacity-100 lg:visible lg:z-0 lg:translate-x-0 ${
           filterModalConfirm
             ? "translate-x-0 opacity-100 visible"
             : "translate-x-full opacity-0 invisible"
@@ -132,7 +132,7 @@ export default function LeftTasksFilter({
         />
         <button
           type="button"
-          className="w-full sm:hidden flex items-center justify-center bg-main p-3 rounded-lg text-white font-medium"
+          className="w-full lg:hidden flex items-center justify-center bg-main p-3 rounded-lg text-white font-medium"
           onClick={() => handleToggle()}
         >
           {intl.formatMessage({ id: "Filterlash" })}

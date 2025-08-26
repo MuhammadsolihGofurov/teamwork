@@ -147,9 +147,9 @@ export default function MoneyWithdrawModal() {
                   "Maksimal summa 1,000,000,000 bo‘lishi kerak",
               },
               validate: (value) =>
-                Number(value) >= Number(user_info?.balance) ||
+                Number(value) <= Number(user_info?.balance) ||
                 intl.formatMessage({
-                  id: "Kiritilgan summa balansdan kam bo‘lmasligi kerak",
+                  id: "Kiritilgan summa balansdan ko'p bo‘lmasligi kerak",
                 }),
             }}
           />

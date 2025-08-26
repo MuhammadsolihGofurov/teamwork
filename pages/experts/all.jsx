@@ -27,15 +27,15 @@ function page({ info }) {
     // const others = findParams("other");
     const page = findParams("page");
 
-    return `${baseUrl}${
+    return `${`/user/public-expert-list?expand=specialitySets.parent`}&per-page=5${
       speciality_id ? `&speciality_id=${speciality_id}` : ""
     }${
       expert_level && expert_level !== "all"
         ? `&expert_level=${expert_level}`
         : ""
-    }${experience && experience !== "all" ? `&experience=${experience}` : ""}${
-      page ? `&page=${page}` : ""
-    }&per-page=8`;
+    }${
+      experience && experience !== "all" ? `&experience=${experience}` : ""
+    }${`&page=${page ? page : 1}`}`;
   }, [router.query, is_auth]);
 
   const {
