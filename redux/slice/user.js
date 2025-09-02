@@ -23,6 +23,27 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
+export const fetchTasksDetailsSums = createAsyncThunk(
+  "user/fetchTasksDetailsSums",
+  async (_, { rejectWithValue }) => {
+    try {
+      const private_auth_key = localStorage.getItem(PRIVATEAUTHKEY);
+      if (!private_auth_key) return rejectWithValue(404);
+
+      const response = await authAxios.get(
+        "/settings/paid-services"
+      );
+
+      return response.data;
+    } catch (error) {
+      // if (error.response?.status === 401) {
+      //   localStorage.removeItem(REGISTERAUTHKEY);
+      // }
+      return rejectWithValue(error.response?.status);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -32,6 +53,7 @@ const userSlice = createSlice({
     error: null,
     is_auth: false,
     current_user_type: 0,
+    tasks_details_sums: null
   },
   reducers: {
     setProfilePercentage: (state, action) => {
@@ -59,6 +81,20 @@ const userSlice = createSlice({
         state.current_user_type = action.payload?.data?.type?.value;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(fetchTasksDetailsSums.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTasksDetailsSums.fulfilled, (state, action) => {
+        state.error = null;
+        state.loading = false;
+        state.tasks_details_sums = action.payload?.data;
+      })
+      .addCase(fetchTasksDetailsSums.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

@@ -1,4 +1,4 @@
-import { withAuth } from "@/components";
+
 import Seo from "@/components/Seo/Seo";
 import { ProfileWrapper, RightInfoAll } from "@/components/Utils";
 import { CenterInfoProfile, LeftInfoProfile } from "@/components/profile";
@@ -21,6 +21,7 @@ import { fetchOrders } from "@/redux/slice/my-orders";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { CenterDataWrapper } from "@/components/profile/details/orders";
 import { PaymentBox } from "@/components/profile/details";
+import withAuth from "@/components/Utils/with-auth";
 
 function MyOrdersUnPublishedpage({ info }) {
   const router = useRouter();

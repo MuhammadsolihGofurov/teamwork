@@ -91,11 +91,18 @@ function page({ info }) {
                 "none",
               ]}
             />
-            <RightInfoAll />
+            <RightInfoAll
+              page={"orders/details"}
+              status={order_details?.task_status}
+            />
           </>
         ) : (
           <>
             <CenterMyTaskDetails isMobile={isMobile} data={order_details} />
+            <RightInfoAll
+              page={"orders/details"}
+              status={order_details?.task_status}
+            />
           </>
         )}
       </ProfileWrapper>

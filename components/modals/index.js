@@ -8,3 +8,8 @@ export { default as CommentModal } from "./comment-modal";
 export { default as UpdateEduResumeModal } from "./update-edu-resume-modal";
 export { default as UpdateExpResumeModal } from "./update-exp-resume-modal";
 export { default as UpdateAchievResumeModal } from "./update-achiev-resume-modal";
+
+// task- details
+export { default as TaskFastAndColor } from "./tasks-details/task-fast-and-color-modal";
+export { default as TaskPintoTop } from "./tasks-details/task-pin-to-top-modal";
+export { default as TaskPriorityModal } from "./tasks-details/task-priority-modal";

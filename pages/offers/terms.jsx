@@ -22,6 +22,32 @@ function page({ info }) {
     }
   }, [router.asPath]);
 
+  const sections = [
+    { idTitle: "offer.terms.title", idBody: "offer.terms.body" },
+    { idTitle: "offer.legal.title", idBody: "offer.legal.body" },
+    { idTitle: "offer.platform.title", idBody: "offer.platform.body" },
+    { idTitle: "offer.accept.title", idBody: "offer.accept.body" },
+    { idTitle: "offer.registration.title", idBody: "offer.registration.body" },
+    { idTitle: "offer.howwork.title", idBody: "offer.howwork.body" },
+    { idTitle: "offer.fees.title", idBody: "offer.fees.body" },
+    { idTitle: "offer.acceptance.title", idBody: "offer.acceptance.body" },
+    { idTitle: "offer.ip.title", idBody: "offer.ip.body" },
+    { idTitle: "offer.disputes.title", idBody: "offer.disputes.body" },
+    { idTitle: "offer.balance.title", idBody: "offer.balance.body" },
+    { idTitle: "offer.prohibited.title", idBody: "offer.prohibited.body" },
+    { idTitle: "offer.noncirc.title", idBody: "offer.noncirc.body" },
+    { idTitle: "offer.privacy.title", idBody: "offer.privacy.body" },
+    { idTitle: "offer.liability.title", idBody: "offer.liability.body" },
+    { idTitle: "offer.law.title", idBody: "offer.law.body" },
+    { idTitle: "offer.lang.title", idBody: "offer.lang.body" },
+    {
+      idTitle: "offer.notifications.title",
+      idBody: "offer.notifications.body",
+    },
+    { idTitle: "offer.severability.title", idBody: "offer.severability.body" },
+    { idTitle: "offer.contacts.title", idBody: "offer.contacts.body" },
+  ];
+
   return (
     <>
       <Seo
@@ -31,8 +57,46 @@ function page({ info }) {
       />
       <Wrapper>
         <div className="container">
-          <h1>{intl.formatMessage({ id: "Terms title" })}</h1>
-          <p>{intl.formatMessage({ id: "Terms body" })}</p>
+          <header className="text-center mb-6">
+            <h1 className="text-3xl font-bold">
+              {intl.formatMessage({ id: "offer.title" })}
+            </h1>
+            <p className="mt-2 text-sm text-gray-600">
+              {intl.formatMessage({ id: "offer.company" })}
+            </p>
+            <div className="mt-3 text-xs text-gray-500 flex justify-center gap-4">
+              <span>{intl.formatMessage({ id: "offer.publishedDate" })}</span>
+              <span>•</span>
+              <span>{intl.formatMessage({ id: "offer.effectiveDate" })}</span>
+            </div>
+          </header>
+
+          <section className="prose prose-sm max-w-none text-justify text-gray-700">
+            <div
+              className="mb-4"
+              dangerouslySetInnerHTML={{
+                __html: intl.formatMessage({ id: "offer.intro" }),
+              }}
+            />
+
+            {sections.map((s) => (
+              <article key={s.idBody} className="mb-4">
+                <h3 className="text-lg font-semibold">
+                  {intl.formatMessage({ id: s.idTitle })}
+                </h3>
+                <div
+                  className="mt-2 text-sm text-gray-700"
+                  dangerouslySetInnerHTML={{
+                    __html: intl.formatMessage({ id: s.idBody }),
+                  }}
+                />
+              </article>
+            ))}
+
+            <p className="mt-6 text-xs text-gray-500">
+              {intl.formatMessage({ id: "offer.footer" })}
+            </p>
+          </section>
         </div>
       </Wrapper>
 

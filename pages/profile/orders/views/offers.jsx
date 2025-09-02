@@ -105,7 +105,10 @@ function page({ info }) {
               ]}
               pagination={order_offers_meta}
             />
-            <RightInfoAll />
+            <RightInfoAll
+              page={"orders/details"}
+              status={order_details?.task_status}
+            />
           </>
         ) : (
           <>
@@ -114,6 +117,10 @@ function page({ info }) {
               data={order_offers}
               pageDetails="offers"
               pagination={order_offers_meta}
+            />
+            <RightInfoAll
+              page={"orders/details"}
+              status={order_details?.task_status}
             />
           </>
         )}

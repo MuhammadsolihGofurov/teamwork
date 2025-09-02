@@ -70,7 +70,6 @@
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { LoginUrl } from "@/utils/router";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import { RemvoeUserFullInfo, setErrorNull } from "@/redux/slice/user";
@@ -81,7 +80,6 @@ import {
   REGISTERPHONENUMBER,
 } from "@/utils/data";
 import { useSocket } from "@/hooks/useSocket";
-import { fetchMessages } from "@/redux/slice/my-chats";
 
 const withAuth = (WrappedComponent) => {
   return function AuthComponent(props) {

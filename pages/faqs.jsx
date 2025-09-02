@@ -1,4 +1,5 @@
 import { MainBanner } from "@/components";
+import { FAQAccordion } from "@/components/custom";
 import Seo from "@/components/Seo/Seo";
 import { Wrapper } from "@/components/Utils";
 import { useRouter } from "next/router";
@@ -31,12 +32,12 @@ function page({ info }) {
   return (
     <>
       <Seo
-        title={info?.data?.seo_home_title}
-        description={info?.data?.seo_home_description}
-        body={info?.data?.seo_home_keywords}
+        title={info?.seo_home_title}
+        description={info?.seo_home_description}
+        body={info?.seo_home_keywords}
       />
       <Wrapper>
-        {/* <MainBanner /> */}
+        <FAQAccordion />
       </Wrapper>
     </>
   );
@@ -46,7 +47,7 @@ export async function getServerSideProps({ params, locale }) {
   // fetch product
   // const info = "salom";
   const info = {
-    seo_home_title: "Home",
+    seo_home_title: "FAQ — Ko‘p so‘raladigan savollar",
     seo_home_keywords: "",
     seo_home_description: "",
   };

@@ -4,6 +4,9 @@ import {
   ConfirmModal,
   MoneyWithdrawModal,
   PaymentModal,
+  TaskFastAndColor,
+  TaskPintoTop,
+  TaskPriorityModal,
   UpdateAchievResumeModal,
   UpdateEduResumeModal,
   UpdateExpResumeModal,
@@ -29,6 +32,12 @@ function ModalManager({ modal, closeModal }) {
       return <UpdateExpResumeModal {...modal.props} onClose={closeModal} />;
     case "achiev-resume-update":
       return <UpdateAchievResumeModal {...modal.props} onClose={closeModal} />;
+    case "task-fast-and-color":
+      return <TaskFastAndColor {...modal.props} onClose={closeModal} />;
+    case "pin-to-top":
+      return <TaskPintoTop {...modal.props} onClose={closeModal} />;
+    case "priority-modal":
+      return <TaskPriorityModal {...modal.props} onClose={closeModal} />;
     default:
       return null;
   }
