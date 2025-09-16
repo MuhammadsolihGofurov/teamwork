@@ -79,7 +79,7 @@ export default function MakeOfferModal() {
 
   return (
     <div
-      className={`fixed modal top-0 left-0 w-full h-full flex transition-opacity duration-150 bg-primary bg-opacity-10 overflow-y-scroll py-5 px-3 scroll__none ${
+      className={`fixed top-0 left-0 w-full inset-0 min-h-screen overflow-y-auto flex items-center justify-center transition-opacity duration-150 bg-primary bg-opacity-10 py-5 px-3 ${
         makeOfferModal
           ? "z-[1001] visible opacity-100"
           : "z-[-3] invisible opacity-0"
